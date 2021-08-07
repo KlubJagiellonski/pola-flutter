@@ -1,85 +1,75 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pola_flutter/pages/home/home.dart';
+import 'package:pola_flutter/pages/home/home_bloc.dart';
+import 'package:pola_flutter/pages/web.dart';
+import 'package:logging/logging.dart';
 
 void main() {
+  _setupLogging();
   runApp(PolaApp());
 }
+
 
 class PolaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'PolaApp',
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-      ),
-      home: HomePage(title: 'PolaApp zabierz mnie na zakupy'),
-    );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  HomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  final List<String> companies = <String>['A', 'B', 'C', 'D', 'F', 'E', 'G'];
-
-  void _checkEanCode() {
-    setState(() {});
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(32.0),
-              child:
-                  const Text('Sprawdź produkt na podtawie naszje wyszukiwarki'),
-            ),
-            Padding(
-              padding: EdgeInsets.all(32.0),
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  hintText: 'Enter EAN number',
-                ),
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter any EAN number';
-                  }
-                  return null;
-                },
-              ),
-            ),
-            ListView.builder(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: companies.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    height: 50,
-                    child: Center(child: Text('${companies[index]}')),
-                  );
-                })
-          ],
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    return
+       MaterialApp(
+        title: 'PolaApp',
+        theme: ThemeData(
+          primarySwatch: Colors.red,
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _checkEanCode,
-        tooltip: 'Search',
-        child: Icon(Icons.search),
-      ),
+        initialRoute: '/',
+        onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
+}
+
+class RouteGenerator {
+  static Route<dynamic> generateRoute(RouteSettings settings) {
+    final args = settings.arguments;
+
+    switch (settings.name) {
+      case '/':
+        return MaterialPageRoute(builder: (_) => HomePage());
+      case '/web':
+        if (args is String) {
+          return MaterialPageRoute(
+            builder: (_) => WebViewPage(
+              url: args,
+            ),
+          );
+        }
+        return MaterialPageRoute(builder: (_) => HomePage());
+      default:
+        return MaterialPageRoute(builder: (_) => HomePage());
+    }
+  }
+}
+
+class SimpleBlocObserver extends BlocObserver {
+  @override
+  void onTransition(Bloc bloc, Transition transition) {
+    super.onTransition(bloc, transition);
+    print(transition);
+  }
+
+  @override
+  void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
+    print(error);
+    super.onError(bloc, error, stackTrace);
+  }
+}
+void _setupLogging() {
+  Bloc.observer = SimpleBlocObserver();
+  Logger.root.level = Level.ALL;
+  Logger.root.onRecord.listen((rec) {
+    print('${rec.level.name}: ${rec.time}: ${rec.message}');
+  });
 }
