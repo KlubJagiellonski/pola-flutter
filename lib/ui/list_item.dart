@@ -20,7 +20,7 @@ class ListItem extends StatelessWidget{
               ),
               child: Column(
                 children: [
-                  Expanded(child: Center(child: Text(searchResult.name!, style: textStyle,))),
+                  Expanded(child: Align(alignment: Alignment.centerLeft ,child: Padding(padding: EdgeInsets.all(4.0),child: Text(searchResult.name!, style: textStyle,)))),
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: ClipRRect(
