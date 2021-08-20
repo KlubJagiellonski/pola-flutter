@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                           reverse: true,
                           itemCount: state.list.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return ListItem(state.list[index]!.name!,state.list[index]!.companies!.first.plScore!);
+                            return ListItem(state.list[index]);
                           },
                         ),
                       ),

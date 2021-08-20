@@ -5,7 +5,7 @@ import 'package:pola_flutter/models/search_result.dart';
 class HomeState {}
 
 class HomeLoaded extends HomeState {
-  final List<SearchResult?> list;
+  final List<SearchResult> list;
 
   HomeLoaded(this.list);
 }
@@ -21,7 +21,7 @@ class GetCompanyEvent extends HomeEvent{
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc(HomeState initialState) : super(initialState);
-  List<SearchResult?> _list = [];
+  List<SearchResult> _list = [];
 
   @override
   Stream<HomeState> mapEventToState(HomeEvent event) async* {
@@ -29,9 +29,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       final res = await PolaApiRepository()
           .getCompany(event.code, 111111)
           .then((value) {
-        _list.add(value);
+            if(value != null){
+              _list.add(value);
+            }
       });
-      _list = _list.toSet().toList().reversed.toList();
       yield HomeLoaded(_list);
     }
   }
