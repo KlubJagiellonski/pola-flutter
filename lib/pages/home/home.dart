@@ -97,7 +97,10 @@ class _HomePageState extends State<HomePage> {
                           reverse: true,
                           itemCount: state.list.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return ListItem(state.list[index]);
+                            return GestureDetector(child: ListItem(state.list[index]), onTap: (){
+                              Navigator.pushNamed(context, '/detail',
+                                  arguments: state.list[index]);
+                            },);
                           },
                         ),
                       ),

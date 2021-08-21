@@ -33,6 +33,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
               _list.add(value);
             }
       });
+      _list = _list.toSet().toList();
       yield HomeLoaded(_list);
     }
   }

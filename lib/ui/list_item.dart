@@ -8,7 +8,7 @@ class ListItem extends StatelessWidget{
   final SearchResult searchResult;
   @override
   Widget build(BuildContext context) {
-    final textStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: 22.0);
+    final textStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: 16.0);
     return Padding(
         padding: EdgeInsets.only(top:6.0,left: 8.0,right: 8.0, bottom: 2.0),
         child: Container(
