@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:pola_flutter/models/search_result.dart';
 
 class ListItem extends StatelessWidget{
-  ListItem(this.title, this.score);
-  final String title;
-  final int? score;
+  ListItem(this.searchResult);
+  final SearchResult searchResult;
   @override
   Widget build(BuildContext context) {
-      return Padding(
+    final textStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: 16.0);
+    return Padding(
         padding: EdgeInsets.only(top:6.0,left: 8.0,right: 8.0, bottom: 2.0),
         child: Container(
             height: 40,
@@ -19,13 +20,14 @@ class ListItem extends StatelessWidget{
               ),
               child: Column(
                 children: [
-                  Expanded(child: Center(child: Text(title, style: TextStyle(fontWeight: FontWeight.normal, fontSize: 22.0),))),
+                  Expanded(child: Align(alignment: Alignment.centerLeft ,child: Padding(padding: EdgeInsets.all(4.0),child: Text(searchResult.name!, style: textStyle,)))),
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: ClipRRect(
                       borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10)),
                       child: LinearProgressIndicator(
-                        value: score!/100.toDouble(),
+                        value: (searchResult.companies?.first.plScore ?? 0)/100.toDouble(),
+                        backgroundColor: Colors.white,
                         semanticsLabel: 'Linear progress indicator',
                       ),
                     ),
@@ -36,5 +38,4 @@ class ListItem extends StatelessWidget{
         ),
       );
   }
-
 }

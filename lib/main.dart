@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/pages/home/home.dart';
 import 'package:pola_flutter/pages/home/home_bloc.dart';
 import 'package:pola_flutter/pages/web.dart';
 import 'package:logging/logging.dart';
+
+import 'pages/detail/detail.dart';
 
 void main() {
   _setupLogging();
@@ -37,6 +40,15 @@ class RouteGenerator {
 
     switch (settings.name) {
       case '/':
+        return MaterialPageRoute(builder: (_) => HomePage());
+      case '/detail':
+        if (args is SearchResult) {
+          return MaterialPageRoute(
+            builder: (_) => DetailPage(
+              searchResult: args,
+            ),
+          );
+        }
         return MaterialPageRoute(builder: (_) => HomePage());
       case '/web':
         if (args is String) {
