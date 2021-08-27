@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pola_flutter/data/pola_api_repository.dart';
 import 'package:pola_flutter/ui/list_item.dart';
 import 'package:pola_flutter/ui/menu_bottom_sheet.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -22,7 +23,7 @@ class _ScanPageState extends State<ScanPage> {
 
   @override
   void initState() {
-    _scanBloc = ScanBloc(ScanState());
+    _scanBloc = ScanBloc(PolaApiRepository());
   }
   @override
   void reassemble() {
