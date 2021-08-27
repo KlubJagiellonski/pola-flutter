@@ -1,4 +1,6 @@
+
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,9 +10,29 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import 'scan_bloc.dart';
 
-class ScanPage extends StatelessWidget {
-  ScanBloc _scanBloc = ScanBloc(ScanState());
+class ScanPage extends StatefulWidget {
+  @override
+  _ScanPageState createState() => _ScanPageState();
+}
+
+class _ScanPageState extends State<ScanPage> {
+  late ScanBloc _scanBloc;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+
+
+  @override
+  void initState() {
+    _scanBloc = ScanBloc(ScanState());
+  }
+  @override
+  void reassemble() {
+    super.reassemble();
+    if (Platform.isAndroid) {
+      _scanBloc.controller?.pauseCamera();
+    }
+    _scanBloc.controller?.resumeCamera();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -136,5 +158,10 @@ class ScanPage extends StatelessWidget {
         SnackBar(content: Text('no Permission')),
       );
     }
+  }
+  @override
+  void dispose() {
+    _scanBloc.controller?.dispose();
+    super.dispose();
   }
 }
