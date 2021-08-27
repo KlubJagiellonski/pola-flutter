@@ -56,7 +56,13 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             onPressed: () {
-              //todo
+              showModalBottomSheet<void>(
+                  backgroundColor: Colors.transparent,
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (BuildContext context) {
+                    return MenuBottomSheet();
+                  });
             },
             icon: Image.asset("assets/menu.png"),
           )
