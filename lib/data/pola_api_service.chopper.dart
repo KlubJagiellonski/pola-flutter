@@ -17,7 +17,7 @@ class _$PolaApiService extends PolaApiService {
   final definitionType = PolaApiService;
 
   @override
-  Future<Response<dynamic>> getCompany(int code, int deviceId) {
+  Future<Response<dynamic>> getCompany(int code, String deviceId) {
     final $url = 'a/v4/get_by_code';
     final $params = <String, dynamic>{'code': code, 'device_id': deviceId};
     final $request = Request('GET', $url, client.baseUrl, parameters: $params);
