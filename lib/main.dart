@@ -1,85 +1,92 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logging/logging.dart';
+import 'package:pola_flutter/models/search_result.dart';
+import 'package:pola_flutter/pages/scan/scan.dart';
+import 'package:pola_flutter/pages/web.dart';
 
-void main() {
+import 'pages/detail/detail.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  if (kDebugMode) {
+    _setupLogging();
+  } else {
+    await Firebase.initializeApp();
+  }
   runApp(PolaApp());
 }
 
 class PolaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MaterialApp(
       title: 'PolaApp',
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: HomePage(title: 'PolaApp zabierz mnie na zakupy'),
+      initialRoute: '/',
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }
 
-class HomePage extends StatefulWidget {
-  HomePage({Key? key, required this.title}) : super(key: key);
+class RouteGenerator {
+  static Route<dynamic> generateRoute(RouteSettings settings) {
+    final args = settings.arguments;
 
-  final String title;
-
-  @override
-  _HomePageState createState() => _HomePageState();
+    switch (settings.name) {
+      case '/':
+        return MaterialPageRoute(builder: (_) => ScanPage());
+      case '/detail':
+        if (args is SearchResult) {
+          return MaterialPageRoute(
+            builder: (_) => DetailPage(
+              searchResult: args,
+            ),
+          );
+        }
+        return MaterialPageRoute(builder: (_) => ScanPage());
+      case '/web':
+        if (args is String) {
+          return MaterialPageRoute(
+            builder: (_) => WebViewPage(
+              url: args,
+            ),
+          );
+        }
+        return MaterialPageRoute(builder: (_) => ScanPage());
+      default:
+        return MaterialPageRoute(builder: (_) => ScanPage());
+    }
+  }
 }
 
-class _HomePageState extends State<HomePage> {
-  final List<String> companies = <String>['A', 'B', 'C', 'D', 'F', 'E', 'G'];
-
-  void _checkEanCode() {
-    setState(() {});
+class SimpleBlocObserver extends BlocObserver {
+  @override
+  void onTransition(Bloc bloc, Transition transition) {
+    super.onTransition(bloc, transition);
+    print(transition);
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(32.0),
-              child:
-                  const Text('Sprawdź produkt na podtawie naszje wyszukiwarki'),
-            ),
-            Padding(
-              padding: EdgeInsets.all(32.0),
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  hintText: 'Enter EAN number',
-                ),
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter any EAN number';
-                  }
-                  return null;
-                },
-              ),
-            ),
-            ListView.builder(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: companies.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    height: 50,
-                    child: Center(child: Text('${companies[index]}')),
-                  );
-                })
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _checkEanCode,
-        tooltip: 'Search',
-        child: Icon(Icons.search),
-      ),
-    );
+  void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
+    print(error);
+    super.onError(bloc, error, stackTrace);
   }
+}
+
+void _setupLogging() {
+  Bloc.observer = SimpleBlocObserver();
+  Logger.root.level = Level.ALL;
+  Logger.root.onRecord.listen((rec) {
+    print('${rec.level.name}: ${rec.time}: ${rec.message}');
+  });
 }
