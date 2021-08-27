@@ -19,5 +19,6 @@ jobs:
         channel: 'stable'
     - run: flutter pub get
     - run: flutter analyze
+      continue-on-error: true
     # Run unit tests
     - run: flutter test test/unit_tests.dart
