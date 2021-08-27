@@ -1,36 +1,16 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pola_flutter/ui/list_item.dart';
+import 'package:pola_flutter/ui/menu_bottom_sheet.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'home_bloc.dart';
-import 'package:rxdart/rxdart.dart';
-class HomePage extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => _HomePageState();
-}
 
-class _HomePageState extends State<HomePage> {
-  QRViewController? controller;
-  late HomeBloc _homeBloc;
+import 'scan_bloc.dart';
+
+class ScanPage extends StatelessWidget {
+  ScanBloc _scanBloc = ScanBloc(ScanState());
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-
-  @override
-  void initState() {
-    super.initState();
-    _homeBloc = HomeBloc(HomeState());
-  }
-
-  @override
-  void reassemble() {
-    super.reassemble();
-    if (Platform.isAndroid) {
-      controller!.pauseCamera();
-    }
-    controller!.resumeCamera();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +21,7 @@ class _HomePageState extends State<HomePage> {
         title: Center(
           child: IconButton(
             onPressed: () {
-              controller!.toggleFlash();
+              _scanBloc.controller?.toggleFlash();
             },
             icon: Image.asset("assets/ic_flash_on_white_48dp.png"),
           ),
@@ -91,10 +71,10 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               Spacer(),
-              BlocBuilder<HomeBloc, HomeState>(
-                bloc: _homeBloc,
+              BlocBuilder<ScanBloc, ScanState>(
+                bloc: _scanBloc,
                 builder: (context, state) {
-                  if (state is HomeLoaded) {
+                  if (state is ScanLoaded) {
                     return Container(
                       height: 400,
                       child: Align(
@@ -103,10 +83,13 @@ class _HomePageState extends State<HomePage> {
                           reverse: true,
                           itemCount: state.list.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return GestureDetector(child: ListItem(state.list[index]), onTap: (){
-                              Navigator.pushNamed(context, '/detail',
-                                  arguments: state.list[index]);
-                            },);
+                            return GestureDetector(
+                              child: ListItem(state.list[index]),
+                              onTap: () {
+                                Navigator.pushNamed(context, '/detail',
+                                    arguments: state.list[index]);
+                              },
+                            );
                           },
                         ),
                       ),
@@ -143,12 +126,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _onQRViewCreated(QRViewController controller) {
-    setState(() {
-      this.controller = controller;
-    });
-    controller.scannedDataStream.distinct((one,two) => one.code == two.code).listen((scanData) {
-      _homeBloc.add(GetCompanyEvent(int.parse(scanData.code)));
-    });
+    _scanBloc.setQRViewController(controller);
   }
 
   void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
@@ -158,11 +136,5 @@ class _HomePageState extends State<HomePage> {
         SnackBar(content: Text('no Permission')),
       );
     }
-  }
-
-  @override
-  void dispose() {
-    controller?.dispose();
-    super.dispose();
   }
 }

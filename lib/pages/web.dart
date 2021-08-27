@@ -25,14 +25,21 @@ class _WebViewState extends State<WebViewPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: WebView(
-      initialUrl: widget.url,
-      javascriptMode: JavascriptMode.unrestricted,
-      onWebViewCreated: (WebViewController webViewController) {
-        _controller.complete(webViewController);
-      },
-      gestureNavigationEnabled: true,
-    ));
+    return Scaffold(
+      appBar: AppBar(
+        leading: new IconButton(
+          icon: new Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      ),
+      body: WebView(
+        initialUrl: widget.url,
+        javascriptMode: JavascriptMode.unrestricted,
+        onWebViewCreated: (WebViewController webViewController) {
+      _controller.complete(webViewController);
+        },
+        gestureNavigationEnabled: true,
+      ),
+    );
   }
 }
