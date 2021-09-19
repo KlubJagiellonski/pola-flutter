@@ -1,19 +1,24 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pola_flutter/models/search_result.dart';
-import 'package:pola_flutter/pages/home/home.dart';
-import 'package:pola_flutter/pages/home/home_bloc.dart';
-import 'package:pola_flutter/pages/web.dart';
 import 'package:logging/logging.dart';
+import 'package:pola_flutter/models/search_result.dart';
+import 'package:pola_flutter/pages/scan/scan.dart';
+import 'package:pola_flutter/pages/web.dart';
 
 import 'pages/detail/detail.dart';
 
-void main() {
-  _setupLogging();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  if (kDebugMode) {
+    _setupLogging();
+  } else {
+    await Firebase.initializeApp();
+  }
   runApp(PolaApp());
 }
-
 
 class PolaApp extends StatelessWidget {
   @override
@@ -22,14 +27,13 @@ class PolaApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return
-       MaterialApp(
-        title: 'PolaApp',
-        theme: ThemeData(
-          primarySwatch: Colors.red,
-        ),
-        initialRoute: '/',
-        onGenerateRoute: RouteGenerator.generateRoute,
+    return MaterialApp(
+      title: 'PolaApp',
+      theme: ThemeData(
+        primarySwatch: Colors.red,
+      ),
+      initialRoute: '/',
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }
@@ -40,7 +44,7 @@ class RouteGenerator {
 
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(builder: (_) => HomePage());
+        return MaterialPageRoute(builder: (_) => ScanPage());
       case '/detail':
         if (args is SearchResult) {
           return MaterialPageRoute(
@@ -49,7 +53,7 @@ class RouteGenerator {
             ),
           );
         }
-        return MaterialPageRoute(builder: (_) => HomePage());
+        return MaterialPageRoute(builder: (_) => ScanPage());
       case '/web':
         if (args is String) {
           return MaterialPageRoute(
@@ -58,9 +62,9 @@ class RouteGenerator {
             ),
           );
         }
-        return MaterialPageRoute(builder: (_) => HomePage());
+        return MaterialPageRoute(builder: (_) => ScanPage());
       default:
-        return MaterialPageRoute(builder: (_) => HomePage());
+        return MaterialPageRoute(builder: (_) => ScanPage());
     }
   }
 }
@@ -78,6 +82,7 @@ class SimpleBlocObserver extends BlocObserver {
     super.onError(bloc, error, stackTrace);
   }
 }
+
 void _setupLogging() {
   Bloc.observer = SimpleBlocObserver();
   Logger.root.level = Level.ALL;

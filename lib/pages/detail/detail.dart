@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/models/search_result.dart';
-import 'package:pola_flutter/pages/detail/progress_indicator_text.dart';
+import 'package:pola_flutter/ui/progress_indicator_text.dart';
 
 import 'detail_lidl.dart';
 
