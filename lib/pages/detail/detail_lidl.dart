@@ -37,20 +37,20 @@ class LidlDetailPage extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                       )),
                   LinearProgressIndicatorWithText(
-                      (companies![1].plScore ?? 0).toDouble(),
-                      (companies![1].plScore ?? 0).toString() + "%"),
+                      (companies[1].plScore ?? 0).toDouble(),
+                      (companies[1].plScore ?? 0).toString() + "%"),
                   Padding(
                       padding: EdgeInsets.all(4.0),
                       child: Align(
-                        child: Text(companies![0].name ?? ""),
+                        child: Text(companies[0].name ?? ""),
                         alignment: Alignment.centerLeft,
                       )),
                   LinearProgressIndicatorWithText(
-                      (companies![0].plScore ?? 0).toDouble(),
-                      (companies![0].plScore ?? 0).toString() + "%"),
+                      (companies[0].plScore ?? 0).toDouble(),
+                      (companies[0].plScore ?? 0).toString() + "%"),
                   Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: Text(companies![0].description ?? ""))
+                      child: Text(companies[0].description ?? ""))
                 ],
               ),
             ),
