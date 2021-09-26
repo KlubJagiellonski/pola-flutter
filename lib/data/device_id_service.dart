@@ -11,7 +11,6 @@ class DeviceIdService {
       deviceId = Uuid().v4();
       saveDeviceId(deviceId);
     }
-    print(deviceId);
     return DeviceIdService(deviceId);
   }
 }
