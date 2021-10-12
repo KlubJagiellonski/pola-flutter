@@ -21,6 +21,7 @@ class _ScanPageState extends State<ScanPage> {
 
   @override
   void initState() {
+    super.initState();
     _scanBloc = ScanBloc(PolaApiRepository());
   }
 
@@ -70,8 +71,11 @@ class _ScanPageState extends State<ScanPage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            // Add your onPressed code here!
+          onPressed: () async {
+              final result = await Navigator.pushNamed(context, '/dialpad');
+
+              int ean = int.parse("$result");
+              _scanBloc.add(GetCompanyEvent(ean));
           },
           child: const Icon(Icons.dialpad),
           foregroundColor: Colors.white,
