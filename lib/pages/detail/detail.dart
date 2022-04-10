@@ -19,6 +19,13 @@ class DetailPage extends StatelessWidget {
     final company = searchResult.companies?.first;
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text(searchResult.name ?? ""),
+        leading: new IconButton(
+          icon: new Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -32,7 +39,7 @@ class DetailPage extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                 )),
             LinearProgressIndicatorWithText((company?.plScore ?? 0).toDouble(),
-                ((company?.plScore.toString() ?? " ") + "pkt")),
+                (((company?.plScore ?? "0").toString()) + " pkt")),
             DetailContent(searchResult)
           ],
         ),

@@ -13,6 +13,13 @@ class LidlDetailPage extends StatelessWidget {
     final companies = searchResult.companies;
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text(searchResult.name ?? ""),
+        leading: new IconButton(
+          icon: new Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      ),
       body: SafeArea(
         child: Column(
           children: [

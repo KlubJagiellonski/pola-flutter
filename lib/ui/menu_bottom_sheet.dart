@@ -27,6 +27,12 @@ class MenuBottomSheet extends StatelessWidget {
                 Navigator.pushNamed(context, '/web',
                     arguments: "https://www.pola-app.pl/m/about");
               }),
+              MenuBottomItem("Wyszukiwarka tekstowa", () {
+                Navigator.pushNamed(context, '/web',
+                    arguments:
+                    "https://www.pola-app.pl");
+              }),
+
               MenuBottomItem("Instrukcja obsługi", () {
                 Navigator.pushNamed(context, '/web',
                     arguments: "https://www.pola-app.pl/m/method");
@@ -46,6 +52,11 @@ class MenuBottomSheet extends StatelessWidget {
               MenuBottomItem("Przyjaciele Poli ", () {
                 Navigator.pushNamed(context, '/web',
                     arguments: "https://www.pola-app.pl/m/friends");
+              }),
+              MenuBottomItem("Github", () {
+                Navigator.pushNamed(context, '/web',
+                    arguments:
+                        "https://github.com/KlubJagiellonski/pola-flutter");
               }),
               MenuBottomItem("Oceń Polę", () {
                 throw UnimplementedError(

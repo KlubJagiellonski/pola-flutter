@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 import 'dart:io';
 
@@ -20,11 +19,12 @@ class _ScanPageState extends State<ScanPage> {
   late ScanBloc _scanBloc;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
-
   @override
   void initState() {
+    super.initState();
     _scanBloc = ScanBloc(PolaApiRepository());
   }
+
   @override
   void reassemble() {
     super.reassemble();
@@ -33,7 +33,6 @@ class _ScanPageState extends State<ScanPage> {
     }
     _scanBloc.controller?.resumeCamera();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +70,16 @@ class _ScanPageState extends State<ScanPage> {
           )
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+              final result = await Navigator.pushNamed(context, '/dialpad');
+
+              int ean = int.parse("$result");
+              _scanBloc.add(GetCompanyEvent(ean));
+          },
+          child: const Icon(Icons.dialpad),
+          foregroundColor: Colors.white,
+          backgroundColor: Colors.red),
       body: Stack(
         children: <Widget>[
           Expanded(child: _buildQrView(context)),
@@ -160,6 +169,7 @@ class _ScanPageState extends State<ScanPage> {
       );
     }
   }
+
   @override
   void dispose() {
     _scanBloc.controller?.dispose();
