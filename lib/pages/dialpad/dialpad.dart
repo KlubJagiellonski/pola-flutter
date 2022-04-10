@@ -23,6 +23,13 @@ class _DialPadPageState extends State<DialPadPage> {
 
     return Scaffold(
         backgroundColor: Colors.grey,
+        appBar: AppBar(
+          title: Text("Wpisz kod EAN z opakowania"),
+          leading: new IconButton(
+            icon: new Icon(Icons.arrow_back),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ),
         body: SafeArea(
           child: Center(
               child: Column(
@@ -35,9 +42,12 @@ class _DialPadPageState extends State<DialPadPage> {
                       style: TextStyle(
                           fontWeight: FontWeight.normal,
                           fontSize: 40.0,
-                          color: Colors.red[700]))
+                          color: Colors.red[700])),
                 ],
               ),
+              Row(mainAxisSize: MainAxisSize.min, children: [
+                Divider(height: 10, thickness: 1, color: Colors.black),
+              ]),
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
