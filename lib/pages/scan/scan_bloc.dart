@@ -68,7 +68,7 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
     controller?.scannedDataStream
         .distinct((one, two) => one.code == two.code)
         .listen((scanData) {
-          add(GetCompanyEvent(int.parse(scanData.code ?? "0")));
+          add(GetCompanyEvent(int.parse(scanData.code)));
         });
   }
 }
