@@ -5,7 +5,7 @@ on:
   pull_request:
     
 jobs:
-  build-and-test:
+  build:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v1
