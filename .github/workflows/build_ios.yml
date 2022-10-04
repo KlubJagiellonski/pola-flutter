@@ -13,4 +13,5 @@ jobs:
       with:
         channel: 'stable'
     - run: flutter pub get
+    - run: pod repo update
     - run: flutter build ios
