@@ -14,4 +14,4 @@ jobs:
         channel: 'stable'
     - run: flutter pub get
     - run: pod repo update
-    - run: flutter build ios
+    - run: flutter build ios --no-codesign
