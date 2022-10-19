@@ -13,5 +13,10 @@ jobs:
       with:
         channel: 'stable'
     - run: flutter pub get
-    - run: pod repo update
+    - name: Cache pods
+      uses: actions/cache@v3
+      with:
+        path: ios/Pods
+        key: ${{ runner.os }}-pods-${{ hashFiles('ios/Podfile.lock') }}
+        restore-keys: ${{ runner.os }}-pods-
     - run: flutter build ios --no-codesign
