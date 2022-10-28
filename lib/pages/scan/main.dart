@@ -10,12 +10,12 @@ import 'package:pola_flutter/ui/menu_bottom_sheet.dart';
 
 import 'scan_bloc.dart';
 
-class ScanPage extends StatefulWidget {
+class MainPage extends StatefulWidget {
   @override
-  _ScanPageState createState() => _ScanPageState();
+  _MainPageState createState() => _MainPageState();
 }
 
-class _ScanPageState extends State<ScanPage> {
+class _MainPageState extends State<MainPage> {
   late ScanBloc _scanBloc;
   MobileScannerController cameraController = MobileScannerController();
 
@@ -28,10 +28,12 @@ class _ScanPageState extends State<ScanPage> {
   @override
   void reassemble() {
     super.reassemble();
-    // if (Platform.isAndroid) {
-    //   _scanBloc.controller?.pauseCamera();
-    // }
-    // _scanBloc.controller?.resumeCamera();
+    _scanBloc.controller?.resumeCamera();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+      _scanBloc.controller?.resumeCamera();
   }
 
   @override
@@ -69,16 +71,6 @@ class _ScanPageState extends State<ScanPage> {
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            final result = await Navigator.pushNamed(context, '/dialpad');
-
-            int ean = int.parse("$result");
-            _scanBloc.add(GetCompanyEvent(ean));
-          },
-          child: const Icon(Icons.dialpad),
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.red),
       body: Stack(
         children: <Widget>[
           _buildQrView(context),
