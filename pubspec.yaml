@@ -35,12 +35,12 @@ dependencies:
   json_annotation: any
   logger: ^1.0.0
   rxdart: ^0.27.1
-  qr_code_scanner: ^1.0.0
+  mobile_scanner: 2.0.0
   in_app_review: ^2.0.2
   uuid: ^3.0.4
   shared_preferences: ^2.0.6
-  firebase_core: ^1.5.0
-  firebase_crashlytics: ^2.2.0
+  firebase_core: ^2.1.1
+  firebase_crashlytics: ^3.0.3
 
 
 dev_dependencies:
