@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pola_flutter/data/api_response.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
 import 'package:pola_flutter/models/search_result.dart';
-import 'package:qr_code_scanner/src/qr_code_scanner.dart';
 
 class ScanState extends Equatable{
   @override
@@ -42,7 +41,6 @@ class GetCompanyEvent extends ScanEvent{
 class ScanBloc extends Bloc<ScanEvent, ScanState> {
   List<SearchResult> _list = [];
   late final PolaApi _polaApiRepository;
-  QRViewController? controller;
 
   ScanBloc(PolaApi polaApiRepository) : super(ScanEmpty()){
     _polaApiRepository = polaApiRepository;
@@ -63,12 +61,4 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
     }
   }
 
-  void setQRViewController(QRViewController qrViewController) {
-    controller = qrViewController;
-    controller?.scannedDataStream
-        .distinct((one, two) => one.code == two.code)
-        .listen((scanData) {
-          add(GetCompanyEvent(int.parse(scanData.code ?? "")));
-        });
-  }
 }

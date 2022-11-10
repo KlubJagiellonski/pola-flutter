@@ -3,10 +3,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
 import 'package:pola_flutter/ui/list_item.dart';
 import 'package:pola_flutter/ui/menu_bottom_sheet.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import 'scan_bloc.dart';
 
@@ -17,7 +17,7 @@ class ScanPage extends StatefulWidget {
 
 class _ScanPageState extends State<ScanPage> {
   late ScanBloc _scanBloc;
-  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  MobileScannerController cameraController = MobileScannerController();
 
   @override
   void initState() {
@@ -28,10 +28,10 @@ class _ScanPageState extends State<ScanPage> {
   @override
   void reassemble() {
     super.reassemble();
-    if (Platform.isAndroid) {
-      _scanBloc.controller?.pauseCamera();
-    }
-    _scanBloc.controller?.resumeCamera();
+    // if (Platform.isAndroid) {
+    //   _scanBloc.controller?.pauseCamera();
+    // }
+    // _scanBloc.controller?.resumeCamera();
   }
 
   @override
@@ -43,15 +43,14 @@ class _ScanPageState extends State<ScanPage> {
         title: Center(
           child: IconButton(
             onPressed: () {
-              _scanBloc.controller?.toggleFlash();
+              cameraController.toggleTorch();
             },
             icon: Image.asset("assets/ic_flash_on_white_48dp.png"),
           ),
         ),
         leading: IconButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/web',
-                arguments: "https://www.pola-app.pl");
+            Navigator.pushNamed(context, '/web', arguments: "https://www.pola-app.pl");
           },
           icon: Image.asset("assets/ic_launcher.png"),
         ),
@@ -72,17 +71,17 @@ class _ScanPageState extends State<ScanPage> {
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () async {
-              final result = await Navigator.pushNamed(context, '/dialpad');
+            final result = await Navigator.pushNamed(context, '/dialpad');
 
-              int ean = int.parse("$result");
-              _scanBloc.add(GetCompanyEvent(ean));
+            int ean = int.parse("$result");
+            _scanBloc.add(GetCompanyEvent(ean));
           },
           child: const Icon(Icons.dialpad),
           foregroundColor: Colors.white,
           backgroundColor: Colors.red),
       body: Stack(
         children: <Widget>[
-          Expanded(child: _buildQrView(context)),
+          _buildQrView(context),
           SafeArea(
             child: Column(
               children: <Widget>[
@@ -118,8 +117,7 @@ class _ScanPageState extends State<ScanPage> {
                             return GestureDetector(
                               child: ListItem(state.list[index]),
                               onTap: () {
-                                Navigator.pushNamed(context, '/detail',
-                                    arguments: state.list[index]);
+                                Navigator.pushNamed(context, '/detail', arguments: state.list[index]);
                               },
                             );
                           },
@@ -140,39 +138,46 @@ class _ScanPageState extends State<ScanPage> {
   }
 
   Widget _buildQrView(BuildContext context) {
-    // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
-    var scanArea = (MediaQuery.of(context).size.width < 400 ||
-            MediaQuery.of(context).size.height < 400)
-        ? 250.0
-        : 300.0;
-    // To ensure the Scanner view is properly sizes after rotation
-    // we need to listen for Flutter SizeChanged notification and update controller
-    return QRView(
-      key: qrKey,
-      onQRViewCreated: _onQRViewCreated,
-      formatsAllowed: [BarcodeFormat.ean8, BarcodeFormat.ean13],
-      overlay: QrScannerOverlayShape(
-          borderColor: Colors.black, borderWidth: 10, cutOutSize: scanArea),
-      onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
+    var scanArea =
+        (MediaQuery.of(context).size.width < 400 || MediaQuery.of(context).size.height < 400) ? 250.0 : 300.0;
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: MobileScanner(
+              allowDuplicates: false,
+              controller: cameraController,
+              onDetect: (barcode, args) {
+                if (barcode.rawValue == null) {
+                  debugPrint('Failed to scan Barcode');
+                } else {
+                  final String code = barcode.rawValue!;
+                  debugPrint('Barcode found! $code');
+                  _scanBloc.add(GetCompanyEvent(int.parse(code)));
+                }
+              }),
+        ),
+        Positioned.fill(
+          child: Align(
+            alignment: Alignment.center,
+            child: SizedBox(
+              width: scanArea,
+              height: scanArea / 1.25,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  border: Border.all(width: 5.0, color: Colors.black),
+                  color: Colors.transparent,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
-  }
-
-  void _onQRViewCreated(QRViewController controller) {
-    _scanBloc.setQRViewController(controller);
-  }
-
-  void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
-    log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
-    if (!p) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('no Permission')),
-      );
-    }
   }
 
   @override
   void dispose() {
-    _scanBloc.controller?.dispose();
+    cameraController.dispose();
     super.dispose();
   }
 }
