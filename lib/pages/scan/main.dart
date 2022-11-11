@@ -26,17 +26,6 @@ class _MainPageState extends State<MainPage> {
   }
 
   @override
-  void reassemble() {
-    super.reassemble();
-    _scanBloc.controller?.resumeCamera();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-      _scanBloc.controller?.resumeCamera();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -52,7 +41,8 @@ class _MainPageState extends State<MainPage> {
         ),
         leading: IconButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/web', arguments: "https://www.pola-app.pl");
+            Navigator.pushNamed(context, '/web',
+                arguments: "https://www.pola-app.pl");
           },
           icon: Image.asset("assets/ic_launcher.png"),
         ),
@@ -109,7 +99,8 @@ class _MainPageState extends State<MainPage> {
                             return GestureDetector(
                               child: ListItem(state.list[index]),
                               onTap: () {
-                                Navigator.pushNamed(context, '/detail', arguments: state.list[index]);
+                                Navigator.pushNamed(context, '/detail',
+                                    arguments: state.list[index]);
                               },
                             );
                           },
@@ -130,8 +121,10 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _buildQrView(BuildContext context) {
-    var scanArea =
-        (MediaQuery.of(context).size.width < 400 || MediaQuery.of(context).size.height < 400) ? 250.0 : 300.0;
+    var scanArea = (MediaQuery.of(context).size.width < 400 ||
+            MediaQuery.of(context).size.height < 400)
+        ? 250.0
+        : 300.0;
     return Stack(
       children: [
         Positioned.fill(
