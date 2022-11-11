@@ -23,12 +23,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_bloc: ^8.1.1
+  flutter_bloc: ^7.0.1
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  webview_flutter: ^3.0.4
-  chopper: ^5.1.0
+  webview_flutter: ^2.0.10
+  chopper: ^4.0.1
   connectivity: ^3.0.6
   http: ^0.13.3
   equatable: ^2.0.3
@@ -48,9 +48,9 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.0.6
   json_serializable: any
-  chopper_generator: ^5.1.0+1
+  chopper_generator: ^4.0.1
   test: any
-  bloc_test: ^9.1.0
+  bloc_test: ^8.1.0
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
