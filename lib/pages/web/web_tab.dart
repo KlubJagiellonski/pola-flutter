@@ -18,27 +18,21 @@ class _WebViewTabState extends State<WebViewTabPage> {
   late WebViewController _webViewController;
 
   var loadingPercentage = 0;
-  //
-  // @override
-  // void reassemble() {
-  //   super.reassemble();
-  //   reloadWebView();
-  // }
 
   @override
   void initState() {
-    print("initState");
     super.initState();
     if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
   }
 
-  void reloadWebView() {
+  @override
+  void didUpdateWidget(WebViewTabPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
     _webViewController.loadUrl(widget.url);
   }
 
   @override
   Widget build(BuildContext context) {
-    // reloadWebView();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,

@@ -37,11 +37,9 @@ class _PolaAppState extends State<PolaApp> {
       DeviceOrientation.portraitDown,
     ]);
     return MaterialApp(
-      // title: 'PolaApp',
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      // initialRoute: '/',
       onGenerateRoute: RouteGenerator.generateRoute,
       home: DefaultTabController(
         length: 3,
@@ -64,15 +62,26 @@ class _PolaAppState extends State<PolaApp> {
               onTap: _onItemTapped,
               currentIndex: _selectedIndex,
             ),
-            body: (_selectedIndex == 0)
-                ? MainPage()
-                : ((_selectedIndex == 1)
-                    ? WebViewTabPage(
-                        title: "Wyszukiwarka", url: "https://www.pola-app.pl")
-                    : WebViewTabPage(
-                        title: "Wiadomości", url: "https://www.google.pl"))),
+            body: _getTabContentWidget()),
       ),
     );
+  }
+
+  Widget _getTabContentWidget() {
+    switch (_selectedIndex) {
+      case 0:
+        return MainPage();
+      case 1:
+        return WebViewTabPage(
+            title: "Wyszukiwarka",
+            url: "https://pola-staging.herokuapp.com/m/search/"); //TODO change to valid url
+      case 2:
+        return WebViewTabPage(
+            title: "Wiadomości",
+            url: "https://pola-staging.herokuapp.com/m/blog/"); //TODO change to valid url
+      default:
+        return MainPage();
+    }
   }
 
   void _onItemTapped(int index) {
