@@ -46,7 +46,6 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
     _polaApiRepository = polaApiRepository;
   }
 
-
   @override
   Stream<ScanState> mapEventToState(ScanEvent event) async* {
     if(event is GetCompanyEvent){
