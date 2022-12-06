@@ -27,19 +27,13 @@ class MenuBottomSheet extends StatelessWidget {
                 Navigator.pushNamed(context, '/web',
                     arguments: "https://www.pola-app.pl/m/about");
               }),
-              MenuBottomItem("Wyszukiwarka tekstowa", () {
-                Navigator.pushNamed(context, '/web',
-                    arguments:
-                    "https://www.pola-app.pl");
-              }),
-
               MenuBottomItem("Instrukcja obsługi", () {
                 Navigator.pushNamed(context, '/web',
                     arguments: "https://www.pola-app.pl/m/method");
               }),
               MenuBottomItem("O Klubie Jagiellońskim", () {
                 Navigator.pushNamed(context, '/web',
-                    arguments: "https://www.pola-app.pl/m/kj");
+                    arguments: "https://klubjagiellonski.pl/o-klubie-jagiellonskim/");
               }),
               MenuBottomItem("Zespół", () {
                 Navigator.pushNamed(context, '/web',
@@ -56,7 +50,7 @@ class MenuBottomSheet extends StatelessWidget {
               MenuBottomItem("Github", () {
                 Navigator.pushNamed(context, '/web',
                     arguments:
-                        "https://github.com/KlubJagiellonski/pola-flutter");
+                        "https://github.com/KlubJagiellonski");
               }),
               MenuBottomItem("Oceń Polę", () {
                 throw UnimplementedError(
