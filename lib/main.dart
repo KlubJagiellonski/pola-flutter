@@ -9,7 +9,6 @@ import 'package:pola_flutter/pages/dialpad/dialpad.dart';
 import 'package:pola_flutter/pages/scan/main.dart';
 import 'package:pola_flutter/pages/web/web.dart';
 import 'package:pola_flutter/pages/web/web_tab.dart';
-
 import 'pages/detail/detail.dart';
 
 void main() async {
@@ -74,7 +73,8 @@ class _PolaAppState extends State<PolaApp> {
       case 1:
         return WebViewTabPage(
             title: "Wyszukiwarka",
-            url: "https://www.pola-app.pl/m/search/"); //TODO change to valid url
+            url:
+                "https://www.pola-app.pl/m/search/"); //TODO change to valid url
       case 2:
         return WebViewTabPage(
             title: "Wiadomości",

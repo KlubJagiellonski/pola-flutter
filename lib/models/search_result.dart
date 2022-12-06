@@ -67,4 +67,3 @@ class SearchResult extends Equatable {
   List<Object?> get props =>
       [productId, code, name, cardType, altText, companies, report, donate];
 }
-

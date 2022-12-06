@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:pola_flutter/models/search_result.dart';
 
 class ListItem extends StatelessWidget {
