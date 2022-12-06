@@ -36,7 +36,8 @@ class MenuBottomSheet extends StatelessWidget {
               }),
               MenuBottomItem("O Klubie Jagiellońskim", () {
                 Navigator.pushNamed(context, '/web',
-                    arguments: "https://klubjagiellonski.pl/o-klubie-jagiellonskim/");
+                    arguments:
+                        "https://klubjagiellonski.pl/o-klubie-jagiellonskim/");
               }),
               MenuBottomItem("Zespół", () {
                 Navigator.pushNamed(context, '/web',
@@ -52,8 +53,7 @@ class MenuBottomSheet extends StatelessWidget {
               }),
               MenuBottomItem("Github", () {
                 Navigator.pushNamed(context, '/web',
-                    arguments:
-                        "https://github.com/KlubJagiellonski");
+                    arguments: "https://github.com/KlubJagiellonski");
               }),
               MenuBottomItem("Oceń Polę", () {
                 throw UnimplementedError(

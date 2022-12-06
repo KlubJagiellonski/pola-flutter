@@ -1,4 +1,3 @@
-
 import 'package:equatable/equatable.dart';
 
 class Company extends Equatable {
@@ -19,19 +18,19 @@ class Company extends Equatable {
 
   Company(
       {required this.name,
-        required this.plCapital,
-        required this.plCapitalNotes,
-        required this.plWorkers,
-        required this.plWorkersNotes,
-        required this.plRnD,
-        required this.plRnDNotes,
-        required this.plRegistered,
-        required this.plRegisteredNotes,
-        required this.plNotGlobEnt,
-        required this.plNotGlobEntNotes,
-        required this.plScore,
-        required this.isFriend,
-        required this.description});
+      required this.plCapital,
+      required this.plCapitalNotes,
+      required this.plWorkers,
+      required this.plWorkersNotes,
+      required this.plRnD,
+      required this.plRnDNotes,
+      required this.plRegistered,
+      required this.plRegisteredNotes,
+      required this.plNotGlobEnt,
+      required this.plNotGlobEntNotes,
+      required this.plScore,
+      required this.isFriend,
+      required this.description});
 
   Company.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -71,22 +70,23 @@ class Company extends Equatable {
 
   @override
   List<Object?> get props => [
-    name,
-    plCapital,
-    plCapitalNotes,
-    plWorkers,
-    plWorkersNotes,
-    plRnD,
-    plRnDNotes,
-    plRegistered,
-    plRegisteredNotes,
-    plNotGlobEnt,
-    plNotGlobEntNotes,
-    plScore,
-    isFriend,
-    description
-  ];
-  int? getScore(){
+        name,
+        plCapital,
+        plCapitalNotes,
+        plWorkers,
+        plWorkersNotes,
+        plRnD,
+        plRnDNotes,
+        plRegistered,
+        plRegisteredNotes,
+        plNotGlobEnt,
+        plNotGlobEntNotes,
+        plScore,
+        isFriend,
+        description
+      ];
+
+  int? getScore() {
     return plScore;
   }
 }

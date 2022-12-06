@@ -35,15 +35,14 @@ class _WebViewTabState extends State<WebViewTabPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Text(
-            widget.title,
-            style: TextStyle(
-              color: Colors.black,
-            )),
-      ),
-      body: Stack(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          title: Text(widget.title,
+              style: TextStyle(
+                color: Colors.black,
+              )),
+        ),
+        body: Stack(
         children: [
           WebView(
             initialUrl: widget.url,

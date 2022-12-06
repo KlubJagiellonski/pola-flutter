@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class Report extends Equatable{
+class Report extends Equatable {
   String? text;
   String? buttonText;
   String? buttonType;
@@ -23,5 +23,5 @@ class Report extends Equatable{
   }
 
   @override
-  List<Object?> get props => [text,buttonText,buttonType];
+  List<Object?> get props => [text, buttonText, buttonType];
 }

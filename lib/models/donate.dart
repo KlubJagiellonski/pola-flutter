@@ -1,7 +1,6 @@
-
 import 'package:equatable/equatable.dart';
 
-class Donate extends Equatable{
+class Donate extends Equatable {
   bool? showButton;
   String? url;
   String? title;
@@ -23,5 +22,5 @@ class Donate extends Equatable{
   }
 
   @override
-  List<Object?> get props => [showButton,url,title];
+  List<Object?> get props => [showButton, url, title];
 }

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/ui/progress_indicator_text.dart';
@@ -61,7 +60,6 @@ class LidlDetailPage extends StatelessWidget {
                 ],
               ),
             ),
-
           ],
         ),
       ),
