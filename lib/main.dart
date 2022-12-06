@@ -74,11 +74,11 @@ class _PolaAppState extends State<PolaApp> {
       case 1:
         return WebViewTabPage(
             title: "Wyszukiwarka",
-            url: "https://pola-staging.herokuapp.com/m/search/"); //TODO change to valid url
+            url: "https://www.pola-app.pl/m/search/"); //TODO change to valid url
       case 2:
         return WebViewTabPage(
             title: "Wiadomości",
-            url: "https://pola-staging.herokuapp.com/m/blog/"); //TODO change to valid url
+            url: "https://www.pola-app.pl/m/blog/"); //TODO change to valid url
       default:
         return MainPage();
     }
