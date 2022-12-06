@@ -1,1 +1,2 @@
-# pola_flutter
+# Aplikacja Pola 🇵🇱
+
