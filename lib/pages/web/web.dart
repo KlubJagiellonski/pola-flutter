@@ -26,8 +26,17 @@ class _WebViewState extends State<WebViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: Text("Aplikacja Pola",
+            style: TextStyle(
+              color: Colors.black,
+            )),
         leading: new IconButton(
-          icon: new Icon(Icons.arrow_back),
+          icon: new Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
@@ -35,7 +44,7 @@ class _WebViewState extends State<WebViewPage> {
         initialUrl: widget.url,
         javascriptMode: JavascriptMode.unrestricted,
         onWebViewCreated: (WebViewController webViewController) {
-      _controller.complete(webViewController);
+          _controller.complete(webViewController);
         },
         gestureNavigationEnabled: true,
       ),
