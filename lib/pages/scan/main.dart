@@ -89,7 +89,7 @@ class _MainPageState extends State<MainPage> {
                 builder: (context, state) {
                   if (state is ScanLoaded) {
                     return Container(
-                      height: 400,
+                      height: 250,
                       child: Align(
                         alignment: Alignment.bottomCenter,
                         child: ListView.builder(

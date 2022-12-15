@@ -56,7 +56,7 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
       final res = await _polaApiRepository.getCompany(event.code);
       if (res.status == Status.COMPLETED) {
         _list.add(res.data);
-        _list = _list.reversed.toSet().toList();
+        _list = _list.toSet().toList();
         yield ScanLoaded(_list);
       } else {
         yield ScanError(res.message);

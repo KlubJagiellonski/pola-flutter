@@ -46,6 +46,7 @@ class _WebViewTabState extends State<WebViewTabPage> {
         children: [
           WebView(
             initialUrl: widget.url,
+            javascriptMode: JavascriptMode.unrestricted,
             onWebViewCreated: (controller) {
               _webViewController = controller;
             },
