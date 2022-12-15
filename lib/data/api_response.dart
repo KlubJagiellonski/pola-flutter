@@ -7,6 +7,7 @@ class ApiResponse<T> {
   late String message;
 
   ApiResponse.completed(this.data) : status = Status.COMPLETED;
+
   ApiResponse.error(this.message) : status = Status.ERROR;
 
   @override
@@ -14,4 +15,3 @@ class ApiResponse<T> {
     return "Status $status Message $message Data $data";
   }
 }
-

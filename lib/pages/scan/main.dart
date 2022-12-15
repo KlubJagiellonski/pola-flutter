@@ -10,12 +10,12 @@ import 'package:pola_flutter/ui/menu_bottom_sheet.dart';
 
 import 'scan_bloc.dart';
 
-class ScanPage extends StatefulWidget {
+class MainPage extends StatefulWidget {
   @override
-  _ScanPageState createState() => _ScanPageState();
+  _MainPageState createState() => _MainPageState();
 }
 
-class _ScanPageState extends State<ScanPage> {
+class _MainPageState extends State<MainPage> {
   late ScanBloc _scanBloc;
   MobileScannerController cameraController = MobileScannerController();
 
@@ -23,15 +23,6 @@ class _ScanPageState extends State<ScanPage> {
   void initState() {
     super.initState();
     _scanBloc = ScanBloc(PolaApiRepository());
-  }
-
-  @override
-  void reassemble() {
-    super.reassemble();
-    // if (Platform.isAndroid) {
-    //   _scanBloc.controller?.pauseCamera();
-    // }
-    // _scanBloc.controller?.resumeCamera();
   }
 
   @override
@@ -50,7 +41,8 @@ class _ScanPageState extends State<ScanPage> {
         ),
         leading: IconButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/web', arguments: "https://www.pola-app.pl");
+            Navigator.pushNamed(context, '/web',
+                arguments: "https://www.pola-app.pl");
           },
           icon: Image.asset("assets/ic_launcher.png"),
         ),
@@ -69,16 +61,6 @@ class _ScanPageState extends State<ScanPage> {
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            final result = await Navigator.pushNamed(context, '/dialpad');
-
-            int ean = int.parse("$result");
-            _scanBloc.add(GetCompanyEvent(ean));
-          },
-          child: const Icon(Icons.dialpad),
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.red),
       body: Stack(
         children: <Widget>[
           _buildQrView(context),
@@ -107,7 +89,7 @@ class _ScanPageState extends State<ScanPage> {
                 builder: (context, state) {
                   if (state is ScanLoaded) {
                     return Container(
-                      height: 400,
+                      height: 250,
                       child: Align(
                         alignment: Alignment.bottomCenter,
                         child: ListView.builder(
@@ -117,7 +99,8 @@ class _ScanPageState extends State<ScanPage> {
                             return GestureDetector(
                               child: ListItem(state.list[index]),
                               onTap: () {
-                                Navigator.pushNamed(context, '/detail', arguments: state.list[index]);
+                                Navigator.pushNamed(context, '/detail',
+                                    arguments: state.list[index]);
                               },
                             );
                           },
@@ -138,8 +121,10 @@ class _ScanPageState extends State<ScanPage> {
   }
 
   Widget _buildQrView(BuildContext context) {
-    var scanArea =
-        (MediaQuery.of(context).size.width < 400 || MediaQuery.of(context).size.height < 400) ? 250.0 : 300.0;
+    var scanArea = (MediaQuery.of(context).size.width < 400 ||
+            MediaQuery.of(context).size.height < 400)
+        ? 250.0
+        : 300.0;
     return Stack(
       children: [
         Positioned.fill(

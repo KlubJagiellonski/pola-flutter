@@ -5,17 +5,15 @@ part 'pola_api_service.chopper.dart';
 
 @ChopperApi()
 abstract class PolaApiService extends ChopperService {
-
   //example code 5900311000360
   @Get(path: 'a/v4/get_by_code')
-  Future<Response> getCompany(@Query("code") int code,@Query("device_id") String deviceId);
+  Future<Response> getCompany(
+      @Query("code") int code, @Query("device_id") String deviceId);
 
   static PolaApiService create() {
     final client = ChopperClient(
       baseUrl: 'https://pola-app.pl',
-      interceptors: [
-        HttpLoggingInterceptor()
-      ],
+      interceptors: [HttpLoggingInterceptor()],
       services: [
         _$PolaApiService(),
       ],

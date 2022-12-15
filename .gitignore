@@ -870,4 +870,7 @@ FodyWeavers.xsd
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
 
+
+*.properties
+
 # End of https://www.toptal.com/developers/gitignore/api/dart,flutter,android,xcode,androidstudio,intellij,visualstudio

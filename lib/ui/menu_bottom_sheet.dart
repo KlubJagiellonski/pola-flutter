@@ -17,29 +17,27 @@ class MenuBottomSheet extends StatelessWidget {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.all(6.0),
+                padding: EdgeInsets.only(
+                    left: 64.0, top: 8.0, right: 64.0, bottom: 8.0),
                 child: Divider(
-                    height: 2,
+                    height: 1,
                     thickness: 1,
-                    color: Colors.black.withOpacity(0.4)),
+                    indent: 64,
+                    endIndent: 64,
+                    color: Colors.black),
               ),
               MenuBottomItem("O aplikacji Pola", () {
                 Navigator.pushNamed(context, '/web',
                     arguments: "https://www.pola-app.pl/m/about");
               }),
-              MenuBottomItem("Wyszukiwarka tekstowa", () {
-                Navigator.pushNamed(context, '/web',
-                    arguments:
-                    "https://www.pola-app.pl");
-              }),
-
               MenuBottomItem("Instrukcja obsługi", () {
                 Navigator.pushNamed(context, '/web',
                     arguments: "https://www.pola-app.pl/m/method");
               }),
               MenuBottomItem("O Klubie Jagiellońskim", () {
                 Navigator.pushNamed(context, '/web',
-                    arguments: "https://www.pola-app.pl/m/kj");
+                    arguments:
+                        "https://klubjagiellonski.pl/o-klubie-jagiellonskim/");
               }),
               MenuBottomItem("Zespół", () {
                 Navigator.pushNamed(context, '/web',
@@ -55,8 +53,7 @@ class MenuBottomSheet extends StatelessWidget {
               }),
               MenuBottomItem("Github", () {
                 Navigator.pushNamed(context, '/web',
-                    arguments:
-                        "https://github.com/KlubJagiellonski/pola-flutter");
+                    arguments: "https://github.com/KlubJagiellonski");
               }),
               MenuBottomItem("Oceń Polę", () {
                 throw UnimplementedError(
@@ -83,8 +80,7 @@ class MenuBottomSheet extends StatelessWidget {
                   padding: EdgeInsets.all(6.0),
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(
-                        "Aplikacja Pola\nwersja pre-alpha \n©Klub Jagielloński"),
+                    child: Text("Aplikacja Pola \n©Klub Jagielloński"),
                   ))
             ],
           ),
@@ -100,6 +96,8 @@ class MenuBottomItem extends StatelessWidget {
   String text;
   Function onClick;
 
+  final textStyle = TextStyle(fontWeight: FontWeight.w600);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -111,14 +109,16 @@ class MenuBottomItem extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(4.0)),
           color: Colors.white,
           boxShadow: [
-            BoxShadow(color: Colors.black54, spreadRadius: 1),
+            BoxShadow(color: Colors.black12, spreadRadius: 1),
           ],
         ),
         child: GestureDetector(
           onTap: () {
             onClick.call();
           },
-          child: Padding(padding: EdgeInsets.all(10.0), child: Text(text)),
+          child: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Text(text, style: textStyle)),
         ),
       ),
     );
