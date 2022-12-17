@@ -1,10 +1,5 @@
 name: Build Android
 
-env:
-  GITHUB_REPOSITORY: ${{ github.repository }}
-  GITHUB_ORGANIZATION: ${{ github.repository_owner }}
-  GOOGLESERVICES: ${{ secrets.GOOGLESERVICES }}
-
 on:
   push:
   pull_request:
