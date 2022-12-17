@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Create file
-      run: cat /home/runner/work/pola-flutter/android/app/google-services.json | base64
+      run: cat /home/runner/work/pola-flutter/pola-flutter/android/app/google-services.json | base64
     - name: Putting data
       env: 
         DATA: ${{ secrets.GOOGLESERVICES }}
-      run: echo $DATA > home/runner/work/pola-flutter/android/app/google-services.json
+      run: echo $DATA > home/runner/work/pola-flutter/pola-flutter/android/app/google-services.json
 
     - uses: actions/checkout@v1
     - uses: subosito/flutter-action@v1
