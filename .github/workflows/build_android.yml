@@ -1,5 +1,10 @@
 name: Build Android
 
+env:
+  GITHUB_REPOSITORY: ${{ github.repository }}
+  GITHUB_ORGANIZATION: ${{ github.repository_owner }}
+  GOOGLESERVICES: ${{ secrets.GOOGLESERVICES }}
+
 on:
   push:
   pull_request:
@@ -13,6 +18,8 @@ jobs:
       with:
         channel: 'stable'
     - run: flutter pub get
-    - run: cat /home/runner/work/pola-flutter/pola-flutter/android/app/google-services.json | base64
-    - run: echo ${{ secrets.GOOGLESERVICES }} > /home/runner/work/pola-flutter/pola-flutter/android/app/google-services.json
+    - uses: "finnp/create-file-action@master"
+      env:
+        FILE_NAME: "/home/runner/work/pola-flutter/pola-flutter/android/app/google-services.json"
+        FILE_BASE64: ${{ secrets.GOOGLESERVICES }}
     - run: flutter build apk --debug
