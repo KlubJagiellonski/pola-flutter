@@ -7,6 +7,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
 import 'package:pola_flutter/ui/list_item.dart';
 import 'package:pola_flutter/ui/menu_bottom_sheet.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'scan_bloc.dart';
 
@@ -41,8 +42,7 @@ class _MainPageState extends State<MainPage> {
         ),
         leading: IconButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/web',
-                arguments: "https://www.pola-app.pl");
+            Navigator.pushNamed(context, '/web', arguments: "https://www.pola-app.pl");
           },
           icon: Image.asset("assets/ic_launcher.png"),
         ),
@@ -88,25 +88,42 @@ class _MainPageState extends State<MainPage> {
                 bloc: _scanBloc,
                 builder: (context, state) {
                   if (state is ScanLoaded) {
-                    return Container(
-                      height: 250,
-                      child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: ListView.builder(
-                          reverse: true,
-                          itemCount: state.list.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return GestureDetector(
-                              child: ListItem(state.list[index]),
-                              onTap: () {
-                                Navigator.pushNamed(context, '/detail',
-                                    arguments: state.list[index]);
-                              },
-                            );
-                          },
+                    return Column(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
+                      Container(
+                        height: 200,
+                        child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: ListView.builder(
+                            reverse: true,
+                            itemCount: state.list.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return GestureDetector(
+                                child: ListItem(state.list[index]),
+                                onTap: () {
+                                  Navigator.pushNamed(context, '/detail', arguments: state.list[index]);
+                                },
+                              );
+                            },
+                          ),
                         ),
                       ),
-                    );
+                      Padding(
+                          padding: EdgeInsets.only(left: 8.0, top: 0.0, right: 8.0, bottom: 0.0),
+                          child: TextButton(
+                            style: ButtonStyle(
+                              minimumSize: MaterialStateProperty.all<Size>(Size(double.infinity, 0)),
+                              backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                            ),
+                            onPressed: () async {
+                              launchUrl(
+                                Uri.parse(state.list.first.donate?.url ?? "https://www.pola-app.pl"),
+                                mode: LaunchMode.externalApplication,
+                              );
+                            },
+                            child: Text(state.list.first.donate?.title ?? "Wesprzyj nas!"),
+                          ))
+                    ]);
                   } else {
                     return Container();
                   }
@@ -121,10 +138,8 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _buildQrView(BuildContext context) {
-    var scanArea = (MediaQuery.of(context).size.width < 400 ||
-            MediaQuery.of(context).size.height < 400)
-        ? 250.0
-        : 300.0;
+    var scanArea =
+        (MediaQuery.of(context).size.width < 400 || MediaQuery.of(context).size.height < 400) ? 250.0 : 300.0;
     return Stack(
       children: [
         Positioned.fill(
