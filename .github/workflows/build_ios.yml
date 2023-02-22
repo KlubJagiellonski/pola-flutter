@@ -1,22 +1,22 @@
-# name: Build iOS
+name: Build iOS
 
-# on:
-#   push:
-#   pull_request:
+on:
+  push:
+  pull_request:
     
-# jobs:
-#   build:
-#     runs-on: macos-latest
-#     steps:
-#     - uses: actions/checkout@v1
-#     - uses: subosito/flutter-action@v1
-#       with:
-#         channel: 'stable'
-#     - run: flutter pub get
-#     - name: Cache pods
-#       uses: actions/cache@v3
-#       with:
-#         path: ios/Pods
-#         key: ${{ runner.os }}-pods-${{ hashFiles('ios/Podfile.lock') }}
-#         restore-keys: ${{ runner.os }}-pods-
-#     - run: flutter build ios --no-codesign
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: subosito/flutter-action@v1
+      with:
+        channel: 'stable'
+    - run: flutter pub get
+    - name: Cache pods
+      uses: actions/cache@v3
+      with:
+        path: ios/Pods
+        key: ${{ runner.os }}-pods-${{ hashFiles('ios/Podfile.lock') }}
+        restore-keys: ${{ runner.os }}-pods-
+    - run: flutter build ios --no-codesign
