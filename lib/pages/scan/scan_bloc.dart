@@ -62,8 +62,6 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
         _list.add(res.data);
         _list = _list.toSet().toList();
         yield ScanLoaded(_list);
-      } else {
-        yield ScanError(res.message);
       }
     }
   }
