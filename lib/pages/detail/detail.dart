@@ -19,9 +19,14 @@ class DetailPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(searchResult.name ?? ""),
+        title: Text(searchResult.name ?? "",
+            style: TextStyle(
+              color: Colors.black,
+            )),
+        backgroundColor: Colors.white,
+        elevation: 0,
         leading: new IconButton(
-          icon: new Icon(Icons.arrow_back),
+          icon: new Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
@@ -37,8 +42,12 @@ class DetailPage extends StatelessWidget {
                       )),
                   alignment: Alignment.centerLeft,
                 )),
-            LinearProgressIndicatorWithText((company?.plScore ?? 0).toDouble(),
-                (((company?.plScore ?? "0").toString()) + " pkt")),
+            Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Column(children: [
+                  LinearProgressIndicatorWithText(
+                      (company?.plScore ?? 0).toDouble(), (((company?.plScore ?? "0").toString()) + " pkt")),
+                ])),
             DetailContent(searchResult)
           ],
         ),
@@ -55,9 +64,7 @@ class DetailContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (searchResult.companies == null) {
-      return Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Text(searchResult.altText ?? ""));
+      return Padding(padding: EdgeInsets.all(8.0), child: Text(searchResult.altText ?? ""));
     }
     final company = searchResult.companies!.first;
     return Column(
@@ -73,19 +80,15 @@ class DetailContent extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                   )),
               LinearProgressIndicatorWithText(
-                  (company.plCapital ?? 0).toDouble(),
-                  (company.plCapital ?? 0).toString() + "%"),
+                  (company.plCapital ?? 0).toDouble(), (company.plCapital ?? 0).toString() + "%"),
             ],
           ),
         ),
         DetailItem("produkuje w Polsce", (company.plWorkers ?? 0) != 0),
         DetailItem("prowadzi badania w Polsce", (company.plRnD ?? 0) != 0),
         DetailItem("zarejestrowana w Polsce", (company.plRegistered ?? 0) != 0),
-        DetailItem("nie jest częścią zagranicznego koncernu",
-            (company.plNotGlobEnt ?? 0) != 0),
-        Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(company.description ?? ""))
+        DetailItem("nie jest częścią zagranicznego koncernu", (company.plNotGlobEnt ?? 0) != 0),
+        Padding(padding: EdgeInsets.all(8.0), child: Text(company.description ?? ""))
       ],
     );
   }

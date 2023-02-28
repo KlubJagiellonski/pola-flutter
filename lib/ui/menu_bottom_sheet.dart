@@ -51,14 +51,14 @@ class MenuBottomSheet extends StatelessWidget {
                 Navigator.pushNamed(context, '/web',
                     arguments: "https://www.pola-app.pl/m/friends");
               }),
+              MenuBottomItem("Oceń nas", () {
+                throw UnimplementedError(
+                    "todo when app in store inAppReview.openStoreListing(appStoreId: '...',);");
+              }),
               MenuBottomItem("Github", () {
                 Navigator.pushNamed(context, '/web',
                     arguments: "https://github.com/KlubJagiellonski");
-              }),
-              MenuBottomItem("Oceń Polę", () {
-                throw UnimplementedError(
-                    "todo when app in store inAppReview.openStoreListing(appStoreId: '...',);");
-              }), //todo
+              }),//todo
               Row(
                 children: [
                   Expanded(
