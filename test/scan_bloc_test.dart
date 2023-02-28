@@ -5,6 +5,7 @@ import 'package:pola_flutter/data/pola_api_repository.dart';
 import 'package:pola_flutter/main.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/pages/scan/scan_bloc.dart';
+import 'package:pola_flutter/pages/scan/scan_vibration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
 
@@ -16,7 +17,7 @@ void main() {
     Bloc.observer = SimpleBlocObserver();
 
     setUp(() {
-      scanBloc = ScanBloc(MockPolaApi());
+      scanBloc = ScanBloc(MockPolaApi(), MockScanVibration());
     });
 
     test('initial state is ScanEmpty()', () {
@@ -55,5 +56,11 @@ class MockPolaApi extends PolaApi {
     } else {
       return Future.value(ApiResponse.error("error"));
     }
+  }
+}
+
+class MockScanVibration extends ScanVibration {
+  @override
+  void vibrate() {
   }
 }
