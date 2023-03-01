@@ -127,6 +127,8 @@ PODS:
     - Flutter
   - url_launcher_ios (0.0.1):
     - Flutter
+  - vibration (1.7.5):
+    - Flutter
   - webview_flutter_wkwebview (0.0.1):
     - Flutter
 
@@ -140,6 +142,7 @@ DEPENDENCIES:
   - mobile_scanner (from `.symlinks/plugins/mobile_scanner/ios`)
   - shared_preferences_ios (from `.symlinks/plugins/shared_preferences_ios/ios`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
+  - vibration (from `.symlinks/plugins/vibration/ios`)
   - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/ios`)
 
 SPEC REPOS:
@@ -184,6 +187,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/shared_preferences_ios/ios"
   url_launcher_ios:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
+  vibration:
+    :path: ".symlinks/plugins/vibration/ios"
   webview_flutter_wkwebview:
     :path: ".symlinks/plugins/webview_flutter_wkwebview/ios"
 
@@ -217,6 +222,7 @@ SPEC CHECKSUMS:
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   shared_preferences_ios: 548a61f8053b9b8a49ac19c1ffbc8b92c50d68ad
   url_launcher_ios: 839c58cdb4279282219f5e248c3321761ff3c4de
+  vibration: 7d883d141656a1c1a6d8d238616b2042a51a1241
   webview_flutter_wkwebview: b7e70ef1ddded7e69c796c7390ee74180182971f
 
 PODFILE CHECKSUM: 47967388dea8945f9f1c1487809851645610dc38

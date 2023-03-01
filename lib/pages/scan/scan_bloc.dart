@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pola_flutter/data/api_response.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
 import 'package:pola_flutter/models/search_result.dart';
+import 'package:pola_flutter/pages/scan/scan_vibration.dart';
 import 'package:vibration/vibration.dart';
 
 class ScanState extends Equatable {
@@ -46,16 +47,15 @@ class GetCompanyEvent extends ScanEvent {
 class ScanBloc extends Bloc<ScanEvent, ScanState> {
   List<SearchResult> _list = [];
 
-  late final PolaApi _polaApiRepository;
+  final PolaApi _polaApiRepository;
+  final ScanVibration _scanVibration;
 
-  ScanBloc(PolaApi polaApiRepository) : super(ScanEmpty()) {
-    _polaApiRepository = polaApiRepository;
-  }
+  ScanBloc(this._polaApiRepository, this._scanVibration) : super(ScanEmpty());
 
   @override
   Stream<ScanState> mapEventToState(ScanEvent event) async* {
     if (event is GetCompanyEvent) {
-      Vibration.vibrate(duration: 200);
+      _scanVibration.vibrate();
 
       final res = await _polaApiRepository.getCompany(event.code);
       if (res.status == Status.COMPLETED) {
