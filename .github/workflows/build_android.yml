@@ -1,10 +1,10 @@
- name: Build Android
+name: Build Android
 
- on:
+on:
    push:
    pull_request:
 
- jobs:
+jobs:
    build:
      runs-on: ubuntu-latest
      steps:
