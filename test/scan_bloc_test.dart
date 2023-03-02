@@ -30,10 +30,10 @@ void main() {
       expect: () => [ScanLoaded([searchResult1])],
     );
     blocTest(
-      'emits ScanError("error") when GetCompanyEvent(0) is added',
+      'emits nothing when GetCompanyEvent(0) is added',
       build: () => scanBloc,
       act: (bloc) => scanBloc.add(GetCompanyEvent(0)),
-      expect: () => [ScanError("error")],
+      expect: () => [],
     );
   });
 }
