@@ -1,14 +1,10 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
 import 'package:pola_flutter/pages/scan/scan_vibration.dart';
-import 'package:pola_flutter/ui/list_item.dart';
 import 'package:pola_flutter/ui/menu_bottom_sheet.dart';
-import 'package:url_launcher/url_launcher.dart';
-
+import 'companies_list.dart';
 import 'scan_bloc.dart';
 
 class MainPage extends StatefulWidget {
@@ -18,8 +14,9 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   late ScanBloc _scanBloc;
-  MobileScannerController cameraController = MobileScannerController();
+  MobileScannerController cameraController = MobileScannerController(detectionSpeed: DetectionSpeed.normal);
 
+  ScrollController listScrollController = ScrollController();
   @override
   void initState() {
     super.initState();
@@ -87,45 +84,11 @@ class _MainPageState extends State<MainPage> {
               BlocBuilder<ScanBloc, ScanState>(
                 bloc: _scanBloc,
                 builder: (context, state) {
-                  if (state is ScanLoaded) {
-                    return Column(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
-                      Container(
-                        height: 200,
-                        child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: ListView.builder(
-                            reverse: true,
-                            itemCount: state.list.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return GestureDetector(
-                                child: ListItem(state.list[index]),
-                                onTap: () {
-                                  Navigator.pushNamed(context, '/detail', arguments: state.list[index]);
-                                },
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                      Padding(
-                          padding: EdgeInsets.only(left: 8.0, top: 0.0, right: 8.0, bottom: 0.0),
-                          child: TextButton(
-                            style: ButtonStyle(
-                              minimumSize: MaterialStateProperty.all<Size>(Size(double.infinity, 0)),
-                              backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
-                              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                            ),
-                            onPressed: () async {
-                              launchUrl(
-                                Uri.parse(state.list.first.donate?.url ?? "https://www.pola-app.pl"),
-                                mode: LaunchMode.externalApplication,
-                              );
-                            },
-                            child: Text(state.list.first.donate?.title ?? "Wesprzyj nas!"),
-                          ))
-                    ]);
-                  } else {
-                    return Container();
+                  switch (state.runtimeType) {
+                    case ScanLoaded:
+                      return CompaniesList(state as ScanLoaded, listScrollController);
+                    default:
+                      return Container();
                   }
                 },
               ),
@@ -144,12 +107,10 @@ class _MainPageState extends State<MainPage> {
       children: [
         Positioned.fill(
           child: MobileScanner(
-              allowDuplicates: false,
               controller: cameraController,
-              onDetect: (barcode, args) {
-                if (barcode.rawValue == null) {
-                  debugPrint('Failed to scan Barcode');
-                } else {
+              onDetect: (capture) {
+                final List<Barcode> barcodes = capture.barcodes;
+                for (final barcode in barcodes) {
                   final String code = barcode.rawValue!;
                   debugPrint('Barcode found! $code');
                   _scanBloc.add(GetCompanyEvent(int.parse(code)));

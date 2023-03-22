@@ -33,7 +33,7 @@ void main() {
       'emits nothing when GetCompanyEvent(0) is added',
       build: () => scanBloc,
       act: (bloc) => scanBloc.add(GetCompanyEvent(0)),
-      expect: () => [],
+      expect: () => [ScanLoaded(List.empty())],
     );
   });
 }

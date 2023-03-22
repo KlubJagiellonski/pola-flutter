@@ -12,7 +12,7 @@ class ListItem extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(top: 4.0, left: 8.0, right: 8.0, bottom: 4.0),
       child: Container(
-        height: 40,
+        height: 50,
         child: DecoratedBox(
           decoration: BoxDecoration(
             color: Colors.white,
