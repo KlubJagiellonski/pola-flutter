@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/pages/dialpad/dialpad.dart';
-import 'package:pola_flutter/pages/scan/main.dart';
+import 'package:pola_flutter/pages/scan/scan.dart';
 import 'package:pola_flutter/pages/web/web.dart';
 import 'package:pola_flutter/pages/web/web_tab.dart';
 import 'pages/detail/detail.dart';

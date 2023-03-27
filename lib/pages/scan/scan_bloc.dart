@@ -4,7 +4,6 @@ import 'package:pola_flutter/data/api_response.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/pages/scan/scan_vibration.dart';
-import 'package:vibration/vibration.dart';
 
 class ScanState extends Equatable {
   @override
@@ -45,24 +44,26 @@ class GetCompanyEvent extends ScanEvent {
 }
 
 class ScanBloc extends Bloc<ScanEvent, ScanState> {
-  List<SearchResult> _list = [];
+  List<SearchResult> _results = [];
+  List<int> _scannedBarcodes = [];
 
   final PolaApi _polaApiRepository;
   final ScanVibration _scanVibration;
 
-  ScanBloc(this._polaApiRepository, this._scanVibration) : super(ScanEmpty());
-
-  @override
-  Stream<ScanState> mapEventToState(ScanEvent event) async* {
-    if (event is GetCompanyEvent) {
+  void _onBarcodeScanned(ScanEvent event, Emitter<ScanState> emit) async {
+    if (event is GetCompanyEvent && !_scannedBarcodes.contains(event.code)) {
+      _scannedBarcodes.add(event.code);
       _scanVibration.vibrate();
 
       final res = await _polaApiRepository.getCompany(event.code);
       if (res.status == Status.COMPLETED) {
-        _list.add(res.data);
-        _list = _list.toSet().toList();
-        yield ScanLoaded(_list);
+        _results.add(res.data);
       }
+      emit(ScanLoaded(List.from(_results)));
     }
+  }
+
+  ScanBloc(this._polaApiRepository, this._scanVibration) : super(ScanEmpty()) {
+    on<ScanEvent>((event, emit) => _onBarcodeScanned(event, emit));
   }
 }
