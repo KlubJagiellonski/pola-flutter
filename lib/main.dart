@@ -9,6 +9,7 @@ import 'package:pola_flutter/pages/dialpad/dialpad.dart';
 import 'package:pola_flutter/pages/scan/scan.dart';
 import 'package:pola_flutter/pages/web/web.dart';
 import 'package:pola_flutter/pages/web/web_tab.dart';
+import 'firebase_options.dart';
 import 'pages/detail/detail.dart';
 
 void main() async {
@@ -16,7 +17,9 @@ void main() async {
   if (kDebugMode) {
     _setupLogging();
   } else {
-    await Firebase.initializeApp();
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
   }
   runApp(PolaApp());
 }
@@ -71,13 +74,9 @@ class _PolaAppState extends State<PolaApp> {
       case 0:
         return MainPage();
       case 1:
-        return WebViewTabPage(
-            title: "Wyszukiwarka",
-            url: "https://www.pola-app.pl/m/search/");
+        return WebViewTabPage(title: "Wyszukiwarka", url: "https://www.pola-app.pl/m/search/");
       case 2:
-        return WebViewTabPage(
-            title: "Wiadomości",
-            url: "https://www.pola-app.pl/m/blog/");
+        return WebViewTabPage(title: "Wiadomości", url: "https://www.pola-app.pl/m/blog/");
       default:
         return MainPage();
     }
