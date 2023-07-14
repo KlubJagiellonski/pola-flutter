@@ -12,7 +12,7 @@ abstract class PolaApiService extends ChopperService {
 
   static PolaApiService create() {
     final client = ChopperClient(
-      baseUrl: 'https://pola-app.pl',
+      baseUrl: Uri.parse('https://pola-app.pl'),
       interceptors: [HttpLoggingInterceptor()],
       services: [
         _$PolaApiService(),
