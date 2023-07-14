@@ -1,7 +1,6 @@
 enum AnalyticsBarcodeSource{
   camera("Camera"),
-  keyboard("Keyboard"),
-  photos("Photos");
+  keyboard("Keyboard");
 
   final String name;
 
