@@ -1,5 +1,6 @@
 import 'analytics_event_name.dart';
 import 'analytics_barcode_source.dart';
+import 'analytics_parameters.dart';
 import 'analytics_provider.dart';
 
 class PolaAnalytics {
@@ -9,10 +10,10 @@ class PolaAnalytics {
 
   void barcodeScanned(String barcode, AnalyticsBarcodeSource type) {
     
-    _logEvent(AnalyticsEventName.scanCode, {
-      "code": barcode,
-      "source": type.name
-    });
+    _logEvent(
+      AnalyticsEventName.scanCode,
+      AnalyticsScanCodeParameters(code: barcode, source: type.name).toJson()
+     );
   }
 
   void _logEvent(AnalyticsEventName name, [Map<String, dynamic>? parameters]) {
