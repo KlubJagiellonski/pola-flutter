@@ -1,4 +1,5 @@
 import 'package:pola_flutter/analytics/analytics_about_row.dart';
+import 'package:pola_flutter/analytics/analytics_main_tab.dart';
 
 import '../models/search_result.dart';
 import 'analytics_event_name.dart';
@@ -62,6 +63,13 @@ class PolaAnalytics {
 
   void aboutPolaOpened() {
     _logEvent(AnalyticsEventName.aboutPola, null);
+  }
+
+  void mainTabChanged(AnalyticsMainTab tab) {
+    _logEvent(
+      AnalyticsEventName.mainTabChanged,
+      AnalyticsMainTabParameters(tab: tab.name).toJson()
+    );
   }
 
   void _logEvent(AnalyticsEventName name, [Map<String, dynamic>? parameters]) {

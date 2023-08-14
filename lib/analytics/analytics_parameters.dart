@@ -32,3 +32,12 @@ class AnalyticsProductResultParameters {
 
   Map<String, dynamic> toJson() => _$AnalyticsProductResultParametersToJson(this);
 }
+
+@JsonSerializable()
+class AnalyticsMainTabParameters {
+  final String tab;
+
+  AnalyticsMainTabParameters({required this.tab});
+
+  Map<String, dynamic> toJson() => _$AnalyticsMainTabParametersToJson(this);
+}

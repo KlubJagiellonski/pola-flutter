@@ -55,3 +55,15 @@ Map<String, dynamic> _$AnalyticsProductResultParametersToJson(
   writeNotNull('product_id', instance.productId);
   return val;
 }
+
+AnalyticsMainTabParameters _$AnalyticsMainTabParametersFromJson(
+        Map<String, dynamic> json) =>
+    AnalyticsMainTabParameters(
+      tab: json['tab'] as String,
+    );
+
+Map<String, dynamic> _$AnalyticsMainTabParametersToJson(
+        AnalyticsMainTabParameters instance) =>
+    <String, dynamic>{
+      'tab': instance.tab,
+    };
