@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
 import 'package:pola_flutter/pages/scan/scan_vibration.dart';
 import 'package:pola_flutter/ui/menu_bottom_sheet.dart';
@@ -20,7 +21,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    _scanBloc = ScanBloc(PolaApiRepository(), ScanVibrationImpl());
+    _scanBloc = ScanBloc(PolaApiRepository(), ScanVibrationImpl(), PolaAnalytics.instance());
   }
 
   @override

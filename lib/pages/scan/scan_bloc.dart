@@ -51,7 +51,7 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
 
   final PolaApi _polaApiRepository;
   final ScanVibration _scanVibration;
-  final PolaAnalytics _analytics = PolaAnalytics.instance();
+  final PolaAnalytics _analytics;
 
   void _onBarcodeScanned(ScanEvent event, Emitter<ScanState> emit) async {
     if (event is GetCompanyEvent && !_scannedBarcodes.contains(event.code)) {
@@ -69,7 +69,7 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
     }
   }
 
-  ScanBloc(this._polaApiRepository, this._scanVibration) : super(ScanEmpty()) {
+  ScanBloc(this._polaApiRepository, this._scanVibration, this._analytics) : super(ScanEmpty()) {
     on<ScanEvent>((event, emit) => _onBarcodeScanned(event, emit));
   }
 }
