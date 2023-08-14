@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'analytics_parameters.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(createFactory: false)
 class AnalyticsScanCodeParameters {
   final String code;
   final String source;
@@ -12,7 +12,7 @@ class AnalyticsScanCodeParameters {
   Map<String, dynamic> toJson() => _$AnalyticsScanCodeParametersToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(createFactory: false)
 class AnalyticsAboutParameters {
   final String item;
 
@@ -21,7 +21,7 @@ class AnalyticsAboutParameters {
   Map<String, dynamic> toJson() => _$AnalyticsAboutParametersToJson(this);
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
+@JsonSerializable(createFactory: false, fieldRename: FieldRename.snake, includeIfNull: false)
 class AnalyticsProductResultParameters {
   final String? code;
   final String? company;
@@ -33,7 +33,7 @@ class AnalyticsProductResultParameters {
   Map<String, dynamic> toJson() => _$AnalyticsProductResultParametersToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(createFactory: false)
 class AnalyticsMainTabParameters {
   final String tab;
 
