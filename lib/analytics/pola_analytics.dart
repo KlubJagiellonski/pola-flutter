@@ -29,6 +29,17 @@ class PolaAnalytics {
     );
   }
 
+    void opensCard(SearchResult result) {
+    _logEvent(
+      AnalyticsEventName.cardOpened,
+      AnalyticsProductResultParameters(
+        code: result.code, 
+        company: result.name, 
+        productId: result.productId != null ? result.productId.toString() : null
+        ).toJson()
+    );
+  }
+
   void _logEvent(AnalyticsEventName name, [Map<String, dynamic>? parameters]) {
     provider.logEvent(name.name, parameters);
   }
