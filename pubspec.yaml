@@ -46,7 +46,6 @@ dependencies:
   vibration: ^1.7.6
   firebase_analytics: ^10.4.1
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

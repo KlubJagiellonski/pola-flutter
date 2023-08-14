@@ -1,6 +1,4 @@
 ﻿import 'package:chopper/chopper.dart';
-import 'package:pola_flutter/models/search_result.dart';
-
 part 'pola_api_service.chopper.dart';
 
 @ChopperApi()
