@@ -19,3 +19,27 @@ Map<String, dynamic> _$AnalyticsScanCodeParametersToJson(
       'code': instance.code,
       'source': instance.source,
     };
+
+AnalyticsProductResultParameters _$AnalyticsProductResultParametersFromJson(
+        Map<String, dynamic> json) =>
+    AnalyticsProductResultParameters(
+      code: json['code'] as String?,
+      company: json['company'] as String?,
+      productId: json['product_id'] as String?,
+    );
+
+Map<String, dynamic> _$AnalyticsProductResultParametersToJson(
+    AnalyticsProductResultParameters instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('code', instance.code);
+  writeNotNull('company', instance.company);
+  writeNotNull('product_id', instance.productId);
+  return val;
+}

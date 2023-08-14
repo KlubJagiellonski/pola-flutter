@@ -11,3 +11,15 @@ class AnalyticsScanCodeParameters {
 
   Map<String, dynamic> toJson() => _$AnalyticsScanCodeParametersToJson(this);
 }
+
+@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
+class AnalyticsProductResultParameters {
+  final String? code;
+  final String? company;
+  final String? productId;
+
+  AnalyticsProductResultParameters(
+      {required this.code, required this.company, required this.productId});
+
+  Map<String, dynamic> toJson() => _$AnalyticsProductResultParametersToJson(this);
+}

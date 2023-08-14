@@ -1,10 +1,10 @@
+import 'package:mockito/mockito.dart';
 import 'package:pola_flutter/analytics/analytics_barcode_source.dart';
+import 'package:pola_flutter/analytics/analytics_provider.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:test/test.dart';
-import 'package:mockito/mockito.dart';
-import 'package:pola_flutter/analytics/analytics_provider.dart';
 
-class MockAnalyticsProvider extends Mock implements AnalyticsProvider {}
+import 'mock_analytics_provider.dart';
 
 void main() {
   group('PolaAnalytics barcodeScanned', () {
@@ -28,7 +28,7 @@ void main() {
       )).called(1);
     });
 
-      test('should send source keyboard', () {
+    test('should send source keyboard', () {
       polaAnalytics.barcodeScanned('12345', AnalyticsBarcodeSource.keyboard);
 
       verify(mockAnalyticsProvider.logEvent(
@@ -40,7 +40,7 @@ void main() {
       )).called(1);
     });
 
-       test('should send code camera', () {
+    test('should send code camera', () {
       polaAnalytics.barcodeScanned('properCode', AnalyticsBarcodeSource.camera);
 
       verify(mockAnalyticsProvider.logEvent(
