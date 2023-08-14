@@ -12,3 +12,10 @@ class FirebaseAnalyticsProvider implements AnalyticsProvider {
     _analytics.logEvent(name: name, parameters: parameters);
   }
 }
+
+class ConsoleAnalyticsProvider implements AnalyticsProvider {
+  @override
+  void logEvent(String name, [Map<String, dynamic>? parameters]) {
+    print('Analytics event: $name, parameters: $parameters');
+  }
+}

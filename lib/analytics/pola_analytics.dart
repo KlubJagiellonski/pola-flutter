@@ -9,7 +9,7 @@ class PolaAnalytics {
 
   PolaAnalytics({required this.provider});
 
-  PolaAnalytics.instance() : provider = FirebaseAnalyticsProvider();
+  PolaAnalytics.instance() : provider = ConsoleAnalyticsProvider();
 
   void barcodeScanned(String barcode, AnalyticsBarcodeSource type) {
     _logEvent(
