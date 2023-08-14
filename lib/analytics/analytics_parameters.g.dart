@@ -20,6 +20,18 @@ Map<String, dynamic> _$AnalyticsScanCodeParametersToJson(
       'source': instance.source,
     };
 
+AnalyticsAboutParameters _$AnalyticsAboutParametersFromJson(
+        Map<String, dynamic> json) =>
+    AnalyticsAboutParameters(
+      item: json['item'] as String,
+    );
+
+Map<String, dynamic> _$AnalyticsAboutParametersToJson(
+        AnalyticsAboutParameters instance) =>
+    <String, dynamic>{
+      'item': instance.item,
+    };
+
 AnalyticsProductResultParameters _$AnalyticsProductResultParametersFromJson(
         Map<String, dynamic> json) =>
     AnalyticsProductResultParameters(

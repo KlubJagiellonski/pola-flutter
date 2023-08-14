@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:pola_flutter/analytics/analytics_about_row.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
 import 'package:pola_flutter/pages/scan/scan_vibration.dart';
@@ -16,12 +17,13 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   late ScanBloc _scanBloc;
   MobileScannerController cameraController = MobileScannerController(detectionSpeed: DetectionSpeed.normal);
+  final PolaAnalytics _analytics = PolaAnalytics.instance();
 
   ScrollController listScrollController = ScrollController();
   @override
   void initState() {
     super.initState();
-    _scanBloc = ScanBloc(PolaApiRepository(), ScanVibrationImpl(), PolaAnalytics.instance());
+    _scanBloc = ScanBloc(PolaApiRepository(), ScanVibrationImpl(), _analytics);
   }
 
   @override
@@ -47,12 +49,13 @@ class _MainPageState extends State<MainPage> {
         actions: [
           IconButton(
             onPressed: () {
+              _analytics.aboutOpened(AnalyticsAboutRow.menu);
               showModalBottomSheet<void>(
                   backgroundColor: Colors.transparent,
                   isScrollControlled: true,
                   context: context,
                   builder: (BuildContext context) {
-                    return MenuBottomSheet();
+                    return MenuBottomSheet(analytics: _analytics);
                   });
             },
             icon: Image.asset("assets/menu.png"),

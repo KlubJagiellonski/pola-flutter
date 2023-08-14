@@ -1,3 +1,5 @@
+import 'package:pola_flutter/analytics/analytics_about_row.dart';
+
 import '../models/search_result.dart';
 import 'analytics_event_name.dart';
 import 'analytics_barcode_source.dart';
@@ -44,6 +46,13 @@ class PolaAnalytics {
     _logEvent(
       AnalyticsEventName.donateOpened,
       AnalyticsProductResultParameters(code: barcode).toJson()
+    );
+  }
+
+  void aboutOpened(AnalyticsAboutRow row) {
+    _logEvent(
+      AnalyticsEventName.menuItemOpened,
+      AnalyticsAboutParameters(item: row.name).toJson()
     );
   }
 
