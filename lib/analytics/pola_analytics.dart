@@ -40,6 +40,13 @@ class PolaAnalytics {
     );
   }
 
+  void donateOpened(String? barcode) {
+    _logEvent(
+      AnalyticsEventName.donateOpened,
+      AnalyticsProductResultParameters(code: barcode).toJson()
+    );
+  }
+
   void _logEvent(AnalyticsEventName name, [Map<String, dynamic>? parameters]) {
     provider.logEvent(name.name, parameters);
   }

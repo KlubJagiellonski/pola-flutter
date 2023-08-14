@@ -45,8 +45,10 @@ class CompaniesList extends StatelessWidget {
               foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
             ),
             onPressed: () async {
+              final result = state.list.first;
+              _analytics.donateOpened(result.code);
               launchUrl(
-                Uri.parse(state.list.first.donate?.url ?? "https://www.pola-app.pl"),
+                Uri.parse(result.donate?.url ?? "https://www.pola-app.pl"),
                 mode: LaunchMode.externalApplication,
               );
             },

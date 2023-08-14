@@ -19,7 +19,7 @@ class AnalyticsProductResultParameters {
   final String? productId;
 
   AnalyticsProductResultParameters(
-      {required this.code, required this.company, required this.productId});
+      {required this.code, this.company, this.productId});
 
   Map<String, dynamic> toJson() => _$AnalyticsProductResultParametersToJson(this);
 }
