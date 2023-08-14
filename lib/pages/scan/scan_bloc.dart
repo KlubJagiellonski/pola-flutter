@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pola_flutter/analytics/analytics_barcode_source.dart';
+import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/data/api_response.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
 import 'package:pola_flutter/models/search_result.dart';
@@ -49,15 +51,19 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
 
   final PolaApi _polaApiRepository;
   final ScanVibration _scanVibration;
+  final PolaAnalytics _analytics = PolaAnalytics.instance();
 
   void _onBarcodeScanned(ScanEvent event, Emitter<ScanState> emit) async {
     if (event is GetCompanyEvent && !_scannedBarcodes.contains(event.code)) {
       _scannedBarcodes.add(event.code);
       _scanVibration.vibrate();
+      _analytics.barcodeScanned(event.code.toString(), AnalyticsBarcodeSource.camera);
 
       final res = await _polaApiRepository.getCompany(event.code);
       if (res.status == Status.COMPLETED) {
-        _results.add(res.data);
+        final result = res.data;
+        _results.add(result);
+        _analytics.searchResultReceived(result);
       }
       emit(ScanLoaded(List.from(_results)));
     }
