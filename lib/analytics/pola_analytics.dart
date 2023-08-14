@@ -56,6 +56,14 @@ class PolaAnalytics {
     );
   }
 
+  void polasFriendsOpened() {
+    _logEvent(AnalyticsEventName.polasFriends, null);
+  }
+
+  void aboutPolaOpened() {
+    _logEvent(AnalyticsEventName.aboutPola, null);
+  }
+
   void _logEvent(AnalyticsEventName name, [Map<String, dynamic>? parameters]) {
     provider.logEvent(name.name, parameters);
   }
