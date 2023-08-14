@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:pola_flutter/analytics/analytics_about_row.dart';
 import 'package:pola_flutter/analytics/analytics_main_tab.dart';
 
@@ -12,7 +13,7 @@ class PolaAnalytics {
 
   PolaAnalytics({required this.provider});
 
-  PolaAnalytics.instance() : provider = ConsoleAnalyticsProvider();
+  PolaAnalytics.instance() : provider = kDebugMode ? ConsoleAnalyticsProvider() : FirebaseAnalyticsProvider();
 
   void barcodeScanned(String barcode, AnalyticsBarcodeSource type) {
     _logEvent(
