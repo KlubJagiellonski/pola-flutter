@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/ui/list_item.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'scan_bloc.dart';
@@ -8,6 +9,7 @@ class CompaniesList extends StatelessWidget {
 
   final ScanLoaded state;
   final ScrollController listScrollController;
+  final PolaAnalytics _analytics = PolaAnalytics.instance();
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,9 @@ class CompaniesList extends StatelessWidget {
               return GestureDetector(
                 child: ListItem(state.list[index]),
                 onTap: () {
-                  Navigator.pushNamed(context, '/detail', arguments: state.list[index]);
+                  final result = state.list[index];
+                  _analytics.opensCard(result);
+                  Navigator.pushNamed(context, '/detail', arguments: result);
                 },
               );
             },
@@ -41,8 +45,10 @@ class CompaniesList extends StatelessWidget {
               foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
             ),
             onPressed: () async {
+              final result = state.list.first;
+              _analytics.donateOpened(result.code);
               launchUrl(
-                Uri.parse(state.list.first.donate?.url ?? "https://www.pola-app.pl"),
+                Uri.parse(result.donate?.url ?? "https://www.pola-app.pl"),
                 mode: LaunchMode.externalApplication,
               );
             },

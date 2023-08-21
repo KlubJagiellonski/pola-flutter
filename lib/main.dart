@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
+import 'package:pola_flutter/analytics/analytics_main_tab.dart';
+import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/pages/dialpad/dialpad.dart';
 import 'package:pola_flutter/pages/scan/scan.dart';
@@ -31,6 +33,7 @@ class PolaApp extends StatefulWidget {
 
 class _PolaAppState extends State<PolaApp> {
   int _selectedIndex = 0;
+  final _analytics = PolaAnalytics.instance();
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +85,21 @@ class _PolaAppState extends State<PolaApp> {
     }
   }
 
+  AnalyticsMainTab _getTabParameter(int index) {
+    switch (index) {
+      case 0:
+        return AnalyticsMainTab.scanner;
+      case 1:
+        return AnalyticsMainTab.search;
+      case 2:
+        return AnalyticsMainTab.news;
+      default:
+        return AnalyticsMainTab.scanner;
+    }
+  }
+
   void _onItemTapped(int index) {
+    _analytics.mainTabChanged(_getTabParameter(index));
     setState(() {
       _selectedIndex = index;
     });

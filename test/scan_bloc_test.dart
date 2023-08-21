@@ -1,5 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/data/api_response.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
 import 'package:pola_flutter/main.dart';
@@ -9,6 +10,8 @@ import 'package:pola_flutter/pages/scan/scan_vibration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
 
+import 'analytics/mock_analytics_provider.dart';
+
 void main() {
   SharedPreferences.setMockInitialValues({});
 
@@ -17,7 +20,7 @@ void main() {
     Bloc.observer = SimpleBlocObserver();
 
     setUp(() {
-      scanBloc = ScanBloc(MockPolaApi(), MockScanVibration());
+      scanBloc = ScanBloc(MockPolaApi(), MockScanVibration(), PolaAnalytics(provider: MockAnalyticsProvider()));
     });
 
     test('initial state is ScanEmpty()', () {

@@ -1,6 +1,4 @@
 ﻿import 'package:chopper/chopper.dart';
-import 'package:pola_flutter/models/search_result.dart';
-
 part 'pola_api_service.chopper.dart';
 
 @ChopperApi()
@@ -12,7 +10,7 @@ abstract class PolaApiService extends ChopperService {
 
   static PolaApiService create() {
     final client = ChopperClient(
-      baseUrl: 'https://pola-app.pl',
+      baseUrl: Uri.parse('https://pola-app.pl'),
       interceptors: [HttpLoggingInterceptor()],
       services: [
         _$PolaApiService(),

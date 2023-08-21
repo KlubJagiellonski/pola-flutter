@@ -8,11 +8,11 @@ void main() {
   group('DeviceIdService', (){
     late DeviceIdService deviceIdService;
     late SharedPreferences sharedPreferences;
-    final String TEST_ID = "TEST_ID";
+    final String testID = "TEST_ID";
 
     setUp(() async {
       sharedPreferences = await SharedPreferences.getInstance();
-      sharedPreferences.setString("device_id", TEST_ID);
+      sharedPreferences.setString("device_id", testID);
       await DeviceIdService.create().then((value) => deviceIdService = value);
     });
     test('initial device_id is TEST_ID', () async {
