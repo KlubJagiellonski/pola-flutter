@@ -61,7 +61,7 @@ class _PolaAppState extends State<PolaApp> {
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.newspaper),
-                  label: 'Wiadomośći',
+                  label: 'Wiadomości',
                 ),
               ],
               onTap: _onItemTapped,
