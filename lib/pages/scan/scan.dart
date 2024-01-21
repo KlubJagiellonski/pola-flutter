@@ -16,7 +16,8 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   late ScanBloc _scanBloc;
-  MobileScannerController cameraController = MobileScannerController(detectionSpeed: DetectionSpeed.normal);
+  MobileScannerController cameraController =
+      MobileScannerController(detectionSpeed: DetectionSpeed.normal);
   final PolaAnalytics _analytics = PolaAnalytics.instance();
 
   ScrollController listScrollController = ScrollController();
@@ -37,13 +38,15 @@ class _MainPageState extends State<MainPage> {
             onPressed: () {
               cameraController.toggleTorch();
             },
-            icon: Image.asset("assets/ic_flash_on_white_48dp.png"),
+            icon: Image.asset("assets/ic_flash_on_white_48dp.png",
+                height: AppBar().preferredSize.height),
           ),
         ),
         leading: IconButton(
           onPressed: () {
             _analytics.aboutPolaOpened();
-            Navigator.pushNamed(context, '/web', arguments: "https://www.pola-app.pl/m/about");
+            Navigator.pushNamed(context, '/web',
+                arguments: "https://www.pola-app.pl/m/about");
           },
           icon: Image.asset("assets/ic_launcher.png"),
         ),
@@ -91,7 +94,8 @@ class _MainPageState extends State<MainPage> {
                 builder: (context, state) {
                   switch (state.runtimeType) {
                     case ScanLoaded:
-                      return CompaniesList(state as ScanLoaded, listScrollController);
+                      return CompaniesList(
+                          state as ScanLoaded, listScrollController);
                     default:
                       return Container();
                   }
@@ -106,8 +110,10 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _buildQrView(BuildContext context) {
-    var scanArea =
-        (MediaQuery.of(context).size.width < 400 || MediaQuery.of(context).size.height < 400) ? 250.0 : 300.0;
+    var scanArea = (MediaQuery.of(context).size.width < 400 ||
+            MediaQuery.of(context).size.height < 400)
+        ? 250.0
+        : 300.0;
     return Stack(
       children: [
         Positioned.fill(
