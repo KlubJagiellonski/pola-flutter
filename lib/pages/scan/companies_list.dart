@@ -37,10 +37,12 @@ class CompaniesList extends StatelessWidget {
         ),
       ),
       Padding(
-          padding: EdgeInsets.only(left: 8.0, top: 0.0, right: 8.0, bottom: 0.0),
+          padding:
+              EdgeInsets.only(left: 8.0, top: 0.0, right: 8.0, bottom: 0.0),
           child: TextButton(
             style: ButtonStyle(
-              minimumSize: MaterialStateProperty.all<Size>(Size(double.infinity, 0)),
+              minimumSize:
+                  MaterialStateProperty.all<Size>(Size(double.infinity, 0)),
               backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
               foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
             ),
@@ -52,7 +54,9 @@ class CompaniesList extends StatelessWidget {
                 mode: LaunchMode.externalApplication,
               );
             },
-            child: Text(state.list.first.donate?.title ?? "Wesprzyj nas!"),
+            child: Text(state.list.isNotEmpty
+                ? state.list.first.donate?.title ?? "Wesprzyj nas!"
+                : "Wesprzyj nas!"),
           ))
     ]);
   }
