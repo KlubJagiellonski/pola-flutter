@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
+import 'package:pola_flutter/pages/scan/remote_button.dart';
 import 'package:pola_flutter/ui/list_item.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'scan_bloc.dart';
@@ -36,24 +37,7 @@ class CompaniesList extends StatelessWidget {
           ),
         ),
       ),
-      Padding(
-          padding: EdgeInsets.only(left: 8.0, top: 0.0, right: 8.0, bottom: 0.0),
-          child: TextButton(
-            style: ButtonStyle(
-              minimumSize: MaterialStateProperty.all<Size>(Size(double.infinity, 0)),
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-            ),
-            onPressed: () async {
-              final result = state.list.first;
-              _analytics.donateOpened(result.code);
-              launchUrl(
-                Uri.parse(result.donate?.url ?? "https://www.pola-app.pl"),
-                mode: LaunchMode.externalApplication,
-              );
-            },
-            child: Text(state.list.first.donate?.title ?? "Wesprzyj nas!"),
-          ))
+      RemoteButton(RemoteButtonState(state.list.first.donate, state.list.first.code))
     ]);
   }
 
