@@ -43,7 +43,7 @@ class _PolaAppState extends State<PolaApp> {
     ]);
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.red,
+        colorScheme: ColorScheme.light().copyWith(primary: Colors.red),
       ),
       onGenerateRoute: RouteGenerator.generateRoute,
       home: DefaultTabController(
@@ -77,9 +77,11 @@ class _PolaAppState extends State<PolaApp> {
       case 0:
         return MainPage();
       case 1:
-        return WebViewTabPage(title: "Wyszukiwarka", url: "https://www.pola-app.pl/m/search/");
+        return WebViewTabPage(
+            title: "Wyszukiwarka", url: "https://www.pola-app.pl/m/search/");
       case 2:
-        return WebViewTabPage(title: "Wiadomości", url: "https://www.pola-app.pl/m/blog/");
+        return WebViewTabPage(
+            title: "Wiadomości", url: "https://www.pola-app.pl/m/blog/");
       default:
         return MainPage();
     }
