@@ -37,7 +37,8 @@ class CompaniesList extends StatelessWidget {
           ),
         ),
       ),
-      RemoteButton(RemoteButtonState(state.list.first.donate, state.list.first.code))
+      RemoteButton(RemoteButtonState(
+          state.list.firstOrNull?.donate, state.list.firstOrNull?.code))
     ]);
   }
 
