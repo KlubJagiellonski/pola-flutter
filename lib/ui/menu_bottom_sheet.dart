@@ -109,8 +109,8 @@ class MenuBottomSheet extends StatelessWidget {
 class MenuBottomItem extends StatelessWidget {
   MenuBottomItem(this.text, this.onClick);
 
-  String text;
-  Function onClick;
+  final String text;
+  final Function onClick;
 
   final textStyle = TextStyle(fontWeight: FontWeight.w600);
 
