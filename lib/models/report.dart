@@ -1,26 +1,20 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:equatable/equatable.dart';
 
+part 'report.g.dart';
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class Report extends Equatable {
-  String? text;
-  String? buttonText;
-  String? buttonType;
+  final String? text;
+  final String? buttonText;
+  final String? buttonType;
 
   Report(
       {required this.text, required this.buttonText, required this.buttonType});
 
-  Report.fromJson(Map<String, dynamic> json) {
-    text = json['text'];
-    buttonText = json['button_text'];
-    buttonType = json['button_type'];
-  }
+  factory Report.fromJson(Map<String, dynamic> json) => _$ReportFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['text'] = this.text;
-    data['button_text'] = this.buttonText;
-    data['button_type'] = this.buttonType;
-    return data;
-  }
+  Map<String, dynamic> toJson() => _$ReportToJson(this);
 
   @override
   List<Object?> get props => [text, buttonText, buttonType];
