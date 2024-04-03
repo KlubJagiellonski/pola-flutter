@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/pages/scan/remote_button.dart';
 import 'package:pola_flutter/ui/list_item.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'scan_bloc.dart';
 
 class CompaniesList extends StatelessWidget {
