@@ -94,8 +94,8 @@ class DetailContent extends StatelessWidget {
 class DetailItem extends StatelessWidget {
   DetailItem(this.text, this.state);
 
-  String text;
-  bool state;
+  final String text;
+  final bool state;
 
   @override
   Widget build(BuildContext context) {
