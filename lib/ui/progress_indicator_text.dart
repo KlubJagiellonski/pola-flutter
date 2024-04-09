@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class LinearProgressIndicatorWithText extends StatelessWidget {
   LinearProgressIndicatorWithText(this.progress, this.text);
 
-  String text;
-  double progress;
+  final String text;
+  final double progress;
 
   @override
   Widget build(BuildContext context) {

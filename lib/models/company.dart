@@ -1,20 +1,29 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:equatable/equatable.dart';
 
+part 'company.g.dart';
+
+@JsonSerializable()
 class Company extends Equatable {
-  String? name;
-  int? plCapital;
-  String? plCapitalNotes;
-  int? plWorkers;
-  String? plWorkersNotes;
-  int? plRnD;
-  String? plRnDNotes;
-  int? plRegistered;
-  String? plRegisteredNotes;
-  int? plNotGlobEnt;
-  String? plNotGlobEntNotes;
-  int? plScore;
-  bool? isFriend;
-  String? description;
+  final String? name;
+  final int? plCapital;
+  final String? plCapitalNotes;
+  final int? plWorkers;
+  final String? plWorkersNotes;
+  final int? plRnD;
+  final String? plRnDNotes;
+  final int? plRegistered;
+  final String? plRegisteredNotes;
+  final int? plNotGlobEnt;
+  final String? plNotGlobEntNotes;
+  final int? plScore;
+
+  @JsonKey(name: 'is_friend')
+  final bool? isFriend;
+
+  @JsonKey(name: 'friend_text')
+  final String? friendText;
+  final String? description;
 
   Company(
       {required this.name,
@@ -30,44 +39,13 @@ class Company extends Equatable {
       required this.plNotGlobEntNotes,
       required this.plScore,
       required this.isFriend,
+      required this.friendText,
       required this.description});
 
-  Company.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    plCapital = json['plCapital'];
-    plCapitalNotes = json['plCapital_notes'];
-    plWorkers = json['plWorkers'];
-    plWorkersNotes = json['plWorkers_notes'];
-    plRnD = json['plRnD'];
-    plRnDNotes = json['plRnD_notes'];
-    plRegistered = json['plRegistered'];
-    plRegisteredNotes = json['plRegistered_notes'];
-    plNotGlobEnt = json['plNotGlobEnt'];
-    plNotGlobEntNotes = json['plNotGlobEnt_notes'];
-    plScore = json['plScore'];
-    isFriend = json['is_friend'];
-    description = json['description'];
-  }
+  factory Company.fromJson(Map<String, dynamic> json) =>
+      _$CompanyFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['plCapital'] = this.plCapital;
-    data['plCapital_notes'] = this.plCapitalNotes;
-    data['plWorkers'] = this.plWorkers;
-    data['plWorkers_notes'] = this.plWorkersNotes;
-    data['plRnD'] = this.plRnD;
-    data['plRnD_notes'] = this.plRnDNotes;
-    data['plRegistered'] = this.plRegistered;
-    data['plRegistered_notes'] = this.plRegisteredNotes;
-    data['plNotGlobEnt'] = this.plNotGlobEnt;
-    data['plNotGlobEnt_notes'] = this.plNotGlobEntNotes;
-    data['plScore'] = this.plScore;
-    data['is_friend'] = this.isFriend;
-    data['description'] = this.description;
-    return data;
-  }
-
+  Map<String, dynamic> toJson() => _$CompanyToJson(this);
   @override
   List<Object?> get props => [
         name,
@@ -83,6 +61,7 @@ class Company extends Equatable {
         plNotGlobEntNotes,
         plScore,
         isFriend,
+        friendText,
         description
       ];
 
