@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pola_flutter/models/brand.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/ui/progress_indicator_text.dart';
 
@@ -88,7 +89,8 @@ class DetailContent extends StatelessWidget {
         Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(company.description ?? "")),
-        DetailCompanyLogotype(company.logotypeUrl)
+        DetailCompanyLogotype(company.logotypeUrl),
+        BrandLogotypes(searchResult.allCompanyBrands)
       ],
     );
   }
@@ -139,6 +141,32 @@ class DetailCompanyLogotype extends StatelessWidget {
     }
 
     return Image.network(url, height: 100.0, fit: BoxFit.contain);
+  }
+}
+
+class BrandLogotypes extends StatelessWidget {
+  BrandLogotypes(this.brands);
+
+  final List<Brand>? brands;
+
+  @override
+  Widget build(BuildContext context) {
+        final brands = this.brands;
+    if (brands == null) {
+      return Container();
+    }
+
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: brands
+            .map((brand) => Padding(
+                padding: EdgeInsets.all(8.0),
+                child: LogoView(brand.logotypeUrl ?? "")))
+            .toList(),
+      ),
+    );
   }
 }
 
