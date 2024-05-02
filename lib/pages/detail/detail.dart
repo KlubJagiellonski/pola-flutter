@@ -43,7 +43,7 @@ class DetailPage extends StatelessWidget {
                   )),
               LinearProgressIndicatorWithText((company?.plScore ?? 0).toDouble(),
                   (((company?.plScore ?? "0").toString()) + " pkt")),
-              DetailContent(searchResult)
+              _DetailContent(searchResult)
             ],
           ),
         ),
@@ -52,8 +52,8 @@ class DetailPage extends StatelessWidget {
   }
 }
 
-class DetailContent extends StatelessWidget {
-  DetailContent(this.searchResult);
+class _DetailContent extends StatelessWidget {
+  _DetailContent(this.searchResult);
 
   final SearchResult searchResult;
 
@@ -83,24 +83,24 @@ class DetailContent extends StatelessWidget {
             ],
           ),
         ),
-        DetailItem("produkuje w Polsce", (company.plWorkers ?? 0) != 0),
-        DetailItem("prowadzi badania w Polsce", (company.plRnD ?? 0) != 0),
-        DetailItem("zarejestrowana w Polsce", (company.plRegistered ?? 0) != 0),
-        DetailItem("nie jest częścią zagranicznego koncernu",
+        _DetailItem("produkuje w Polsce", (company.plWorkers ?? 0) != 0),
+        _DetailItem("prowadzi badania w Polsce", (company.plRnD ?? 0) != 0),
+        _DetailItem("zarejestrowana w Polsce", (company.plRegistered ?? 0) != 0),
+        _DetailItem("nie jest częścią zagranicznego koncernu",
             (company.plNotGlobEnt ?? 0) != 0),
         Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(company.description ?? "")),
-        DetailCompanyLogotype(company.logotypeUrl),
-        BrandLogotypes(searchResult.allCompanyBrands),
-        ReadMoreButton(searchResult)
+        _DetailCompanyLogotype(company.logotypeUrl),
+        _BrandLogotypes(searchResult.allCompanyBrands),
+        _ReadMoreButton(searchResult)
       ],
     );
   }
 }
 
-class DetailItem extends StatelessWidget {
-  DetailItem(this.text, this.state);
+class _DetailItem extends StatelessWidget {
+  _DetailItem(this.text, this.state);
 
   final String text;
   final bool state;
@@ -131,8 +131,8 @@ class DetailItem extends StatelessWidget {
   }
 }
 
-class ReadMoreButton extends StatelessWidget {
-  ReadMoreButton(this.searchResult);
+class _ReadMoreButton extends StatelessWidget {
+  _ReadMoreButton(this.searchResult);
 
   final SearchResult searchResult;
   final PolaAnalytics _analytics = PolaAnalytics.instance();
@@ -161,8 +161,8 @@ class ReadMoreButton extends StatelessWidget {
   }
 }
 
-class DetailCompanyLogotype extends StatelessWidget {
-  DetailCompanyLogotype(this.url);
+class _DetailCompanyLogotype extends StatelessWidget {
+  _DetailCompanyLogotype(this.url);
 
   final String? url;
 
@@ -173,12 +173,12 @@ class DetailCompanyLogotype extends StatelessWidget {
       return Container();
     }
 
-    return LogoView(url);
+    return _LogoView(url);
   }
 }
 
-class BrandLogotypes extends StatelessWidget {
-  BrandLogotypes(this.brands);
+class _BrandLogotypes extends StatelessWidget {
+  _BrandLogotypes(this.brands);
 
   final List<Brand>? brands;
 
@@ -196,15 +196,15 @@ class BrandLogotypes extends StatelessWidget {
         children: logotypes
             .map((logotypeUrl) => Padding(
                 padding: EdgeInsets.all(8.0),
-                child: LogoView(logotypeUrl)))
+                child: _LogoView(logotypeUrl)))
             .toList(),
       ),
     );
   }
 }
 
-class LogoView extends StatelessWidget {
-  LogoView(this.url);
+class _LogoView extends StatelessWidget {
+  _LogoView(this.url);
 
   final String url;
 
