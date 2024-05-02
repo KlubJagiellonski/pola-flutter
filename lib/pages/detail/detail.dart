@@ -151,7 +151,10 @@ class ReadMoreButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
         _analytics.readMore(searchResult, stringUrl);
-        launchUrl(url);
+        launchUrl(
+          url,
+          mode: LaunchMode.externalApplication,
+        );
       },
       child: Text("Czytaj więcej!"),
     );
