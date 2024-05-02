@@ -85,7 +85,8 @@ class DetailContent extends StatelessWidget {
             (company.plNotGlobEnt ?? 0) != 0),
         Padding(
             padding: EdgeInsets.all(8.0),
-            child: Text(company.description ?? ""))
+            child: Text(company.description ?? "")),
+        DetailCompanyLogotype(company.logotypeUrl)
       ],
     );
   }
@@ -120,5 +121,32 @@ class DetailItem extends StatelessWidget {
         Text(text)
       ],
     );
+  }
+}
+
+class DetailCompanyLogotype extends StatelessWidget {
+  DetailCompanyLogotype(this.url);
+
+  final String? url;
+
+  @override
+  Widget build(BuildContext context) {
+    final url = this.url;
+    if (url == null) {
+      return Container();
+    }
+
+    return Image.network(url, height: 100.0, fit: BoxFit.contain);
+  }
+}
+
+class LogoView extends StatelessWidget {
+  LogoView(this.url);
+
+  final String url;
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.network(url, height: 100.0, fit: BoxFit.contain);
   }
 }
