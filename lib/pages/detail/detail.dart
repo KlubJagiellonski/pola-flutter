@@ -26,21 +26,23 @@ class DetailPage extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-                padding: EdgeInsets.all(12.0),
-                child: Align(
-                  child: Text(searchResult.name ?? "",
-                      style: TextStyle(
-                        fontSize: 18.0,
-                      )),
-                  alignment: Alignment.centerLeft,
-                )),
-            LinearProgressIndicatorWithText((company?.plScore ?? 0).toDouble(),
-                (((company?.plScore ?? "0").toString()) + " pkt")),
-            DetailContent(searchResult)
-          ],
+        child:  SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: Align(
+                    child: Text(searchResult.name ?? "",
+                        style: TextStyle(
+                          fontSize: 18.0,
+                        )),
+                    alignment: Alignment.centerLeft,
+                  )),
+              LinearProgressIndicatorWithText((company?.plScore ?? 0).toDouble(),
+                  (((company?.plScore ?? "0").toString()) + " pkt")),
+              DetailContent(searchResult)
+            ],
+          ),
         ),
       ),
     );
