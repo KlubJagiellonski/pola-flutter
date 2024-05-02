@@ -22,6 +22,8 @@ Company _$CompanyFromJson(Map<String, dynamic> json) => Company(
       isFriend: json['is_friend'] as bool?,
       friendText: json['friend_text'] as String?,
       description: json['description'] as String?,
+      logotypeUrl: json['logotype_url'] as String?,
+      officialUrl: json['official_url'] as String?,
     );
 
 Map<String, dynamic> _$CompanyToJson(Company instance) => <String, dynamic>{
@@ -40,4 +42,6 @@ Map<String, dynamic> _$CompanyToJson(Company instance) => <String, dynamic>{
       'is_friend': instance.isFriend,
       'friend_text': instance.friendText,
       'description': instance.description,
+      'logotype_url': instance.logotypeUrl,
+      'official_url': instance.officialUrl,
     };
