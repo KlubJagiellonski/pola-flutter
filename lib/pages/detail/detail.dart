@@ -181,8 +181,8 @@ class BrandLogotypes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        final brands = this.brands;
-    if (brands == null) {
+    final logotypes = brands?.map((brand) => brand.logotypeUrl).where((url) => url != null).toList().cast<String>();
+    if (logotypes == null) {
       return Container();
     }
 
@@ -190,10 +190,10 @@ class BrandLogotypes extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: brands
-            .map((brand) => Padding(
+        children: logotypes
+            .map((logotypeUrl) => Padding(
                 padding: EdgeInsets.all(8.0),
-                child: LogoView(brand.logotypeUrl ?? "")))
+                child: LogoView(logotypeUrl)))
             .toList(),
       ),
     );
