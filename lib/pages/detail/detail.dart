@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/models/brand.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/ui/progress_indicator_text.dart';
@@ -92,7 +93,7 @@ class DetailContent extends StatelessWidget {
             child: Text(company.description ?? "")),
         DetailCompanyLogotype(company.logotypeUrl),
         BrandLogotypes(searchResult.allCompanyBrands),
-        ReadMoreButton(company.officialUrl)
+        ReadMoreButton(searchResult)
       ],
     );
   }
@@ -131,13 +132,14 @@ class DetailItem extends StatelessWidget {
 }
 
 class ReadMoreButton extends StatelessWidget {
-  ReadMoreButton(this.url);
+  ReadMoreButton(this.searchResult);
 
-  final String? url;
+  final SearchResult searchResult;
+  final PolaAnalytics _analytics = PolaAnalytics.instance();
 
   @override
   Widget build(BuildContext context) {
-    final stringUrl = this.url;
+    final stringUrl = searchResult.companies?.first.officialUrl;
     if (stringUrl == null) {
       return Container();
     }
@@ -148,7 +150,8 @@ class ReadMoreButton extends StatelessWidget {
 
     return ElevatedButton(
       onPressed: () {
-          launchUrl(url);
+        _analytics.readMore(searchResult, stringUrl);
+        launchUrl(url);
       },
       child: Text("Czytaj więcej!"),
     );

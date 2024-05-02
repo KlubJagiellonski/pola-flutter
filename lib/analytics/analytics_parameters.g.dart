@@ -35,6 +35,23 @@ Map<String, dynamic> _$AnalyticsProductResultParametersToJson(
   return val;
 }
 
+Map<String, dynamic> _$AnalyticsReadMoreParametersToJson(
+    AnalyticsReadMoreParameters instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('code', instance.code);
+  writeNotNull('company', instance.company);
+  writeNotNull('product_id', instance.productId);
+  val['url'] = instance.url;
+  return val;
+}
+
 Map<String, dynamic> _$AnalyticsMainTabParametersToJson(
         AnalyticsMainTabParameters instance) =>
     <String, dynamic>{

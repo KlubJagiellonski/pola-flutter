@@ -33,6 +33,19 @@ class AnalyticsProductResultParameters {
   Map<String, dynamic> toJson() => _$AnalyticsProductResultParametersToJson(this);
 }
 
+@JsonSerializable(createFactory: false, fieldRename: FieldRename.snake, includeIfNull: false)
+class AnalyticsReadMoreParameters {
+  final String? code;
+  final String? company;
+  final String? productId;
+  final String url;
+
+  AnalyticsReadMoreParameters(
+      {required this.code, this.company, this.productId, required this.url});
+
+  Map<String, dynamic> toJson() => _$AnalyticsReadMoreParametersToJson(this);
+}
+
 @JsonSerializable(createFactory: false)
 class AnalyticsMainTabParameters {
   final String tab;
