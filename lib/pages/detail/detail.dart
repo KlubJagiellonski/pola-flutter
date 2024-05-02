@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pola_flutter/models/brand.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/ui/progress_indicator_text.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'detail_lidl.dart';
 
@@ -90,7 +91,8 @@ class DetailContent extends StatelessWidget {
             padding: EdgeInsets.all(8.0),
             child: Text(company.description ?? "")),
         DetailCompanyLogotype(company.logotypeUrl),
-        BrandLogotypes(searchResult.allCompanyBrands)
+        BrandLogotypes(searchResult.allCompanyBrands),
+        ReadMoreButton(company.officialUrl)
       ],
     );
   }
@@ -128,6 +130,31 @@ class DetailItem extends StatelessWidget {
   }
 }
 
+class ReadMoreButton extends StatelessWidget {
+  ReadMoreButton(this.url);
+
+  final String? url;
+
+  @override
+  Widget build(BuildContext context) {
+    final stringUrl = this.url;
+    if (stringUrl == null) {
+      return Container();
+    }
+    Uri? url = Uri.tryParse(stringUrl);
+    if (url == null) {
+      return Container();
+    }
+
+    return ElevatedButton(
+      onPressed: () {
+          launchUrl(url);
+      },
+      child: Text("Czytaj więcej!"),
+    );
+  }
+}
+
 class DetailCompanyLogotype extends StatelessWidget {
   DetailCompanyLogotype(this.url);
 
@@ -140,7 +167,7 @@ class DetailCompanyLogotype extends StatelessWidget {
       return Container();
     }
 
-    return Image.network(url, height: 100.0, fit: BoxFit.contain);
+    return LogoView(url);
   }
 }
 
