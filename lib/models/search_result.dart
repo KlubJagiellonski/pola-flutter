@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pola_flutter/models/brand.dart';
 import 'package:pola_flutter/models/company.dart';
 import 'package:pola_flutter/models/donate.dart';
 import 'package:pola_flutter/models/report.dart';
@@ -19,6 +20,9 @@ class SearchResult extends Equatable {
   final Report? report;
   final Donate? donate;
 
+  @JsonKey(name: 'all_company_brands')
+  final List<Brand>? allCompanyBrands;
+
   SearchResult(
       {required this.productId,
       required this.code,
@@ -27,7 +31,9 @@ class SearchResult extends Equatable {
       this.altText,
       required this.companies,
       required this.report,
-      required this.donate});
+      required this.donate,
+      this.allCompanyBrands
+      });
 
   SearchResult.empty()
       : productId = null,
@@ -37,7 +43,8 @@ class SearchResult extends Equatable {
         altText = null,
         companies = null,
         report = null,
-        donate = null;
+        donate = null,
+        allCompanyBrands = null;
 
   factory SearchResult.fromJson(Map<String, dynamic> json) =>
       _$SearchResultFromJson(json);

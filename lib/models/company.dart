@@ -25,6 +25,12 @@ class Company extends Equatable {
   final String? friendText;
   final String? description;
 
+  @JsonKey(name: 'logotype_url')
+  final String? logotypeUrl;
+
+  @JsonKey(name: 'official_url')
+  final String? officialUrl;
+
   Company(
       {required this.name,
       required this.plCapital,
@@ -40,7 +46,9 @@ class Company extends Equatable {
       required this.plScore,
       required this.isFriend,
       required this.friendText,
-      required this.description});
+      required this.description,
+      required this.logotypeUrl,
+      required this.officialUrl});
 
   factory Company.fromJson(Map<String, dynamic> json) =>
       _$CompanyFromJson(json);
@@ -62,7 +70,9 @@ class Company extends Equatable {
         plScore,
         isFriend,
         friendText,
-        description
+        description,
+        logotypeUrl,
+        officialUrl
       ];
 
   int? getScore() {

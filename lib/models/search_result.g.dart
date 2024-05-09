@@ -21,6 +21,9 @@ SearchResult _$SearchResultFromJson(Map<String, dynamic> json) => SearchResult(
       donate: json['donate'] == null
           ? null
           : Donate.fromJson(json['donate'] as Map<String, dynamic>),
+      allCompanyBrands: (json['all_company_brands'] as List<dynamic>?)
+          ?.map((e) => Brand.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$SearchResultToJson(SearchResult instance) =>
@@ -33,4 +36,5 @@ Map<String, dynamic> _$SearchResultToJson(SearchResult instance) =>
       'companies': instance.companies,
       'report': instance.report,
       'donate': instance.donate,
+      'all_company_brands': instance.allCompanyBrands,
     };
