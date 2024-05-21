@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class WebViewTabPage extends StatefulWidget {
-  WebViewTabPage({Key? key, required this.title, required this.url})
+class WebViewPage extends StatefulWidget {
+  WebViewPage({Key? key, required this.title, required this.url, required this.showBackButton})
       : super(key: key);
 
   final String url;
   final String title;
+  final bool showBackButton;
 
   @override
   _WebViewTabState createState() => _WebViewTabState();
 }
 
-class _WebViewTabState extends State<WebViewTabPage> {
+class _WebViewTabState extends State<WebViewPage> {
   late final WebViewController controller;
 
   var loadingPercentage = 0;
@@ -38,18 +39,14 @@ class _WebViewTabState extends State<WebViewTabPage> {
               setState(() {
                 loadingPercentage = 100;
               });
-            },
-            onWebResourceError: (WebResourceError error) {},
-            onNavigationRequest: (NavigationRequest request) {
-               return NavigationDecision.navigate;
-            },
+            }
           ),
         )
       ..loadRequest(Uri.parse(widget.url));
   }
 
   @override
-  void didUpdateWidget(WebViewTabPage oldWidget) {
+  void didUpdateWidget(WebViewPage oldWidget) {
     super.didUpdateWidget(oldWidget);
     controller.loadRequest(Uri.parse(widget.url));
   }
@@ -60,10 +57,14 @@ class _WebViewTabState extends State<WebViewTabPage> {
       appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
-          title: Text(widget.title,
-              style: TextStyle(
-                color: Colors.black,
-              )),
+          title: Text(
+            widget.title,
+            style: TextStyle(
+              color: Colors.black,
+            )
+          ),
+          leading: widget.showBackButton  ? _BackButton() : null,
+
         ),
         body: Stack(
         children: [
@@ -74,6 +75,19 @@ class _WebViewTabState extends State<WebViewTabPage> {
             ),
         ],
       )
+    );
+  }
+}
+
+class _BackButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(
+        Icons.arrow_back,
+        color: Colors.black,
+      ),
+      onPressed: () => Navigator.of(context).pop(),
     );
   }
 }

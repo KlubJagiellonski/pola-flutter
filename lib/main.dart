@@ -9,8 +9,7 @@ import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/pages/dialpad/dialpad.dart';
 import 'package:pola_flutter/pages/scan/scan.dart';
-import 'package:pola_flutter/pages/web/web.dart';
-import 'package:pola_flutter/pages/web/web_tab.dart';
+import 'package:pola_flutter/pages/web/web_view_page.dart';
 import 'firebase_options.dart';
 import 'pages/detail/detail.dart';
 
@@ -77,11 +76,17 @@ class _PolaAppState extends State<PolaApp> {
       case 0:
         return MainPage();
       case 1:
-        return WebViewTabPage(
-            title: "Wyszukiwarka", url: "https://www.pola-app.pl/m/search/");
+        return WebViewPage(
+            title: "Wyszukiwarka",
+            url: "https://www.pola-app.pl/m/search/",
+            showBackButton: false
+            );
       case 2:
-        return WebViewTabPage(
-            title: "Wiadomości", url: "https://www.pola-app.pl/m/blog/");
+        return WebViewPage(
+            title: "Wiadomości",
+            url: "https://www.pola-app.pl/m/blog/",
+            showBackButton: false
+            );
       default:
         return MainPage();
     }
@@ -130,7 +135,9 @@ class RouteGenerator {
         if (args is String) {
           return MaterialPageRoute(
             builder: (_) => WebViewPage(
+              title: "O Aplikacji Pola",
               url: args,
+              showBackButton: true
             ),
           );
         }
