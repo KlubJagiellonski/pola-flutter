@@ -1,5 +1,3 @@
-import 'dart:async';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -13,13 +11,14 @@ class WebViewPage extends StatefulWidget {
 }
 
 class _WebViewState extends State<WebViewPage> {
-  final Completer<WebViewController> _controller =
-      Completer<WebViewController>();
+  late final WebViewController controller;
 
   @override
   void initState() {
     super.initState();
-    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+    controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..loadRequest(Uri.parse(widget.url));
   }
 
   @override
@@ -40,14 +39,7 @@ class _WebViewState extends State<WebViewPage> {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body: WebView(
-        initialUrl: widget.url,
-        javascriptMode: JavascriptMode.unrestricted,
-        onWebViewCreated: (WebViewController webViewController) {
-          _controller.complete(webViewController);
-        },
-        gestureNavigationEnabled: true,
-      ),
+      body: WebViewWidget(controller: controller)
     );
   }
 }

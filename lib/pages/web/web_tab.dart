@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -14,20 +13,45 @@ class WebViewTabPage extends StatefulWidget {
 }
 
 class _WebViewTabState extends State<WebViewTabPage> {
-  late WebViewController _webViewController;
+  late final WebViewController controller;
 
   var loadingPercentage = 0;
 
   @override
   void initState() {
     super.initState();
-    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+    controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(
+          NavigationDelegate(
+            onProgress: (int progress) {
+              setState(() {
+                loadingPercentage = progress;
+              });
+            },
+            onPageStarted: (String url) {
+              setState(() {
+                loadingPercentage = 0;
+              });              
+            },
+            onPageFinished: (String url) {
+              setState(() {
+                loadingPercentage = 100;
+              });
+            },
+            onWebResourceError: (WebResourceError error) {},
+            onNavigationRequest: (NavigationRequest request) {
+               return NavigationDecision.navigate;
+            },
+          ),
+        )
+      ..loadRequest(Uri.parse(widget.url));
   }
 
   @override
   void didUpdateWidget(WebViewTabPage oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _webViewController.loadUrl(widget.url);
+    controller.loadRequest(Uri.parse(widget.url));
   }
 
   @override
@@ -43,28 +67,7 @@ class _WebViewTabState extends State<WebViewTabPage> {
         ),
         body: Stack(
         children: [
-          WebView(
-            initialUrl: widget.url,
-            javascriptMode: JavascriptMode.unrestricted,
-            onWebViewCreated: (controller) {
-              _webViewController = controller;
-            },
-            onPageStarted: (url) {
-              setState(() {
-                loadingPercentage = 0;
-              });
-            },
-            onProgress: (progress) {
-              setState(() {
-                loadingPercentage = progress;
-              });
-            },
-            onPageFinished: (url) {
-              setState(() {
-                loadingPercentage = 100;
-              });
-            },
-          ),
+          WebViewWidget(controller: controller),
           if (loadingPercentage < 100)
             LinearProgressIndicator(
               value: loadingPercentage / 100.0,
