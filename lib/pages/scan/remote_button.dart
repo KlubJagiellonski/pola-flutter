@@ -32,10 +32,9 @@ class RemoteButton extends StatelessWidget {
         padding: EdgeInsets.only(left: 8.0, top: 0.0, right: 8.0, bottom: 0.0),
         child: TextButton(
           style: ButtonStyle(
-            minimumSize:
-                MaterialStateProperty.all<Size>(Size(double.infinity, 0)),
-            backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
-            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+            fixedSize: WidgetStateProperty.all<Size>(Size(double.infinity, 0)),
+            backgroundColor: WidgetStateProperty.all<Color>(Colors.red),
+            foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
           ),
           onPressed: () async {
             _analytics.donateOpened(code);
