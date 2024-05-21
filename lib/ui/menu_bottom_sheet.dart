@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/analytics/analytics_about_row.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MenuBottomSheet extends StatelessWidget {
   final PolaAnalytics analytics;
@@ -65,8 +66,10 @@ class MenuBottomSheet extends StatelessWidget {
               }),
               MenuBottomItem("Github", () {
                 analytics.aboutOpened(AnalyticsAboutRow.github);
-                Navigator.pushNamed(context, '/web',
-                    arguments: "https://github.com/KlubJagiellonski");
+                launchUrl(
+                  Uri.parse("https://github.com/KlubJagiellonski/pola-flutter"),
+                  mode: LaunchMode.externalApplication,
+                );
               }),
               MenuBottomItem("Oceń Polę", () {
                 analytics.aboutOpened(AnalyticsAboutRow.rateUs);
@@ -77,19 +80,20 @@ class MenuBottomSheet extends StatelessWidget {
                 children: [
                   Expanded(
                       child: MenuBottomItem("Facebook", () {
-                    analytics.aboutOpened(AnalyticsAboutRow.facebook);
-                    Navigator.pushNamed(context, '/web',
-                        arguments: "https://www.facebook.com/app.pola");
+                        analytics.aboutOpened(AnalyticsAboutRow.facebook);
+                        launchUrl(
+                          Uri.parse("https://www.facebook.com/app.pola"),
+                          mode: LaunchMode.externalApplication,
+                        );
                   })),
                   Expanded(
-                      child: MenuBottomItem(
-                    "Twitter",
-                    () {
+                      child: MenuBottomItem("X", () {
                       analytics.aboutOpened(AnalyticsAboutRow.twitter);
-                      Navigator.pushNamed(context, '/web',
-                          arguments: "https://twitter.com/pola_app");
-                    },
-                  ))
+                                              launchUrl(
+                          Uri.parse("https://x.com/pola_app"),
+                          mode: LaunchMode.externalApplication,
+                        );
+                 }))
                 ],
               ),
               Padding(
