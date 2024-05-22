@@ -33,37 +33,42 @@ class MenuBottomSheet extends StatelessWidget {
                     endIndent: 64,
                     color: Colors.black),
               ),
-              MenuBottomItem("O aplikacji Pola", () {
-                analytics.aboutOpened(AnalyticsAboutRow.aboutPola);
-                Navigator.pushNamed(context, '/web',
-                    arguments: "https://www.pola-app.pl/m/about");
-              }),
-              MenuBottomItem("Instrukcja obsługi", () {
-                analytics.aboutOpened(AnalyticsAboutRow.instructionSet);
-                Navigator.pushNamed(context, '/web',
-                    arguments: "https://www.pola-app.pl/m/method");
-              }),
-              MenuBottomItem("O Klubie Jagiellońskim", () {
-                analytics.aboutOpened(AnalyticsAboutRow.aboutKJ);
-                Navigator.pushNamed(context, '/web',
-                    arguments:
-                        "https://klubjagiellonski.pl/o-klubie-jagiellonskim/");
-              }),
-              MenuBottomItem("Zespół", () {
-                analytics.aboutOpened(AnalyticsAboutRow.team);
-                Navigator.pushNamed(context, '/web',
-                    arguments: "https://www.pola-app.pl/m/team");
-              }),
-              MenuBottomItem("Partnerzy ", () {
-                analytics.aboutOpened(AnalyticsAboutRow.partners);
-                Navigator.pushNamed(context, '/web',
-                    arguments: "https://www.pola-app.pl/m/partners");
-              }),
-              MenuBottomItem("Przyjaciele Poli ", () {
-                analytics.aboutOpened(AnalyticsAboutRow.polasFriends);
-                Navigator.pushNamed(context, '/web',
-                    arguments: "https://www.pola-app.pl/m/friends");
-              }),
+              _WebViewItem(
+                "O aplikacji Pola", 
+                analytics, 
+                AnalyticsAboutRow.aboutPola,
+                "https://www.pola-app.pl/m/about"
+              ),
+              _WebViewItem(
+                "Instrukcja obsługi", 
+                analytics, 
+                AnalyticsAboutRow.instructionSet,
+                "https://www.pola-app.pl/m/method"
+              ),
+              _WebViewItem(
+                "O Klubie Jagiellońskim",
+                analytics,
+                AnalyticsAboutRow.aboutKJ,
+                "https://klubjagiellonski.pl/o-klubie-jagiellonskim/"
+              ),
+              _WebViewItem(
+                "Zespół",
+                analytics,
+                AnalyticsAboutRow.team,
+                "https://www.pola-app.pl/m/team"
+              ),
+              _WebViewItem(
+                "Partnerzy",
+                analytics,
+                AnalyticsAboutRow.partners,
+                "https://www.pola-app.pl/m/partners"
+              ),
+              _WebViewItem(
+                "Przyjaciele Poli",
+                analytics,
+                AnalyticsAboutRow.polasFriends,
+                "https://www.pola-app.pl/m/friends"
+              ),
               MenuBottomItem("Github", () {
                 analytics.aboutOpened(AnalyticsAboutRow.github);
                 launchUrl(
@@ -107,6 +112,23 @@ class MenuBottomSheet extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class _WebViewItem extends StatelessWidget {
+  _WebViewItem(this.text, this.analytics, this.analyticsRow, this.url);
+
+  final String text;
+  final PolaAnalytics analytics;
+  final AnalyticsAboutRow analyticsRow;
+  final String url;
+
+  @override
+  Widget build(BuildContext context) {
+    return MenuBottomItem(text, () {
+      analytics.aboutOpened(analyticsRow);
+      Navigator.pushNamed(context, '/web', arguments: url);
+    });
   }
 }
 
