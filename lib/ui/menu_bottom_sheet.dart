@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/analytics/analytics_about_row.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
@@ -75,11 +76,14 @@ class MenuBottomSheet extends StatelessWidget {
                 AnalyticsAboutRow.github,
                 "https://github.com/KlubJagiellonski/pola-flutter"
               ),
-              MenuBottomItem("Oceń Polę", () {
-                analytics.aboutOpened(AnalyticsAboutRow.rateUs);
-                throw UnimplementedError(
-                    "todo when app in store inAppReview.openStoreListing(appStoreId: '...',);");
-              }), //todo
+              _ExternalUrlItem(
+                "Oceń Polę",
+                analytics,
+                AnalyticsAboutRow.rateUs,
+                Platform.isIOS 
+                  ? "https://apps.apple.com/app/id1038401148"
+                  : "https://play.google.com/store/apps/details?id=pl.pola_app"
+              ),
               Row(
                 children: [
                   Expanded(
