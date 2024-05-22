@@ -69,13 +69,12 @@ class MenuBottomSheet extends StatelessWidget {
                 AnalyticsAboutRow.polasFriends,
                 "https://www.pola-app.pl/m/friends"
               ),
-              MenuBottomItem("Github", () {
-                analytics.aboutOpened(AnalyticsAboutRow.github);
-                launchUrl(
-                  Uri.parse("https://github.com/KlubJagiellonski/pola-flutter"),
-                  mode: LaunchMode.externalApplication,
-                );
-              }),
+              _ExternalUrlItem(
+                "GitHub",
+                analytics,
+                AnalyticsAboutRow.github,
+                "https://github.com/KlubJagiellonski/pola-flutter"
+              ),
               MenuBottomItem("Oceń Polę", () {
                 analytics.aboutOpened(AnalyticsAboutRow.rateUs);
                 throw UnimplementedError(
@@ -84,21 +83,21 @@ class MenuBottomSheet extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                      child: MenuBottomItem("Facebook", () {
-                        analytics.aboutOpened(AnalyticsAboutRow.facebook);
-                        launchUrl(
-                          Uri.parse("https://www.facebook.com/app.pola"),
-                          mode: LaunchMode.externalApplication,
-                        );
-                  })),
+                      child: _ExternalUrlItem(
+                          "Facebook",
+                          analytics,
+                          AnalyticsAboutRow.facebook,
+                          "https://www.facebook.com/app.pola"
+                        )
+                  ),
                   Expanded(
-                      child: MenuBottomItem("X", () {
-                      analytics.aboutOpened(AnalyticsAboutRow.twitter);
-                                              launchUrl(
-                          Uri.parse("https://x.com/pola_app"),
-                          mode: LaunchMode.externalApplication,
-                        );
-                 }))
+                      child: _ExternalUrlItem(
+                          "X",
+                          analytics,
+                          AnalyticsAboutRow.twitter,
+                          "https://twitter.com/pola_app"
+                        )
+                 )
                 ],
               ),
               Padding(
@@ -112,6 +111,26 @@ class MenuBottomSheet extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class _ExternalUrlItem extends StatelessWidget {
+  _ExternalUrlItem(this.text, this.analytics, this.analyticsRow, this.url);
+
+  final String text;
+  final PolaAnalytics analytics;
+  final AnalyticsAboutRow analyticsRow;
+  final String url;
+
+  @override
+  Widget build(BuildContext context) {
+    return MenuBottomItem(text, () {
+      analytics.aboutOpened(analyticsRow);
+      launchUrl(
+        Uri.parse(url),
+        mode: LaunchMode.externalApplication,
+      );
+    });
   }
 }
 
