@@ -128,7 +128,7 @@ class _ExternalUrlItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MenuBottomItem(text, () {
+    return _MenuBottomItem(text, () {
       analytics.aboutOpened(analyticsRow);
       launchUrl(
         Uri.parse(url),
@@ -148,15 +148,15 @@ class _WebViewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MenuBottomItem(text, () {
+    return _MenuBottomItem(text, () {
       analytics.aboutOpened(analyticsRow);
       Navigator.pushNamed(context, '/web', arguments: url);
     });
   }
 }
 
-class MenuBottomItem extends StatelessWidget {
-  MenuBottomItem(this.text, this.onClick);
+class _MenuBottomItem extends StatelessWidget {
+  _MenuBottomItem(this.text, this.onClick);
 
   final String text;
   final Function onClick;
@@ -169,7 +169,6 @@ class MenuBottomItem extends StatelessWidget {
       padding: EdgeInsets.all(8.0),
       child: Container(
         width: double.infinity,
-        // color: Colors.transparent,
         decoration: new BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(4.0)),
           color: Colors.white,
