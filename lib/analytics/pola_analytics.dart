@@ -44,6 +44,18 @@ class PolaAnalytics {
     );
   }
 
+  void readMore(SearchResult result, String url) {
+    _logEvent(
+      AnalyticsEventName.reportStarted,
+      AnalyticsReadMoreParameters(
+        code: result.code, 
+        company: result.name, 
+        productId: result.productId != null ? result.productId.toString() : null,
+        url: url
+      ).toJson()
+    );
+  }
+
   void donateOpened(String? barcode) {
     _logEvent(
       AnalyticsEventName.donateOpened,
