@@ -12,15 +12,6 @@ class ScanState extends Equatable {
   List<Object?> get props => [];
 }
 
-class ScanError extends ScanState {
-  final String message;
-
-  ScanError(this.message);
-
-  @override
-  List<Object?> get props => [];
-}
-
 class ScanEmpty extends ScanState {
   @override
   List<Object?> get props => [];
