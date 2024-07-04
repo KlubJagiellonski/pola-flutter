@@ -6,15 +6,16 @@ part of 'pola_api_service.dart';
 // ChopperGenerator
 // **************************************************************************
 
-// ignore_for_file: always_put_control_body_on_new_line, always_specify_types, prefer_const_declarations, unnecessary_brace_in_string_interps
-class _$PolaApiService extends PolaApiService {
+// coverage:ignore-file
+// ignore_for_file: type=lint
+final class _$PolaApiService extends PolaApiService {
   _$PolaApiService([ChopperClient? client]) {
     if (client == null) return;
     this.client = client;
   }
 
   @override
-  final definitionType = PolaApiService;
+  final Type definitionType = PolaApiService;
 
   @override
   Future<Response<dynamic>> getCompany(

@@ -1,30 +1,11 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pola_flutter/analytics/analytics_barcode_source.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/data/api_response.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
 import 'package:pola_flutter/models/search_result.dart';
+import 'package:pola_flutter/pages/scan/scan_state.dart';
 import 'package:pola_flutter/pages/scan/scan_vibration.dart';
-
-class ScanState extends Equatable {
-  @override
-  List<Object?> get props => [];
-}
-
-class ScanEmpty extends ScanState {
-  @override
-  List<Object?> get props => [];
-}
-
-class ScanLoaded extends ScanState {
-  final List<SearchResult> list;
-
-  ScanLoaded(this.list);
-
-  @override
-  List<Object?> get props => [list];
-}
 
 class ScanEvent {}
 
@@ -56,11 +37,11 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
         _results.add(result);
         _analytics.searchResultReceived(result);
       }
-      emit(ScanLoaded(List.from(_results)));
+      emit(ScanState(list: List.from(_results)));
     }
   }
 
-  ScanBloc(this._polaApiRepository, this._scanVibration, this._analytics) : super(ScanEmpty()) {
+  ScanBloc(this._polaApiRepository, this._scanVibration, this._analytics) : super(ScanState(list: [])) {
     on<ScanEvent>((event, emit) => _onBarcodeScanned(event, emit));
   }
 }

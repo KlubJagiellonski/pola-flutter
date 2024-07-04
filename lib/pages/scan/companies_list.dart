@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/pages/scan/remote_button.dart';
+import 'package:pola_flutter/pages/scan/scan_state.dart';
 import 'package:pola_flutter/ui/list_item.dart';
-import 'scan_bloc.dart';
 
 class CompaniesList extends StatelessWidget {
   CompaniesList(this.state, this.listScrollController);
 
-  final ScanLoaded state;
+  final ScanState state;
   final ScrollController listScrollController;
   final PolaAnalytics _analytics = PolaAnalytics.instance();
 
