@@ -508,10 +508,10 @@ packages:
     dependency: transitive
     description:
       name: js
-      sha256: f2c445dce49627136094980615a031419f7f3eb393237e4ecd97ac15dea343f3
+      sha256: c1b2e9b5ea78c45e1a0788d29606ba27dc5f71f019f32ca5140f61ef071838cf
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.7"
+    version: "0.7.1"
   json_annotation:
     dependency: "direct main"
     description:
@@ -604,10 +604,10 @@ packages:
     dependency: "direct main"
     description:
       name: mobile_scanner
-      sha256: bcc0926b5e7f0c62c4e5a56bc66d93af619373f19e1117e553d49af3c9293b3a
+      sha256: b8c0e9afcfd52534f85ec666f3d52156f560b5e6c25b1e3d4fe2087763607926
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.1"
+    version: "5.1.1"
   mockito:
     dependency: "direct dev"
     description:
