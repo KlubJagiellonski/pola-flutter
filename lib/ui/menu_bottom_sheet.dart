@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:pola_flutter/analytics/analytics_about_row.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 
@@ -19,19 +20,18 @@ class MenuBottomSheet extends StatelessWidget {
           color: Colors.white,
         ),
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(32.0, 27.0, 32.0, 32.0),
+          padding: const EdgeInsets.fromLTRB(32.0, 13.0, 32.0, 32.0),
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Divider(
-                  height: 1,
-                  thickness: 1,
-                  indent: 64,
-                  endIndent: 64,
+              Container(
+                width: 47,
+                height: 3,
+                decoration: const BoxDecoration(
                   color: Colors.black,
+                  borderRadius: BorderRadius.all(Radius.circular(1.5))
                 ),
               ),
+              SizedBox(height: 27),
               MenuBottomItem(
                 text: "O aplikacji Pola",
                 iconPath: 'info',
@@ -102,7 +102,7 @@ class MenuBottomSheet extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     "Aplikacja Pola \n©Klub Jagielloński",
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                   ),
                 ),
               ),
@@ -137,7 +137,7 @@ class MenuBottomItem extends StatelessWidget {
         child: Row(
           children: [
             Image.asset("assets/icons/$iconPath.png"),
-            SizedBox(width: 10.0),
+            const SizedBox(width: 10.0),
             Text(text, style: textStyle),
           ],
         ),
