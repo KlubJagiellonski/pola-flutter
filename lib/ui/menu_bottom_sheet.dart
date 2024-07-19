@@ -13,30 +13,31 @@ class MenuBottomSheet extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(10.0),
-              topRight: Radius.circular(10.0)),
+            topLeft: Radius.circular(10.0),
+            topRight: Radius.circular(10.0),
+          ),
           color: Colors.white,
         ),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.fromLTRB(32.0, 27.0, 32.0, 32.0),
           child: Column(
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: Divider(
-                    height: 1,
-                    thickness: 1,
-                    indent: 64,
-                    endIndent: 64,
-                    color: Colors.black),
+                  height: 1,
+                  thickness: 1,
+                  indent: 64,
+                  endIndent: 64,
+                  color: Colors.black,
+                ),
               ),
               MenuBottomItem(
                 text: "O aplikacji Pola",
                 iconPath: 'info',
                 onClick: () {
                   analytics.aboutOpened(AnalyticsAboutRow.aboutPola);
-                  Navigator.pushNamed(context, '/web',
-                      arguments: "https://www.pola-app.pl/m/about");
+                  Navigator.pushNamed(context, '/web', arguments: "https://www.pola-app.pl/m/about");
                 },
               ),
               MenuBottomItem(
@@ -44,8 +45,7 @@ class MenuBottomSheet extends StatelessWidget {
                 iconPath: 'info',
                 onClick: () {
                   analytics.aboutOpened(AnalyticsAboutRow.aboutKJ);
-                  Navigator.pushNamed(context, '/web',
-                      arguments:"https://klubjagiellonski.pl/o-klubie-jagiellonskim/");
+                  Navigator.pushNamed(context, '/web', arguments: "https://klubjagiellonski.pl/o-klubie-jagiellonskim/");
                 },
               ),
               MenuBottomItem(
@@ -53,8 +53,7 @@ class MenuBottomSheet extends StatelessWidget {
                 iconPath: 'thumbs',
                 onClick: () {
                   analytics.aboutOpened(AnalyticsAboutRow.instructionSet);
-                  Navigator.pushNamed(context, '/web',
-                      arguments:"https://www.pola-app.pl/m/method");
+                  Navigator.pushNamed(context, '/web', arguments: "https://www.pola-app.pl/m/method");
                 },
               ),
               MenuBottomItem(
@@ -62,8 +61,7 @@ class MenuBottomSheet extends StatelessWidget {
                 iconPath: 'handshake',
                 onClick: () {
                   analytics.aboutOpened(AnalyticsAboutRow.partners);
-                  Navigator.pushNamed(context, '/web',
-                      arguments:"https://www.pola-app.pl/m/partners");
+                  Navigator.pushNamed(context, '/web', arguments: "https://www.pola-app.pl/m/partners");
                 },
               ),
               MenuBottomItem(
@@ -71,8 +69,7 @@ class MenuBottomSheet extends StatelessWidget {
                 iconPath: 'diversity',
                 onClick: () {
                   analytics.aboutOpened(AnalyticsAboutRow.polasFriends);
-                  Navigator.pushNamed(context, '/web',
-                      arguments: "https://www.pola-app.pl/m/friends");
+                  Navigator.pushNamed(context, '/web', arguments: "https://www.pola-app.pl/m/friends");
                 },
               ),
               MenuBottomItem(
@@ -80,8 +77,7 @@ class MenuBottomSheet extends StatelessWidget {
                 iconPath: 'star',
                 onClick: () {
                   analytics.aboutOpened(AnalyticsAboutRow.rateUs);
-                  throw UnimplementedError(
-                      "todo when app in store inAppReview.openStoreListing(appStoreId: '...',);");
+                  throw UnimplementedError("todo when app in store inAppReview.openStoreListing(appStoreId: '...',);");
                 },
               ),
               MenuBottomItem(
@@ -89,8 +85,7 @@ class MenuBottomSheet extends StatelessWidget {
                 iconPath: 'groups',
                 onClick: () {
                   analytics.aboutOpened(AnalyticsAboutRow.team);
-                  Navigator.pushNamed(context, '/web',
-                      arguments: "https://www.pola-app.pl/m/team");
+                  Navigator.pushNamed(context, '/web', arguments: "https://www.pola-app.pl/m/team");
                 },
               ),
               MenuBottomItem(
@@ -98,8 +93,7 @@ class MenuBottomSheet extends StatelessWidget {
                 iconPath: 'github',
                 onClick: () {
                   analytics.aboutOpened(AnalyticsAboutRow.github);
-                   Navigator.pushNamed(context, '/web',
-                      arguments: "https://github.com/KlubJagiellonski");
+                  Navigator.pushNamed(context, '/web', arguments: "https://github.com/KlubJagiellonski");
                 },
               ),
               Padding(
@@ -136,29 +130,16 @@ class MenuBottomItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(4.0)),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(color: Colors.black12, spreadRadius: 1),
+    return GestureDetector(
+      onTap: onClick,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
+        child: Row(
+          children: [
+            Image.asset("assets/icons/$iconPath.png"),
+            SizedBox(width: 10.0),
+            Text(text, style: textStyle),
           ],
-        ),
-        child: GestureDetector(
-          onTap: onClick,
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Row(
-              children: [
-                Image.asset("assets/icons/$iconPath.png"),
-                SizedBox(width: 10.0),
-                Text(text, style: textStyle),
-              ],
-            ),
-          ),
         ),
       ),
     );
