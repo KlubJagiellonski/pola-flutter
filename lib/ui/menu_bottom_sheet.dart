@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:pola_flutter/analytics/analytics_about_row.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 
@@ -28,16 +27,17 @@ class MenuBottomSheet extends StatelessWidget {
                 height: 3,
                 decoration: const BoxDecoration(
                   color: Colors.black,
-                  borderRadius: BorderRadius.all(Radius.circular(1.5))
+                  borderRadius: BorderRadius.all(Radius.circular(1.5)),
                 ),
               ),
-              SizedBox(height: 27),
+              const SizedBox(height: 27),
               MenuBottomItem(
                 text: "O aplikacji Pola",
                 iconPath: 'info',
                 onClick: () {
                   analytics.aboutOpened(AnalyticsAboutRow.aboutPola);
-                  Navigator.pushNamed(context, '/web', arguments: "https://www.pola-app.pl/m/about");
+                  Navigator.pushNamed(context, '/web',
+                      arguments: "https://www.pola-app.pl/m/about");
                 },
               ),
               MenuBottomItem(
@@ -45,7 +45,9 @@ class MenuBottomSheet extends StatelessWidget {
                 iconPath: 'info',
                 onClick: () {
                   analytics.aboutOpened(AnalyticsAboutRow.aboutKJ);
-                  Navigator.pushNamed(context, '/web', arguments: "https://klubjagiellonski.pl/o-klubie-jagiellonskim/");
+                  Navigator.pushNamed(context, '/web',
+                      arguments:
+                          "https://klubjagiellonski.pl/o-klubie-jagiellonskim/");
                 },
               ),
               MenuBottomItem(
@@ -53,7 +55,8 @@ class MenuBottomSheet extends StatelessWidget {
                 iconPath: 'thumbs',
                 onClick: () {
                   analytics.aboutOpened(AnalyticsAboutRow.instructionSet);
-                  Navigator.pushNamed(context, '/web', arguments: "https://www.pola-app.pl/m/method");
+                  Navigator.pushNamed(context, '/web',
+                      arguments: "https://www.pola-app.pl/m/method");
                 },
               ),
               MenuBottomItem(
@@ -61,7 +64,8 @@ class MenuBottomSheet extends StatelessWidget {
                 iconPath: 'handshake',
                 onClick: () {
                   analytics.aboutOpened(AnalyticsAboutRow.partners);
-                  Navigator.pushNamed(context, '/web', arguments: "https://www.pola-app.pl/m/partners");
+                  Navigator.pushNamed(context, '/web',
+                      arguments: "https://www.pola-app.pl/m/partners");
                 },
               ),
               MenuBottomItem(
@@ -69,7 +73,8 @@ class MenuBottomSheet extends StatelessWidget {
                 iconPath: 'diversity',
                 onClick: () {
                   analytics.aboutOpened(AnalyticsAboutRow.polasFriends);
-                  Navigator.pushNamed(context, '/web', arguments: "https://www.pola-app.pl/m/friends");
+                  Navigator.pushNamed(context, '/web',
+                      arguments: "https://www.pola-app.pl/m/friends");
                 },
               ),
               MenuBottomItem(
@@ -77,7 +82,8 @@ class MenuBottomSheet extends StatelessWidget {
                 iconPath: 'star',
                 onClick: () {
                   analytics.aboutOpened(AnalyticsAboutRow.rateUs);
-                  throw UnimplementedError("todo when app in store inAppReview.openStoreListing(appStoreId: '...',);");
+                  throw UnimplementedError(
+                      "todo when app in store inAppReview.openStoreListing(appStoreId: '...',);");
                 },
               ),
               MenuBottomItem(
@@ -85,7 +91,8 @@ class MenuBottomSheet extends StatelessWidget {
                 iconPath: 'groups',
                 onClick: () {
                   analytics.aboutOpened(AnalyticsAboutRow.team);
-                  Navigator.pushNamed(context, '/web', arguments: "https://www.pola-app.pl/m/team");
+                  Navigator.pushNamed(context, '/web',
+                      arguments: "https://www.pola-app.pl/m/team");
                 },
               ),
               MenuBottomItem(
@@ -93,16 +100,86 @@ class MenuBottomSheet extends StatelessWidget {
                 iconPath: 'github',
                 onClick: () {
                   analytics.aboutOpened(AnalyticsAboutRow.github);
-                  Navigator.pushNamed(context, '/web', arguments: "https://github.com/KlubJagiellonski");
+                  Navigator.pushNamed(context, '/web',
+                      arguments: "https://github.com/KlubJagiellonski");
                 },
               ),
+              const SizedBox(height: 20),
+              Container(
+                width: 296,
+                height: 1,
+                color: const Color(0xFFF0F0F0),
+              ),
+              const SizedBox(height: 20),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Znajdź nas tutaj",
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+// Użycie Row i Expanded dla guzików
+              SizedBox(
+                height: 60,
+                child: Row(
+                  mainAxisAlignment:
+                      MainAxisAlignment.start, // Umożliwia przesuwanie w lewo
+                  children: [
+                    Expanded(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            HorizontalButton(
+                              text: "Twitter",
+                              onPressed: () {
+                                analytics
+                                    .aboutOpened(AnalyticsAboutRow.twitter);
+                                Navigator.pushNamed(context, '/web',
+                                    arguments: "https://twitter.com/pola_app");
+                              },
+                            ),
+                            HorizontalButton(
+                              text: "Facebook",
+                              onPressed: () {
+                                analytics
+                                    .aboutOpened(AnalyticsAboutRow.facebook);
+                              },
+                            ),
+                            HorizontalButton(
+                              text: "facebook",
+                              onPressed: () {
+                                analytics
+                                    .aboutOpened(AnalyticsAboutRow.facebook);
+                              },
+                            ),
+                            HorizontalButton(
+                              text: "facebook",
+                              onPressed: () {
+                                analytics
+                                    .aboutOpened(AnalyticsAboutRow.facebook);
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.all(6.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     "Aplikacja Pola \n©Klub Jagielloński",
-                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                    style: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.w500),
                   ),
                 ),
               ),
@@ -126,7 +203,8 @@ class MenuBottomItem extends StatelessWidget {
     required this.onClick,
   });
 
-  final textStyle = const TextStyle(fontWeight: FontWeight.w600, fontSize: 16.0);
+  final textStyle =
+      const TextStyle(fontWeight: FontWeight.w600, fontSize: 16.0);
 
   @override
   Widget build(BuildContext context) {
@@ -141,6 +219,32 @@ class MenuBottomItem extends StatelessWidget {
             Text(text, style: textStyle),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class HorizontalButton extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+
+  const HorizontalButton({
+    super.key,
+    required this.text,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          foregroundColor: const Color(0xFFE1203E),
+          backgroundColor: const Color(0xFFF5DEDD),
+        ),
+        onPressed: onPressed,
+        child: Text(text),
       ),
     );
   }
