@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:pola_flutter/analytics/analytics_about_row.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 
@@ -35,8 +38,7 @@ class MenuBottomSheet extends StatelessWidget {
               iconPath: 'info',
               onClick: () {
                 analytics.aboutOpened(AnalyticsAboutRow.aboutPola);
-                Navigator.pushNamed(context, '/web',
-                    arguments: "https://www.pola-app.pl/m/about");
+                _launchURL('https://www.pola-app.pl/m/about');
               },
             ),
             MenuBottomItem(
@@ -44,9 +46,8 @@ class MenuBottomSheet extends StatelessWidget {
               iconPath: 'info',
               onClick: () {
                 analytics.aboutOpened(AnalyticsAboutRow.aboutKJ);
-                Navigator.pushNamed(context, '/web',
-                    arguments:
-                        "https://klubjagiellonski.pl/o-klubie-jagiellonskim/");
+                _launchURL(
+                    'https://klubjagiellonski.pl/o-klubie-jagiellonskim/');
               },
             ),
             MenuBottomItem(
@@ -54,8 +55,7 @@ class MenuBottomSheet extends StatelessWidget {
               iconPath: 'thumbs',
               onClick: () {
                 analytics.aboutOpened(AnalyticsAboutRow.instructionSet);
-                Navigator.pushNamed(context, '/web',
-                    arguments: "https://www.pola-app.pl/m/method");
+                _launchURL('https://www.pola-app.pl/m/method');
               },
             ),
             MenuBottomItem(
@@ -63,8 +63,7 @@ class MenuBottomSheet extends StatelessWidget {
               iconPath: 'handshake',
               onClick: () {
                 analytics.aboutOpened(AnalyticsAboutRow.partners);
-                Navigator.pushNamed(context, '/web',
-                    arguments: "https://www.pola-app.pl/m/partners");
+                _launchURL('https://www.pola-app.pl/m/partners');
               },
             ),
             MenuBottomItem(
@@ -72,8 +71,7 @@ class MenuBottomSheet extends StatelessWidget {
               iconPath: 'diversity',
               onClick: () {
                 analytics.aboutOpened(AnalyticsAboutRow.polasFriends);
-                Navigator.pushNamed(context, '/web',
-                    arguments: "https://www.pola-app.pl/m/friends");
+                _launchURL('https://www.pola-app.pl/m/friends');
               },
             ),
             MenuBottomItem(
@@ -81,8 +79,10 @@ class MenuBottomSheet extends StatelessWidget {
               iconPath: 'star',
               onClick: () {
                 analytics.aboutOpened(AnalyticsAboutRow.rateUs);
-                throw UnimplementedError(
-                    "todo when app in store inAppReview.openStoreListing(appStoreId: '...',);");
+                final url = Platform.isIOS
+                    ? "https://apps.apple.com/app/id1038401148"
+                    : "https://play.google.com/store/apps/details?id=pl.pola_app";
+                _launchURL(url);
               },
             ),
             MenuBottomItem(
@@ -99,8 +99,7 @@ class MenuBottomSheet extends StatelessWidget {
               iconPath: 'github',
               onClick: () {
                 analytics.aboutOpened(AnalyticsAboutRow.github);
-                Navigator.pushNamed(context, '/web',
-                    arguments: "https://github.com/KlubJagiellonski");
+                _launchURL('https://github.com/KlubJagiellonski');
               },
             ),
             const SizedBox(height: 20),
@@ -138,26 +137,28 @@ class MenuBottomSheet extends StatelessWidget {
                             text: "Twitter",
                             onPressed: () {
                               analytics.aboutOpened(AnalyticsAboutRow.twitter);
-                              Navigator.pushNamed(context, '/web',
-                                  arguments: "https://twitter.com/pola_app");
+                              _launchURL('https://twitter.com/pola_app');
                             },
                           ),
                           HorizontalButton(
                             text: "Facebook",
                             onPressed: () {
                               analytics.aboutOpened(AnalyticsAboutRow.facebook);
+                              _launchURL('https://facebook.com');
                             },
                           ),
                           HorizontalButton(
-                            text: "facebook",
+                            text: "Facebook",
                             onPressed: () {
                               analytics.aboutOpened(AnalyticsAboutRow.facebook);
+                              _launchURL('https://facebook.com');
                             },
                           ),
                           HorizontalButton(
-                            text: "facebook",
+                            text: "Facebook",
                             onPressed: () {
                               analytics.aboutOpened(AnalyticsAboutRow.facebook);
+                              _launchURL('https://facebook.com');
                             },
                           ),
                         ],
@@ -187,6 +188,13 @@ class MenuBottomSheet extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _launchURL(String url) async {
+      launchUrl(
+        Uri.parse(url),
+        mode: LaunchMode.externalApplication,
+      );
   }
 }
 
