@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:pola_flutter/analytics/analytics_about_row.dart';
@@ -128,6 +127,7 @@ class MenuBottomSheet extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  SizedBox(width: 32.0),
                   Expanded(
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
@@ -191,10 +191,10 @@ class MenuBottomSheet extends StatelessWidget {
   }
 
   void _launchURL(String url) async {
-      launchUrl(
-        Uri.parse(url),
-        mode: LaunchMode.externalApplication,
-      );
+    launchUrl(
+      Uri.parse(url),
+      mode: LaunchMode.externalApplication,
+    );
   }
 }
 
