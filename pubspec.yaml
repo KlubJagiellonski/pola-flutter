@@ -73,6 +73,16 @@ flutter:
     - assets/icons/
     - assets/icons/2.0x/
     - assets/icons/3.0x/
+    - assets/fonts/
+  fonts:
+    - family: Roboto 
+      fonts: 
+        - asset: assets/fonts/Roboto-Regular.ttf
+        - asset: assets/fonts/Roboto-Bold.ttf
+    - family: Lato 
+      fonts:
+        - asset: assets/fonts/Lato-Regular.ttf
+        - asset: assets/fonts/Lato-Bold.ttf
     
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

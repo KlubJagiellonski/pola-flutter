@@ -45,7 +45,8 @@ class MenuBottomSheet extends StatelessWidget {
               iconPath: 'info',
               onClick: () {
                 analytics.aboutOpened(AnalyticsAboutRow.aboutKJ);
-                _launchURL('https://klubjagiellonski.pl/o-klubie-jagiellonskim/');
+                _launchURL(
+                    'https://klubjagiellonski.pl/o-klubie-jagiellonskim/');
               },
             ),
             MenuBottomItem(
@@ -102,7 +103,7 @@ class MenuBottomSheet extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Container(
-              width: 296 + 32, // 296 + 32 (left padding) + 32 (right padding)
+              width: 296 + 32,
               height: 1,
               color: const Color(0xFFF0F0F0),
             ),
@@ -115,6 +116,7 @@ class MenuBottomSheet extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
+                    fontFamily: 'Lato',
                   ),
                 ),
               ],
@@ -146,7 +148,7 @@ class MenuBottomSheet extends StatelessWidget {
                               _launchURL('https://facebook.com');
                             },
                           ),
-                          const SizedBox(width: 14.0), 
+                          const SizedBox(width: 14.0),
                           HorizontalButton(
                             text: "Facebook",
                             onPressed: () {
@@ -169,14 +171,16 @@ class MenuBottomSheet extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 12.0 ),
+            const SizedBox(height: 12.0),
             Row(
               children: [
                 const SizedBox(width: 32.0),
                 Text(
                   "Aplikacja Pola \n© Klub Jagielloński",
                   style: const TextStyle(
-                      fontSize: 14, fontWeight: FontWeight.w600),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Lato'),
                 ),
               ],
             ),
@@ -207,8 +211,8 @@ class MenuBottomItem extends StatelessWidget {
     required this.onClick,
   });
 
-  final textStyle =
-      const TextStyle(fontWeight: FontWeight.w600, fontSize: 16.0);
+  final textStyle = const TextStyle(
+      fontWeight: FontWeight.w600, fontSize: 16.0, fontFamily: 'Lato');
 
   @override
   Widget build(BuildContext context) {
@@ -250,6 +254,7 @@ class HorizontalButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           foregroundColor: const Color(0xFFE1203E),
           backgroundColor: const Color(0xFFF5DEDD),
+          textStyle: const TextStyle(fontFamily: 'Roboto'),
         ),
         onPressed: onPressed,
         child: Text(text),
