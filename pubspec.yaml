@@ -46,6 +46,8 @@ dependencies:
   url_launcher: ^6.1.7
   vibration: ^1.7.6
   firebase_analytics: ^10.4.1
+  syncfusion_flutter_gauges: ^26.1.42
+  flutter_svg: ^2.0.9
 
 dev_dependencies:
   flutter_test:
