@@ -45,8 +45,7 @@ class MenuBottomSheet extends StatelessWidget {
               iconPath: 'info',
               onClick: () {
                 analytics.aboutOpened(AnalyticsAboutRow.aboutKJ);
-                _launchURL(
-                    'https://klubjagiellonski.pl/o-klubie-jagiellonskim/');
+                _launchURL('https://klubjagiellonski.pl/o-klubie-jagiellonskim/');
               },
             ),
             MenuBottomItem(
@@ -103,34 +102,33 @@ class MenuBottomSheet extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Container(
-              width: 296,
+              width: 296 + 32, // 296 + 32 (left padding) + 32 (right padding)
               height: 1,
               color: const Color(0xFFF0F0F0),
             ),
             const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.only(left: 32.0),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
+            Row(
+              children: [
+                const SizedBox(width: 32.0),
+                Text(
                   "Znajdź nas tutaj",
                   style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
-              ),
+              ],
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 12),
             SizedBox(
               height: 60,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(width: 32.0),
+                  const SizedBox(width: 32.0),
                   Expanded(
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
+                      clipBehavior: Clip.none,
                       child: Row(
                         children: [
                           HorizontalButton(
@@ -140,6 +138,7 @@ class MenuBottomSheet extends StatelessWidget {
                               _launchURL('https://twitter.com/pola_app');
                             },
                           ),
+                          const SizedBox(width: 14.0),
                           HorizontalButton(
                             text: "Facebook",
                             onPressed: () {
@@ -147,6 +146,7 @@ class MenuBottomSheet extends StatelessWidget {
                               _launchURL('https://facebook.com');
                             },
                           ),
+                          const SizedBox(width: 14.0), 
                           HorizontalButton(
                             text: "Facebook",
                             onPressed: () {
@@ -154,6 +154,7 @@ class MenuBottomSheet extends StatelessWidget {
                               _launchURL('https://facebook.com');
                             },
                           ),
+                          const SizedBox(width: 14.0),
                           HorizontalButton(
                             text: "Facebook",
                             onPressed: () {
@@ -168,22 +169,18 @@ class MenuBottomSheet extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 32.0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Aplikacja Pola \n© Klub Jagielloński",
-                    style: const TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.w500),
-                  ),
+            const SizedBox(height: 12.0 ),
+            Row(
+              children: [
+                const SizedBox(width: 32.0),
+                Text(
+                  "Aplikacja Pola \n© Klub Jagielloński",
+                  style: const TextStyle(
+                      fontSize: 14, fontWeight: FontWeight.w600),
                 ),
-              ),
+              ],
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 33),
           ],
         ),
       ),
@@ -217,15 +214,19 @@ class MenuBottomItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onClick,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 16, left: 32, right: 32),
-        child: Row(
-          children: [
-            Image.asset("assets/icons/$iconPath.png"),
-            const SizedBox(width: 10.0),
-            Text(text, style: textStyle),
-          ],
-        ),
+      child: Column(
+        children: [
+          const SizedBox(height: 16),
+          Row(
+            children: [
+              const SizedBox(width: 32),
+              Image.asset("assets/icons/$iconPath.png"),
+              const SizedBox(width: 20.0),
+              Text(text, style: textStyle),
+              const SizedBox(width: 32),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -243,8 +244,8 @@ class HorizontalButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+    return SizedBox(
+      height: 40,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           foregroundColor: const Color(0xFFE1203E),
