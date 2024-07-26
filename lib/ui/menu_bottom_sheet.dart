@@ -33,10 +33,12 @@ class MenuBottomSheet extends StatelessWidget {
             const SizedBox(height: 11),
             MenuItemListview(analytics: analytics),
             const SizedBox(height: 23),
-            Container(
-              width: 328,
-              height: 1,
-              color: const Color(0xFFF0F0F0),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 32.0),
+              child: Container(
+                height: 1,
+                color: const Color(0xFFF0F0F0),
+              ),
             ),
             const SizedBox(height: 17),
             SocialMediaListview(analytics: analytics),
@@ -47,7 +49,6 @@ class MenuBottomSheet extends StatelessWidget {
     );
   }
 }
-
 
 class HorizontalButton extends StatelessWidget {
   final String text;

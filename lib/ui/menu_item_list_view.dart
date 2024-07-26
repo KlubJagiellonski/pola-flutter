@@ -16,77 +16,101 @@ class MenuItemListview extends StatelessWidget {
     );
   }
 
+  Widget webViewItem({
+    required BuildContext context,
+    required String text,
+    required String iconPath,
+    required AnalyticsAboutRow analyticsRow,
+    required String url,
+  }) {
+    return _MenuBottomItem(
+      text: text,
+      iconPath: iconPath,
+      onClick: () {
+        analytics.aboutOpened(analyticsRow);
+        Navigator.pushNamed(context, '/web', arguments: url);
+      },
+    );
+  }
+
+  Widget externalUrlItem({
+    required BuildContext context,
+    required String text,
+    required String iconPath,
+    required AnalyticsAboutRow analyticsRow,
+    required String url,
+  }) {
+    return _MenuBottomItem(
+      text: text,
+      iconPath: iconPath,
+      onClick: () {
+        analytics.aboutOpened(analyticsRow);
+        _launchURL(url);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _MenuBottomItem(
+        externalUrlItem(
+          context: context,
           text: "O aplikacji Pola",
           iconPath: 'info',
-          onClick: () {
-            analytics.aboutOpened(AnalyticsAboutRow.aboutPola);
-            _launchURL('https://www.pola-app.pl/m/about');
-          },
+          analyticsRow: AnalyticsAboutRow.aboutPola,
+          url: 'https://www.pola-app.pl/m/about',
         ),
-        _MenuBottomItem(
+        externalUrlItem(
+          context: context,
           text: "O Klubie Jagielońskim",
           iconPath: 'info',
-          onClick: () {
-            analytics.aboutOpened(AnalyticsAboutRow.aboutKJ);
-            _launchURL('https://klubjagiellonski.pl/o-klubie-jagiellonskim/');
-          },
+          analyticsRow: AnalyticsAboutRow.aboutKJ,
+          url: 'https://klubjagiellonski.pl/o-klubie-jagiellonskim/',
         ),
-        _MenuBottomItem(
+        externalUrlItem(
+          context: context,
           text: "Jak oceniamy Firmy",
           iconPath: 'thumbs',
-          onClick: () {
-            analytics.aboutOpened(AnalyticsAboutRow.instructionSet);
-            _launchURL('https://www.pola-app.pl/m/method');
-          },
+          analyticsRow: AnalyticsAboutRow.instructionSet,
+          url: 'https://www.pola-app.pl/m/method',
         ),
-        _MenuBottomItem(
+        externalUrlItem(
+          context: context,
           text: "Partnerzy",
           iconPath: 'handshake',
-          onClick: () {
-            analytics.aboutOpened(AnalyticsAboutRow.partners);
-            _launchURL('https://www.pola-app.pl/m/partners');
-          },
+          analyticsRow: AnalyticsAboutRow.partners,
+          url: 'https://www.pola-app.pl/m/partners',
         ),
-        _MenuBottomItem(
+        externalUrlItem(
+          context: context,
           text: "Przyjaciele Poli",
           iconPath: 'diversity',
-          onClick: () {
-            analytics.aboutOpened(AnalyticsAboutRow.polasFriends);
-            _launchURL('https://www.pola-app.pl/m/friends');
-          },
+          analyticsRow: AnalyticsAboutRow.polasFriends,
+          url: 'https://www.pola-app.pl/m/friends',
         ),
-        _MenuBottomItem(
+        externalUrlItem(
+          context: context,
           text: "Oceń Polę",
           iconPath: 'star',
-          onClick: () {
-            analytics.aboutOpened(AnalyticsAboutRow.rateUs);
-            final url = Platform.isIOS
-                ? "https://apps.apple.com/app/id1038401148"
-                : "https://play.google.com/store/apps/details?id=pl.pola_app";
-            _launchURL(url);
-          },
+          analyticsRow: AnalyticsAboutRow.rateUs,
+          url: Platform.isIOS
+              ? "https://apps.apple.com/app/id1038401148"
+              : "https://play.google.com/store/apps/details?id=pl.pola_app",
         ),
-        _MenuBottomItem(
+        webViewItem(
+          context: context,
           text: "Zespół",
           iconPath: 'groups',
-          onClick: () {
-            analytics.aboutOpened(AnalyticsAboutRow.team);
-            Navigator.pushNamed(context, '/web',
-                arguments: "https://www.pola-app.pl/m/team");
-          },
+          analyticsRow: AnalyticsAboutRow.team,
+          url: 'https://www.pola-app.pl/m/team',
         ),
-        _MenuBottomItem(
+        externalUrlItem(
+          context: context,
           text: "Github",
           iconPath: 'github',
-          onClick: () {
-            analytics.aboutOpened(AnalyticsAboutRow.github);
-            _launchURL('https://github.com/KlubJagiellonski');
-          },
+          analyticsRow: AnalyticsAboutRow.github,
+          url: 'https://github.com/KlubJagiellonski',
         ),
       ],
     );
