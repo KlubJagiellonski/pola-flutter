@@ -31,7 +31,7 @@ class MenuBottomSheet extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(1.5)),
               ),
             ),
-            const SizedBox(height: 27),
+            const SizedBox(height: 11),
             MenuBottomItem(
               text: "O aplikacji Pola",
               iconPath: 'info',
@@ -101,13 +101,13 @@ class MenuBottomSheet extends StatelessWidget {
                 _launchURL('https://github.com/KlubJagiellonski');
               },
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height:23),
             Container(
               width: 296 + 32,
               height: 1,
               color: const Color(0xFFF0F0F0),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 17),
             Row(
               children: [
                 const SizedBox(width: 32.0),
@@ -171,7 +171,7 @@ class MenuBottomSheet extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 12.0),
+            const SizedBox(height: 17.0),
             Row(
               children: [
                 const SizedBox(width: 32.0),
@@ -212,7 +212,7 @@ class MenuBottomItem extends StatelessWidget {
   });
 
   final textStyle = const TextStyle(
-      fontWeight: FontWeight.w600, fontSize: 16.0, fontFamily: 'Lato');
+      fontWeight: FontWeight.w500, fontSize: 16.0, fontFamily: 'Lato');
 
   @override
   Widget build(BuildContext context) {
