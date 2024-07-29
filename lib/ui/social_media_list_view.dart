@@ -13,9 +13,9 @@ class SocialMediaListview extends StatelessWidget {
     return Column(
       children: [
         Row(
-          children: [
-            const SizedBox(width: 32.0),
-            const Text(
+          children: const [
+            SizedBox(width: 32.0),
+            Text(
               "Znajdź nas tutaj",
               style: TextStyle(
                 fontSize: 12,
@@ -26,44 +26,42 @@ class SocialMediaListview extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 12),
-        SizedBox(
-          height: 60,
-          child: Row(
-            children: [
-              const SizedBox(width: 32.0),
-              Expanded(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  clipBehavior: Clip.none,
-                  child: Row(
-                    children: [
-                      HorizontalButton(
-                        text: "Twitter",
-                        onPressed: () {
-                          analytics.aboutOpened(AnalyticsAboutRow.twitter);
-                          _launchURL('https://twitter.com/pola_app');
-                        },
-                      ),
-                      const SizedBox(width: 14.0),
-                      HorizontalButton(
-                        text: "Facebook",
-                        onPressed: () {
-                          analytics.aboutOpened(AnalyticsAboutRow.facebook);
-                          _launchURL('https://facebook.com');
-                        },
-                      ),
-                    ],
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32.0),
+          child: SizedBox(
+            height: 60,
+            child: Row(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    clipBehavior: Clip.none,
+                    child: Row(
+                      children: [
+                        _socialItem(
+                          text: "Twitter",
+                          analyticsRow: AnalyticsAboutRow.twitter,
+                          url: 'https://twitter.com/pola_app',
+                        ),
+                        const SizedBox(width: 14.0),
+                        _socialItem(
+                          text: "Facebook",
+                          analyticsRow: AnalyticsAboutRow.facebook,
+                          url: 'https://facebook.com',
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         const SizedBox(height: 17.0),
         Row(
-          children: [
-            const SizedBox(width: 32.0),
-            const Text(
+          children: const [
+            SizedBox(width: 32.0),
+            Text(
               "Aplikacja Pola \n© Klub Jagielloński",
               style: TextStyle(
                   fontSize: 14,
@@ -76,19 +74,33 @@ class SocialMediaListview extends StatelessWidget {
     );
   }
 
+  Widget _socialItem({
+    required String text,
+    required AnalyticsAboutRow analyticsRow,
+    required String url,
+  }) {
+    return SocialItemView(
+      text: text,
+      onPressed: () {
+        analytics.aboutOpened(analyticsRow);
+        _launchURL(url);
+      },
+    );
+  }
+
   void _launchURL(String url) async {
-    launchUrl(
+    await launchUrl(
       Uri.parse(url),
       mode: LaunchMode.externalApplication,
     );
   }
 }
 
-class HorizontalButton extends StatelessWidget {
+class SocialItemView extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
 
-  const HorizontalButton({
+  const SocialItemView({
     super.key,
     required this.text,
     required this.onPressed,
