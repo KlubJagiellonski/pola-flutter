@@ -31,7 +31,7 @@ class MenuBottomSheet extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 11),
-            MenuItemListview(analytics: analytics),
+            MenuItemListView(analytics: analytics),
             const SizedBox(height: 23),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32.0),

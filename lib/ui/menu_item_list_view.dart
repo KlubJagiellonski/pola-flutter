@@ -4,10 +4,10 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:pola_flutter/analytics/analytics_about_row.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 
-class MenuItemListview extends StatelessWidget {
+class MenuItemListView extends StatelessWidget {
   final PolaAnalytics analytics;
 
-  const MenuItemListview({super.key, required this.analytics});
+  const MenuItemListView({super.key, required this.analytics});
 
   void _launchURL(String url) async {
     launchUrl(
