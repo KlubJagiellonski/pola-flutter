@@ -28,33 +28,30 @@ class SocialMediaListview extends StatelessWidget {
         const SizedBox(height: 12),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32.0),
-          child: SizedBox(
-            height: 60,
-            child: Row(
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    clipBehavior: Clip.none,
-                    child: Row(
-                      children: [
-                        _socialItem(
-                          text: "Twitter",
-                          analyticsRow: AnalyticsAboutRow.twitter,
-                          url: 'https://twitter.com/pola_app',
-                        ),
-                        const SizedBox(width: 14.0),
-                        _socialItem(
-                          text: "Facebook",
-                          analyticsRow: AnalyticsAboutRow.facebook,
-                          url: 'https://facebook.com',
-                        ),
-                      ],
-                    ),
+          child: Row(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  clipBehavior: Clip.none,
+                  child: Row(
+                    children: [
+                      _socialItem(
+                        text: "Twitter",
+                        analyticsRow: AnalyticsAboutRow.twitter,
+                        url: 'https://twitter.com/pola_app',
+                      ),
+                      const SizedBox(width: 14.0),
+                      _socialItem(
+                        text: "Facebook",
+                        analyticsRow: AnalyticsAboutRow.facebook,
+                        url: 'https://facebook.com',
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
         const SizedBox(height: 17.0),
@@ -108,13 +105,14 @@ class SocialItemView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 40,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           foregroundColor: const Color(0xFFE1203E),
           backgroundColor: const Color(0xFFF5DEDD),
           textStyle: const TextStyle(fontFamily: 'Roboto'),
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
         ),
         onPressed: onPressed,
         child: Text(text),

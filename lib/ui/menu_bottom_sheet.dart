@@ -49,30 +49,3 @@ class MenuBottomSheet extends StatelessWidget {
     );
   }
 }
-
-class HorizontalButton extends StatelessWidget {
-  final String text;
-  final VoidCallback onPressed;
-
-  const HorizontalButton({
-    super.key,
-    required this.text,
-    required this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 40,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          foregroundColor: const Color(0xFFE1203E),
-          backgroundColor: const Color(0xFFF5DEDD),
-          textStyle: const TextStyle(fontFamily: 'Roboto'),
-        ),
-        onPressed: onPressed,
-        child: Text(text),
-      ),
-    );
-  }
-}
