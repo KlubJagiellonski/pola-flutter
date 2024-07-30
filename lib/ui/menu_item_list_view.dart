@@ -16,8 +16,7 @@ class MenuItemListview extends StatelessWidget {
     );
   }
 
-  Widget webViewItem({
-    required BuildContext context,
+  Widget _webViewItem({
     required String text,
     required String iconPath,
     required AnalyticsAboutRow analyticsRow,
@@ -28,13 +27,11 @@ class MenuItemListview extends StatelessWidget {
       iconPath: iconPath,
       onClick: () {
         analytics.aboutOpened(analyticsRow);
-        Navigator.pushNamed(context, '/web', arguments: url);
       },
     );
   }
 
-  Widget externalUrlItem({
-    required BuildContext context,
+  Widget _externalUrlItem({
     required String text,
     required String iconPath,
     required AnalyticsAboutRow analyticsRow,
@@ -54,43 +51,37 @@ class MenuItemListview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        externalUrlItem(
-          context: context,
+        _externalUrlItem(
           text: "O aplikacji Pola",
           iconPath: 'info',
           analyticsRow: AnalyticsAboutRow.aboutPola,
           url: 'https://www.pola-app.pl/m/about',
         ),
-        externalUrlItem(
-          context: context,
+        _externalUrlItem(
           text: "O Klubie Jagielońskim",
           iconPath: 'info',
           analyticsRow: AnalyticsAboutRow.aboutKJ,
           url: 'https://klubjagiellonski.pl/o-klubie-jagiellonskim/',
         ),
-        externalUrlItem(
-          context: context,
+        _externalUrlItem(
           text: "Jak oceniamy Firmy",
           iconPath: 'thumbs',
           analyticsRow: AnalyticsAboutRow.instructionSet,
           url: 'https://www.pola-app.pl/m/method',
         ),
-        externalUrlItem(
-          context: context,
+        _externalUrlItem(
           text: "Partnerzy",
           iconPath: 'handshake',
           analyticsRow: AnalyticsAboutRow.partners,
           url: 'https://www.pola-app.pl/m/partners',
         ),
-        externalUrlItem(
-          context: context,
+        _externalUrlItem(
           text: "Przyjaciele Poli",
           iconPath: 'diversity',
           analyticsRow: AnalyticsAboutRow.polasFriends,
           url: 'https://www.pola-app.pl/m/friends',
         ),
-        externalUrlItem(
-          context: context,
+        _externalUrlItem(
           text: "Oceń Polę",
           iconPath: 'star',
           analyticsRow: AnalyticsAboutRow.rateUs,
@@ -98,15 +89,13 @@ class MenuItemListview extends StatelessWidget {
               ? "https://apps.apple.com/app/id1038401148"
               : "https://play.google.com/store/apps/details?id=pl.pola_app",
         ),
-        webViewItem(
-          context: context,
+        _webViewItem(
           text: "Zespół",
           iconPath: 'groups',
           analyticsRow: AnalyticsAboutRow.team,
           url: 'https://www.pola-app.pl/m/team',
         ),
-        externalUrlItem(
-          context: context,
+        _externalUrlItem(
           text: "Github",
           iconPath: 'github',
           analyticsRow: AnalyticsAboutRow.github,

@@ -41,7 +41,7 @@ class MenuBottomSheet extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 17),
-            SocialMediaListview(analytics: analytics),
+            SocialMediaListView(analytics: analytics),
             const SizedBox(height: 33),
           ],
         ),

@@ -3,10 +3,10 @@ import 'package:pola_flutter/analytics/analytics_about_row.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class SocialMediaListview extends StatelessWidget {
+class SocialMediaListView extends StatelessWidget {
   final PolaAnalytics analytics;
 
-  const SocialMediaListview({super.key, required this.analytics});
+  const SocialMediaListView({super.key, required this.analytics});
 
   @override
   Widget build(BuildContext context) {
