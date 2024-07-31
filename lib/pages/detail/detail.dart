@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:http/retry.dart';
 import 'package:pola_flutter/models/company.dart';
-import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
-import 'package:pola_flutter/models/brand.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'detail_lidl.dart';
+import 'polish_capital_grapho.dart';
 
 class DetailPage extends StatelessWidget {
   DetailPage({Key? key, required this.searchResult}) : super(key: key);
@@ -52,33 +50,35 @@ class DetailPage extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: 16.0),
-              Padding(
-                padding: const EdgeInsets.only(left: 18.5, right: 8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      'assets/info.svg',
-                      height: 24.0,
-                      width: 24.0,
-                    ),
-                    SizedBox(width: 8.0),
-                    Text(
-                      "Nasza ocena:",
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
+              Padding( 
+                padding: const EdgeInsets.symmetric(horizontal: 17.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(
+                        'assets/info.svg',
+                        height: 24.0,
+                        width: 24.0,
                       ),
-                    ),
-                    SizedBox(width: 8.0),
-                    Text(
-                      "$score pkt",
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
+                      SizedBox(width: 8.0),
+                      Text(
+                        "Nasza ocena:",
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                  ],
+                      SizedBox(width: 8.0),
+                      Text(
+                        "$score pkt",
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Padding(
@@ -89,6 +89,7 @@ class DetailPage extends StatelessWidget {
                     value: score / 100.0,
                     backgroundColor: Color(0xFFF5DEDD),
                     valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFE1203E)),
+                    minHeight: 12.0, // Set the thickness to 12 px
                   ),
                 ),
               ),
@@ -160,9 +161,7 @@ class _DetailContent extends StatelessWidget {
             padding: EdgeInsets.all(8.0),
             child: ExpandableText(company.description ?? ""),
           ),
-          _DetailCompanyLogotype(company.logotypeUrl),
-          _BrandLogotypes(searchResult.allCompanyBrands, onReadMoreClick, searchResult),
-          _Logotypes(logotypes: searchResult.logotypes(), searchResult: searchResult,)
+          _Logotypes(logotypes: searchResult.logotypes(), searchResult: searchResult)
         ],
       ),
     );
@@ -205,22 +204,6 @@ class _DetailItem extends StatelessWidget {
   }
 }
 
-class _DetailCompanyLogotype extends StatelessWidget {
-  _DetailCompanyLogotype(this.url);
-
-  final String? url;
-
-  @override
-  Widget build(BuildContext context) {
-    final url = this.url;
-    if (url == null) {
-      return Container();
-    }
-
-    return _LogoView(url);
-  }
-}
-
 class Logotype {
   final String imageUrl;
   final String? websiteUrl;
@@ -230,21 +213,20 @@ class Logotype {
 
 extension on SearchResult {
   List<Logotype> logotypes() {
-    var brandLogotypes = allCompanyBrands?.map((brand){
+    var brandLogotypes = allCompanyBrands?.map((brand) {
       final brandLogotype = brand.logotypeUrl;
-      if (brandLogotype != null){
+      if (brandLogotype != null) {
         return Logotype(brandLogotype, null);
-      }else {
+      } else {
         return null;
       }
-    })
-    .toList() ?? [];
+    }).toList() ?? [];
 
     final logotypeCompany = companies?.first.logotype();
 
     brandLogotypes.insert(0, logotypeCompany);
 
-    return brandLogotypes.nonNulls.toList();
+    return brandLogotypes.where((logotype) => logotype != null).cast<Logotype>().toList();
   }
 }
 
@@ -260,17 +242,14 @@ extension on Company {
 }
 
 class _Logotypes extends StatelessWidget {
-
   final List<Logotype> logotypes;
   final SearchResult searchResult;
   final PolaAnalytics analytics = PolaAnalytics.instance();
 
-  _Logotypes({super.key, required this.logotypes, required this.searchResult});
-
+  _Logotypes({required this.logotypes, required this.searchResult});
 
   @override
   Widget build(BuildContext context) {
-
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
@@ -293,72 +272,19 @@ class _Logotypes extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
-                  color: Color(0xFFF8F8F8),  
+                  color: Color(0xFFF8F8F8),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.3),
                       spreadRadius: 1,
                       blurRadius: 5,
-                      offset: Offset(0, 3), 
+                      offset: Offset(0, 3),
                     ),
                   ],
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: _LogoView(logotype.imageUrl),
-                ),
-              ),
-            ),
-          );
-        }).toList(),
-      ),
-    );
-  }
-}
-
-class _BrandLogotypes extends StatelessWidget {
-  _BrandLogotypes(this.brands, this.onReadMoreClick, this.searchResult);
-
-  final List<Brand>? brands;
-  final void Function(BuildContext, String?) onReadMoreClick;
-  final SearchResult searchResult;
-
-  @override
-  Widget build(BuildContext context) {
-    final logotypes = brands?.map((brand) => brand.logotypeUrl).where((url) => url != null).toList().cast<String>();
-    if (logotypes == null || logotypes.isEmpty) {
-      return Container();
-    }
-
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: logotypes.map((logotypeUrl) {
-          final bool isJagiellonianClub = logotypeUrl.contains('https://klubjagiellonski.pl');  
-          return GestureDetector(
-            onTap: () {
-              if (isJagiellonianClub) {
-                onReadMoreClick(context, searchResult.companies?.first.officialUrl);
-              }
-            },
-            child: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
-                  color: Color(0xFFF8F8F8),  
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: Offset(0, 3), 
-                    ),
-                  ],
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: _LogoView(logotypeUrl),
                 ),
               ),
             ),
@@ -380,72 +306,6 @@ class _LogoView extends StatelessWidget {
   }
 }
 
-class CustomRadialGauge extends StatelessWidget {
-  final double percentage;
-
-  CustomRadialGauge({required this.percentage});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: 150.0,
-          width: 150.0,
-          child: SfRadialGauge(
-            axes: <RadialAxis>[
-              RadialAxis(
-                minimum: 0,
-                maximum: 100,
-                showLabels: false,
-                showTicks: false,
-                axisLineStyle: AxisLineStyle(
-                  thickness: 0.2,
-                  cornerStyle: CornerStyle.bothCurve,
-                  color: Color(0xFFF5DEDD),
-                  thicknessUnit: GaugeSizeUnit.factor,
-                ),
-                pointers: <GaugePointer>[
-                  RangePointer(
-                    value: percentage,
-                    cornerStyle: CornerStyle.bothCurve,
-                    width: 0.2,
-                    sizeUnit: GaugeSizeUnit.factor,
-                    color: Color(0xFFE1203E),
-                  ),
-                ],
-                annotations: <GaugeAnnotation>[
-                  GaugeAnnotation(
-                    positionFactor: 0.1,
-                    angle: 90,
-                    widget: Text(
-                      '${percentage.toInt()}%',
-                      style: TextStyle(
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: Text(
-            'Polski kapitał',
-            style: TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
 
 class ExpandableText extends StatefulWidget {
   final String text;
