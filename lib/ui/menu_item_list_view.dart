@@ -9,45 +9,7 @@ class MenuItemListView extends StatelessWidget {
 
   const MenuItemListView({super.key, required this.analytics});
 
-  void _launchURL(String url) async {
-    launchUrl(
-      Uri.parse(url),
-      mode: LaunchMode.externalApplication,
-    );
-  }
-
-  Widget _webViewItem({
-    required String text,
-    required String iconPath,
-    required AnalyticsAboutRow analyticsRow,
-    required String url,
-  }) {
-    return _MenuBottomItem(
-      text: text,
-      iconPath: iconPath,
-      onClick: () {
-        analytics.aboutOpened(analyticsRow);
-      },
-    );
-  }
-
-  Widget _externalUrlItem({
-    required String text,
-    required String iconPath,
-    required AnalyticsAboutRow analyticsRow,
-    required String url,
-  }) {
-    return _MenuBottomItem(
-      text: text,
-      iconPath: iconPath,
-      onClick: () {
-        analytics.aboutOpened(analyticsRow);
-        _launchURL(url);
-      },
-    );
-  }
-
-  @override
+ @override
   Widget build(BuildContext context) {
     return Column(
       children: [
@@ -90,6 +52,7 @@ class MenuItemListView extends StatelessWidget {
               : "https://play.google.com/store/apps/details?id=pl.pola_app",
         ),
         _webViewItem(
+          context: context,
           text: "Zespół",
           iconPath: 'groups',
           analyticsRow: AnalyticsAboutRow.team,
@@ -102,6 +65,45 @@ class MenuItemListView extends StatelessWidget {
           url: 'https://github.com/KlubJagiellonski',
         ),
       ],
+    );
+  }
+
+  Widget _webViewItem({
+    required BuildContext context,
+    required String text,
+    required String iconPath,
+    required AnalyticsAboutRow analyticsRow,
+    required String url,
+  }) {
+    return _MenuBottomItem(
+      text: text,
+      iconPath: iconPath,
+      onClick: () {
+        analytics.aboutOpened(analyticsRow);
+         Navigator.pushNamed(context, '/web', arguments: url);
+      },
+    );
+  }
+
+  Widget _externalUrlItem({
+    required String text,
+    required String iconPath,
+    required AnalyticsAboutRow analyticsRow,
+    required String url,
+  }) {
+    return _MenuBottomItem(
+      text: text,
+      iconPath: iconPath,
+      onClick: () {
+        analytics.aboutOpened(analyticsRow);
+        _launchURL(url);
+      },
+    );
+  }
+  void _launchURL(String url) async {
+    launchUrl(
+      Uri.parse(url),
+      mode: LaunchMode.externalApplication,
     );
   }
 }
