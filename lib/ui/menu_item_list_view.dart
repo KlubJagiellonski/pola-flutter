@@ -13,31 +13,36 @@ class MenuItemListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _externalUrlItem(
+        _webViewItem(
+          context: context,
           text: "O aplikacji Pola",
           iconPath: 'info',
           analyticsRow: AnalyticsAboutRow.aboutPola,
           url: 'https://www.pola-app.pl/m/about',
         ),
-        _externalUrlItem(
+        _webViewItem(
+          context: context,
           text: "O Klubie Jagielońskim",
           iconPath: 'info',
           analyticsRow: AnalyticsAboutRow.aboutKJ,
           url: 'https://klubjagiellonski.pl/o-klubie-jagiellonskim/',
         ),
-        _externalUrlItem(
+        _webViewItem(
+          context: context,
           text: "Jak oceniamy Firmy",
           iconPath: 'thumbs',
           analyticsRow: AnalyticsAboutRow.instructionSet,
           url: 'https://www.pola-app.pl/m/method',
         ),
-        _externalUrlItem(
+        _webViewItem(
+          context: context,
           text: "Partnerzy",
           iconPath: 'handshake',
           analyticsRow: AnalyticsAboutRow.partners,
           url: 'https://www.pola-app.pl/m/partners',
         ),
-        _externalUrlItem(
+        _webViewItem(
+          context: context,
           text: "Przyjaciele Poli",
           iconPath: 'diversity',
           analyticsRow: AnalyticsAboutRow.polasFriends,
