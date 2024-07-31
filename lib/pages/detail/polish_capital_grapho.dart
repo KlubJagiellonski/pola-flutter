@@ -43,8 +43,9 @@ class CustomRadialGauge extends StatelessWidget {
                     widget: Text(
                       '${percentage.toInt()}%',
                       style: TextStyle(
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 26.0,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'Lato',
                       ),
                     ),
                   ),
@@ -58,8 +59,9 @@ class CustomRadialGauge extends StatelessWidget {
           child: Text(
             'Polski kapitał',
             style: TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.w600,
+              fontSize: 11.0,
+              fontWeight: FontWeight.w400,
+              fontFamily: 'Lato',
             ),
           ),
         ),

@@ -65,16 +65,18 @@ class DetailPage extends StatelessWidget {
                       Text(
                         "Nasza ocena:",
                         style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'Lato',
                         ),
                       ),
                       SizedBox(width: 8.0),
                       Text(
                         "$score pkt",
                         style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.w700,
+                          fontFamily: 'Lato',
                         ),
                       ),
                     ],
@@ -89,7 +91,7 @@ class DetailPage extends StatelessWidget {
                     value: score / 100.0,
                     backgroundColor: Color(0xFFF5DEDD),
                     valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFE1203E)),
-                    minHeight: 12.0, // Set the thickness to 12 px
+                    minHeight: 12.0, 
                   ),
                 ),
               ),
@@ -98,10 +100,11 @@ class DetailPage extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Kryteria oceniania",
+                    "Kryteria oceniania:",
                     style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w600,
+                      fontFamily: 'Lato',
                     ),
                   ),
                 ),
@@ -146,12 +149,11 @@ class _DetailContent extends StatelessWidget {
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _DetailItem("produkuje w Polsce", (company.plWorkers ?? 0) != 0),
-                    _DetailItem("prowadzi badania w Polsce", (company.plRnD ?? 0) != 0),
-                    _DetailItem("zarejestrowana w Polsce", (company.plRegistered ?? 0) != 0),
-                    _DetailItem("nie jest częścią zagranicznego koncernu",
-                      (company.plNotGlobEnt ?? 0) != 0),
+                  children:  [ 
+                    _DetailItem("Produkuje w Polsce", (company.plWorkers ?? 0) != 0),         
+                    _DetailItem("Prowadzi badania w Polsce", (company.plRnD ?? 0) != 0),
+                    _DetailItem("Zarejestrowana w Polsce", (company.plRegistered ?? 0) != 0),
+                    _DetailItem("Nie jest częścią zagranicznego koncernu", (company.plNotGlobEnt ?? 0) != 0),
                   ],
                 ),
               ),
@@ -194,6 +196,11 @@ class _DetailItem extends StatelessWidget {
         ),
         Expanded(
           child: Text(
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w400,
+              fontFamily: 'Lato',
+            ),
             text,
             softWrap: true,
             overflow: TextOverflow.visible,
@@ -309,7 +316,6 @@ class _LogoView extends StatelessWidget {
 
 class ExpandableText extends StatefulWidget {
   final String text;
-
   ExpandableText(this.text);
 
   @override
@@ -322,8 +328,12 @@ class _ExpandableTextState extends State<ExpandableText> {
   @override
   Widget build(BuildContext context) {
     final link = TextSpan(
+      style: TextStyle( color: Color(0xFF898989),
+                      fontSize: 11.0,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'Lato',
+                    ),
       text: isExpanded ? ' zobacz mniej' : ' zobacz więcej',
-      style: TextStyle(color: Color(0xFF898989)), // Change to #898989
       recognizer: TapGestureRecognizer()
         ..onTap = () {
           setState(() {
@@ -336,7 +346,11 @@ class _ExpandableTextState extends State<ExpandableText> {
       builder: (context, constraints) {
         final textSpan = TextSpan(
           text: widget.text,
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.black,
+          fontSize: 11.0,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Lato',
+        )
         );
 
         final textPainter = TextPainter(
