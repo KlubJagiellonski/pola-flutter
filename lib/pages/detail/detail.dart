@@ -50,7 +50,7 @@ class DetailPage extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: 16.0),
-              Padding( 
+              Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 17.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
@@ -84,17 +84,27 @@ class DetailPage extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 17.0),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 17.0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10.0),
                   child: LinearProgressIndicator(
                     value: score / 100.0,
                     backgroundColor: Color(0xFFF5DEDD),
-                    valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFE1203E)),
-                    minHeight: 12.0, 
+                    valueColor:
+                        AlwaysStoppedAnimation<Color>(Color(0xFFE1203E)),
+                    minHeight: 12.0,
                   ),
                 ),
               ),
+              SizedBox(height: 17.0), // Space before the divider
+              Divider(
+                thickness: 1.0,
+                color: Color(0xFFF0F0F0), // Divider color
+                indent: 17.0, // Left indent
+                endIndent: 17.0, // Right indent
+              ),
+              SizedBox(height: 22.0), // Space after the divider
               Padding(
                 padding: const EdgeInsets.only(left: 17.0, top: 8.0),
                 child: Align(
@@ -109,6 +119,7 @@ class DetailPage extends StatelessWidget {
                   ),
                 ),
               ),
+              SizedBox(height: 22.0), // Space before the next section
               _DetailContent(searchResult, _handleReadMoreClick),
             ],
           ),
@@ -149,11 +160,15 @@ class _DetailContent extends StatelessWidget {
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children:  [ 
-                    _DetailItem("Produkuje w Polsce", (company.plWorkers ?? 0) != 0),         
-                    _DetailItem("Prowadzi badania w Polsce", (company.plRnD ?? 0) != 0),
-                    _DetailItem("Zarejestrowana w Polsce", (company.plRegistered ?? 0) != 0),
-                    _DetailItem("Nie jest częścią zagranicznego koncernu", (company.plNotGlobEnt ?? 0) != 0),
+                  children: [
+                    _DetailItem(
+                        "Produkuje w Polsce", (company.plWorkers ?? 0) != 0),
+                    _DetailItem(
+                        "Prowadzi badania w Polsce", (company.plRnD ?? 0) != 0),
+                    _DetailItem("Zarejestrowana w Polsce",
+                        (company.plRegistered ?? 0) != 0),
+                    _DetailItem("Nie jest częścią zagranicznego koncernu",
+                        (company.plNotGlobEnt ?? 0) != 0),
                   ],
                 ),
               ),
@@ -163,7 +178,8 @@ class _DetailContent extends StatelessWidget {
             padding: EdgeInsets.all(8.0),
             child: ExpandableText(company.description ?? ""),
           ),
-          _Logotypes(logotypes: searchResult.logotypes(), searchResult: searchResult)
+          _Logotypes(
+              logotypes: searchResult.logotypes(), searchResult: searchResult)
         ],
       ),
     );
@@ -183,25 +199,19 @@ class _DetailItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(
-          padding: EdgeInsets.all(4.0),
-          child: SizedBox(
-            height: 32.0,
-            width: 32.0,
-            child: SvgPicture.asset(
-              state ? 'assets/task_alt.svg' : 'assets/radio_button_unchecked.svg',
-              height: 32.0,
-              width: 32.0,
-            ),
+          padding: EdgeInsets.only(top: 0, right: 3.0),
+          child: SvgPicture.asset(
+            state ? 'assets/task_alt.svg' : 'assets/radio_button_unchecked.svg',
           ),
         ),
         Expanded(
           child: Text(
+            text,
             style: TextStyle(
               fontSize: 11,
               fontWeight: FontWeight.w400,
               fontFamily: 'Lato',
             ),
-            text,
             softWrap: true,
             overflow: TextOverflow.visible,
           ),
@@ -221,19 +231,23 @@ class Logotype {
 extension on SearchResult {
   List<Logotype> logotypes() {
     var brandLogotypes = allCompanyBrands?.map((brand) {
-      final brandLogotype = brand.logotypeUrl;
-      if (brandLogotype != null) {
-        return Logotype(brandLogotype, null);
-      } else {
-        return null;
-      }
-    }).toList() ?? [];
+          final brandLogotype = brand.logotypeUrl;
+          if (brandLogotype != null) {
+            return Logotype(brandLogotype, null);
+          } else {
+            return null;
+          }
+        }).toList() ??
+        [];
 
     final logotypeCompany = companies?.first.logotype();
 
     brandLogotypes.insert(0, logotypeCompany);
 
-    return brandLogotypes.where((logotype) => logotype != null).cast<Logotype>().toList();
+    return brandLogotypes
+        .where((logotype) => logotype != null)
+        .cast<Logotype>()
+        .toList();
   }
 }
 
@@ -313,7 +327,6 @@ class _LogoView extends StatelessWidget {
   }
 }
 
-
 class ExpandableText extends StatefulWidget {
   final String text;
   ExpandableText(this.text);
@@ -328,11 +341,12 @@ class _ExpandableTextState extends State<ExpandableText> {
   @override
   Widget build(BuildContext context) {
     final link = TextSpan(
-      style: TextStyle( color: Color(0xFF898989),
-                      fontSize: 11.0,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'Lato',
-                    ),
+      style: TextStyle(
+        color: Color(0xFF898989),
+        fontSize: 11.0,
+        fontWeight: FontWeight.w700,
+        fontFamily: 'Lato',
+      ),
       text: isExpanded ? ' zobacz mniej' : ' zobacz więcej',
       recognizer: TapGestureRecognizer()
         ..onTap = () {
@@ -346,11 +360,12 @@ class _ExpandableTextState extends State<ExpandableText> {
       builder: (context, constraints) {
         final textSpan = TextSpan(
           text: widget.text,
-          style: TextStyle(color: Colors.black,
-          fontSize: 11.0,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'Lato',
-        )
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 11.0,
+            fontWeight: FontWeight.w400,
+            fontFamily: 'Lato',
+          ),
         );
 
         final textPainter = TextPainter(
