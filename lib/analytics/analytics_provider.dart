@@ -9,7 +9,8 @@ class FirebaseAnalyticsProvider implements AnalyticsProvider {
 
   @override
   void logEvent(String name, [Map<String, dynamic>? parameters]) {
-    _analytics.logEvent(name: name, parameters: parameters);
+    Map<String, Object>? objectMap = parameters?.map((key, value) => MapEntry(key, value as Object));
+    _analytics.logEvent(name: name, parameters: objectMap);
   }
 }
 
