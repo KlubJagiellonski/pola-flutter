@@ -12,8 +12,8 @@ class CustomRadialGauge extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SizedBox(
-          height: 100.0,
-          width: 100.0,
+          height: 140.0,
+          width: 140.0,
           child: SfRadialGauge(
             axes: <RadialAxis>[
               RadialAxis(
@@ -38,7 +38,7 @@ class CustomRadialGauge extends StatelessWidget {
                 ],
                 annotations: <GaugeAnnotation>[
                   GaugeAnnotation(
-                    positionFactor: 0.1,
+                    positionFactor: 0.01,
                     angle: 90,
                     widget: Text(
                       '${percentage.toInt()}%',

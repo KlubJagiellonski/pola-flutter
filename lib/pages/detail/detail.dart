@@ -97,16 +97,15 @@ class DetailPage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 17.0), // Space before the divider
+              SizedBox(height: 17.0),  
               Divider(
                 thickness: 1.0,
-                color: Color(0xFFF0F0F0), // Divider color
-                indent: 17.0, // Left indent
-                endIndent: 17.0, // Right indent
+                color: Color(0xFFF0F0F0),  
+                indent: 17.0,  
+                endIndent: 17.0,  
               ),
-              SizedBox(height: 22.0), // Space after the divider
               Padding(
-                padding: const EdgeInsets.only(left: 17.0, top: 8.0),
+                padding: const EdgeInsets.only(left: 17.0, top: 22.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -119,7 +118,7 @@ class DetailPage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 22.0), // Space before the next section
+              SizedBox(height: 22.0),  
               _DetailContent(searchResult, _handleReadMoreClick),
             ],
           ),
@@ -156,30 +155,50 @@ class _DetailContent extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomRadialGauge(percentage: plCapital),
-              SizedBox(width: 16.0),
+              SizedBox(width: 35.0),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _DetailItem(
-                        "Produkuje w Polsce", (company.plWorkers ?? 0) != 0),
-                    _DetailItem(
-                        "Prowadzi badania w Polsce", (company.plRnD ?? 0) != 0),
-                    _DetailItem("Zarejestrowana w Polsce",
-                        (company.plRegistered ?? 0) != 0),
-                    _DetailItem("Nie jest częścią zagranicznego koncernu",
-                        (company.plNotGlobEnt ?? 0) != 0),
+                    _DetailItem("Produkuje w Polsce", (company.plWorkers ?? 0) != 0),
+                    SizedBox(height: 14.0),  
+                    _DetailItem("Prowadzi badania w Polsce", (company.plRnD ?? 0) != 0),
+                    SizedBox(height: 14.0), 
+                    _DetailItem("Zarejestrowana w Polsce", (company.plRegistered ?? 0) != 0),
+                    SizedBox(height: 14.0),  
+                    _DetailItem("Nie jest częścią zagranicznego koncernu", (company.plNotGlobEnt ?? 0) != 0),
                   ],
                 ),
               ),
             ],
           ),
+          SizedBox(height: 22.0),   
+          Divider(
+            thickness: 1.0,
+            color: Color(0xFFF0F0F0),
+            indent: 17.0,  
+                endIndent: 17.0, 
+          ),
           Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: EdgeInsets.symmetric(vertical: 22.0, horizontal: 17.0,),// horizontl ma byc 22, vertical 17
             child: ExpandableText(company.description ?? ""),
           ),
+           
+          Divider(
+            thickness: 1.0,
+            color: Color(0xFFF0F0F0),
+            indent: 17.0,  
+                endIndent: 17.0, 
+          ),
           _Logotypes(
-              logotypes: searchResult.logotypes(), searchResult: searchResult)
+              logotypes: searchResult.logotypes(), searchResult: searchResult),
+              SizedBox(height: 26.0),
+          Divider(
+            thickness: 1.0,
+            color: Color(0xFFF0F0F0),
+            indent: 17.0,  
+                endIndent: 17.0, 
+          ),
         ],
       ),
     );
@@ -199,7 +218,7 @@ class _DetailItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(
-          padding: EdgeInsets.only(top: 0, right: 3.0),
+          padding: EdgeInsets.only(right: 3.0),
           child: SvgPicture.asset(
             state ? 'assets/task_alt.svg' : 'assets/radio_button_unchecked.svg',
           ),
@@ -271,6 +290,9 @@ class _Logotypes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (logotypes.isEmpty) {
+      return Container();
+    }
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
