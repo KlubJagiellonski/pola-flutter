@@ -33,9 +33,6 @@ class DetailPage extends StatelessWidget {
       return LidlDetailPage(searchResult: searchResult);
     }
 
-    final company = searchResult.companies?.first;
-    final score = company?.plScore ?? 0;
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -50,75 +47,7 @@ class DetailPage extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: 16.0),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 17.0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Row(
-                    children: [
-                      SvgPicture.asset(
-                        'assets/info.svg',
-                        height: 24.0,
-                        width: 24.0,
-                      ),
-                      SizedBox(width: 8.0),
-                      Text(
-                        "Nasza ocena:",
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'Lato',
-                        ),
-                      ),
-                      SizedBox(width: 8.0),
-                      Text(
-                        "$score pkt",
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'Lato',
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 17.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: LinearProgressIndicator(
-                    value: score / 100.0,
-                    backgroundColor: Color(0xFFF5DEDD),
-                    valueColor:
-                        AlwaysStoppedAnimation<Color>(Color(0xFFE1203E)),
-                    minHeight: 12.0,
-                  ),
-                ),
-              ),
-              SizedBox(height: 17.0),  
-              Divider(
-                thickness: 1.0,
-                color: Color(0xFFF0F0F0),  
-                indent: 17.0,  
-                endIndent: 17.0,  
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 17.0, top: 22.0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Kryteria oceniania:",
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'Lato',
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: 22.0),  
+
               _DetailContent(searchResult, _handleReadMoreClick),
             ],
           ),
@@ -128,7 +57,7 @@ class DetailPage extends StatelessWidget {
   }
 }
 
-class _DetailContent extends StatelessWidget {
+ class _DetailContent extends StatelessWidget {
   _DetailContent(this.searchResult, this.onReadMoreClick);
 
   final SearchResult searchResult;
@@ -144,13 +73,85 @@ class _DetailContent extends StatelessWidget {
     }
 
     final company = searchResult.companies!.first;
+    final score = company.plScore ?? 0;
     final double plCapital = (company.plCapital ?? 0).toDouble();
+
+    // Check if the company has a logo and description
+    final hasLogo = company.logotypeUrl != null;
+    final hasDescription = company.description?.isNotEmpty ?? false;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 17.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 17.0),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Row(
+                children: [
+                  SvgPicture.asset(
+                    'assets/info.svg',
+                    height: 24.0,
+                    width: 24.0,
+                  ),
+                  SizedBox(width: 8.0),
+                  Text(
+                    "Nasza ocena:",
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Lato',
+                    ),
+                  ),
+                  SizedBox(width: 8.0),
+                  Text(
+                    "$score pkt",
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'Lato',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 17.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10.0),
+              child: LinearProgressIndicator(
+                value: score / 100.0,
+                backgroundColor: Color(0xFFF5DEDD),
+                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFE1203E)),
+                minHeight: 12.0,
+              ),
+            ),
+          ),
+          SizedBox(height: 17.0),
+          Divider(
+            thickness: 1.0,
+            color: Color(0xFFF0F0F0),
+            indent: 17.0,
+            endIndent: 17.0,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 17.0, top: 22.0),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Kryteria oceniania:",
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: 'Lato',
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: 22.0),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -161,43 +162,43 @@ class _DetailContent extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _DetailItem("Produkuje w Polsce", (company.plWorkers ?? 0) != 0),
-                    SizedBox(height: 14.0),  
+                    SizedBox(height: 14.0),
                     _DetailItem("Prowadzi badania w Polsce", (company.plRnD ?? 0) != 0),
-                    SizedBox(height: 14.0), 
+                    SizedBox(height: 14.0),
                     _DetailItem("Zarejestrowana w Polsce", (company.plRegistered ?? 0) != 0),
-                    SizedBox(height: 14.0),  
+                    SizedBox(height: 14.0),
                     _DetailItem("Nie jest częścią zagranicznego koncernu", (company.plNotGlobEnt ?? 0) != 0),
                   ],
                 ),
               ),
             ],
           ),
-          SizedBox(height: 22.0),   
+          SizedBox(height: 22.0),
           Divider(
             thickness: 1.0,
             color: Color(0xFFF0F0F0),
-            indent: 17.0,  
-                endIndent: 17.0, 
+            indent: 17.0,
+            endIndent: 17.0,
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 22.0, horizontal: 17.0,),// horizontl ma byc 22, vertical 17
-            child: ExpandableText(company.description ?? ""),
-          ),
-           
-          Divider(
+          if (hasDescription) ...[
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 22.0, horizontal: 17.0),
+              child: ExpandableText(company.description ?? ""),
+            ),
+            if (hasLogo) Divider(
+              thickness: 1.0,
+              color: Color(0xFFF0F0F0),
+              indent: 17.0,
+              endIndent: 17.0,
+            ),
+          ],
+          if (hasLogo) _Logotypes(logotypes: searchResult.logotypes(), searchResult: searchResult),
+          SizedBox(height: 26.0),
+          if (hasLogo) Divider(
             thickness: 1.0,
             color: Color(0xFFF0F0F0),
-            indent: 17.0,  
-                endIndent: 17.0, 
-          ),
-          _Logotypes(
-              logotypes: searchResult.logotypes(), searchResult: searchResult),
-              SizedBox(height: 26.0),
-          Divider(
-            thickness: 1.0,
-            color: Color(0xFFF0F0F0),
-            indent: 17.0,  
-                endIndent: 17.0, 
+            indent: 17.0,
+            endIndent: 17.0,
           ),
         ],
       ),
