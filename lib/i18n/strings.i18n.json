@@ -1,14 +1,13 @@
 {
-    "menu":{
-"aboutPola" : "O aplikacji Pola",
-"aboutClub" : " O Klubie Jagielońskim",
-"instruction" : "Jak oceniamy Firmy",
-"partners" : "Partnerzy",
-"polasFriends" : "Przyjaciele Poli",
-"rateUS" : "Oceń Polę",
-"team" : "Zespół",
-"findUs" : "Znajdź nas tutaj",
-"footer" :"Aplikacja Pola \n© Klub Jagielloński"
-
+    "menu": {
+        "aboutPola": "O aplikacji Pola",
+        "aboutClub": " O Klubie Jagielońskim",
+        "instruction": "Jak oceniamy Firmy",
+        "partners": "Partnerzy",
+        "polasFriends": "Przyjaciele Poli",
+        "rateUS": "Oceń Polę",
+        "team": "Zespół",
+        "findUs": "Znajdź nas tutaj",
+        "footer": "Aplikacja Pola \n© Klub Jagielloński"
     }
 }

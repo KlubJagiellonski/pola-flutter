@@ -5,13 +5,12 @@ import 'package:pola_flutter/analytics/analytics_about_row.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 
-
 class MenuItemListView extends StatelessWidget {
   final PolaAnalytics analytics;
 
   const MenuItemListView({super.key, required this.analytics});
 
- @override
+  @override
   Widget build(BuildContext context) {
     final Translations t = Translations.of(context);
     return Column(
@@ -88,7 +87,7 @@ class MenuItemListView extends StatelessWidget {
       iconPath: iconPath,
       onClick: () {
         analytics.aboutOpened(analyticsRow);
-         Navigator.pushNamed(context, '/web', arguments: url);
+        Navigator.pushNamed(context, '/web', arguments: url);
       },
     );
   }
@@ -108,6 +107,7 @@ class MenuItemListView extends StatelessWidget {
       },
     );
   }
+
   void _launchURL(String url) async {
     launchUrl(
       Uri.parse(url),
