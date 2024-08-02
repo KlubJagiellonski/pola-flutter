@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:pola_flutter/analytics/analytics_about_row.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
+import 'package:pola_flutter/i18n/strings.g.dart';
+
 
 class MenuItemListView extends StatelessWidget {
   final PolaAnalytics analytics;
@@ -11,45 +13,46 @@ class MenuItemListView extends StatelessWidget {
 
  @override
   Widget build(BuildContext context) {
+    final Translations t = Translations.of(context);
     return Column(
       children: [
         _webViewItem(
           context: context,
-          text: "O aplikacji Pola",
+          text: t.menu.aboutPola,
           iconPath: 'info',
           analyticsRow: AnalyticsAboutRow.aboutPola,
           url: 'https://www.pola-app.pl/m/about',
         ),
         _webViewItem(
           context: context,
-          text: "O Klubie Jagielońskim",
+          text: t.menu.aboutClub,
           iconPath: 'info',
           analyticsRow: AnalyticsAboutRow.aboutKJ,
           url: 'https://klubjagiellonski.pl/o-klubie-jagiellonskim/',
         ),
         _webViewItem(
           context: context,
-          text: "Jak oceniamy Firmy",
+          text: t.menu.instruction,
           iconPath: 'thumbs',
           analyticsRow: AnalyticsAboutRow.instructionSet,
           url: 'https://www.pola-app.pl/m/method',
         ),
         _webViewItem(
           context: context,
-          text: "Partnerzy",
+          text: t.menu.partners,
           iconPath: 'handshake',
           analyticsRow: AnalyticsAboutRow.partners,
           url: 'https://www.pola-app.pl/m/partners',
         ),
         _webViewItem(
           context: context,
-          text: "Przyjaciele Poli",
+          text: t.menu.polasFriends,
           iconPath: 'diversity',
           analyticsRow: AnalyticsAboutRow.polasFriends,
           url: 'https://www.pola-app.pl/m/friends',
         ),
         _externalUrlItem(
-          text: "Oceń Polę",
+          text: t.menu.rateUS,
           iconPath: 'star',
           analyticsRow: AnalyticsAboutRow.rateUs,
           url: Platform.isIOS
@@ -58,7 +61,7 @@ class MenuItemListView extends StatelessWidget {
         ),
         _webViewItem(
           context: context,
-          text: "Zespół",
+          text: t.menu.team,
           iconPath: 'groups',
           analyticsRow: AnalyticsAboutRow.team,
           url: 'https://www.pola-app.pl/m/team',

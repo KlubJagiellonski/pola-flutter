@@ -46,6 +46,8 @@ dependencies:
   url_launcher: ^6.1.7
   vibration: ^1.7.6
   firebase_analytics: ^10.4.1
+  slang: ^3.31.1
+  slang_flutter: ^3.31.0
 
 dev_dependencies:
   flutter_test:

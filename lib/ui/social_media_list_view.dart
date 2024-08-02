@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pola_flutter/analytics/analytics_about_row.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:pola_flutter/i18n/strings.g.dart';
 
 class SocialMediaListView extends StatelessWidget {
   final PolaAnalytics analytics;
@@ -10,13 +11,14 @@ class SocialMediaListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Translations t = Translations.of(context);
     return Column(
       children: [
         Row(
-          children: const [
+          children: [
             SizedBox(width: 32.0),
             Text(
-              "Znajdź nas tutaj",
+              t.menu.findUs,
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w700,
@@ -56,10 +58,10 @@ class SocialMediaListView extends StatelessWidget {
         ),
         const SizedBox(height: 17.0),
         Row(
-          children: const [
+          children: [
             SizedBox(width: 32.0),
             Text(
-              "Aplikacja Pola \n© Klub Jagielloński",
+              t.menu.footer,
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
