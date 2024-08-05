@@ -38,7 +38,7 @@ void main() {
       'emits nothing when barcodeScanned(0) is added',
       build: () => scanBloc,
       act: (bloc) => scanBloc.add(ScanEvent.barcodeScanned(0)),
-      expect: () => [ScanState(list: [])],
+      expect: () => [],
     );
   });
 }
