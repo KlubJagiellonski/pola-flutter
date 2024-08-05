@@ -22,8 +22,11 @@ class CompaniesList extends StatelessWidget {
           child: ListView.builder(
             controller: listScrollController,
             reverse: true,
-            itemCount: state.list.length,
+            itemCount: state.list.length + (state.isLoading ? 1 : 0),
             itemBuilder: (BuildContext context, int index) {
+              if (index == state.list.length) {
+                return LoadingListItem();
+              }
               return GestureDetector(
                 child: ListItem(state.list[index]),
                 onTap: () {
