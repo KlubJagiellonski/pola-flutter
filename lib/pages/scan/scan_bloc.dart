@@ -10,7 +10,6 @@ import 'package:pola_flutter/pages/scan/scan_state.dart';
 import 'package:pola_flutter/pages/scan/scan_vibration.dart';
 
 class ScanBloc extends Bloc<ScanEvent, ScanState> {
-  List<SearchResult> _results = [];
   List<int> _scannedBarcodes = [];
 
   final PolaApi _polaApiRepository;
@@ -27,10 +26,11 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
       final res = await _polaApiRepository.getCompany(barcode);
       if (res.status == Status.COMPLETED) {
         final result = res.data;
-        _results.add(result);
+        var results = List<SearchResult>.from(state.list);
+        results.add(result);
         _analytics.searchResultReceived(result);
+        emit(state.copyWith(list: results));
       }
-      emit(ScanState(list: List.from(_results)));
     }
   }
 
