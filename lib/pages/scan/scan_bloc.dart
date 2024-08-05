@@ -1,21 +1,13 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pola_flutter/analytics/analytics_barcode_source.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/data/api_response.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
 import 'package:pola_flutter/models/search_result.dart';
+import 'package:pola_flutter/pages/scan/scan_event.dart';
 import 'package:pola_flutter/pages/scan/scan_state.dart';
 import 'package:pola_flutter/pages/scan/scan_vibration.dart';
-
-class ScanEvent {}
-
-class GetCompanyEvent extends ScanEvent {
-  late int code;
-
-  GetCompanyEvent(int code) {
-    this.code = code;
-  }
-}
 
 class ScanBloc extends Bloc<ScanEvent, ScanState> {
   List<SearchResult> _results = [];
@@ -25,13 +17,14 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
   final ScanVibration _scanVibration;
   final PolaAnalytics _analytics;
 
-  void _onBarcodeScanned(ScanEvent event, Emitter<ScanState> emit) async {
-    if (event is GetCompanyEvent && !_scannedBarcodes.contains(event.code)) {
-      _scannedBarcodes.add(event.code);
+  _onBarcodeScanned(int barcode, Emitter<ScanState> emit) async {
+    if (!_scannedBarcodes.contains(barcode)) {
+      debugPrint('Scanned barcode event received: $barcode');
+      _scannedBarcodes.add(barcode);
       _scanVibration.vibrate();
-      _analytics.barcodeScanned(event.code.toString(), AnalyticsBarcodeSource.camera);
+      _analytics.barcodeScanned(barcode.toString(), AnalyticsBarcodeSource.camera);
 
-      final res = await _polaApiRepository.getCompany(event.code);
+      final res = await _polaApiRepository.getCompany(barcode);
       if (res.status == Status.COMPLETED) {
         final result = res.data;
         _results.add(result);
@@ -42,6 +35,10 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
   }
 
   ScanBloc(this._polaApiRepository, this._scanVibration, this._analytics) : super(ScanState(list: [])) {
-    on<ScanEvent>((event, emit) => _onBarcodeScanned(event, emit));
+    on<ScanEvent>((event, emit) async {
+      await event.when(
+        barcodeScanned: (barcode) async => await _onBarcodeScanned(barcode, emit)
+        );
+    });
   }
 }

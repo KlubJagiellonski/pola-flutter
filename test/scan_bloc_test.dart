@@ -6,6 +6,7 @@ import 'package:pola_flutter/data/pola_api_repository.dart';
 import 'package:pola_flutter/main.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/pages/scan/scan_bloc.dart';
+import 'package:pola_flutter/pages/scan/scan_event.dart';
 import 'package:pola_flutter/pages/scan/scan_state.dart';
 import 'package:pola_flutter/pages/scan/scan_vibration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,15 +29,15 @@ void main() {
       expect(scanBloc.state, ScanState(list: []));
     });
     blocTest(
-      'emits ScanLoaded([searchResult1]) when GetCompanyEvent(5900311000360) is added',
+      'emits ScanLoaded([searchResult1]) when barcodeScanned(5900311000360) is added',
       build: () => scanBloc,
-      act: (bloc) => scanBloc.add(GetCompanyEvent(5900311000360)),
+      act: (bloc) => scanBloc.add(ScanEvent.barcodeScanned(5900311000360)),
       expect: () => [ScanState(list: [searchResult1])],
     );
     blocTest(
-      'emits nothing when GetCompanyEvent(0) is added',
+      'emits nothing when barcodeScanned(0) is added',
       build: () => scanBloc,
-      act: (bloc) => scanBloc.add(GetCompanyEvent(0)),
+      act: (bloc) => scanBloc.add(ScanEvent.barcodeScanned(0)),
       expect: () => [ScanState(list: [])],
     );
   });
