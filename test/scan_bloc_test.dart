@@ -26,19 +26,25 @@ void main() {
     });
 
     test('initial state is state with empty list', () {
-      expect(scanBloc.state, ScanState(list: []));
+      expect(scanBloc.state, ScanState());
     });
     blocTest(
       'emits ScanLoaded([searchResult1]) when barcodeScanned(5900311000360) is added',
       build: () => scanBloc,
       act: (bloc) => scanBloc.add(ScanEvent.barcodeScanned(5900311000360)),
-      expect: () => [ScanState(list: [searchResult1])],
+      expect: () => [
+        ScanState(isLoading: true),
+        ScanState(list: [searchResult1], isLoading: false)
+        ],
     );
     blocTest(
-      'emits nothing when barcodeScanned(0) is added',
+      'emits empty list when scanned barcode results in error',
       build: () => scanBloc,
       act: (bloc) => scanBloc.add(ScanEvent.barcodeScanned(0)),
-      expect: () => [],
+      expect: () => [
+        ScanState(isLoading: true),
+        ScanState(isLoading: false)
+      ],
     );
   });
 }

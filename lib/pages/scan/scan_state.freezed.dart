@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ScanState {
   List<SearchResult> get list => throw _privateConstructorUsedError;
+  bool get isLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ScanStateCopyWith<ScanState> get copyWith =>
@@ -28,7 +29,7 @@ abstract class $ScanStateCopyWith<$Res> {
   factory $ScanStateCopyWith(ScanState value, $Res Function(ScanState) then) =
       _$ScanStateCopyWithImpl<$Res, ScanState>;
   @useResult
-  $Res call({List<SearchResult> list});
+  $Res call({List<SearchResult> list, bool isLoading});
 }
 
 /// @nodoc
@@ -45,12 +46,17 @@ class _$ScanStateCopyWithImpl<$Res, $Val extends ScanState>
   @override
   $Res call({
     Object? list = null,
+    Object? isLoading = null,
   }) {
     return _then(_value.copyWith(
       list: null == list
           ? _value.list
           : list // ignore: cast_nullable_to_non_nullable
               as List<SearchResult>,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -63,7 +69,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       __$$InitialImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<SearchResult> list});
+  $Res call({List<SearchResult> list, bool isLoading});
 }
 
 /// @nodoc
@@ -78,12 +84,17 @@ class __$$InitialImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? list = null,
+    Object? isLoading = null,
   }) {
     return _then(_$InitialImpl(
       list: null == list
           ? _value._list
           : list // ignore: cast_nullable_to_non_nullable
               as List<SearchResult>,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -91,7 +102,8 @@ class __$$InitialImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$InitialImpl implements Initial {
-  const _$InitialImpl({final List<SearchResult> list = const []})
+  const _$InitialImpl(
+      {final List<SearchResult> list = const [], this.isLoading = false})
       : _list = list;
 
   final List<SearchResult> _list;
@@ -104,8 +116,12 @@ class _$InitialImpl implements Initial {
   }
 
   @override
+  @JsonKey()
+  final bool isLoading;
+
+  @override
   String toString() {
-    return 'ScanState(list: $list)';
+    return 'ScanState(list: $list, isLoading: $isLoading)';
   }
 
   @override
@@ -113,12 +129,14 @@ class _$InitialImpl implements Initial {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InitialImpl &&
-            const DeepCollectionEquality().equals(other._list, _list));
+            const DeepCollectionEquality().equals(other._list, _list) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_list));
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_list), isLoading);
 
   @JsonKey(ignore: true)
   @override
@@ -128,10 +146,13 @@ class _$InitialImpl implements Initial {
 }
 
 abstract class Initial implements ScanState {
-  const factory Initial({final List<SearchResult> list}) = _$InitialImpl;
+  const factory Initial({final List<SearchResult> list, final bool isLoading}) =
+      _$InitialImpl;
 
   @override
   List<SearchResult> get list;
+  @override
+  bool get isLoading;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

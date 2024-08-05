@@ -17,9 +17,10 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
   final PolaAnalytics _analytics;
 
   _onBarcodeScanned(int barcode, Emitter<ScanState> emit) async {
-    if (_scannedBarcodes.contains(barcode)) {
+    if (_scannedBarcodes.contains(barcode) || state.isLoading) {
       return;
     }
+    emit(state.copyWith(isLoading: true));
     debugPrint('Scanned barcode event received: $barcode');
     _scannedBarcodes.add(barcode);
     _scanVibration.vibrate();
@@ -31,7 +32,9 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
       var results = List<SearchResult>.from(state.list);
       results.add(result);
       _analytics.searchResultReceived(result);
-      emit(state.copyWith(list: results));
+      emit(state.copyWith(list: results, isLoading: false));
+    } else {
+      emit(state.copyWith(isLoading: false)); 
     }
   }
 
