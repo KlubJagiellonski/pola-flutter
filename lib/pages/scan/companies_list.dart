@@ -28,7 +28,7 @@ class CompaniesList extends StatelessWidget {
                 return LoadingListItem();
               }
               return GestureDetector(
-                child: ListItem(state.list[index]),
+                child: ResultListItem(state.list[index]),
                 onTap: () {
                   final result = state.list[index];
                   _analytics.opensCard(result);
