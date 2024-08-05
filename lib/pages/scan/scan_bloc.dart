@@ -17,24 +17,25 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
   final PolaAnalytics _analytics;
 
   _onBarcodeScanned(int barcode, Emitter<ScanState> emit) async {
-    if (!_scannedBarcodes.contains(barcode)) {
-      debugPrint('Scanned barcode event received: $barcode');
-      _scannedBarcodes.add(barcode);
-      _scanVibration.vibrate();
-      _analytics.barcodeScanned(barcode.toString(), AnalyticsBarcodeSource.camera);
+    if (_scannedBarcodes.contains(barcode)) {
+      return;
+    }
+    debugPrint('Scanned barcode event received: $barcode');
+    _scannedBarcodes.add(barcode);
+    _scanVibration.vibrate();
+    _analytics.barcodeScanned(barcode.toString(), AnalyticsBarcodeSource.camera);
 
-      final res = await _polaApiRepository.getCompany(barcode);
-      if (res.status == Status.COMPLETED) {
-        final result = res.data;
-        var results = List<SearchResult>.from(state.list);
-        results.add(result);
-        _analytics.searchResultReceived(result);
-        emit(state.copyWith(list: results));
-      }
+    final res = await _polaApiRepository.getCompany(barcode);
+    if (res.status == Status.COMPLETED) {
+      final result = res.data;
+      var results = List<SearchResult>.from(state.list);
+      results.add(result);
+      _analytics.searchResultReceived(result);
+      emit(state.copyWith(list: results));
     }
   }
 
-  ScanBloc(this._polaApiRepository, this._scanVibration, this._analytics) : super(ScanState(list: [])) {
+  ScanBloc(this._polaApiRepository, this._scanVibration, this._analytics) : super(ScanState()) {
     on<ScanEvent>((event, emit) async {
       await event.when(
         barcodeScanned: (barcode) async => await _onBarcodeScanned(barcode, emit)
