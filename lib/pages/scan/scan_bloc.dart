@@ -10,19 +10,17 @@ import 'package:pola_flutter/pages/scan/scan_state.dart';
 import 'package:pola_flutter/pages/scan/scan_vibration.dart';
 
 class ScanBloc extends Bloc<ScanEvent, ScanState> {
-  List<String> _scannedBarcodes = [];
-
   final PolaApi _polaApiRepository;
   final ScanVibration _scanVibration;
   final PolaAnalytics _analytics;
 
   _onBarcodeScanned(String barcode, Emitter<ScanState> emit) async {
-    if (_scannedBarcodes.contains(barcode) || state.isLoading) {
+    if (state.list.any((element) => element.code == barcode) ||
+        state.isLoading) {
       return;
     }
     emit(state.copyWith(isLoading: true));
     debugPrint('Scanned barcode event received: $barcode');
-    _scannedBarcodes.add(barcode);
     _scanVibration.vibrate();
     _analytics.barcodeScanned(barcode.toString(), AnalyticsBarcodeSource.camera);
 
@@ -34,15 +32,16 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
       _analytics.searchResultReceived(result);
       emit(state.copyWith(list: results, isLoading: false));
     } else {
-      emit(state.copyWith(isLoading: false)); 
+      emit(state.copyWith(isLoading: false));
     }
   }
 
-  ScanBloc(this._polaApiRepository, this._scanVibration, this._analytics) : super(ScanState()) {
+  ScanBloc(this._polaApiRepository, this._scanVibration, this._analytics)
+      : super(ScanState()) {
     on<ScanEvent>((event, emit) async {
       await event.when(
         barcodeScanned: (barcode) async => await _onBarcodeScanned(barcode, emit)
-        );
+      );
     });
   }
 }
