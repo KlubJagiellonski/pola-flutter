@@ -16,20 +16,20 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ScanEvent {
-  int get barcode => throw _privateConstructorUsedError;
+  String get barcode => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int barcode) barcodeScanned,
+    required TResult Function(String barcode) barcodeScanned,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int barcode)? barcodeScanned,
+    TResult? Function(String barcode)? barcodeScanned,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int barcode)? barcodeScanned,
+    TResult Function(String barcode)? barcodeScanned,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -60,7 +60,7 @@ abstract class $ScanEventCopyWith<$Res> {
   factory $ScanEventCopyWith(ScanEvent value, $Res Function(ScanEvent) then) =
       _$ScanEventCopyWithImpl<$Res, ScanEvent>;
   @useResult
-  $Res call({int barcode});
+  $Res call({String barcode});
 }
 
 /// @nodoc
@@ -82,7 +82,7 @@ class _$ScanEventCopyWithImpl<$Res, $Val extends ScanEvent>
       barcode: null == barcode
           ? _value.barcode
           : barcode // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ) as $Val);
   }
 }
@@ -95,7 +95,7 @@ abstract class _$$BarcodeScannedImplCopyWith<$Res>
       __$$BarcodeScannedImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int barcode});
+  $Res call({String barcode});
 }
 
 /// @nodoc
@@ -115,7 +115,7 @@ class __$$BarcodeScannedImplCopyWithImpl<$Res>
       null == barcode
           ? _value.barcode
           : barcode // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -126,7 +126,7 @@ class _$BarcodeScannedImpl implements BarcodeScanned {
   const _$BarcodeScannedImpl(this.barcode);
 
   @override
-  final int barcode;
+  final String barcode;
 
   @override
   String toString() {
@@ -154,7 +154,7 @@ class _$BarcodeScannedImpl implements BarcodeScanned {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int barcode) barcodeScanned,
+    required TResult Function(String barcode) barcodeScanned,
   }) {
     return barcodeScanned(barcode);
   }
@@ -162,7 +162,7 @@ class _$BarcodeScannedImpl implements BarcodeScanned {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int barcode)? barcodeScanned,
+    TResult? Function(String barcode)? barcodeScanned,
   }) {
     return barcodeScanned?.call(barcode);
   }
@@ -170,7 +170,7 @@ class _$BarcodeScannedImpl implements BarcodeScanned {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int barcode)? barcodeScanned,
+    TResult Function(String barcode)? barcodeScanned,
     required TResult orElse(),
   }) {
     if (barcodeScanned != null) {
@@ -209,10 +209,10 @@ class _$BarcodeScannedImpl implements BarcodeScanned {
 }
 
 abstract class BarcodeScanned implements ScanEvent {
-  const factory BarcodeScanned(final int barcode) = _$BarcodeScannedImpl;
+  const factory BarcodeScanned(final String barcode) = _$BarcodeScannedImpl;
 
   @override
-  int get barcode;
+  String get barcode;
   @override
   @JsonKey(ignore: true)
   _$$BarcodeScannedImplCopyWith<_$BarcodeScannedImpl> get copyWith =>

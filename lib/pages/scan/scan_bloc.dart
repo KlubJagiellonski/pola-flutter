@@ -10,13 +10,13 @@ import 'package:pola_flutter/pages/scan/scan_state.dart';
 import 'package:pola_flutter/pages/scan/scan_vibration.dart';
 
 class ScanBloc extends Bloc<ScanEvent, ScanState> {
-  List<int> _scannedBarcodes = [];
+  List<String> _scannedBarcodes = [];
 
   final PolaApi _polaApiRepository;
   final ScanVibration _scanVibration;
   final PolaAnalytics _analytics;
 
-  _onBarcodeScanned(int barcode, Emitter<ScanState> emit) async {
+  _onBarcodeScanned(String barcode, Emitter<ScanState> emit) async {
     if (_scannedBarcodes.contains(barcode) || state.isLoading) {
       return;
     }

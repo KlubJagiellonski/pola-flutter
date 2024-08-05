@@ -120,7 +120,7 @@ class _MainPageState extends State<MainPage> {
                 for (final barcode in barcodes) {
                   final String code = barcode.rawValue!;
                   debugPrint('Barcode found! $code');
-                  _scanBloc.add(ScanEvent.barcodeScanned(int.parse(code)));
+                  _scanBloc.add(ScanEvent.barcodeScanned(code));
                 }
               }),
         ),

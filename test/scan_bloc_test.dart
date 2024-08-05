@@ -31,7 +31,7 @@ void main() {
     blocTest(
       'emits ScanLoaded([searchResult1]) when barcodeScanned(5900311000360) is added',
       build: () => scanBloc,
-      act: (bloc) => scanBloc.add(ScanEvent.barcodeScanned(5900311000360)),
+      act: (bloc) => scanBloc.add(ScanEvent.barcodeScanned("5900311000360")),
       expect: () => [
         ScanState(isLoading: true),
         ScanState(list: [searchResult1], isLoading: false)
@@ -40,7 +40,7 @@ void main() {
     blocTest(
       'emits empty list when scanned barcode results in error',
       build: () => scanBloc,
-      act: (bloc) => scanBloc.add(ScanEvent.barcodeScanned(0)),
+      act: (bloc) => scanBloc.add(ScanEvent.barcodeScanned("0")),
       expect: () => [
         ScanState(isLoading: true),
         ScanState(isLoading: false)
@@ -60,9 +60,9 @@ var searchResult1 = SearchResult(
 
 class MockPolaApi extends PolaApi {
   @override
-  Future<ApiResponse<SearchResult>> getCompany(int code) {
+  Future<ApiResponse<SearchResult>> getCompany(String code) {
     print("MockPolaApi getCompany " + code.toString());
-    if (code == 5900311000360) {
+    if (code == "5900311000360") {
       return Future.value(ApiResponse.completed(searchResult1));
     } else {
       return Future.value(ApiResponse.error("error"));

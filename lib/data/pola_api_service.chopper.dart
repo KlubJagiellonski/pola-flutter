@@ -19,7 +19,7 @@ final class _$PolaApiService extends PolaApiService {
 
   @override
   Future<Response<dynamic>> getCompany(
-    int code,
+    String code,
     String deviceId,
   ) {
     final Uri $url = Uri.parse('a/v4/get_by_code');
