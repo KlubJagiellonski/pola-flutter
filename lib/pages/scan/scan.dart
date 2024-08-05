@@ -45,8 +45,10 @@ class _MainPageState extends State<MainPage> {
         leading: IconButton(
           onPressed: () {
             _analytics.aboutPolaOpened();
-            Navigator.pushNamed(context, '/web',
-                arguments: "https://www.pola-app.pl/m/about");
+            Navigator.pushNamed(context, '/web', arguments: {
+              'url': "https://www.pola-app.pl/m/about",
+              'title': "O Aplikacji Pola"
+            });
           },
           icon: Image.asset("assets/ic_launcher.png"),
         ),

@@ -77,16 +77,14 @@ class _PolaAppState extends State<PolaApp> {
         return MainPage();
       case 1:
         return WebViewPage(
-              title: "Wyszukiwarka",
-              url: "https://www.pola-app.pl/m/search/",
-              showBackButton: false
-            );
+            title: "Wyszukiwarka",
+            url: "https://www.pola-app.pl/m/search/",
+            showBackButton: false);
       case 2:
         return WebViewPage(
-              title: "Wiadomości",
-              url: "https://www.pola-app.pl/m/blog/",
-              showBackButton: false
-            );
+            title: "Wiadomości",
+            url: "https://www.pola-app.pl/m/blog/",
+            showBackButton: false);
       default:
         return MainPage();
     }
@@ -132,12 +130,14 @@ class RouteGenerator {
       case '/dialpad':
         return MaterialPageRoute(builder: (_) => DialPadPage());
       case '/web':
-        if (args is String) {
+        if (args is Map<String, dynamic>) {
+          final url = args['url'] as String;
+          final title = args['title'] as String;
           return MaterialPageRoute(
             builder: (_) => WebViewPage(
-              title: "O Aplikacji Pola",
-              url: args,
-              showBackButton: true
+              title: title,
+              url: url,
+              showBackButton: true,
             ),
           );
         }

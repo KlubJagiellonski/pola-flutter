@@ -87,7 +87,11 @@ class MenuItemListView extends StatelessWidget {
       iconPath: iconPath,
       onClick: () {
         analytics.aboutOpened(analyticsRow);
-        Navigator.pushNamed(context, '/web', arguments: url);
+        Navigator.pushNamed(
+          context,
+          '/web',
+          arguments: {'url': url, 'title': text},
+        );
       },
     );
   }
