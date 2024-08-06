@@ -8,7 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 
 import 'detail_lidl.dart';
-import 'polish_capital_grapho.dart';
+import 'polish_capital_graph.dart';
 
 class DetailPage extends StatelessWidget {
   DetailPage({Key? key, required this.searchResult}) : super(key: key);
@@ -62,7 +62,7 @@ class DetailPage extends StatelessWidget {
     final company = searchResult.companies!.first;
     final score = company.plScore ?? 0;
     final double plCapital = (company.plCapital ?? 0).toDouble();
-
+    final Translations t = Translations.of(context);
     
     final hasLogo = company.logotypeUrl != null;
     final hasDescription = company.description?.isNotEmpty ?? false;
@@ -143,7 +143,7 @@ class DetailPage extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomRadialGauge(percentage: plCapital),
+               PolishCapitalGraph(percentage: plCapital),
               SizedBox(width: 35.0),
               Expanded(
                 child: Column(

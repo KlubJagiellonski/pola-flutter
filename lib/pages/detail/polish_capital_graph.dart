@@ -2,20 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 
-class CustomRadialGauge extends StatelessWidget {
+class  PolishCapitalGraph extends StatelessWidget {
   final double percentage;
 
-  CustomRadialGauge({required this.percentage});
+   PolishCapitalGraph({required this.percentage});
 
   @override
   Widget build(BuildContext context) {
-    final Translations t = Translations.of(context);
+    // final Translations t = Translations.of(context);
+    final size = 140.0;
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SizedBox(
-          height: 140.0,
-          width: 140.0,
+          height:  size,
+          width:  size,
           child: SfRadialGauge(
             axes: <RadialAxis>[
               RadialAxis(
@@ -59,7 +61,7 @@ class CustomRadialGauge extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 0.0), 
           child: Text(
-             t.companyScreen.polishCapital,
+             "t.companyScreen.polishCapital",
             style: TextStyle(
               fontSize: 11.0,
               fontWeight: FontWeight.w400,
