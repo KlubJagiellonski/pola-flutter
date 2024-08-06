@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
 import 'package:pola_flutter/analytics/analytics_main_tab.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
+import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/pages/dialpad/dialpad.dart';
 import 'package:pola_flutter/pages/scan/scan.dart';
@@ -22,7 +23,7 @@ void main() async {
       options: DefaultFirebaseOptions.currentPlatform,
     );
   }
-  runApp(PolaApp());
+  runApp(TranslationProvider(child: PolaApp()));
 }
 
 class PolaApp extends StatefulWidget {
@@ -77,16 +78,14 @@ class _PolaAppState extends State<PolaApp> {
         return MainPage();
       case 1:
         return WebViewPage(
-              title: "Wyszukiwarka",
-              url: "https://www.pola-app.pl/m/search/",
-              showBackButton: false
-            );
+            title: "Wyszukiwarka",
+            url: "https://www.pola-app.pl/m/search/",
+            showBackButton: false);
       case 2:
         return WebViewPage(
-              title: "Wiadomości",
-              url: "https://www.pola-app.pl/m/blog/",
-              showBackButton: false
-            );
+            title: "Wiadomości",
+            url: "https://www.pola-app.pl/m/blog/",
+            showBackButton: false);
       default:
         return MainPage();
     }
@@ -132,12 +131,14 @@ class RouteGenerator {
       case '/dialpad':
         return MaterialPageRoute(builder: (_) => DialPadPage());
       case '/web':
-        if (args is String) {
+        if (args is Map<String, dynamic>) {
+          final url = args['url'] as String;
+          final title = args['title'] as String;
           return MaterialPageRoute(
             builder: (_) => WebViewPage(
-              title: "O Aplikacji Pola",
-              url: args,
-              showBackButton: true
+              title: title,
+              url: url,
+              showBackButton: true,
             ),
           );
         }
