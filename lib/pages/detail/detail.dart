@@ -5,6 +5,7 @@ import 'package:pola_flutter/models/company.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:pola_flutter/i18n/strings.g.dart';
 
 import 'detail_lidl.dart';
 import 'polish_capital_grapho.dart';
@@ -13,19 +14,6 @@ class DetailPage extends StatelessWidget {
   DetailPage({Key? key, required this.searchResult}) : super(key: key);
 
   final SearchResult searchResult;
-  final PolaAnalytics _analytics = PolaAnalytics.instance();
-
-  void _handleReadMoreClick(BuildContext context, String? url) {
-    if (url == null) return;
-    final Uri? uri = Uri.tryParse(url);
-    if (uri == null) return;
-
-    _analytics.readMore(searchResult, url);
-    launchUrl(
-      uri,
-      mode: LaunchMode.externalApplication,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +36,7 @@ class DetailPage extends StatelessWidget {
             children: [
               SizedBox(height: 16.0),
 
-              _DetailContent(searchResult, _handleReadMoreClick),
+              _DetailContent(searchResult),
             ],
           ),
         ),
@@ -58,10 +46,9 @@ class DetailPage extends StatelessWidget {
 }
 
  class _DetailContent extends StatelessWidget {
-  _DetailContent(this.searchResult, this.onReadMoreClick);
+  _DetailContent(this.searchResult);
 
   final SearchResult searchResult;
-  final void Function(BuildContext, String?) onReadMoreClick;
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +63,7 @@ class DetailPage extends StatelessWidget {
     final score = company.plScore ?? 0;
     final double plCapital = (company.plCapital ?? 0).toDouble();
 
-    // Check if the company has a logo and description
+    
     final hasLogo = company.logotypeUrl != null;
     final hasDescription = company.description?.isNotEmpty ?? false;
 
@@ -97,8 +84,9 @@ class DetailPage extends StatelessWidget {
                     width: 24.0,
                   ),
                   SizedBox(width: 8.0),
+                  
                   Text(
-                    "Nasza ocena:",
+                      t.companyScreen.ourRating,
                     style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w600,
@@ -107,7 +95,7 @@ class DetailPage extends StatelessWidget {
                   ),
                   SizedBox(width: 8.0),
                   Text(
-                    "$score pkt",
+                     t.companyScreen. points(score: score),
                     style: TextStyle(
                       fontSize: 20.0,
                       fontWeight: FontWeight.w700,
@@ -142,7 +130,7 @@ class DetailPage extends StatelessWidget {
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                "Kryteria oceniania:",
+                  t.companyScreen.gradingCriteria,
                 style: TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.w600,
@@ -161,13 +149,13 @@ class DetailPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _DetailItem("Produkuje w Polsce", (company.plWorkers ?? 0) != 0),
+                    _DetailItem(  t.companyScreen.producedInPoland, (company.plWorkers ?? 0) != 0),
                     SizedBox(height: 14.0),
-                    _DetailItem("Prowadzi badania w Polsce", (company.plRnD ?? 0) != 0),
+                    _DetailItem(  t.companyScreen.researchInPoland, (company.plRnD ?? 0) != 0),
                     SizedBox(height: 14.0),
-                    _DetailItem("Zarejestrowana w Polsce", (company.plRegistered ?? 0) != 0),
+                    _DetailItem(  t.companyScreen.registeredInPoland, (company.plRegistered ?? 0) != 0),
                     SizedBox(height: 14.0),
-                    _DetailItem("Nie jest częścią zagranicznego koncernu", (company.plNotGlobEnt ?? 0) != 0),
+                    _DetailItem(  t.companyScreen.notConcernPart, (company.plNotGlobEnt ?? 0) != 0),
                   ],
                 ),
               ),
@@ -361,7 +349,7 @@ class ExpandableText extends StatefulWidget {
 class _ExpandableTextState extends State<ExpandableText> {
   bool isExpanded = false;
 
-  @override
+   @override
   Widget build(BuildContext context) {
     final link = TextSpan(
       style: TextStyle(
@@ -370,7 +358,7 @@ class _ExpandableTextState extends State<ExpandableText> {
         fontWeight: FontWeight.w700,
         fontFamily: 'Lato',
       ),
-      text: isExpanded ? ' zobacz mniej' : ' zobacz więcej',
+      text: isExpanded ?  t.companyScreen.seeLess :  t.companyScreen.seeMore,
       recognizer: TapGestureRecognizer()
         ..onTap = () {
           setState(() {

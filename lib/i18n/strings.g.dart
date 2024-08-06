@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 1
-/// Strings: 9
+/// Strings: 19
 ///
-/// Built on 2024-08-02 at 06:45 UTC
+/// Built on 2024-08-05 at 10:55 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -148,6 +148,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	// Translations
 	late final _StringsMenuEn menu = _StringsMenuEn._(_root);
+	late final _StringsCompanyScreenEn companyScreen = _StringsCompanyScreenEn._(_root);
 }
 
 // Path: menu
@@ -168,6 +169,25 @@ class _StringsMenuEn {
 	String get footer => 'Aplikacja Pola \n© Klub Jagielloński';
 }
 
+// Path: companyScreen
+class _StringsCompanyScreenEn {
+	_StringsCompanyScreenEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get ourRating => 'Nasza ocena:';
+	String get gradingCriteria => 'Kryteria oceniania:';
+	String get polishCapital => 'Polski kapitał';
+	String get producedInPoland => 'Produkuje w Polsce';
+	String get researchInPoland => 'Prowadzi badania w Polsce';
+	String get registeredInPoland => 'Zarejestrowana w Polsce';
+	String get notConcernPart => 'Nie jest częścią zagranicznego koncernu';
+	String get seeMore => 'zobacz więcej';
+	String get seeLess => 'zobacz mniej';
+	String points({required Object score}) => 'pkt ${score}';
+}
+
 /// Flat map(s) containing all translations.
 /// Only for edge cases! For simple maps, use the map function of this library.
 
@@ -183,6 +203,16 @@ extension on Translations {
 			case 'menu.team': return 'Zespół';
 			case 'menu.findUs': return 'Znajdź nas tutaj';
 			case 'menu.footer': return 'Aplikacja Pola \n© Klub Jagielloński';
+			case 'companyScreen.ourRating': return 'Nasza ocena:';
+			case 'companyScreen.gradingCriteria': return 'Kryteria oceniania:';
+			case 'companyScreen.polishCapital': return 'Polski kapitał';
+			case 'companyScreen.producedInPoland': return 'Produkuje w Polsce';
+			case 'companyScreen.researchInPoland': return 'Prowadzi badania w Polsce';
+			case 'companyScreen.registeredInPoland': return 'Zarejestrowana w Polsce';
+			case 'companyScreen.notConcernPart': return 'Nie jest częścią zagranicznego koncernu';
+			case 'companyScreen.seeMore': return 'zobacz więcej';
+			case 'companyScreen.seeLess': return 'zobacz mniej';
+			case 'companyScreen.points': return ({required Object score}) => 'pkt ${score}';
 			default: return null;
 		}
 	}

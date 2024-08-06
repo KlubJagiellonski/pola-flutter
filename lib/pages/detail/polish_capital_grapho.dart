@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
+import 'package:pola_flutter/i18n/strings.g.dart';
 
 class CustomRadialGauge extends StatelessWidget {
   final double percentage;
@@ -8,6 +9,7 @@ class CustomRadialGauge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Translations t = Translations.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -57,7 +59,7 @@ class CustomRadialGauge extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 0.0), 
           child: Text(
-            'Polski kapitał',
+             t.companyScreen.polishCapital,
             style: TextStyle(
               fontSize: 11.0,
               fontWeight: FontWeight.w400,
