@@ -49,25 +49,26 @@ class _PolaAppState extends State<PolaApp> {
       home: DefaultTabController(
         length: 3,
         child: Scaffold(
-            bottomNavigationBar: BottomNavigationBar(
-              items: const <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.smartphone),
-                  label: 'Skaner kodów',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.search),
-                  label: 'Wyszukiwarka',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.newspaper),
-                  label: 'Wiadomości',
-                ),
-              ],
-              onTap: _onItemTapped,
-              currentIndex: _selectedIndex,
-            ),
-            body: _getTabContentWidget()),
+          bottomNavigationBar: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.smartphone),
+                label: 'Skaner kodów',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.search),
+                label: 'Wyszukiwarka',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.newspaper),
+                label: 'Wiadomości',
+              ),
+            ],
+            onTap: _onItemTapped,
+            currentIndex: _selectedIndex,
+          ),
+          body: _getTabContentWidget(),
+        ),
       ),
     );
   }

@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:pola_flutter/analytics/analytics_about_row.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
+import 'web_view_dialog.dart';
 
 class MenuItemListView extends StatelessWidget {
   final PolaAnalytics analytics;
@@ -87,10 +88,11 @@ class MenuItemListView extends StatelessWidget {
       iconPath: iconPath,
       onClick: () {
         analytics.aboutOpened(analyticsRow);
-        Navigator.pushNamed(
-          context,
-          '/web',
-          arguments: {'url': url, 'title': text},
+        showDialog(
+          context: context,
+          builder: (context) {
+            return WebViewDialog(url: url, title: text);
+          },
         );
       },
     );

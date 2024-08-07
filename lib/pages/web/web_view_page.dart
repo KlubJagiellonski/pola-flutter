@@ -53,28 +53,14 @@ class _WebViewTabState extends State<WebViewPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          title: Text(
-            widget.title,
-            style: TextStyle(
-              color: Colors.black,
-            )
+    return  Stack(
+      children: [
+        WebViewWidget(controller: controller),
+        if (loadingPercentage < 100)
+          LinearProgressIndicator(
+            value: loadingPercentage / 100.0,
           ),
-          leading: widget.showBackButton  ? _BackButton() : null,
-
-        ),
-        body: Stack(
-        children: [
-          WebViewWidget(controller: controller),
-          if (loadingPercentage < 100)
-            LinearProgressIndicator(
-              value: loadingPercentage / 100.0,
-            ),
-        ],
-      )
+      ],
     );
   }
 }
