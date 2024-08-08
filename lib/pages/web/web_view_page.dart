@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewPage extends StatefulWidget {
-  WebViewPage({Key? key, required this.title, required this.url, required this.showBackButton})
+  WebViewPage({Key? key, required this.url})
       : super(key: key);
 
   final String url;
-  final String title;
-  final bool showBackButton;
 
   @override
   _WebViewTabState createState() => _WebViewTabState();
@@ -61,19 +59,6 @@ class _WebViewTabState extends State<WebViewPage> {
             value: loadingPercentage / 100.0,
           ),
       ],
-    );
-  }
-}
-
-class _BackButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      icon: Icon(
-        Icons.arrow_back,
-        color: Colors.black,
-      ),
-      onPressed: () => Navigator.of(context).pop(),
     );
   }
 }

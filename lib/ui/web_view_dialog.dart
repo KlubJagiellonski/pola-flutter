@@ -47,11 +47,7 @@ class WebViewDialog extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: WebViewPage(
-                  title: title,
-                  url: url,
-                  showBackButton: false,
-                ),
+                child: WebViewPage(url: url),
               ),
             ],
           ),
