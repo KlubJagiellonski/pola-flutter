@@ -32,6 +32,8 @@ dependencies:
   firebase_analytics: ^11.1.0
   slang: ^3.31.1
   slang_flutter: ^3.31.0
+  syncfusion_flutter_gauges: ^26.1.42
+  flutter_svg: ^2.0.9
 
 dev_dependencies:
   flutter_test:
