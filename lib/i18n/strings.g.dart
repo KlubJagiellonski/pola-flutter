@@ -6,7 +6,7 @@
 /// Locales: 1
 /// Strings: 19
 ///
-/// Built on 2024-08-05 at 10:55 UTC
+/// Built on 2024-08-08 at 07:30 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -183,8 +183,8 @@ class _StringsCompanyScreenEn {
 	String get researchInPoland => 'Prowadzi badania w Polsce';
 	String get registeredInPoland => 'Zarejestrowana w Polsce';
 	String get notConcernPart => 'Nie jest częścią zagranicznego koncernu';
-	String get seeMore => 'zobacz więcej';
-	String get seeLess => 'zobacz mniej';
+	String get seeMore => ' zobacz więcej';
+	String get seeLess => ' zobacz mniej';
 	String points({required Object score}) => 'pkt ${score}';
 }
 
@@ -210,8 +210,8 @@ extension on Translations {
 			case 'companyScreen.researchInPoland': return 'Prowadzi badania w Polsce';
 			case 'companyScreen.registeredInPoland': return 'Zarejestrowana w Polsce';
 			case 'companyScreen.notConcernPart': return 'Nie jest częścią zagranicznego koncernu';
-			case 'companyScreen.seeMore': return 'zobacz więcej';
-			case 'companyScreen.seeLess': return 'zobacz mniej';
+			case 'companyScreen.seeMore': return ' zobacz więcej';
+			case 'companyScreen.seeLess': return ' zobacz mniej';
 			case 'companyScreen.points': return ({required Object score}) => 'pkt ${score}';
 			default: return null;
 		}

@@ -34,9 +34,7 @@ class DetailContent extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 17.0),
-            child: Align(
+    Align(
               alignment: Alignment.centerLeft,
               child: Row(
                 children: [
@@ -67,9 +65,8 @@ class DetailContent extends StatelessWidget {
                 ],
               ),
             ),
-          ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 17.0),
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
               child: LinearProgressIndicator(
@@ -84,11 +81,11 @@ class DetailContent extends StatelessWidget {
           Divider(
             thickness: 1.0,
             color: Color(0xFFF0F0F0),
-            indent: 17.0,
-            endIndent: 17.0,
+            indent: 0,
+            endIndent: 0,
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 17.0, top: 22.0),
+            padding: const EdgeInsets.only(top: 22.0),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -127,19 +124,19 @@ class DetailContent extends StatelessWidget {
           Divider(
             thickness: 1.0,
             color: Color(0xFFF0F0F0),
-            indent: 17.0,
-            endIndent: 17.0,
+            indent: 0,
+            endIndent: 0,
           ),
           if (hasDescription) ...[
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 22.0, horizontal: 17.0),
+              padding: EdgeInsets.symmetric(vertical: 22.0),
               child: ExpandableText(company.description ?? ""),
             ),
             if (hasLogo) Divider(
               thickness: 1.0,
               color: Color(0xFFF0F0F0),
-              indent: 17.0,
-              endIndent: 17.0,
+              indent: 0,
+              endIndent: 0,
             ),
           ],
           if (hasLogo) Logotypes(logotypes: searchResult.logotypes(), searchResult: searchResult),
@@ -147,8 +144,8 @@ class DetailContent extends StatelessWidget {
           if (hasLogo) Divider(
             thickness: 1.0,
             color: Color(0xFFF0F0F0),
-            indent: 17.0,
-            endIndent: 17.0,
+            indent: 0,
+            endIndent:0,
           ),
         ],
       ),

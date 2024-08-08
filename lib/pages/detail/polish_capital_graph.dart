@@ -10,7 +10,7 @@ class  PolishCapitalGraph extends StatelessWidget {
   Widget build(BuildContext context) {
      
     final size = 140.0;
-    
+    final thickness = 0.15;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -25,7 +25,7 @@ class  PolishCapitalGraph extends StatelessWidget {
                 showLabels: false,
                 showTicks: false,
                 axisLineStyle: AxisLineStyle(
-                  thickness: 0.15,
+                  thickness: thickness,
                   cornerStyle: CornerStyle.bothCurve,
                   color: Color(0xFFF5DEDD),
                   thicknessUnit: GaugeSizeUnit.factor,
@@ -34,7 +34,7 @@ class  PolishCapitalGraph extends StatelessWidget {
                   RangePointer(
                     value: percentage,
                     cornerStyle: CornerStyle.bothCurve,
-                    width: 0.15,
+                    width: thickness,
                     sizeUnit: GaugeSizeUnit.factor,
                     color: Color(0xFFE1203E),
                   ),
