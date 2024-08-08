@@ -5,13 +5,20 @@ class WebViewTab extends StatelessWidget {
   final String title;
   final String url;
 
-  WebViewTab({Key? key, required this.title, required this.url}) : super(key: key);
+  WebViewTab({Key? key, required this.title, required this.url})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title)
+        title: Text(
+          title,
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
+            fontFamily: "lato",
+          ),
+        ),
       ),
       body: Center(
         child: WebViewPage(url: url),

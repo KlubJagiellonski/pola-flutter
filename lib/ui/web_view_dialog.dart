@@ -5,7 +5,8 @@ class WebViewDialog extends StatelessWidget {
   final String url;
   final String title;
 
-  const WebViewDialog({Key? key, required this.url, required this.title}) : super(key: key);
+  const WebViewDialog({Key? key, required this.url, required this.title})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,23 +23,29 @@ class WebViewDialog extends StatelessWidget {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 19.0, right: 17.0, top: 19.0),
+                padding:
+                    const EdgeInsets.only(left: 19.0, right: 17.0, top: 19.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Image.asset("assets/ic_launcher.png", width: 35, height: 35),
-                    
+                    Image.asset("assets/ic_launcher.png",
+                        width: 35, height: 35),
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 14.0),
                         child: Text(
                           title,
-                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF1C1B1F),
+                          ),
                         ),
                       ),
                     ),
                     IconButton(
-                      icon: Image.asset("assets/back.png", width: 32, height: 32),
+                      icon:
+                          Image.asset("assets/back.png", width: 32, height: 32),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },

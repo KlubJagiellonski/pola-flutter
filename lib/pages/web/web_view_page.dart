@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewPage extends StatefulWidget {
-  WebViewPage({Key? key, required this.url})
-      : super(key: key);
+  WebViewPage({Key? key, required this.url}) : super(key: key);
 
   final String url;
 
@@ -22,24 +21,20 @@ class _WebViewTabState extends State<WebViewPage> {
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(
-          NavigationDelegate(
-            onProgress: (int progress) {
-              setState(() {
-                loadingPercentage = progress;
-              });
-            },
-            onPageStarted: (String url) {
-              setState(() {
-                loadingPercentage = 0;
-              });              
-            },
-            onPageFinished: (String url) {
-              setState(() {
-                loadingPercentage = 100;
-              });
-            }
-          ),
-        )
+        NavigationDelegate(onProgress: (int progress) {
+          setState(() {
+            loadingPercentage = progress;
+          });
+        }, onPageStarted: (String url) {
+          setState(() {
+            loadingPercentage = 0;
+          });
+        }, onPageFinished: (String url) {
+          setState(() {
+            loadingPercentage = 100;
+          });
+        }),
+      )
       ..loadRequest(Uri.parse(widget.url));
   }
 
@@ -51,7 +46,7 @@ class _WebViewTabState extends State<WebViewPage> {
 
   @override
   Widget build(BuildContext context) {
-    return  Stack(
+    return Stack(
       children: [
         WebViewWidget(controller: controller),
         if (loadingPercentage < 100)
