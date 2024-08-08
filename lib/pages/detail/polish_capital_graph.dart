@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
-
 class  PolishCapitalGraph extends StatelessWidget {
   final double percentage;
 
@@ -9,7 +8,7 @@ class  PolishCapitalGraph extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final Translations t = Translations.of(context);
+     
     final size = 140.0;
     
     return Column(
@@ -61,7 +60,7 @@ class  PolishCapitalGraph extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 0.0), 
           child: Text(
-             "t.companyScreen.polishCapital",
+             t.companyScreen.polishCapital,
             style: TextStyle(
               fontSize: 11.0,
               fontWeight: FontWeight.w400,
