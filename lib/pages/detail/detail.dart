@@ -16,6 +16,7 @@ class DetailPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
+      
       appBar: AppBar(
         title: Text(searchResult.name ?? ""),
         leading: IconButton(
@@ -28,7 +29,6 @@ class DetailPage extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: 16.0),
-
               DetailContent(searchResult),
             ],
           ),
@@ -37,5 +37,3 @@ class DetailPage extends StatelessWidget {
     );
   }
 }
-
- 

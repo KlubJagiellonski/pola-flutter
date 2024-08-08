@@ -25,7 +25,7 @@ class DetailContent extends StatelessWidget {
     final score = company.plScore ?? 0;
     final double plCapital = (company.plCapital ?? 0).toDouble();
     final Translations t = Translations.of(context);
-    
+
     final hasLogo = company.logotypeUrl != null;
     final hasDescription = company.description?.isNotEmpty ?? false;
 
@@ -34,37 +34,36 @@ class DetailContent extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-    Align(
-              alignment: Alignment.centerLeft,
-              child: Row(
-                children: [
-                  SvgPicture.asset(
-                    'assets/info.svg',
-                    height: 24.0,
-                    width: 24.0,
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Row(
+              children: [
+                SvgPicture.asset(
+                  'assets/info.svg',
+                  height: 24.0,
+                  width: 24.0,
+                ),
+                SizedBox(width: 8.0),
+                Text(
+                  t.companyScreen.ourRating,
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'Lato',
                   ),
-                  SizedBox(width: 8.0),
-                  
-                  Text(
-                      t.companyScreen.ourRating,
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'Lato',
-                    ),
+                ),
+                SizedBox(width: 8.0),
+                Text(
+                  t.companyScreen.points(score: score),
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: 'Lato',
                   ),
-                  SizedBox(width: 8.0),
-                  Text(
-                     t.companyScreen. points(score: score),
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'Lato',
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: ClipRRect(
@@ -89,7 +88,7 @@ class DetailContent extends StatelessWidget {
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                  t.companyScreen.gradingCriteria,
+                t.companyScreen.gradingCriteria,
                 style: TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.w600,
@@ -102,19 +101,23 @@ class DetailContent extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               PolishCapitalGraph(percentage: plCapital),
+              PolishCapitalGraph(percentage: plCapital),
               SizedBox(width: 35.0),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _DetailItem(  t.companyScreen.producedInPoland, (company.plWorkers ?? 0) != 0),
+                    _DetailItem(t.companyScreen.producedInPoland,
+                        (company.plWorkers ?? 0) != 0),
                     SizedBox(height: 14.0),
-                    _DetailItem(  t.companyScreen.researchInPoland, (company.plRnD ?? 0) != 0),
+                    _DetailItem(t.companyScreen.researchInPoland,
+                        (company.plRnD ?? 0) != 0),
                     SizedBox(height: 14.0),
-                    _DetailItem(  t.companyScreen.registeredInPoland, (company.plRegistered ?? 0) != 0),
+                    _DetailItem(t.companyScreen.registeredInPoland,
+                        (company.plRegistered ?? 0) != 0),
                     SizedBox(height: 14.0),
-                    _DetailItem(  t.companyScreen.notConcernPart, (company.plNotGlobEnt ?? 0) != 0),
+                    _DetailItem(t.companyScreen.notConcernPart,
+                        (company.plNotGlobEnt ?? 0) != 0),
                   ],
                 ),
               ),
@@ -132,21 +135,26 @@ class DetailContent extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 22.0),
               child: ExpandableText(company.description ?? ""),
             ),
-            if (hasLogo) Divider(
+            if (hasLogo)
+              Divider(
+                thickness: 1.0,
+                color: Color(0xFFF0F0F0),
+                indent: 0,
+                endIndent: 0,
+              ),
+          ],
+          if (hasLogo)
+            Logotypes(
+                logotypes: searchResult.logotypes(),
+                searchResult: searchResult),
+          SizedBox(height: 26.0),
+          if (hasLogo)
+            Divider(
               thickness: 1.0,
               color: Color(0xFFF0F0F0),
               indent: 0,
               endIndent: 0,
             ),
-          ],
-          if (hasLogo) Logotypes(logotypes: searchResult.logotypes(), searchResult: searchResult),
-          SizedBox(height: 26.0),
-          if (hasLogo) Divider(
-            thickness: 1.0,
-            color: Color(0xFFF0F0F0),
-            indent: 0,
-            endIndent:0,
-          ),
         ],
       ),
     );
@@ -187,7 +195,6 @@ class _DetailItem extends StatelessWidget {
     );
   }
 }
-
 
 extension on SearchResult {
   List<Logotype> logotypes() {

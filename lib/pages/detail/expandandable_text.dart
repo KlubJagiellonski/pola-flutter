@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
- 
- class ExpandableText extends StatefulWidget {
+
+class ExpandableText extends StatefulWidget {
   final String text;
   ExpandableText(this.text);
 
@@ -13,7 +13,7 @@ import 'package:pola_flutter/i18n/strings.g.dart';
 class _ExpandableTextState extends State<ExpandableText> {
   bool isExpanded = false;
 
-    @override
+  @override
   Widget build(BuildContext context) {
     final link = TextSpan(
       style: TextStyle(
@@ -22,7 +22,7 @@ class _ExpandableTextState extends State<ExpandableText> {
         fontWeight: FontWeight.w700,
         fontFamily: 'Lato',
       ),
-      text: isExpanded ?  t.companyScreen.seeLess :  t.companyScreen.seeMore,
+      text: isExpanded ? t.companyScreen.seeLess : t.companyScreen.seeMore,
       recognizer: TapGestureRecognizer()
         ..onTap = () {
           setState(() {

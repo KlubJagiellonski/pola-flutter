@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:url_launcher/url_launcher.dart';
- 
-
 
 class Logotype {
   final String imageUrl;
@@ -11,7 +9,6 @@ class Logotype {
 
   Logotype(this.imageUrl, this.websiteUrl);
 }
-
 
 class Logotypes extends StatelessWidget {
   final List<Logotype> logotypes;
@@ -69,7 +66,7 @@ class Logotypes extends StatelessWidget {
     );
   }
 }
-  
+
 class _LogoView extends StatelessWidget {
   _LogoView(this.url);
 
@@ -80,5 +77,3 @@ class _LogoView extends StatelessWidget {
     return Image.network(url, height: 60.0, fit: BoxFit.contain);
   }
 }
-
- 
