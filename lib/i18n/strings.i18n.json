@@ -20,6 +20,6 @@
         "notConcernPart":"Nie jest częścią zagranicznego koncernu",
         "seeMore":" zobacz więcej",
         "seeLess":" zobacz mniej",
-        "points":"pkt $score"
+        "points":"$score pkt"
     }
 }

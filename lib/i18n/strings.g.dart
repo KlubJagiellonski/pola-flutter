@@ -6,7 +6,7 @@
 /// Locales: 1
 /// Strings: 19
 ///
-/// Built on 2024-08-08 at 07:30 UTC
+/// Built on 2024-08-08 at 12:09 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -185,7 +185,7 @@ class _StringsCompanyScreenEn {
 	String get notConcernPart => 'Nie jest częścią zagranicznego koncernu';
 	String get seeMore => ' zobacz więcej';
 	String get seeLess => ' zobacz mniej';
-	String points({required Object score}) => 'pkt ${score}';
+	String points({required Object score}) => '${score} pkt';
 }
 
 /// Flat map(s) containing all translations.
@@ -212,7 +212,7 @@ extension on Translations {
 			case 'companyScreen.notConcernPart': return 'Nie jest częścią zagranicznego koncernu';
 			case 'companyScreen.seeMore': return ' zobacz więcej';
 			case 'companyScreen.seeLess': return ' zobacz mniej';
-			case 'companyScreen.points': return ({required Object score}) => 'pkt ${score}';
+			case 'companyScreen.points': return ({required Object score}) => '${score} pkt';
 			default: return null;
 		}
 	}
