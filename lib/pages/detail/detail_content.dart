@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:pola_flutter/models/company.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
-import 'package:pola_flutter/ui/web_view_dialog.dart';
 import 'logotypes.dart';
 import 'expandandable_text.dart';
 import 'polish_capital_graph.dart';
+import 'friends_bar.dart';
 
 class DetailContent extends StatelessWidget {
   const DetailContent(this.searchResult, {Key? key}) : super(key: key);
@@ -34,54 +34,9 @@ class DetailContent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if ((company.isFriend ?? false))
-          GestureDetector(
-            onTap: () {
-              final url = 'https://www.pola-app.pl/m/friends';
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return WebViewDialog(url: url, title: " Przyjaciele Poli");
-                },
-              );
-            },
-            child: Container(
-              height: 40.0,
-              color: const Color(0xFFF5DEDD),
-              alignment: Alignment.center,
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 9.0),
-                    child: SvgPicture.asset(
-                      'assets/favorite.svg',
-                      height: 13.0,
-                      width: 15.0,
-                    ),
-                  ),
-                  Expanded(
-                    child: Center(
-                      child: Text(
-                        "Ta firma jest przyjacielem Poli",
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.bold,
-                          color: const Color(0xFFE1203E),
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 9.0),
-                    child: SvgPicture.asset(
-                      'assets/favorite.svg',
-                      height: 13.0,
-                      width: 15.0,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          FriendsBar(
+            message: t.companyScreen.polaFriends,
+            url:  'https://www.pola-app.pl/m/friends',
           ),
         const SizedBox(height: 20.0),
         Padding(
