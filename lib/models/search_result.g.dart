@@ -7,7 +7,7 @@ part of 'search_result.dart';
 // **************************************************************************
 
 SearchResult _$SearchResultFromJson(Map<String, dynamic> json) => SearchResult(
-      productId: json['product_id'] as int?,
+      productId: (json['product_id'] as num?)?.toInt(),
       code: json['code'] as String?,
       name: json['name'] as String?,
       cardType: json['card_type'] as String?,
