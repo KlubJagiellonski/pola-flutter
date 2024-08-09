@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pola_flutter/models/company.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
+import 'package:pola_flutter/theme/fonts.gen.dart';
 import 'logotypes.dart';
 import 'expandandable_text.dart';
 import 'polish_capital_graph.dart';
+import 'package:pola_flutter/theme/assets.gen.dart';
 
 class DetailContent extends StatelessWidget {
   DetailContent(this.searchResult);
@@ -38,18 +39,20 @@ class DetailContent extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: Row(
               children: [
-                SvgPicture.asset(
-                  'assets/info.svg',
-                  height: 24.0,
-                  width: 24.0,
-                ),
+                Assets.info.svg(height: 24.0,width: 24.0),
+                // SvgPicture.asset(
+                //   'assets/info.svg',
+                //   height: 24.0,
+                //   width: 24.0,
+                // ),
+
                 SizedBox(width: 8.0),
                 Text(
                   t.companyScreen.ourRating,
                   style: TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.w600,
-                    fontFamily: 'Lato',
+                    fontFamily: FontFamily.lato,
                      color: Color(0xFF1C1B1F),
                   ),
                 ),
@@ -59,7 +62,7 @@ class DetailContent extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.w700,
-                    fontFamily: 'Lato',
+                    fontFamily: FontFamily.lato,
                      color: Color(0xFF1C1B1F),
                   ),
                 ),
@@ -94,7 +97,7 @@ class DetailContent extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.w600,
-                  fontFamily: 'Lato',
+                  fontFamily: FontFamily.lato,
                    color: Color(0xFF1C1B1F),
                 ),
               ),
@@ -178,9 +181,7 @@ class _DetailItem extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.only(right: 3.0),
-          child: SvgPicture.asset(
-            state ? 'assets/task_alt.svg' : 'assets/radio_button_unchecked.svg',
-          ),
+          child: state ? Assets.taskAlt.svg() : Assets.radioButtonUnchecked.svg()
         ),
         Expanded(
           child: Text(
@@ -188,7 +189,7 @@ class _DetailItem extends StatelessWidget {
             style: TextStyle(
               fontSize: 11,
               fontWeight: FontWeight.w400,
-              fontFamily: 'Lato',
+              fontFamily: FontFamily.lato,
                color: Color(0xFF1C1B1F),
             ),
             softWrap: true,
