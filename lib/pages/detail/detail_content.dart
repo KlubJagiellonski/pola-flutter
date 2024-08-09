@@ -1,8 +1,9 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pola_flutter/models/company.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
+import 'package:pola_flutter/ui/web_view_dialog.dart';
 import 'logotypes.dart';
 import 'expandandable_text.dart';
 import 'polish_capital_graph.dart';
@@ -32,49 +33,57 @@ class DetailContent extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         if ((company.isFriend ?? false))  
-          Container(
-            height: 40.0,
-            color: const Color(0xFFF5DEDD),      
-            alignment: Alignment.center,
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 9.0),
-                  child: SvgPicture.asset(
-                    'assets/favorite.svg',
-                    height: 13.0,  
-                    width: 15.0,    
-                  ),
-                ),
-                 Expanded(
-                  child: Center(
-                    child: Text(
-                      "Ta firma jest przyjacielem Poli",
-                      style: TextStyle(
-                        fontSize: 12.0,           
-                        fontWeight: FontWeight.w700,
-                        color: const Color(0xFFE1203E),  
-                        fontFamily: "lato",
-
-                      
-                      ),
-                      textAlign: TextAlign.center,
+        if ((company.isFriend ?? false))
+          GestureDetector(
+            onTap: () {
+              final url = 'https://www.pola-app.pl/m/friends';
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return WebViewDialog(url: url, title: " Przyjaciele Poli");
+                },
+              );
+            },
+            child: Container(
+              height: 40.0,
+              color: const Color(0xFFF5DEDD),
+              alignment: Alignment.center,
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 9.0),
+                    child: SvgPicture.asset(
+                      'assets/favorite.svg',
+                      height: 13.0,
+                      width: 15.0,
                     ),
                   ),
-                ),
-                 Padding(
-                  padding: const EdgeInsets.only(right: 9.0),
-                  child: SvgPicture.asset(
-                    'assets/favorite.svg',
-                    height: 13.0,  
-                    width: 15.0,   
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        "Ta firma jest przyjacielem Poli",
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.bold,
+                          color: const Color(0xFFE1203E),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                   ),
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.only(right: 9.0),
+                    child: SvgPicture.asset(
+                      'assets/favorite.svg',
+                      height: 13.0,
+                      width: 15.0,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        const SizedBox(height: 20.0),  
+        const SizedBox(height: 20.0),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 17.0),
           child: Column(
@@ -119,7 +128,8 @@ class DetailContent extends StatelessWidget {
                   child: LinearProgressIndicator(
                     value: score / 100.0,
                     backgroundColor: const Color(0xFFF5DEDD),
-                    valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFFE1203E)),
+                    valueColor:
+                        const AlwaysStoppedAnimation<Color>(Color(0xFFE1203E)),
                     minHeight: 12.0,
                   ),
                 ),
@@ -156,13 +166,17 @@ class DetailContent extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _DetailItem(t.companyScreen.producedInPoland, (company.plWorkers ?? 0) != 0),
+                        _DetailItem(t.companyScreen.producedInPoland,
+                            (company.plWorkers ?? 0) != 0),
                         const SizedBox(height: 14.0),
-                        _DetailItem(t.companyScreen.researchInPoland, (company.plRnD ?? 0) != 0),
+                        _DetailItem(t.companyScreen.researchInPoland,
+                            (company.plRnD ?? 0) != 0),
                         const SizedBox(height: 14.0),
-                        _DetailItem(t.companyScreen.registeredInPoland, (company.plRegistered ?? 0) != 0),
+                        _DetailItem(t.companyScreen.registeredInPoland,
+                            (company.plRegistered ?? 0) != 0),
                         const SizedBox(height: 14.0),
-                        _DetailItem(t.companyScreen.notConcernPart, (company.plNotGlobEnt ?? 0) != 0),
+                        _DetailItem(t.companyScreen.notConcernPart,
+                            (company.plNotGlobEnt ?? 0) != 0),
                       ],
                     ),
                   ),
@@ -189,7 +203,9 @@ class DetailContent extends StatelessWidget {
                   ),
               ],
               if (hasLogo)
-                Logotypes(logotypes: searchResult.logotypes(), searchResult: searchResult),
+                Logotypes(
+                    logotypes: searchResult.logotypes(),
+                    searchResult: searchResult),
               const SizedBox(height: 26.0),
               if (hasLogo)
                 Divider(
@@ -245,14 +261,14 @@ class _DetailItem extends StatelessWidget {
 extension on SearchResult {
   List<Logotype> logotypes() {
     var brandLogotypes = allCompanyBrands?.map((brand) {
-      final brandLogotype = brand.logotypeUrl;
-      if (brandLogotype != null) {
-        return Logotype(brandLogotype, null);
-      } else {
-        return null;
-      }
-    }).toList() ??
-    [];
+          final brandLogotype = brand.logotypeUrl;
+          if (brandLogotype != null) {
+            return Logotype(brandLogotype, null);
+          } else {
+            return null;
+          }
+        }).toList() ??
+        [];
 
     final logotypeCompany = companies?.first.logotype();
 
