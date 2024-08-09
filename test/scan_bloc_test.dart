@@ -6,6 +6,8 @@ import 'package:pola_flutter/data/pola_api_repository.dart';
 import 'package:pola_flutter/main.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/pages/scan/scan_bloc.dart';
+import 'package:pola_flutter/pages/scan/scan_event.dart';
+import 'package:pola_flutter/pages/scan/scan_state.dart';
 import 'package:pola_flutter/pages/scan/scan_vibration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
@@ -23,20 +25,26 @@ void main() {
       scanBloc = ScanBloc(MockPolaApi(), MockScanVibration(), PolaAnalytics(provider: MockAnalyticsProvider()));
     });
 
-    test('initial state is ScanEmpty()', () {
-      expect(scanBloc.state, ScanEmpty());
+    test('initial state is state with empty list', () {
+      expect(scanBloc.state, ScanState());
     });
     blocTest(
-      'emits ScanLoaded([searchResult1]) when GetCompanyEvent(5900311000360) is added',
+      'emits ScanLoaded([searchResult1]) when barcodeScanned(5900311000360) is added',
       build: () => scanBloc,
-      act: (bloc) => scanBloc.add(GetCompanyEvent(5900311000360)),
-      expect: () => [ScanLoaded([searchResult1])],
+      act: (bloc) => scanBloc.add(ScanEvent.barcodeScanned("5900311000360")),
+      expect: () => [
+        ScanState(isLoading: true),
+        ScanState(list: [searchResult1], isLoading: false)
+        ],
     );
     blocTest(
-      'emits nothing when GetCompanyEvent(0) is added',
+      'emits empty list when scanned barcode results in error',
       build: () => scanBloc,
-      act: (bloc) => scanBloc.add(GetCompanyEvent(0)),
-      expect: () => [ScanLoaded(List.empty())],
+      act: (bloc) => scanBloc.add(ScanEvent.barcodeScanned("0")),
+      expect: () => [
+        ScanState(isLoading: true),
+        ScanState(isLoading: false)
+      ],
     );
   });
 }
@@ -52,9 +60,9 @@ var searchResult1 = SearchResult(
 
 class MockPolaApi extends PolaApi {
   @override
-  Future<ApiResponse<SearchResult>> getCompany(int code) {
+  Future<ApiResponse<SearchResult>> getCompany(String code) {
     print("MockPolaApi getCompany " + code.toString());
-    if (code == 5900311000360) {
+    if (code == "5900311000360") {
       return Future.value(ApiResponse.completed(searchResult1));
     } else {
       return Future.value(ApiResponse.error("error"));
