@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 1
-/// Strings: 19
+/// Strings: 20
 ///
-/// Built on 2024-08-08 at 12:09 UTC
+/// Built on 2024-08-09 at 11:08 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -186,6 +186,7 @@ class _StringsCompanyScreenEn {
 	String get seeMore => ' zobacz więcej';
 	String get seeLess => ' zobacz mniej';
 	String points({required Object score}) => '${score} pkt';
+	String get polaFriends => ' Ta firma jest przyjacielem Poli';
 }
 
 /// Flat map(s) containing all translations.
@@ -213,6 +214,7 @@ extension on Translations {
 			case 'companyScreen.seeMore': return ' zobacz więcej';
 			case 'companyScreen.seeLess': return ' zobacz mniej';
 			case 'companyScreen.points': return ({required Object score}) => '${score} pkt';
+			case 'companyScreen.polaFriends': return ' Ta firma jest przyjacielem Poli';
 			default: return null;
 		}
 	}
