@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/pages/web/web_view_page.dart';
+import 'package:pola_flutter/theme/fonts.gen.dart';
 
 class WebViewTab extends StatelessWidget {
   final String title;
@@ -16,7 +17,7 @@ class WebViewTab extends StatelessWidget {
           title,
           style: TextStyle(
             fontWeight: FontWeight.w700,
-            fontFamily: "lato",
+            fontFamily: FontFamily.lato,
             color: Color(0xFF1C1B1F),
           ),
         ),

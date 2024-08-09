@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
+import 'package:pola_flutter/theme/fonts.gen.dart';
 
 class ExpandableText extends StatefulWidget {
   final String text;
@@ -20,7 +21,7 @@ class _ExpandableTextState extends State<ExpandableText> {
         color: Color(0xFF898989),
         fontSize: 11.0,
         fontWeight: FontWeight.w700,
-        fontFamily: 'Lato',
+        fontFamily: FontFamily.lato,
       ),
       text: isExpanded ? t.companyScreen.seeLess : t.companyScreen.seeMore,
       recognizer: TapGestureRecognizer()
@@ -39,7 +40,7 @@ class _ExpandableTextState extends State<ExpandableText> {
             color: Color(0xFF1C1B1F),
             fontSize: 11.0,
             fontWeight: FontWeight.w400,
-            fontFamily: 'Lato',
+            fontFamily: FontFamily.lato,
           ),
         );
 

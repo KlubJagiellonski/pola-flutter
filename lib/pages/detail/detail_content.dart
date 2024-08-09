@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pola_flutter/models/company.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
+import 'package:pola_flutter/theme/fonts.gen.dart';
 import 'logotypes.dart';
 import 'expandandable_text.dart';
 import 'polish_capital_graph.dart';
@@ -49,7 +50,7 @@ class DetailContent extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.w600,
-                    fontFamily: 'Lato',
+                    fontFamily: FontFamily.lato,
                      color: Color(0xFF1C1B1F),
                   ),
                 ),
@@ -59,7 +60,7 @@ class DetailContent extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.w700,
-                    fontFamily: 'Lato',
+                    fontFamily: FontFamily.lato,
                      color: Color(0xFF1C1B1F),
                   ),
                 ),
@@ -94,7 +95,7 @@ class DetailContent extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.w600,
-                  fontFamily: 'Lato',
+                  fontFamily: FontFamily.lato,
                    color: Color(0xFF1C1B1F),
                 ),
               ),
@@ -188,7 +189,7 @@ class _DetailItem extends StatelessWidget {
             style: TextStyle(
               fontSize: 11,
               fontWeight: FontWeight.w400,
-              fontFamily: 'Lato',
+              fontFamily: FontFamily.lato,
                color: Color(0xFF1C1B1F),
             ),
             softWrap: true,
