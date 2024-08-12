@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pola_flutter/theme/fonts.gen.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 
@@ -48,7 +49,7 @@ class PolishCapitalGraph extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 26.0,
                         fontWeight: FontWeight.w700,
-                        fontFamily: 'Lato',
+                        fontFamily: FontFamily.lato,
                          color: Color(0xFF1C1B1F),
                       ),
                     ),
@@ -66,7 +67,7 @@ class PolishCapitalGraph extends StatelessWidget {
               fontSize: 11.0,
               fontWeight: FontWeight.w400,
                color: Color(0xFF1C1B1F),
-              fontFamily: 'Lato',
+              fontFamily: FontFamily.lato,
             ),
           ),
         ),

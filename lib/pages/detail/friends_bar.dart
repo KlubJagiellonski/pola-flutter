@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+ import 'package:pola_flutter/theme/assets.gen.dart';
+import 'package:pola_flutter/theme/fonts.gen.dart';
 import 'package:pola_flutter/ui/web_view_dialog.dart';
 
 class FriendsBar extends StatelessWidget {
@@ -28,20 +29,17 @@ class FriendsBar extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 9.0),
-              child: SvgPicture.asset(
-                'assets/favorite.svg',
-                height: 13.0,
-                width: 15.0,
-              ),
+              child: Assets.icHeart.svg(height: 13, width: 15)
             ),
             Expanded(
               child: Center(
                 child: Text(
                   message,
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.bold,
-                    color: const Color(0xFFE1203E),
+                   style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: FontFamily.lato,
+                        color: Color(0xFFE1203E),
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -49,11 +47,7 @@ class FriendsBar extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(right: 9.0),
-              child: SvgPicture.asset(
-                'assets/favorite.svg',
-                height: 13.0,
-                width: 15.0,
-              ),
+              child: Assets.icHeart.svg(height: 13, width: 15)
             ),
           ],
         ),
