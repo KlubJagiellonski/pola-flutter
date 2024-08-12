@@ -217,6 +217,8 @@ class AssetGenImage {
   String get path => _assetName;
 
   String get keyName => _assetName;
+
+  svg({required int height, required int width}) {}
 }
 
 class SvgGenImage {
