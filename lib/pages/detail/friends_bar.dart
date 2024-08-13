@@ -29,7 +29,7 @@ class FriendsBar extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 9.0),
-              child: Assets.company.heart.svg(height: 13, width: 15)
+              child: Assets.company.heart.svg()
             ),
             Expanded(
               child: Center(
@@ -47,7 +47,7 @@ class FriendsBar extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(right: 9.0),
-              child: Assets.company.heart.svg(height: 13, width: 15)
+              child: Assets.company.heart.svg()
             ),
           ],
         ),
