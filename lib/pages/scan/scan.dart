@@ -4,8 +4,12 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:pola_flutter/analytics/analytics_about_row.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
+import 'package:pola_flutter/pages/scan/scan_event.dart';
+import 'package:pola_flutter/pages/scan/scan_state.dart';
+import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/pages/scan/scan_vibration.dart';
 import 'package:pola_flutter/ui/menu_bottom_sheet.dart';
+import 'package:pola_flutter/ui/web_view_dialog.dart';
 import 'companies_list.dart';
 import 'scan_bloc.dart';
 
@@ -45,8 +49,15 @@ class _MainPageState extends State<MainPage> {
         leading: IconButton(
           onPressed: () {
             _analytics.aboutPolaOpened();
-            Navigator.pushNamed(context, '/web',
-                arguments: "https://www.pola-app.pl/m/about");
+            showDialog(
+              context: context,
+              builder: (context) {
+                return WebViewDialog(
+                  url: "https://www.pola-app.pl/m/about",
+                  title: t.menu.aboutPola,
+                );
+              },
+            );
           },
           icon: Image.asset("assets/ic_launcher.png"),
         ),
@@ -92,13 +103,7 @@ class _MainPageState extends State<MainPage> {
               BlocBuilder<ScanBloc, ScanState>(
                 bloc: _scanBloc,
                 builder: (context, state) {
-                  switch (state.runtimeType) {
-                    case ScanLoaded:
-                      return CompaniesList(
-                          state as ScanLoaded, listScrollController);
-                    default:
-                      return Container();
-                  }
+                  return CompaniesList(state, listScrollController);
                 },
               ),
             ],
@@ -124,7 +129,7 @@ class _MainPageState extends State<MainPage> {
                 for (final barcode in barcodes) {
                   final String code = barcode.rawValue!;
                   debugPrint('Barcode found! $code');
-                  _scanBloc.add(GetCompanyEvent(int.parse(code)));
+                  _scanBloc.add(ScanEvent.barcodeScanned(code));
                 }
               }),
         ),

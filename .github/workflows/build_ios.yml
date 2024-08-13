@@ -13,10 +13,21 @@ jobs:
       with:
         channel: 'stable'
     - run: flutter pub get
+    - name: Cache bundler gems
+      uses: actions/cache@v4
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gems-
+    - name: Bundler
+      run: |
+        bundle config path vendor/bundle
+        bundle install --jobs 4 --retry 3
     - name: Cache pods
       uses: actions/cache@v3
       with:
         path: ios/Pods
         key: ${{ runner.os }}-pods-${{ hashFiles('ios/Podfile.lock') }}
         restore-keys: ${{ runner.os }}-pods-
-    - run: flutter build ios --no-codesign
+    - run: bundle exec flutter build ios --no-codesign
