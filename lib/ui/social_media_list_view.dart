@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pola_flutter/analytics/analytics_about_row.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/theme/fonts.gen.dart';
+import 'package:pola_flutter/theme/text_size.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 
@@ -21,7 +22,7 @@ class SocialMediaListView extends StatelessWidget {
             Text(
               t.menu.findUs,
               style: TextStyle(
-                fontSize: 12,
+                fontSize: TextSize.smallTitle,
                 fontWeight: FontWeight.w700,
                 fontFamily: FontFamily.lato
               ),

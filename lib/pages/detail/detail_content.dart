@@ -3,6 +3,7 @@ import 'package:pola_flutter/models/company.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/theme/fonts.gen.dart';
+import 'package:pola_flutter/theme/text_size.dart';
 import 'logotypes.dart';
 import 'expandandable_text.dart';
 import 'polish_capital_graph.dart';
@@ -50,7 +51,7 @@ class DetailContent extends StatelessWidget {
                 Text(
                   t.companyScreen.ourRating,
                   style: TextStyle(
-                    fontSize: 16.0,
+                    fontSize: TextSize.mediumTitle,
                     fontWeight: FontWeight.w600,
                     fontFamily: FontFamily.lato,
                      color: Color(0xFF1C1B1F),
@@ -60,7 +61,7 @@ class DetailContent extends StatelessWidget {
                 Text(
                   t.companyScreen.points(score: score),
                   style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: TextSize.newsTitle,
                     fontWeight: FontWeight.w700,
                     fontFamily: FontFamily.lato,
                      color: Color(0xFF1C1B1F),
@@ -95,7 +96,7 @@ class DetailContent extends StatelessWidget {
               child: Text(
                 t.companyScreen.gradingCriteria,
                 style: TextStyle(
-                  fontSize: 16.0,
+                  fontSize: TextSize.mediumTitle,
                   fontWeight: FontWeight.w600,
                   fontFamily: FontFamily.lato,
                    color: Color(0xFF1C1B1F),
