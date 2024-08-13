@@ -106,13 +106,13 @@ class Assets {
   Assets._();
 
   static const AssetGenImage back = AssetGenImage('assets/back.png');
+  static const SvgGenImage favorite = SvgGenImage('assets/favorite.svg');
   static const AssetGenImage icAddBlack24dp = AssetGenImage('assets/ic_add_black_24dp.png');
   static const AssetGenImage icBackspaceWhite36dp = AssetGenImage('assets/ic_backspace_white_36dp.png');
   static const AssetGenImage icDialpadWhite36dp = AssetGenImage('assets/ic_dialpad_white_36dp.png');
   static const AssetGenImage icDoneWhite36dp = AssetGenImage('assets/ic_done_white_36dp.png');
   static const AssetGenImage icFlashOffWhite48dp = AssetGenImage('assets/ic_flash_off_white_48dp.png');
   static const AssetGenImage icFlashOnWhite48dp = AssetGenImage('assets/ic_flash_on_white_48dp.png');
-  static const AssetGenImage icHeart = AssetGenImage('assets/ic_heart.png');
   static const AssetGenImage icLauncher = AssetGenImage('assets/ic_launcher.png');
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const SvgGenImage info = SvgGenImage('assets/info.svg');
@@ -123,13 +123,13 @@ class Assets {
   /// List of all assets
   static List<dynamic> get values => [
         back,
+        favorite,
         icAddBlack24dp,
         icBackspaceWhite36dp,
         icDialpadWhite36dp,
         icDoneWhite36dp,
         icFlashOffWhite48dp,
         icFlashOnWhite48dp,
-        icHeart,
         icLauncher,
         info,
         menu,
@@ -217,8 +217,6 @@ class AssetGenImage {
   String get path => _assetName;
 
   String get keyName => _assetName;
-
-  svg({required int height, required int width}) {}
 }
 
 class SvgGenImage {

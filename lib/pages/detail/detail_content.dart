@@ -35,10 +35,7 @@ class DetailContent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if ((company.isFriend ?? false))
-          FriendsBar(
-            message: t.companyScreen.polaFriends,
-            url:  'https://www.pola-app.pl/m/friends',
-          ),
+          FriendsBar(),
         const SizedBox(height: 20.0),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 17.0),

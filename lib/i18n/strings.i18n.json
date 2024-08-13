@@ -21,6 +21,7 @@
         "seeMore":" zobacz więcej",
         "seeLess":" zobacz mniej",
         "points":"$score pkt",
-        "polaFriends": " Ta firma jest przyjacielem Poli"
+        "companyFriend": " Ta firma jest przyjacielem Poli",
+        "polaFriends": "Przyjaciele Poli"
     }
 }
