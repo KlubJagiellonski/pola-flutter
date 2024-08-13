@@ -20,6 +20,8 @@
         "notConcernPart":"Nie jest częścią zagranicznego koncernu",
         "seeMore":" zobacz więcej",
         "seeLess":" zobacz mniej",
-        "points":"$score pkt"
+        "points":"$score pkt",
+        "companyFriend": " Ta firma jest przyjacielem Poli",
+        "polaFriends": "Przyjaciele Poli"
     }
 }
