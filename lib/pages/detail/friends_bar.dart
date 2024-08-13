@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
  import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/fonts.gen.dart';
+import 'package:pola_flutter/theme/text_size.dart';
 import 'package:pola_flutter/ui/web_view_dialog.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 
@@ -36,7 +37,7 @@ class FriendsBar extends StatelessWidget {
                 child: Text(
                  t.companyScreen.companyFriend,
                    style: TextStyle(
-                        fontSize: 12.0,
+                        fontSize: TextSize.smallTitle,
                         fontWeight: FontWeight.w700,
                         fontFamily: FontFamily.lato,
                         color: Color(0xFFE1203E),
