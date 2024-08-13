@@ -15,11 +15,11 @@ import 'package:vector_graphics/vector_graphics.dart';
 class $AssetsMenuPageGen {
   const $AssetsMenuPageGen();
 
-  /// File path: assets/menuPage/diversity_1.svg
-  SvgGenImage get diversity1 => const SvgGenImage('assets/menuPage/diversity_1.svg');
+  /// File path: assets/menuPage/diversity.svg
+  SvgGenImage get diversity => const SvgGenImage('assets/menuPage/diversity.svg');
 
-  /// File path: assets/menuPage/github-mark 1.svg
-  SvgGenImage get githubMark1 => const SvgGenImage('assets/menuPage/github-mark 1.svg');
+  /// File path: assets/menuPage/github.svg
+  SvgGenImage get github => const SvgGenImage('assets/menuPage/github.svg');
 
   /// File path: assets/menuPage/groups.svg
   SvgGenImage get groups => const SvgGenImage('assets/menuPage/groups.svg');
@@ -30,14 +30,14 @@ class $AssetsMenuPageGen {
   /// File path: assets/menuPage/info.svg
   SvgGenImage get info => const SvgGenImage('assets/menuPage/info.svg');
 
-  /// File path: assets/menuPage/star_rate.svg
-  SvgGenImage get starRate => const SvgGenImage('assets/menuPage/star_rate.svg');
+  /// File path: assets/menuPage/star.svg
+  SvgGenImage get star => const SvgGenImage('assets/menuPage/star.svg');
 
-  /// File path: assets/menuPage/thumbs_up_down.svg
-  SvgGenImage get thumbsUpDown => const SvgGenImage('assets/menuPage/thumbs_up_down.svg');
+  /// File path: assets/menuPage/thumbs.svg
+  SvgGenImage get thumbs => const SvgGenImage('assets/menuPage/thumbs.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [diversity1, githubMark1, groups, handshake, info, starRate, thumbsUpDown];
+  List<SvgGenImage> get values => [diversity, github, groups, handshake, info, star, thumbs];
 }
 
 class Assets {

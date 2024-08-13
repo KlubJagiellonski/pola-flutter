@@ -35,7 +35,7 @@ class MenuItemListView extends StatelessWidget {
         _webViewItem(
           context: context,
           text: t.menu.instruction,
-          icon: Assets.menuPage.thumbsUpDown.svg(),
+          icon: Assets.menuPage.thumbs.svg(),
           analyticsRow: AnalyticsAboutRow.instructionSet,
           url: 'https://www.pola-app.pl/m/method',
         ),
@@ -49,13 +49,13 @@ class MenuItemListView extends StatelessWidget {
         _webViewItem(
           context: context,
           text: t.menu.polasFriends,
-          icon: Assets.menuPage.diversity1.svg(),
+          icon: Assets.menuPage.diversity.svg(),
           analyticsRow: AnalyticsAboutRow.polasFriends,
           url: 'https://www.pola-app.pl/m/friends',
         ),
         _externalUrlItem(
           text: t.menu.rateUS,
-          icon: Assets.menuPage.starRate.svg(), 
+          icon: Assets.menuPage.star.svg(), 
           analyticsRow: AnalyticsAboutRow.rateUs,
           url: Platform.isIOS
               ? "https://apps.apple.com/app/id1038401148"
@@ -70,7 +70,7 @@ class MenuItemListView extends StatelessWidget {
         ),
         _externalUrlItem(
           text: "Github",
-          icon: Assets.menuPage.githubMark1.svg(),
+          icon: Assets.menuPage.github.svg(),
           analyticsRow: AnalyticsAboutRow.github,
           url: 'https://github.com/KlubJagiellonski',
         ),
