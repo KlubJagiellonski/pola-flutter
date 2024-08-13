@@ -46,7 +46,7 @@ class DetailContent extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Row(
                   children: [
-                    Assets.info.svg(height: 24.0, width: 24.0),
+                    Assets.company.info.svg(height: 24.0, width: 24.0),
                     const SizedBox(width: 8.0),
                     Text(
                       t.companyScreen.ourRating,
@@ -185,7 +185,7 @@ class _DetailItem extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(right: 3.0),
-          child: state ? Assets.taskAlt.svg() : Assets.radioButtonUnchecked.svg()    
+          child: state ? Assets.company.taskAlt.svg() : Assets.company.radioButtonUnchecked.svg()    
           ),
         Expanded(
           child: Text(

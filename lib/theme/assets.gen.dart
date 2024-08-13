@@ -12,6 +12,25 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
+class $AssetsCompanyGen {
+  const $AssetsCompanyGen();
+
+  /// File path: assets/company/heart.svg
+  SvgGenImage get heart => const SvgGenImage('assets/company/heart.svg');
+
+  /// File path: assets/company/info.svg
+  SvgGenImage get info => const SvgGenImage('assets/company/info.svg');
+
+  /// File path: assets/company/radio_button_unchecked.svg
+  SvgGenImage get radioButtonUnchecked => const SvgGenImage('assets/company/radio_button_unchecked.svg');
+
+  /// File path: assets/company/task_alt.svg
+  SvgGenImage get taskAlt => const SvgGenImage('assets/company/task_alt.svg');
+
+  /// List of all assets
+  List<SvgGenImage> get values => [heart, info, radioButtonUnchecked, taskAlt];
+}
+
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
@@ -106,7 +125,7 @@ class Assets {
   Assets._();
 
   static const AssetGenImage back = AssetGenImage('assets/back.png');
-  static const SvgGenImage favorite = SvgGenImage('assets/favorite.svg');
+  static const $AssetsCompanyGen company = $AssetsCompanyGen();
   static const AssetGenImage icAddBlack24dp = AssetGenImage('assets/ic_add_black_24dp.png');
   static const AssetGenImage icBackspaceWhite36dp = AssetGenImage('assets/ic_backspace_white_36dp.png');
   static const AssetGenImage icDialpadWhite36dp = AssetGenImage('assets/ic_dialpad_white_36dp.png');
@@ -115,15 +134,11 @@ class Assets {
   static const AssetGenImage icFlashOnWhite48dp = AssetGenImage('assets/ic_flash_on_white_48dp.png');
   static const AssetGenImage icLauncher = AssetGenImage('assets/ic_launcher.png');
   static const $AssetsIconsGen icons = $AssetsIconsGen();
-  static const SvgGenImage info = SvgGenImage('assets/info.svg');
   static const AssetGenImage menu = AssetGenImage('assets/menu.png');
-  static const SvgGenImage radioButtonUnchecked = SvgGenImage('assets/radio_button_unchecked.svg');
-  static const SvgGenImage taskAlt = SvgGenImage('assets/task_alt.svg');
 
   /// List of all assets
-  static List<dynamic> get values => [
+  static List<AssetGenImage> get values => [
         back,
-        favorite,
         icAddBlack24dp,
         icBackspaceWhite36dp,
         icDialpadWhite36dp,
@@ -131,10 +146,7 @@ class Assets {
         icFlashOffWhite48dp,
         icFlashOnWhite48dp,
         icLauncher,
-        info,
-        menu,
-        radioButtonUnchecked,
-        taskAlt
+        menu
       ];
 }
 
