@@ -38,7 +38,7 @@ class MenuBottomSheet extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 32.0),
               child: Container(
                 height: 1,
-                color: const Color(0xFFF0F0F0),
+                color:  (AppColors.dividerColor),
               ),
             ),
             const SizedBox(height: 17),

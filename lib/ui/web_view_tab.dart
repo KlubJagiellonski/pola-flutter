@@ -19,7 +19,7 @@ class WebViewTab extends StatelessWidget {
           style: TextStyle(
             fontWeight: FontWeight.w700,
             fontFamily: FontFamily.lato,
-            color: Color(0xFF1C1B1F),
+            color: (AppColors.textColor),
           ),
         ),
       ),

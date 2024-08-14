@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/fonts.gen.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
@@ -28,7 +29,7 @@ class PolishCapitalGraph extends StatelessWidget {
                 axisLineStyle: AxisLineStyle(
                   thickness: thickness,
                   cornerStyle: CornerStyle.bothCurve,
-                  color: Color(0xFFF5DEDD),
+                  color: (AppColors.buttonBackground),
                   thicknessUnit: GaugeSizeUnit.factor,
                 ),
                 pointers: <GaugePointer>[
@@ -37,7 +38,7 @@ class PolishCapitalGraph extends StatelessWidget {
                     cornerStyle: CornerStyle.bothCurve,
                     width: thickness,
                     sizeUnit: GaugeSizeUnit.factor,
-                    color: Color(0xFFE1203E),
+                    color: AppColors.defaultRed,
                   ),
                 ],
                 annotations: <GaugeAnnotation>[
@@ -50,7 +51,7 @@ class PolishCapitalGraph extends StatelessWidget {
                         fontSize: 26.0,
                         fontWeight: FontWeight.w700,
                         fontFamily: FontFamily.lato,
-                         color: Color(0xFF1C1B1F),
+                         color: (AppColors.textColor),
                       ),
                     ),
                   ),
@@ -66,7 +67,7 @@ class PolishCapitalGraph extends StatelessWidget {
             style: TextStyle(
               fontSize: 11.0,
               fontWeight: FontWeight.w400,
-               color: Color(0xFF1C1B1F),
+               color: (AppColors.textColor),
               fontFamily: FontFamily.lato,
             ),
           ),

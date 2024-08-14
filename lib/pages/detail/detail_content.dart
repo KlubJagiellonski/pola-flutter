@@ -3,6 +3,7 @@ import 'package:pola_flutter/models/company.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/theme/assets.gen.dart';
+import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/fonts.gen.dart';
 import 'package:pola_flutter/theme/text_size.dart';
 import 'logotypes.dart';
@@ -55,7 +56,7 @@ class DetailContent extends StatelessWidget {
                         fontSize: TextSize.mediumTitle,
                         fontWeight: FontWeight.w600,
                         fontFamily: FontFamily.lato,
-                        color: const Color(0xFF1C1B1F),
+                        color: (AppColors.textColor),
                       ),
                     ),
                     const SizedBox(width: 8.0),
@@ -65,7 +66,7 @@ class DetailContent extends StatelessWidget {
                         fontSize: TextSize.newsTitle,
                         fontWeight: FontWeight.w700,
                         fontFamily: FontFamily.lato,
-                        color: const Color(0xFF1C1B1F),
+                        color: (AppColors.textColor),
                       ),
                     ),
                   ],
@@ -77,9 +78,9 @@ class DetailContent extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10.0),
                   child: LinearProgressIndicator(
                     value: score / 100.0,
-                    backgroundColor: const Color(0xFFF5DEDD),
+                    backgroundColor:  (AppColors.buttonBackground),
                     valueColor:
-                        const AlwaysStoppedAnimation<Color>(Color(0xFFE1203E)),
+                        const AlwaysStoppedAnimation<Color>((AppColors.defaultRed)),
                     minHeight: 12.0,
                   ),
                 ),
@@ -87,7 +88,7 @@ class DetailContent extends StatelessWidget {
               const SizedBox(height: 17.0),
               Divider(
                 thickness: 1.0,
-                color: const Color(0xFFF0F0F0),
+                color: (AppColors.dividerColor),
                 indent: 0,
                 endIndent: 0,
               ),
@@ -101,7 +102,7 @@ class DetailContent extends StatelessWidget {
                       fontSize: TextSize.mediumTitle,
                       fontWeight: FontWeight.w600,
                       fontFamily: FontFamily.lato,
-                      color: const Color(0xFF1C1B1F),
+                      color: (AppColors.textColor),
                     ),
                   ),
                 ),
@@ -135,7 +136,7 @@ class DetailContent extends StatelessWidget {
               const SizedBox(height: 22.0),
               Divider(
                 thickness: 1.0,
-                color: const Color(0xFFF0F0F0),
+                color: (AppColors.dividerColor),
                 indent: 0,
                 endIndent: 0,
               ),
@@ -147,7 +148,7 @@ class DetailContent extends StatelessWidget {
                 if (hasLogo)
                   Divider(
                     thickness: 1.0,
-                    color: const Color(0xFFF0F0F0),
+                    color:  (AppColors.dividerColor),
                     indent: 0,
                     endIndent: 0,
                   ),
@@ -160,7 +161,7 @@ class DetailContent extends StatelessWidget {
               if (hasLogo)
                 Divider(
                   thickness: 1.0,
-                  color: const Color(0xFFF0F0F0),
+                  color: (AppColors.dividerColor),
                   indent: 0,
                   endIndent: 0,
                 ),
@@ -195,7 +196,7 @@ class _DetailItem extends StatelessWidget {
               fontSize: TextSize.description,
               fontWeight: FontWeight.w400,
               fontFamily: FontFamily.lato,
-              color: const Color(0xFF1C1B1F),
+              color: (AppColors.textColor),
             ),
             softWrap: true,
             overflow: TextOverflow.visible,
