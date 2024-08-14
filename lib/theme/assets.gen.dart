@@ -31,94 +31,32 @@ class $AssetsCompanyGen {
   List<SvgGenImage> get values => [heart, info, radioButtonUnchecked, taskAlt];
 }
 
-class $AssetsIconsGen {
-  const $AssetsIconsGen();
+class $AssetsMenuPageGen {
+  const $AssetsMenuPageGen();
 
-  /// Directory path: assets/icons/2.0x
-  $AssetsIcons20xGen get a2 => const $AssetsIcons20xGen();
+  /// File path: assets/menuPage/diversity.svg
+  SvgGenImage get diversity => const SvgGenImage('assets/menuPage/diversity.svg');
 
-  /// Directory path: assets/icons/3.0x
-  $AssetsIcons30xGen get a3 => const $AssetsIcons30xGen();
+  /// File path: assets/menuPage/github.svg
+  SvgGenImage get github => const SvgGenImage('assets/menuPage/github.svg');
 
-  /// File path: assets/icons/diversity.png
-  AssetGenImage get diversity => const AssetGenImage('assets/icons/diversity.png');
+  /// File path: assets/menuPage/groups.svg
+  SvgGenImage get groups => const SvgGenImage('assets/menuPage/groups.svg');
 
-  /// File path: assets/icons/github.png
-  AssetGenImage get github => const AssetGenImage('assets/icons/github.png');
+  /// File path: assets/menuPage/handshake.svg
+  SvgGenImage get handshake => const SvgGenImage('assets/menuPage/handshake.svg');
 
-  /// File path: assets/icons/groups.png
-  AssetGenImage get groups => const AssetGenImage('assets/icons/groups.png');
+  /// File path: assets/menuPage/info.svg
+  SvgGenImage get info => const SvgGenImage('assets/menuPage/info.svg');
 
-  /// File path: assets/icons/handshake.png
-  AssetGenImage get handshake => const AssetGenImage('assets/icons/handshake.png');
+  /// File path: assets/menuPage/star.svg
+  SvgGenImage get star => const SvgGenImage('assets/menuPage/star.svg');
 
-  /// File path: assets/icons/info.png
-  AssetGenImage get info => const AssetGenImage('assets/icons/info.png');
-
-  /// File path: assets/icons/star.png
-  AssetGenImage get star => const AssetGenImage('assets/icons/star.png');
-
-  /// File path: assets/icons/thumbs.png
-  AssetGenImage get thumbs => const AssetGenImage('assets/icons/thumbs.png');
+  /// File path: assets/menuPage/thumbs.svg
+  SvgGenImage get thumbs => const SvgGenImage('assets/menuPage/thumbs.svg');
 
   /// List of all assets
-  List<AssetGenImage> get values => [diversity, github, groups, handshake, info, star, thumbs];
-}
-
-class $AssetsIcons20xGen {
-  const $AssetsIcons20xGen();
-
-  /// File path: assets/icons/2.0x/diversity.png
-  AssetGenImage get diversity => const AssetGenImage('assets/icons/2.0x/diversity.png');
-
-  /// File path: assets/icons/2.0x/github.png
-  AssetGenImage get github => const AssetGenImage('assets/icons/2.0x/github.png');
-
-  /// File path: assets/icons/2.0x/groups.png
-  AssetGenImage get groups => const AssetGenImage('assets/icons/2.0x/groups.png');
-
-  /// File path: assets/icons/2.0x/handshake.png
-  AssetGenImage get handshake => const AssetGenImage('assets/icons/2.0x/handshake.png');
-
-  /// File path: assets/icons/2.0x/info.png
-  AssetGenImage get info => const AssetGenImage('assets/icons/2.0x/info.png');
-
-  /// File path: assets/icons/2.0x/star.png
-  AssetGenImage get star => const AssetGenImage('assets/icons/2.0x/star.png');
-
-  /// File path: assets/icons/2.0x/thumbs.png
-  AssetGenImage get thumbs => const AssetGenImage('assets/icons/2.0x/thumbs.png');
-
-  /// List of all assets
-  List<AssetGenImage> get values => [diversity, github, groups, handshake, info, star, thumbs];
-}
-
-class $AssetsIcons30xGen {
-  const $AssetsIcons30xGen();
-
-  /// File path: assets/icons/3.0x/diversity.png
-  AssetGenImage get diversity => const AssetGenImage('assets/icons/3.0x/diversity.png');
-
-  /// File path: assets/icons/3.0x/github.png
-  AssetGenImage get github => const AssetGenImage('assets/icons/3.0x/github.png');
-
-  /// File path: assets/icons/3.0x/groups.png
-  AssetGenImage get groups => const AssetGenImage('assets/icons/3.0x/groups.png');
-
-  /// File path: assets/icons/3.0x/handshake.png
-  AssetGenImage get handshake => const AssetGenImage('assets/icons/3.0x/handshake.png');
-
-  /// File path: assets/icons/3.0x/info.png
-  AssetGenImage get info => const AssetGenImage('assets/icons/3.0x/info.png');
-
-  /// File path: assets/icons/3.0x/star.png
-  AssetGenImage get star => const AssetGenImage('assets/icons/3.0x/star.png');
-
-  /// File path: assets/icons/3.0x/thumbs.png
-  AssetGenImage get thumbs => const AssetGenImage('assets/icons/3.0x/thumbs.png');
-
-  /// List of all assets
-  List<AssetGenImage> get values => [diversity, github, groups, handshake, info, star, thumbs];
+  List<SvgGenImage> get values => [diversity, github, groups, handshake, info, star, thumbs];
 }
 
 class Assets {
@@ -133,8 +71,8 @@ class Assets {
   static const AssetGenImage icFlashOffWhite48dp = AssetGenImage('assets/ic_flash_off_white_48dp.png');
   static const AssetGenImage icFlashOnWhite48dp = AssetGenImage('assets/ic_flash_on_white_48dp.png');
   static const AssetGenImage icLauncher = AssetGenImage('assets/ic_launcher.png');
-  static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const AssetGenImage menu = AssetGenImage('assets/menu.png');
+  static const $AssetsMenuPageGen menuPage = $AssetsMenuPageGen();
 
   /// List of all assets
   static List<AssetGenImage> get values => [

@@ -1,7 +1,7 @@
 /// GENERATED CODE - DO NOT MODIFY BY HAND
 /// *****************************************************
 ///  FlutterGen
-/// *****************************************************
+/// ** ***************************************************
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -16,3 +16,4 @@ class FontFamily {
   /// Font family: Roboto
   static const String roboto = 'Roboto';
 }
+
