@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/models/search_result.dart';
+import 'package:pola_flutter/theme/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Logotype {
@@ -44,7 +45,7 @@ class Logotypes extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
-                  color: Color(0xFFF8F8F8),
+                  color: AppColors.textFieldColor,
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.3),

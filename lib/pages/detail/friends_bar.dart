@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
  import 'package:pola_flutter/theme/assets.gen.dart';
+import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/fonts.gen.dart';
 import 'package:pola_flutter/theme/text_size.dart';
 import 'package:pola_flutter/ui/web_view_dialog.dart';
@@ -24,7 +25,7 @@ class FriendsBar extends StatelessWidget {
       },
       child: Container(
         height: 40.0,
-        color: const Color(0xFFF5DEDD),
+        color:  AppColors.buttonBackground,
         alignment: Alignment.center,
         child: Row(
           children: [
@@ -40,7 +41,7 @@ class FriendsBar extends StatelessWidget {
                         fontSize: TextSize.smallTitle,
                         fontWeight: FontWeight.w700,
                         fontFamily: FontFamily.lato,
-                        color: Color(0xFFE1203E),
+                        color:AppColors.defaultRed,
                   ),
                   textAlign: TextAlign.center,
                 ),

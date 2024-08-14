@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/pages/web/web_view_page.dart';
+import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/fonts.gen.dart';
 
 class WebViewTab extends StatelessWidget {
@@ -18,7 +19,7 @@ class WebViewTab extends StatelessWidget {
           style: TextStyle(
             fontWeight: FontWeight.w700,
             fontFamily: FontFamily.lato,
-            color: Color(0xFF1C1B1F),
+            color: AppColors.textColor,
           ),
         ),
       ),
