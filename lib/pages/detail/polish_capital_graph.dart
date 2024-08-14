@@ -29,7 +29,7 @@ class PolishCapitalGraph extends StatelessWidget {
                 axisLineStyle: AxisLineStyle(
                   thickness: thickness,
                   cornerStyle: CornerStyle.bothCurve,
-                  color: (AppColors.buttonBackground),
+                  color: AppColors.buttonBackground,
                   thicknessUnit: GaugeSizeUnit.factor,
                 ),
                 pointers: <GaugePointer>[
@@ -51,10 +51,10 @@ class PolishCapitalGraph extends StatelessWidget {
                         fontSize: 26.0,
                         fontWeight: FontWeight.w700,
                         fontFamily: FontFamily.lato,
-                         color: (AppColors.textColor),
+                         color: AppColors.textColor),
                       ),
                     ),
-                  ),
+                  
                 ],
               ),
             ],
@@ -67,7 +67,7 @@ class PolishCapitalGraph extends StatelessWidget {
             style: TextStyle(
               fontSize: 11.0,
               fontWeight: FontWeight.w400,
-               color: (AppColors.textColor),
+               color: AppColors.textColor,
               fontFamily: FontFamily.lato,
             ),
           ),

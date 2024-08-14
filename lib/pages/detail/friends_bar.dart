@@ -25,7 +25,7 @@ class FriendsBar extends StatelessWidget {
       },
       child: Container(
         height: 40.0,
-        color:  (AppColors.buttonBackground),
+        color:  AppColors.buttonBackground,
         alignment: Alignment.center,
         child: Row(
           children: [
@@ -41,7 +41,7 @@ class FriendsBar extends StatelessWidget {
                         fontSize: TextSize.smallTitle,
                         fontWeight: FontWeight.w700,
                         fontFamily: FontFamily.lato,
-                        color:(AppColors.defaultRed),
+                        color:AppColors.defaultRed,
                   ),
                   textAlign: TextAlign.center,
                 ),

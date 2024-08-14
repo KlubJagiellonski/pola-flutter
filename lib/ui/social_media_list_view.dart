@@ -114,8 +114,8 @@ class SocialItemView extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          foregroundColor: (AppColors.defaultRed),
-          backgroundColor: (AppColors.buttonBackground),
+          foregroundColor: AppColors.defaultRed,
+          backgroundColor: AppColors.buttonBackground,
           textStyle: const TextStyle(fontFamily: FontFamily.roboto),
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
         ),
