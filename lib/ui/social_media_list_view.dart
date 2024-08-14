@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/analytics/analytics_about_row.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
+import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/fonts.gen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
