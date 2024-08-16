@@ -59,19 +59,6 @@ class SocialMediaListView extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(height: 17.0),
-        Row(
-          children: [
-            SizedBox(width: 32.0),
-            Text(
-              t.menu.footer,
-              style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: FontFamily.lato),
-            ),
-          ],
-        ),
       ],
     );
   }
