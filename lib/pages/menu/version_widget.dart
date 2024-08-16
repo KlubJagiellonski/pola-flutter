@@ -21,7 +21,7 @@ class VersionWidget extends StatelessWidget {
 class _VersionLabelWidget extends StatelessWidget {
   final String? version;
 
-  const _VersionLabelWidget({super.key, this.version});
+  const _VersionLabelWidget({this.version});
 
     @override
   Widget build(BuildContext context) {

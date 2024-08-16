@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/pages/menu/menu_footer.dart';
+import 'package:pola_flutter/pages/menu/social_media_list_view.dart';
 import 'package:pola_flutter/theme/colors.dart';
 import 'menu_item_list_view.dart';
 
