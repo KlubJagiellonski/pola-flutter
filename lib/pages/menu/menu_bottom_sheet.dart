@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
+import 'package:pola_flutter/pages/menu/menu_footer.dart';
 import 'package:pola_flutter/theme/colors.dart';
-import 'package:pola_flutter/theme/fonts.gen.dart';
-import 'package:pola_flutter/theme/text_size.dart';
-import 'package:pola_flutter/pages/menu/social_media_list_view.dart';
-import 'package:pola_flutter/pages/menu/version_widget.dart';
 import 'menu_item_list_view.dart';
-import 'package:pola_flutter/i18n/strings.g.dart';
 
 class MenuBottomSheet extends StatelessWidget {
   final PolaAnalytics analytics;
@@ -53,30 +49,6 @@ class MenuBottomSheet extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class MenuFooter extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 32.0),
-      child: Row(
-        children: [
-          Text(
-            t.menu.footer,
-            style: TextStyle(
-                fontSize: TextSize.smallTitle,
-                fontWeight: FontWeight.w600,
-                fontFamily: FontFamily.lato),
-          ),
-          Expanded(child: Container()),
-          VersionWidget(),
-        ],
-        crossAxisAlignment: CrossAxisAlignment.baseline,
-        textBaseline: TextBaseline.alphabetic,
-      )
     );
   }
 }
