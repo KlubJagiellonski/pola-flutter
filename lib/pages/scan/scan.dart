@@ -8,7 +8,7 @@ import 'package:pola_flutter/pages/scan/scan_event.dart';
 import 'package:pola_flutter/pages/scan/scan_state.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/pages/scan/scan_vibration.dart';
-import 'package:pola_flutter/ui/menu_bottom_sheet.dart';
+import 'package:pola_flutter/pages/menu/menu_bottom_sheet.dart';
 import 'package:pola_flutter/ui/web_view_dialog.dart';
 import 'companies_list.dart';
 import 'scan_bloc.dart';

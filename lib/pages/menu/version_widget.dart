@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/fonts.gen.dart';
 import 'package:pola_flutter/theme/text_size.dart';
-import 'package:pola_flutter/ui/version_bloc.dart';
+import 'package:pola_flutter/pages/menu/version_bloc.dart';
 
 class VersionWidget extends StatelessWidget {
   @override

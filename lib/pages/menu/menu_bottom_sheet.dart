@@ -3,8 +3,8 @@ import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/fonts.gen.dart';
 import 'package:pola_flutter/theme/text_size.dart';
-import 'package:pola_flutter/ui/social_media_list_view.dart';
-import 'package:pola_flutter/ui/version_widget.dart';
+import 'package:pola_flutter/pages/menu/social_media_list_view.dart';
+import 'package:pola_flutter/pages/menu/version_widget.dart';
 import 'menu_item_list_view.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 
