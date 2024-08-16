@@ -38,7 +38,7 @@ class _VersionLabelWidget extends StatelessWidget {
         fontFamily: FontFamily.lato,
         color: AppColors.inactiveColor,
       ),
-      textAlign: TextAlign.start,
+      textAlign: TextAlign.end,
     );
   }
 }

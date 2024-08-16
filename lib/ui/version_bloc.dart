@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 part 'version_bloc.freezed.dart';
 
@@ -25,6 +26,9 @@ class VersionBloc extends Bloc<VersionEvent, VersionState> {
   }
 
   _onApear(Emitter<VersionState> emit) async {
-    emit(state.copyWith(version: '1.0.0'));
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String version = packageInfo.version;
+    String buildNumber = packageInfo.buildNumber;
+    emit(state.copyWith(version: 'ver $version ($buildNumber)'));
   }
 }

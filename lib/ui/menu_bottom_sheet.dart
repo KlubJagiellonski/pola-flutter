@@ -74,6 +74,8 @@ class MenuFooter extends StatelessWidget {
           Expanded(child: Container()),
           VersionWidget(),
         ],
+        crossAxisAlignment: CrossAxisAlignment.baseline,
+        textBaseline: TextBaseline.alphabetic,
       )
     );
   }
