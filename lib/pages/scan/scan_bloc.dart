@@ -14,9 +14,20 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
   final ScanVibration _scanVibration;
   final PolaAnalytics _analytics;
 
-  _onBarcodeScanned(String barcode, Emitter<ScanState> emit) async {
+  ScanBloc(this._polaApiRepository, this._scanVibration, this._analytics)
+      : super(ScanState()) {
+    on<ScanEvent>((event, emit) async {
+      await event.when(
+        barcodeScanned: (barcode) async => await _onBarcodeScanned(barcode, emit),
+        alertDialogDismissed: () => _onAlertDialogDismissed(emit),
+      );
+    });
+  }
+
+    _onBarcodeScanned(String barcode, Emitter<ScanState> emit) async {
     if (state.list.any((element) => element.code == barcode) ||
-        state.isLoading) {
+        state.isLoading ||
+        state.isError) {
       return;
     }
     emit(state.copyWith(isLoading: true));
@@ -32,16 +43,11 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
       _analytics.searchResultReceived(result);
       emit(state.copyWith(list: results, isLoading: false));
     } else {
-      emit(state.copyWith(isLoading: false));
+      emit(state.copyWith(isLoading: false, isError: true));
     }
   }
 
-  ScanBloc(this._polaApiRepository, this._scanVibration, this._analytics)
-      : super(ScanState()) {
-    on<ScanEvent>((event, emit) async {
-      await event.when(
-        barcodeScanned: (barcode) async => await _onBarcodeScanned(barcode, emit)
-      );
-    });
+  _onAlertDialogDismissed(Emitter<ScanState> emit) {
+    emit(state.copyWith(isError: false));
   }
 }

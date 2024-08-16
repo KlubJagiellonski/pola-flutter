@@ -16,42 +16,43 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ScanEvent {
-  String get barcode => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String barcode) barcodeScanned,
+    required TResult Function() alertDialogDismissed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String barcode)? barcodeScanned,
+    TResult? Function()? alertDialogDismissed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String barcode)? barcodeScanned,
+    TResult Function()? alertDialogDismissed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(BarcodeScanned value) barcodeScanned,
+    required TResult Function(AlertDialogDismissed value) alertDialogDismissed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BarcodeScanned value)? barcodeScanned,
+    TResult? Function(AlertDialogDismissed value)? alertDialogDismissed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BarcodeScanned value)? barcodeScanned,
+    TResult Function(AlertDialogDismissed value)? alertDialogDismissed,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $ScanEventCopyWith<ScanEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -59,8 +60,6 @@ mixin _$ScanEvent {
 abstract class $ScanEventCopyWith<$Res> {
   factory $ScanEventCopyWith(ScanEvent value, $Res Function(ScanEvent) then) =
       _$ScanEventCopyWithImpl<$Res, ScanEvent>;
-  @useResult
-  $Res call({String barcode});
 }
 
 /// @nodoc
@@ -72,28 +71,13 @@ class _$ScanEventCopyWithImpl<$Res, $Val extends ScanEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? barcode = null,
-  }) {
-    return _then(_value.copyWith(
-      barcode: null == barcode
-          ? _value.barcode
-          : barcode // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$BarcodeScannedImplCopyWith<$Res>
-    implements $ScanEventCopyWith<$Res> {
+abstract class _$$BarcodeScannedImplCopyWith<$Res> {
   factory _$$BarcodeScannedImplCopyWith(_$BarcodeScannedImpl value,
           $Res Function(_$BarcodeScannedImpl) then) =
       __$$BarcodeScannedImplCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String barcode});
 }
@@ -155,6 +139,7 @@ class _$BarcodeScannedImpl implements BarcodeScanned {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String barcode) barcodeScanned,
+    required TResult Function() alertDialogDismissed,
   }) {
     return barcodeScanned(barcode);
   }
@@ -163,6 +148,7 @@ class _$BarcodeScannedImpl implements BarcodeScanned {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String barcode)? barcodeScanned,
+    TResult? Function()? alertDialogDismissed,
   }) {
     return barcodeScanned?.call(barcode);
   }
@@ -171,6 +157,7 @@ class _$BarcodeScannedImpl implements BarcodeScanned {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String barcode)? barcodeScanned,
+    TResult Function()? alertDialogDismissed,
     required TResult orElse(),
   }) {
     if (barcodeScanned != null) {
@@ -183,6 +170,7 @@ class _$BarcodeScannedImpl implements BarcodeScanned {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(BarcodeScanned value) barcodeScanned,
+    required TResult Function(AlertDialogDismissed value) alertDialogDismissed,
   }) {
     return barcodeScanned(this);
   }
@@ -191,6 +179,7 @@ class _$BarcodeScannedImpl implements BarcodeScanned {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BarcodeScanned value)? barcodeScanned,
+    TResult? Function(AlertDialogDismissed value)? alertDialogDismissed,
   }) {
     return barcodeScanned?.call(this);
   }
@@ -199,6 +188,7 @@ class _$BarcodeScannedImpl implements BarcodeScanned {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BarcodeScanned value)? barcodeScanned,
+    TResult Function(AlertDialogDismissed value)? alertDialogDismissed,
     required TResult orElse(),
   }) {
     if (barcodeScanned != null) {
@@ -211,10 +201,111 @@ class _$BarcodeScannedImpl implements BarcodeScanned {
 abstract class BarcodeScanned implements ScanEvent {
   const factory BarcodeScanned(final String barcode) = _$BarcodeScannedImpl;
 
-  @override
   String get barcode;
-  @override
   @JsonKey(ignore: true)
   _$$BarcodeScannedImplCopyWith<_$BarcodeScannedImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AlertDialogDismissedImplCopyWith<$Res> {
+  factory _$$AlertDialogDismissedImplCopyWith(_$AlertDialogDismissedImpl value,
+          $Res Function(_$AlertDialogDismissedImpl) then) =
+      __$$AlertDialogDismissedImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$AlertDialogDismissedImplCopyWithImpl<$Res>
+    extends _$ScanEventCopyWithImpl<$Res, _$AlertDialogDismissedImpl>
+    implements _$$AlertDialogDismissedImplCopyWith<$Res> {
+  __$$AlertDialogDismissedImplCopyWithImpl(_$AlertDialogDismissedImpl _value,
+      $Res Function(_$AlertDialogDismissedImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$AlertDialogDismissedImpl implements AlertDialogDismissed {
+  const _$AlertDialogDismissedImpl();
+
+  @override
+  String toString() {
+    return 'ScanEvent.alertDialogDismissed()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AlertDialogDismissedImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String barcode) barcodeScanned,
+    required TResult Function() alertDialogDismissed,
+  }) {
+    return alertDialogDismissed();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String barcode)? barcodeScanned,
+    TResult? Function()? alertDialogDismissed,
+  }) {
+    return alertDialogDismissed?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String barcode)? barcodeScanned,
+    TResult Function()? alertDialogDismissed,
+    required TResult orElse(),
+  }) {
+    if (alertDialogDismissed != null) {
+      return alertDialogDismissed();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(BarcodeScanned value) barcodeScanned,
+    required TResult Function(AlertDialogDismissed value) alertDialogDismissed,
+  }) {
+    return alertDialogDismissed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(BarcodeScanned value)? barcodeScanned,
+    TResult? Function(AlertDialogDismissed value)? alertDialogDismissed,
+  }) {
+    return alertDialogDismissed?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(BarcodeScanned value)? barcodeScanned,
+    TResult Function(AlertDialogDismissed value)? alertDialogDismissed,
+    required TResult orElse(),
+  }) {
+    if (alertDialogDismissed != null) {
+      return alertDialogDismissed(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class AlertDialogDismissed implements ScanEvent {
+  const factory AlertDialogDismissed() = _$AlertDialogDismissedImpl;
 }

@@ -38,12 +38,12 @@ void main() {
         ],
     );
     blocTest(
-      'emits empty list when scanned barcode results in error',
+      'emits state with error when scanned barcode results in error',
       build: () => scanBloc,
       act: (bloc) => scanBloc.add(ScanEvent.barcodeScanned("0")),
       expect: () => [
         ScanState(isLoading: true),
-        ScanState(isLoading: false)
+        ScanState(isLoading: false, isError: true)
       ],
     );
   });
