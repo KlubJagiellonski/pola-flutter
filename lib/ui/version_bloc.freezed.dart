@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'menu_bloc.dart';
+part of 'version_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,26 +15,27 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$MenuState {
+mixin _$VersionState {
   String? get version => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $MenuStateCopyWith<MenuState> get copyWith =>
+  $VersionStateCopyWith<VersionState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $MenuStateCopyWith<$Res> {
-  factory $MenuStateCopyWith(MenuState value, $Res Function(MenuState) then) =
-      _$MenuStateCopyWithImpl<$Res, MenuState>;
+abstract class $VersionStateCopyWith<$Res> {
+  factory $VersionStateCopyWith(
+          VersionState value, $Res Function(VersionState) then) =
+      _$VersionStateCopyWithImpl<$Res, VersionState>;
   @useResult
   $Res call({String? version});
 }
 
 /// @nodoc
-class _$MenuStateCopyWithImpl<$Res, $Val extends MenuState>
-    implements $MenuStateCopyWith<$Res> {
-  _$MenuStateCopyWithImpl(this._value, this._then);
+class _$VersionStateCopyWithImpl<$Res, $Val extends VersionState>
+    implements $VersionStateCopyWith<$Res> {
+  _$VersionStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -57,7 +58,7 @@ class _$MenuStateCopyWithImpl<$Res, $Val extends MenuState>
 
 /// @nodoc
 abstract class _$$InitialImplCopyWith<$Res>
-    implements $MenuStateCopyWith<$Res> {
+    implements $VersionStateCopyWith<$Res> {
   factory _$$InitialImplCopyWith(
           _$InitialImpl value, $Res Function(_$InitialImpl) then) =
       __$$InitialImplCopyWithImpl<$Res>;
@@ -68,7 +69,7 @@ abstract class _$$InitialImplCopyWith<$Res>
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$MenuStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$VersionStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
@@ -99,7 +100,7 @@ class _$InitialImpl implements Initial {
 
   @override
   String toString() {
-    return 'MenuState(version: $version)';
+    return 'VersionState(version: $version)';
   }
 
   @override
@@ -120,7 +121,7 @@ class _$InitialImpl implements Initial {
       __$$InitialImplCopyWithImpl<_$InitialImpl>(this, _$identity);
 }
 
-abstract class Initial implements MenuState {
+abstract class Initial implements VersionState {
   const factory Initial({final String? version}) = _$InitialImpl;
 
   @override
@@ -132,7 +133,7 @@ abstract class Initial implements MenuState {
 }
 
 /// @nodoc
-mixin _$MenuEvent {
+mixin _$VersionEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() onApear,
@@ -168,15 +169,16 @@ mixin _$MenuEvent {
 }
 
 /// @nodoc
-abstract class $MenuEventCopyWith<$Res> {
-  factory $MenuEventCopyWith(MenuEvent value, $Res Function(MenuEvent) then) =
-      _$MenuEventCopyWithImpl<$Res, MenuEvent>;
+abstract class $VersionEventCopyWith<$Res> {
+  factory $VersionEventCopyWith(
+          VersionEvent value, $Res Function(VersionEvent) then) =
+      _$VersionEventCopyWithImpl<$Res, VersionEvent>;
 }
 
 /// @nodoc
-class _$MenuEventCopyWithImpl<$Res, $Val extends MenuEvent>
-    implements $MenuEventCopyWith<$Res> {
-  _$MenuEventCopyWithImpl(this._value, this._then);
+class _$VersionEventCopyWithImpl<$Res, $Val extends VersionEvent>
+    implements $VersionEventCopyWith<$Res> {
+  _$VersionEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -193,7 +195,7 @@ abstract class _$$onApearImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$onApearImplCopyWithImpl<$Res>
-    extends _$MenuEventCopyWithImpl<$Res, _$onApearImpl>
+    extends _$VersionEventCopyWithImpl<$Res, _$onApearImpl>
     implements _$$onApearImplCopyWith<$Res> {
   __$$onApearImplCopyWithImpl(
       _$onApearImpl _value, $Res Function(_$onApearImpl) _then)
@@ -207,7 +209,7 @@ class _$onApearImpl implements onApear {
 
   @override
   String toString() {
-    return 'MenuEvent.onApear()';
+    return 'VersionEvent.onApear()';
   }
 
   @override
@@ -276,6 +278,6 @@ class _$onApearImpl implements onApear {
   }
 }
 
-abstract class onApear implements MenuEvent {
+abstract class onApear implements VersionEvent {
   const factory onApear() = _$onApearImpl;
 }

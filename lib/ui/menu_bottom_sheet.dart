@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/fonts.gen.dart';
 import 'package:pola_flutter/theme/text_size.dart';
-import 'package:pola_flutter/ui/menu_bloc.dart';
 import 'package:pola_flutter/ui/social_media_list_view.dart';
+import 'package:pola_flutter/ui/version_widget.dart';
 import 'menu_item_list_view.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 
@@ -16,7 +15,6 @@ class MenuBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Translations t = Translations.of(context);
     return SingleChildScrollView(
       child: Container(
         decoration: BoxDecoration(
@@ -77,44 +75,6 @@ class MenuFooter extends StatelessWidget {
           VersionWidget(),
         ],
       )
-    );
-  }
-}
-
-class VersionWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(create: (context) => MenuBloc()..add(MenuEvent.onApear()), 
-      child: BlocBuilder<MenuBloc, MenuState>(
-        builder: (context, state) {
-          return _VersionLabelWidget(version: state.version);
-        },
-      )
-    );
-  }
-}
-
-class _VersionLabelWidget extends StatelessWidget {
-  final String? version;
-
-  const _VersionLabelWidget({super.key, this.version});
-
-    @override
-  Widget build(BuildContext context) {
-    String? version = this.version;
-    if (version == null) {
-      return Container();
-    }
-
-    return Text(
-      version,
-      style: TextStyle(
-        fontSize: TextSize.smallTitle,
-        fontWeight: FontWeight.w400,
-        fontFamily: FontFamily.lato,
-        color: AppColors.inactiveColor,
-      ),
-      textAlign: TextAlign.start,
     );
   }
 }
