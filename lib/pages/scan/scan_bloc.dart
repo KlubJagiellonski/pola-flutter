@@ -41,7 +41,7 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
       var results = List<SearchResult>.from(state.list);
       results.add(result);
       _analytics.searchResultReceived(result);
-      emit(state.copyWith(list: results, isLoading: false));
+      emit(state.copyWith(list: results, isLoading: false, isError: true));
     } else {
       emit(state.copyWith(isLoading: false, isError: true));
     }

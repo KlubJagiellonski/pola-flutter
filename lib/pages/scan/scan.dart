@@ -109,6 +109,9 @@ class _MainPageState extends State<MainPage> {
                                 child: Text('Zamknij.'),
                                 onPressed: () {
                                   _scanBloc.add(ScanEvent.alertDialogDismissed());
+                                  SchedulerBinding.instance.addPostFrameCallback((_) {
+                                    Navigator.pop(context);
+                                  });
                                 },
                               ),
                             ],
