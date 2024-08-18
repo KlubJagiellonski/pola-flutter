@@ -44,6 +44,18 @@ void main() {
       expect: () => [
         ScanState(isLoading: true),
         ScanState(isLoading: false, isError: true)
+        ],
+    );
+
+    blocTest(
+      'emits state with no error when alert dialog dismissed',
+      build: (){ 
+        scanBloc = ScanBloc(MockPolaApi(), MockScanVibration(), PolaAnalytics(provider: MockAnalyticsProvider()), state: ScanState(isError: true));
+        return scanBloc;
+      },
+      act: (bloc) => bloc.add(ScanEvent.alertDialogDismissed()),
+      expect: () => [
+        ScanState(isError: false)
       ],
     );
   });
