@@ -14,8 +14,8 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
   final ScanVibration _scanVibration;
   final PolaAnalytics _analytics;
 
-  ScanBloc(this._polaApiRepository, this._scanVibration, this._analytics)
-      : super(ScanState()) {
+  ScanBloc(this._polaApiRepository, this._scanVibration, this._analytics, {ScanState state = const ScanState()})
+      : super(state) {
     on<ScanEvent>((event, emit) async {
       await event.when(
         barcodeScanned: (barcode) async => await _onBarcodeScanned(barcode, emit),
