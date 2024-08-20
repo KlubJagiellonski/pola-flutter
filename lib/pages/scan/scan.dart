@@ -8,6 +8,7 @@ import 'package:pola_flutter/pages/scan/scan_event.dart';
 import 'package:pola_flutter/pages/scan/scan_state.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/pages/scan/scan_vibration.dart';
+import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/ui/menu_bottom_sheet.dart';
 import 'package:pola_flutter/ui/web_view_dialog.dart';
 import 'companies_list.dart';
@@ -25,6 +26,7 @@ class _MainPageState extends State<MainPage> {
   final PolaAnalytics _analytics = PolaAnalytics.instance();
 
   ScrollController listScrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
@@ -34,80 +36,88 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Center(
-          child: IconButton(
-            onPressed: () {
-              cameraController.toggleTorch();
-            },
-            icon: Image.asset("assets/ic_flash_on_white_48dp.png",
-                height: AppBar().preferredSize.height),
-          ),
-        ),
-        leading: IconButton(
-          onPressed: () {
-            _analytics.aboutPolaOpened();
-            showDialog(
-              context: context,
-              builder: (context) {
-                return WebViewDialog(
-                  url: "https://www.pola-app.pl/m/about",
-                  title: t.menu.aboutPola,
-                );
-              },
-            );
-          },
-          icon: Image.asset("assets/ic_launcher.png"),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              _analytics.aboutOpened(AnalyticsAboutRow.menu);
-              showModalBottomSheet<void>(
-                  backgroundColor: Colors.transparent,
-                  isScrollControlled: true,
-                  context: context,
-                  builder: (BuildContext context) {
-                    return MenuBottomSheet(analytics: _analytics);
-                  });
-            },
-            icon: Image.asset("assets/menu.png"),
-          )
-        ],
-      ),
       body: Stack(
         children: <Widget>[
           _buildQrView(context),
           SafeArea(
             child: Column(
               children: <Widget>[
-                Center(
-                    child: Padding(
-                        padding: const EdgeInsets.only(top: 20.0),
-                        child: Text(
-                            "Umieść kod kreskowy produktu w prostokącie powyżej aby dowiedzieć się więcej o firmie, która go wyprodukowała.",
-                            textAlign: TextAlign.center,
+                // Dodaj własny pasek nawigacyjny na górze
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          _analytics.aboutPolaOpened();
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return WebViewDialog(
+                                url: "https://www.pola-app.pl/m/about",
+                                title: t.menu.aboutPola,
+                              );
+                            },
+                          );
+                        },
+                        icon: Image.asset(
+                          "assets/ic_launcher.png",
+                          width: 40,
+                          height: 40,
+                        ),
+                      ),
+                      // Dodaj Expanded, aby wyśrodkować tekst
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Text(
+                            "Skanowanie",
+                            textAlign: TextAlign.left, // Wyśrodkowanie tekstu
                             style: TextStyle(
-                              color: Colors.white,
-                            )))),
+                              fontSize: 20.0, // Rozmiar czcionki
+                              fontWeight: FontWeight.bold, // Pogrubienie
+                              color: Colors.white, // Kolor tekstu
+                            ),
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          _analytics.aboutOpened(AnalyticsAboutRow.menu);
+                          showModalBottomSheet<void>(
+                              backgroundColor: Colors.transparent,
+                              isScrollControlled: true,
+                              context: context,
+                              builder: (BuildContext context) {
+                                return MenuBottomSheet(analytics: _analytics);
+                              });
+                        },
+                        icon: Assets.menuPage.menu.svg(
+                          width: 40,
+                          height: 40,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
           SafeArea(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Spacer(),
-              BlocBuilder<ScanBloc, ScanState>(
-                bloc: _scanBloc,
-                builder: (context, state) {
-                  return CompaniesList(state, listScrollController);
-                },
-              ),
-            ],
-          )),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Spacer(),
+                BlocBuilder<ScanBloc, ScanState>(
+                  bloc: _scanBloc,
+                  builder: (context, state) {
+                    return CompaniesList(state, listScrollController);
+                  },
+                ),
+              ],
+            ),
+          ),
         ],
       ),
       extendBodyBehindAppBar: true,
@@ -158,3 +168,4 @@ class _MainPageState extends State<MainPage> {
     super.dispose();
   }
 }
+
