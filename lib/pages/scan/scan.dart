@@ -42,7 +42,6 @@ class _MainPageState extends State<MainPage> {
           SafeArea(
             child: Column(
               children: <Widget>[
-                // Dodaj własny pasek nawigacyjny na górze
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: Row(
@@ -67,17 +66,16 @@ class _MainPageState extends State<MainPage> {
                           height: 40,
                         ),
                       ),
-                      // Dodaj Expanded, aby wyśrodkować tekst
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16.0),
                           child: Text(
                             "Skanowanie",
-                            textAlign: TextAlign.left, // Wyśrodkowanie tekstu
+                            textAlign: TextAlign.left,
                             style: TextStyle(
-                              fontSize: 20.0, // Rozmiar czcionki
-                              fontWeight: FontWeight.bold, // Pogrubienie
-                              color: Colors.white, // Kolor tekstu
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
                             ),
                           ),
                         ),
