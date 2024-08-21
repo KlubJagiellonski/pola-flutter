@@ -9,6 +9,8 @@ import 'package:pola_flutter/pages/scan/scan_state.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/pages/scan/scan_vibration.dart';
 import 'package:pola_flutter/theme/assets.gen.dart';
+import 'package:pola_flutter/theme/colors.dart';
+import 'package:pola_flutter/theme/text_size.dart';
 import 'package:pola_flutter/ui/menu_bottom_sheet.dart';
 import 'package:pola_flutter/ui/web_view_dialog.dart';
 import 'companies_list.dart';
@@ -36,69 +38,62 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            _analytics.aboutPolaOpened();
+            showDialog(
+              context: context,
+              builder: (context) {
+                return WebViewDialog(
+                  url: "https://www.pola-app.pl/m/about",
+                  title: t.menu.aboutPola,
+                );
+              },
+            );
+          },
+          icon: Image.asset("assets/ic_launcher.png"),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              _analytics.aboutOpened(AnalyticsAboutRow.menu);
+              showModalBottomSheet<void>(
+                  backgroundColor: Colors.transparent,
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (BuildContext context) {
+                    return MenuBottomSheet(analytics: _analytics);
+                  });
+            },
+            icon: Assets.menuPage.menu.svg(),
+          ),
+        ],
+        title: Padding(
+          padding: const EdgeInsets.only(left: 16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                "Skanowanie",
+                style: TextStyle(
+                  fontSize: TextSize.newsTitle,
+                  color: AppColors.whiteColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
       body: Stack(
         children: <Widget>[
           _buildQrView(context),
           SafeArea(
             child: Column(
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          _analytics.aboutPolaOpened();
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return WebViewDialog(
-                                url: "https://www.pola-app.pl/m/about",
-                                title: t.menu.aboutPola,
-                              );
-                            },
-                          );
-                        },
-                        icon: Image.asset(
-                          "assets/ic_launcher.png",
-                          width: 40,
-                          height: 40,
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: Text(
-                            "Skanowanie",
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          _analytics.aboutOpened(AnalyticsAboutRow.menu);
-                          showModalBottomSheet<void>(
-                              backgroundColor: Colors.transparent,
-                              isScrollControlled: true,
-                              context: context,
-                              builder: (BuildContext context) {
-                                return MenuBottomSheet(analytics: _analytics);
-                              });
-                        },
-                        icon: Assets.menuPage.menu.svg(
-                          width: 40,
-                          height: 40,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
               ],
             ),
           ),
@@ -166,4 +161,3 @@ class _MainPageState extends State<MainPage> {
     super.dispose();
   }
 }
-
