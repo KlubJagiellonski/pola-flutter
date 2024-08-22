@@ -9,8 +9,6 @@ import 'package:pola_flutter/pages/scan/scan_state.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/pages/scan/scan_vibration.dart';
 import 'package:pola_flutter/theme/assets.gen.dart';
-import 'package:pola_flutter/theme/colors.dart';
-import 'package:pola_flutter/theme/text_size.dart';
 import 'package:pola_flutter/ui/menu_bottom_sheet.dart';
 import 'package:pola_flutter/ui/web_view_dialog.dart';
 import 'companies_list.dart';
@@ -39,8 +37,8 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+        backgroundColor: Colors.transparent, // Ustawienie tła na przezroczyste
+        elevation: 0, // Ustawienie cienia na 0
         leading: IconButton(
           onPressed: () {
             _analytics.aboutPolaOpened();
@@ -71,20 +69,10 @@ class _MainPageState extends State<MainPage> {
             icon: Assets.menuPage.menu.svg(),
           ),
         ],
-        title: Padding(
-          padding: const EdgeInsets.only(left: 16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                "Skanowanie",
-                style: TextStyle(
-                  fontSize: TextSize.newsTitle,
-                  color: AppColors.whiteColor,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
+        title: Text(
+          "Skanowanie",
+          style: TextStyle(
+            color: Colors.white,
           ),
         ),
       ),
@@ -93,14 +81,20 @@ class _MainPageState extends State<MainPage> {
           _buildQrView(context),
           SafeArea(
             child: Column(
-              children: <Widget>[
-              ],
+              children: <Widget>[],
             ),
           ),
           SafeArea(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
+                Center(
+                    child: Padding(
+                        padding: const EdgeInsets.only(top: 20.0),
+                        child: Text(
+                          "Umieść kod kreskowy produktu w prostokącie powyżej aby dowiedzieć się więcej o firmie, która go wyprodukowała.",
+                          textAlign: TextAlign.center,
+                        ))),
                 Spacer(),
                 BlocBuilder<ScanBloc, ScanState>(
                   bloc: _scanBloc,
