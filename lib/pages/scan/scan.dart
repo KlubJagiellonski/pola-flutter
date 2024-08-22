@@ -37,8 +37,8 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent, // Ustawienie tła na przezroczyste
-        elevation: 0, // Ustawienie cienia na 0
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         leading: IconButton(
           onPressed: () {
             _analytics.aboutPolaOpened();
@@ -52,7 +52,7 @@ class _MainPageState extends State<MainPage> {
               },
             );
           },
-          icon: Image.asset("assets/ic_launcher.png"),
+          icon: Assets.icLauncher.image(), // Zmieniono na Assets.icLauncher
         ),
         actions: [
           IconButton(
@@ -70,7 +70,7 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
         title: Text(
-          "Skanowanie",
+          t.scan.scanning,
           style: TextStyle(
             color: Colors.white,
           ),
@@ -81,30 +81,32 @@ class _MainPageState extends State<MainPage> {
           _buildQrView(context),
           SafeArea(
             child: Column(
-              children: <Widget>[],
-            ),
-          ),
-          SafeArea(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 Center(
                     child: Padding(
                         padding: const EdgeInsets.only(top: 20.0),
                         child: Text(
-                          "Umieść kod kreskowy produktu w prostokącie powyżej aby dowiedzieć się więcej o firmie, która go wyprodukowała.",
-                          textAlign: TextAlign.center,
-                        ))),
-                Spacer(),
-                BlocBuilder<ScanBloc, ScanState>(
-                  bloc: _scanBloc,
-                  builder: (context, state) {
-                    return CompaniesList(state, listScrollController);
-                  },
-                ),
+                            "Umieść kod kreskowy produktu w prostokącie powyżej aby dowiedzieć się więcej o firmie, która go wyprodukowała.",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                            )))),
               ],
             ),
           ),
+          SafeArea(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Spacer(),
+              BlocBuilder<ScanBloc, ScanState>(
+                bloc: _scanBloc,
+                builder: (context, state) {
+                  return CompaniesList(state, listScrollController);
+                },
+              ),
+            ],
+          )),
         ],
       ),
       extendBodyBehindAppBar: true,
