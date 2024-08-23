@@ -8,6 +8,9 @@ import 'package:pola_flutter/pages/scan/scan_event.dart';
 import 'package:pola_flutter/pages/scan/scan_state.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/pages/scan/scan_vibration.dart';
+import 'package:pola_flutter/theme/assets.gen.dart';
+import 'package:pola_flutter/theme/colors.dart';
+import 'package:pola_flutter/theme/text_size.dart';
 import 'package:pola_flutter/ui/menu_bottom_sheet.dart';
 import 'package:pola_flutter/ui/web_view_dialog.dart';
 import 'companies_list.dart';
@@ -25,6 +28,7 @@ class _MainPageState extends State<MainPage> {
   final PolaAnalytics _analytics = PolaAnalytics.instance();
 
   ScrollController listScrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
@@ -37,15 +41,6 @@ class _MainPageState extends State<MainPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Center(
-          child: IconButton(
-            onPressed: () {
-              cameraController.toggleTorch();
-            },
-            icon: Image.asset("assets/ic_flash_on_white_48dp.png",
-                height: AppBar().preferredSize.height),
-          ),
-        ),
         leading: IconButton(
           onPressed: () {
             _analytics.aboutPolaOpened();
@@ -59,7 +54,7 @@ class _MainPageState extends State<MainPage> {
               },
             );
           },
-          icon: Image.asset("assets/ic_launcher.png"),
+          icon: Assets.icLauncher.image(),
         ),
         actions: [
           IconButton(
@@ -73,9 +68,17 @@ class _MainPageState extends State<MainPage> {
                     return MenuBottomSheet(analytics: _analytics);
                   });
             },
-            icon: Image.asset("assets/menu.png"),
-          )
+            icon: Assets.menuPage.menu.svg(),
+          ),
         ],
+        title: Text(
+          t.scan.scanning,
+           style: TextStyle(
+                  fontSize: TextSize.newsTitle,
+                  color: AppColors.whiteColor,
+                  fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       body: Stack(
         children: <Widget>[
