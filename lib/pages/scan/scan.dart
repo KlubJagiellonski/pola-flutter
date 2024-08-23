@@ -9,6 +9,8 @@ import 'package:pola_flutter/pages/scan/scan_state.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/pages/scan/scan_vibration.dart';
 import 'package:pola_flutter/theme/assets.gen.dart';
+import 'package:pola_flutter/theme/colors.dart';
+import 'package:pola_flutter/theme/text_size.dart';
 import 'package:pola_flutter/ui/menu_bottom_sheet.dart';
 import 'package:pola_flutter/ui/web_view_dialog.dart';
 import 'companies_list.dart';
@@ -52,7 +54,7 @@ class _MainPageState extends State<MainPage> {
               },
             );
           },
-          icon: Assets.icLauncher.image(), // Zmieniono na Assets.icLauncher
+          icon: Assets.icLauncher.image(),
         ),
         actions: [
           IconButton(
@@ -71,8 +73,10 @@ class _MainPageState extends State<MainPage> {
         ],
         title: Text(
           t.scan.scanning,
-          style: TextStyle(
-            color: Colors.white,
+           style: TextStyle(
+                  fontSize: TextSize.newsTitle,
+                  color: AppColors.whiteColor,
+                  fontWeight: FontWeight.bold,
           ),
         ),
       ),
