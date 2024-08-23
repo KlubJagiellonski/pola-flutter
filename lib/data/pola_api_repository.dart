@@ -8,7 +8,7 @@ import 'package:pola_flutter/data/device_id_service.dart';
 import 'package:pola_flutter/models/search_result.dart';
 
 abstract class PolaApi {
-  Future<ApiResponse<SearchResult>> getCompany(int code);
+  Future<ApiResponse<SearchResult>> getCompany(String code);
 }
 
 class PolaApiRepository implements PolaApi {
@@ -21,7 +21,7 @@ class PolaApiRepository implements PolaApi {
   }
 
   @override
-  Future<ApiResponse<SearchResult>> getCompany(int code) async {
+  Future<ApiResponse<SearchResult>> getCompany(String code) async {
     SearchResult? result;
     Response response;
     try{

@@ -10,7 +10,7 @@ import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/pages/dialpad/dialpad.dart';
 import 'package:pola_flutter/pages/scan/scan.dart';
-import 'package:pola_flutter/pages/web/web_view_page.dart';
+import 'package:pola_flutter/ui/web_view_tab.dart';
 import 'firebase_options.dart';
 import 'pages/detail/detail.dart';
 
@@ -49,25 +49,26 @@ class _PolaAppState extends State<PolaApp> {
       home: DefaultTabController(
         length: 3,
         child: Scaffold(
-            bottomNavigationBar: BottomNavigationBar(
-              items: const <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.smartphone),
-                  label: 'Skaner kodów',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.search),
-                  label: 'Wyszukiwarka',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.newspaper),
-                  label: 'Wiadomości',
-                ),
-              ],
-              onTap: _onItemTapped,
-              currentIndex: _selectedIndex,
-            ),
-            body: _getTabContentWidget()),
+          bottomNavigationBar: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.smartphone),
+                label: 'Skaner kodów',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.search),
+                label: 'Wyszukiwarka',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.newspaper),
+                label: 'Wiadomości',
+              ),
+            ],
+            onTap: _onItemTapped,
+            currentIndex: _selectedIndex,
+          ),
+          body: _getTabContentWidget(),
+        ),
       ),
     );
   }
@@ -77,15 +78,13 @@ class _PolaAppState extends State<PolaApp> {
       case 0:
         return MainPage();
       case 1:
-        return WebViewPage(
+        return WebViewTab(
             title: "Wyszukiwarka",
-            url: "https://www.pola-app.pl/m/search/",
-            showBackButton: false);
+            url: "https://www.pola-app.pl/m/search/");
       case 2:
-        return WebViewPage(
+        return WebViewTab(
             title: "Wiadomości",
-            url: "https://www.pola-app.pl/m/blog/",
-            showBackButton: false);
+            url: "https://www.pola-app.pl/m/blog/");
       default:
         return MainPage();
     }
@@ -130,19 +129,6 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => MainPage());
       case '/dialpad':
         return MaterialPageRoute(builder: (_) => DialPadPage());
-      case '/web':
-        if (args is Map<String, dynamic>) {
-          final url = args['url'] as String;
-          final title = args['title'] as String;
-          return MaterialPageRoute(
-            builder: (_) => WebViewPage(
-              title: title,
-              url: url,
-              showBackButton: true,
-            ),
-          );
-        }
-        return MaterialPageRoute(builder: (_) => MainPage());
       default:
         return MaterialPageRoute(builder: (_) => MainPage());
     }

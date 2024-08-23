@@ -9,5 +9,19 @@
         "team": "Zespół",
         "findUs": "Znajdź nas tutaj",
         "footer": "Aplikacja Pola \n© Klub Jagielloński"
+    },
+    "companyScreen": {
+        "ourRating": "Nasza ocena:",
+        "gradingCriteria": "Kryteria oceniania:",
+        "polishCapital": "Polski kapitał",
+        "producedInPoland": "Produkuje w Polsce",
+        "researchInPoland": "Prowadzi badania w Polsce",
+        "registeredInPoland": "Zarejestrowana w Polsce",
+        "notConcernPart":"Nie jest częścią zagranicznego koncernu",
+        "seeMore":" zobacz więcej",
+        "seeLess":" zobacz mniej",
+        "points":"$score pkt",
+        "companyFriend": " Ta firma jest przyjacielem Poli",
+        "polaFriends": "Przyjaciele Poli"
     }
 }

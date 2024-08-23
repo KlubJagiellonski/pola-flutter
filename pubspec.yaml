@@ -9,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_bloc: ^8.1.2
+  flutter_bloc: ^8.1.6
   cupertino_icons: ^1.0.2
   webview_flutter: ^4.7.0
   webview_flutter_web: ^0.2.2+2
@@ -20,7 +20,7 @@ dependencies:
   json_annotation: any
   logger: ^2.3.0
   rxdart: ^0.28.0
-  mobile_scanner: 3.1.1
+  mobile_scanner: ^5.1.1
   in_app_review: ^2.0.2
   uuid: ^4.4.0
   shared_preferences: ^2.0.6
@@ -30,17 +30,22 @@ dependencies:
   url_launcher: ^6.1.7
   vibration: ^1.7.6
   firebase_analytics: ^11.1.0
+  freezed: ^2.5.2
+  freezed_annotation: ^2.4.1
   slang: ^3.31.1
   slang_flutter: ^3.31.0
+  syncfusion_flutter_gauges: ^26.1.42
+  flutter_svg: ^2.0.9
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: ^2.0.6
+  flutter_gen_runner: ^5.6.0
   json_serializable: any
   chopper_generator: ^8.0.1
   test: any
-  bloc_test: ^9.1.1
+  bloc_test: ^9.1.7
   mockito:  ^5.0.0-nullsafety.7
 
 flutter:
@@ -48,10 +53,9 @@ flutter:
 
   assets:
     - assets/
-    - assets/icons/
-    - assets/icons/2.0x/
-    - assets/icons/3.0x/
+    - assets/menuPage/
     - assets/fonts/
+    - assets/company/
   fonts:
     - family: Roboto 
       fonts: 
@@ -65,3 +69,10 @@ flutter:
           weight: 700 
         - asset: assets/fonts/Lato/Lato-SemiBold.ttf
           weight: 600
+
+flutter_gen:
+  output: lib/theme/
+  line_length: 120 
+
+  integrations:
+    flutter_svg: true

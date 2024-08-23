@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/analytics/analytics_about_row.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
+import 'package:pola_flutter/theme/colors.dart';
+import 'package:pola_flutter/theme/fonts.gen.dart';
+import 'package:pola_flutter/theme/text_size.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 
@@ -20,9 +23,9 @@ class SocialMediaListView extends StatelessWidget {
             Text(
               t.menu.findUs,
               style: TextStyle(
-                fontSize: 12,
+                fontSize: TextSize.smallTitle,
                 fontWeight: FontWeight.w700,
-                fontFamily: 'Lato',
+                fontFamily: FontFamily.lato
               ),
             ),
           ],
@@ -65,7 +68,7 @@ class SocialMediaListView extends StatelessWidget {
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
-                  fontFamily: 'Lato'),
+                  fontFamily: FontFamily.lato),
             ),
           ],
         ),
@@ -111,9 +114,9 @@ class SocialItemView extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          foregroundColor: const Color(0xFFE1203E),
-          backgroundColor: const Color(0xFFF5DEDD),
-          textStyle: const TextStyle(fontFamily: 'Roboto'),
+          foregroundColor: AppColors.defaultRed,
+          backgroundColor: AppColors.buttonBackground,
+          textStyle: const TextStyle(fontFamily: FontFamily.roboto),
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
         ),
         onPressed: onPressed,
