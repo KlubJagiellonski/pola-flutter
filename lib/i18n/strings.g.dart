@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 1
-/// Strings: 21
+/// Strings: 22
 ///
-/// Built on 2024-08-13 at 07:42 UTC
+/// Built on 2024-08-21 at 08:34 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -149,6 +149,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	// Translations
 	late final _StringsMenuEn menu = _StringsMenuEn._(_root);
 	late final _StringsCompanyScreenEn companyScreen = _StringsCompanyScreenEn._(_root);
+	late final _StringsScanEn scan = _StringsScanEn._(_root);
 }
 
 // Path: menu
@@ -190,6 +191,16 @@ class _StringsCompanyScreenEn {
 	String get polaFriends => 'Przyjaciele Poli';
 }
 
+// Path: scan
+class _StringsScanEn {
+	_StringsScanEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get scanning => 'Skanowanie';
+}
+
 /// Flat map(s) containing all translations.
 /// Only for edge cases! For simple maps, use the map function of this library.
 
@@ -217,6 +228,7 @@ extension on Translations {
 			case 'companyScreen.points': return ({required Object score}) => '${score} pkt';
 			case 'companyScreen.companyFriend': return ' Ta firma jest przyjacielem Poli';
 			case 'companyScreen.polaFriends': return 'Przyjaciele Poli';
+			case 'scan.scanning': return 'Skanowanie';
 			default: return null;
 		}
 	}

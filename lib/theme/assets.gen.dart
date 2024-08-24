@@ -49,6 +49,9 @@ class $AssetsMenuPageGen {
   /// File path: assets/menuPage/info.svg
   SvgGenImage get info => const SvgGenImage('assets/menuPage/info.svg');
 
+  /// File path: assets/menuPage/menu.svg
+  SvgGenImage get menu => const SvgGenImage('assets/menuPage/menu.svg');
+
   /// File path: assets/menuPage/star.svg
   SvgGenImage get star => const SvgGenImage('assets/menuPage/star.svg');
 
@@ -56,7 +59,7 @@ class $AssetsMenuPageGen {
   SvgGenImage get thumbs => const SvgGenImage('assets/menuPage/thumbs.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [diversity, github, groups, handshake, info, star, thumbs];
+  List<SvgGenImage> get values => [diversity, github, groups, handshake, info, menu, star, thumbs];
 }
 
 class Assets {
