@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:pola_flutter/analytics/analytics_about_row.dart';
@@ -94,6 +95,31 @@ class _MainPageState extends State<MainPage> {
               BlocBuilder<ScanBloc, ScanState>(
                 bloc: _scanBloc,
                 builder: (context, state) {
+                  if (state.isError) {
+                    SchedulerBinding.instance.addPostFrameCallback((_) {
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (_) {
+                          return AlertDialog(
+                            title: Text('Wystąpił błąd'),
+                            content: Text('Niestety nie udało się pobrać danych. Spróbuj ponownie.'),
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text('Zamknij.'),
+                                onPressed: () {
+                                  _scanBloc.add(ScanEvent.alertDialogDismissed());
+                                  SchedulerBinding.instance.addPostFrameCallback((_) {
+                                    Navigator.pop(context);
+                                  });
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    });                  
+                  }
                   return CompaniesList(state, listScrollController);
                 },
               ),

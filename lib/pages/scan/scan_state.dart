@@ -8,5 +8,6 @@ class ScanState with _$ScanState {
   const factory ScanState({
     @Default([]) List<SearchResult> list,
     @Default(false) bool isLoading,
+    @Default(false) bool isError
   }) = Initial;
 }
