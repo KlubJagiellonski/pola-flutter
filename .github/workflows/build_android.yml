@@ -2,10 +2,7 @@ name: Build Android
 
 on:
   push:
-    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
-  workflow_dispatch: # Allows to trigger the workflow from GitHub
 
 jobs:
     build_android:
