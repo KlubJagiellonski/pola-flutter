@@ -10,7 +10,7 @@ class AppColors {
   static const Color buttonBackground = Color(0xFFF5DEDD);
 
   /// Color: Text
-  static const Color textColor = Color(0xFF1C1B1F);
+  static const Color text = Color(0xFF1C1B1F);
 
   /// Color: Inactive
   static const Color inactiveColor = Color(0xFF898989);
