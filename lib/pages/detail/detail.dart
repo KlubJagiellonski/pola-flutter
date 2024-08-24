@@ -25,7 +25,7 @@ class DetailPage extends StatelessWidget {
           icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        actions: [MenuIconButton(color: AppColors.textColor)],
+        actions: [MenuIconButton(color: AppColors.text)],
       ),
       body: SafeArea(
         child: SingleChildScrollView(
