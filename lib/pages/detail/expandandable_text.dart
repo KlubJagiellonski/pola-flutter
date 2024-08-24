@@ -19,7 +19,7 @@ class _ExpandableTextState extends State<ExpandableText> {
   Widget build(BuildContext context) {
     final link = TextSpan(
       style: TextStyle(
-        color: AppColors.inactiveColor,
+        color: AppColors.inactive,
         fontSize: 11.0,
         fontWeight: FontWeight.w700,
         fontFamily: FontFamily.lato,
