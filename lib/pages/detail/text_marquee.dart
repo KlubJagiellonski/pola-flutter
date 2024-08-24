@@ -88,6 +88,9 @@ class _TextMarqueeState extends State<TextMarquee> {
     // Apply delay to start scrolling.
     await Future.delayed(widget.delay);
 
+    // Ensure the widget is still mounted before proceeding
+    if (!mounted) return;
+
     // Calculate scrolling length.
     double scrollLength =
         _textWidth + widget.spaceSize + widget.startPaddingSize;
@@ -98,6 +101,9 @@ class _TextMarqueeState extends State<TextMarquee> {
             ? widget.duration!
             : Duration(milliseconds: (scrollLength * 27).toInt()),
         curve: widget.curve);
+
+    // Ensure the widget is still mounted before jumping
+    if (!mounted) return;
 
     // Jump to start of SingleChildScrollView. (without animation)
     _scrollController.jumpTo(0);
