@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pola_flutter/theme/colors.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewPage extends StatefulWidget {
@@ -35,6 +36,7 @@ class _WebViewTabState extends State<WebViewPage> {
           });
         }),
       )
+      ..setBackgroundColor(AppColors.white)
       ..loadRequest(Uri.parse(widget.url));
   }
 
