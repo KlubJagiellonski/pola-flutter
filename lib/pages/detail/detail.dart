@@ -24,7 +24,7 @@ class DetailPage extends StatelessWidget {
         title: TextMarquee(
           searchResult.name ?? "",
           style: TextStyle(
-            color: AppColors.textColor,
+            color: AppColors.text,
             fontSize: TextSize.newsTitle,
             fontWeight: FontWeight.w600,
           ),
