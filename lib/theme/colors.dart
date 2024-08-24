@@ -10,17 +10,17 @@ class AppColors {
   static const Color buttonBackground = Color(0xFFF5DEDD);
 
   /// Color: Text
-  static const Color textColor = Color(0xFF1C1B1F);
+  static const Color text = Color(0xFF1C1B1F);
 
   /// Color: Inactive
-  static const Color inactiveColor = Color(0xFF898989);
+  static const Color inactive = Color(0xFF898989);
 
   /// Color: Dividers
-  static const Color dividerColor = Color(0xFFF0F0F0);
+  static const Color divider = Color(0xFFF0F0F0);
 
   /// Color: Text fields
-  static const Color textFieldColor = Color(0xFFF8F8F8);
+  static const Color textField = Color(0xFFF8F8F8);
 
-  /// Color: White (default)
-  static const Color whiteColor = Color(0xFFFFFFFF);
+  /// Color: White
+  static const Color white = Color(0xFFFFFFFF);
 }

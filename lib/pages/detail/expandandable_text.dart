@@ -19,7 +19,7 @@ class _ExpandableTextState extends State<ExpandableText> {
   Widget build(BuildContext context) {
     final link = TextSpan(
       style: TextStyle(
-        color: AppColors.inactiveColor,
+        color: AppColors.inactive,
         fontSize: 11.0,
         fontWeight: FontWeight.w700,
         fontFamily: FontFamily.lato,
@@ -38,7 +38,7 @@ class _ExpandableTextState extends State<ExpandableText> {
         final textSpan = TextSpan(
           text: widget.text,
           style: TextStyle(
-            color:AppColors.textColor,
+            color:AppColors.text,
             fontSize: 11.0,
             fontWeight: FontWeight.w400,
             fontFamily: FontFamily.lato,
@@ -75,7 +75,7 @@ class _ExpandableTextState extends State<ExpandableText> {
           final end = textPainter.getOffsetBefore(pos.offset);
           final text = TextSpan(
             text: widget.text.substring(0, end),
-            style: TextStyle(color:AppColors.textColor),
+            style: TextStyle(color:AppColors.text),
             children: [link],
           );
 
@@ -86,7 +86,7 @@ class _ExpandableTextState extends State<ExpandableText> {
           return RichText(
             text: TextSpan(
               text: widget.text,
-              style: TextStyle(color:AppColors.textColor),
+              style: TextStyle(color:AppColors.text),
               children: [if (isExpanded) link],
             ),
           );

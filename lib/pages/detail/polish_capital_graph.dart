@@ -51,7 +51,7 @@ class PolishCapitalGraph extends StatelessWidget {
                         fontSize: 26.0,
                         fontWeight: FontWeight.w700,
                         fontFamily: FontFamily.lato,
-                         color: AppColors.textColor),
+                         color: AppColors.text),
                       ),
                     ),
                   
@@ -67,7 +67,7 @@ class PolishCapitalGraph extends StatelessWidget {
             style: TextStyle(
               fontSize: 11.0,
               fontWeight: FontWeight.w400,
-               color: AppColors.textColor,
+               color: AppColors.text,
               fontFamily: FontFamily.lato,
             ),
           ),
