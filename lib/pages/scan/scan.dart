@@ -45,14 +45,10 @@ class _MainPageState extends State<MainPage> {
         leading: IconButton(
           onPressed: () {
             _analytics.aboutPolaOpened();
-            showDialog(
+            showWebViewDialog(
               context: context,
-              builder: (context) {
-                return WebViewDialog(
-                  url: "https://www.pola-app.pl/m/about",
-                  title: t.menu.aboutPola,
-                );
-              },
+              url: "https://www.pola-app.pl/m/about",
+              title: t.menu.aboutPola
             );
           },
           icon: Assets.icLauncher.image(),

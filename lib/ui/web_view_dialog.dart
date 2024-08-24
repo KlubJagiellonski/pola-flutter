@@ -4,11 +4,21 @@ import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/text_size.dart';
 
-class WebViewDialog extends StatelessWidget {
+showWebViewDialog({required BuildContext context, required String url, required String title}) {
+  showDialog(
+    context: context,
+    useSafeArea: false,
+    builder: (context) {
+      return _WebViewDialog(url: url, title: title);
+    },
+  );
+}
+
+class _WebViewDialog extends StatelessWidget {
   final String url;
   final String title;
 
-  const WebViewDialog({Key? key, required this.url, required this.title})
+  const _WebViewDialog({Key? key, required this.url, required this.title})
       : super(key: key);
 
   @override

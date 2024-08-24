@@ -91,12 +91,7 @@ class MenuItemListView extends StatelessWidget {
       icon: icon,
       onClick: () {
         analytics.aboutOpened(analyticsRow);
-        showDialog(
-          context: context,
-          builder: (context) {
-            return WebViewDialog(url: url, title: text);
-          },
-        );
+        showWebViewDialog(context: context, url: url, title: text);
       },
     );
   }
