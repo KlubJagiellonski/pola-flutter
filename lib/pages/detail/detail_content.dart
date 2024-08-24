@@ -56,7 +56,7 @@ class DetailContent extends StatelessWidget {
                         fontSize: TextSize.mediumTitle,
                         fontWeight: FontWeight.w600,
                         fontFamily: FontFamily.lato,
-                        color: AppColors.textColor,
+                        color: AppColors.text,
                       ),
                     ),
                     const SizedBox(width: 8.0),
@@ -66,7 +66,7 @@ class DetailContent extends StatelessWidget {
                         fontSize: TextSize.newsTitle,
                         fontWeight: FontWeight.w700,
                         fontFamily: FontFamily.lato,
-                        color: AppColors.textColor,
+                        color: AppColors.text,
                       ),
                     ),
                   ],
@@ -88,7 +88,7 @@ class DetailContent extends StatelessWidget {
               const SizedBox(height: 17.0),
               Divider(
                 thickness: 1.0,
-                color: AppColors.dividerColor,
+                color: AppColors.divider,
                 indent: 0,
                 endIndent: 0,
               ),
@@ -102,7 +102,7 @@ class DetailContent extends StatelessWidget {
                       fontSize: TextSize.mediumTitle,
                       fontWeight: FontWeight.w600,
                       fontFamily: FontFamily.lato,
-                      color: AppColors.textColor,
+                      color: AppColors.text,
                     ),
                   ),
                 ),
@@ -136,7 +136,7 @@ class DetailContent extends StatelessWidget {
               const SizedBox(height: 22.0),
               Divider(
                 thickness: 1.0,
-                color: AppColors.dividerColor,
+                color: AppColors.divider,
                 indent: 0,
                 endIndent: 0,
               ),
@@ -148,7 +148,7 @@ class DetailContent extends StatelessWidget {
                 if (hasLogo)
                   Divider(
                     thickness: 1.0,
-                    color:  AppColors.dividerColor,
+                    color:  AppColors.divider,
                     indent: 0,
                     endIndent: 0,
                   ),
@@ -161,7 +161,7 @@ class DetailContent extends StatelessWidget {
               if (hasLogo)
                 Divider(
                   thickness: 1.0,
-                  color: AppColors.dividerColor,
+                  color: AppColors.divider,
                   indent: 0,
                   endIndent: 0,
                 ),
@@ -196,7 +196,7 @@ class _DetailItem extends StatelessWidget {
               fontSize: TextSize.description,
               fontWeight: FontWeight.w400,
               fontFamily: FontFamily.lato,
-              color: AppColors.textColor,
+              color: AppColors.text,
             ),
             softWrap: true,
             overflow: TextOverflow.visible,

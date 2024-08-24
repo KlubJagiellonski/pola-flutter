@@ -63,7 +63,7 @@ class _MainPageState extends State<MainPage> {
           t.scan.scanning,
            style: TextStyle(
                   fontSize: TextSize.newsTitle,
-                  color: AppColors.whiteColor,
+                  color: AppColors.white,
                   fontWeight: FontWeight.bold,
           ),
         ),
