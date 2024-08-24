@@ -66,31 +66,28 @@ class _PolaAppState extends State<PolaApp> {
               onTap: _onItemTapped,
               currentIndex: _selectedIndex,
             ),
-            body: _getTabContentWidget()),
+            body: IndexedStack(
+              index: _selectedIndex,
+              children: _tabs,
+            )
+        ),
       ),
     );
   }
 
-  Widget _getTabContentWidget() {
-    switch (_selectedIndex) {
-      case 0:
-        return MainPage();
-      case 1:
-        return WebViewPage(
-              title: "Wyszukiwarka",
-              url: "https://www.pola-app.pl/m/search/",
-              showBackButton: false
-            );
-      case 2:
-        return WebViewPage(
-              title: "Wiadomości",
-              url: "https://www.pola-app.pl/m/blog/",
-              showBackButton: false
-            );
-      default:
-        return MainPage();
-    }
-  }
+  final List<Widget> _tabs = [
+    MainPage(),
+    WebViewPage(
+      title: "Wyszukiwarka",
+      url: "https://www.pola-app.pl/m/search/",
+      showBackButton: false
+    ),
+    WebViewPage(
+      title: "Wiadomości",
+      url: "https://www.pola-app.pl/m/blog/",
+      showBackButton: false
+    )
+  ];
 
   AnalyticsMainTab _getTabParameter(int index) {
     switch (index) {
