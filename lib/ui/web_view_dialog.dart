@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/pages/web/web_view_page.dart';
+import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/text_size.dart';
 
@@ -30,8 +31,7 @@ class WebViewDialog extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Image.asset("assets/ic_launcher.png",
-                        width: 35, height: 35),
+                    Assets.icLauncher.image(width: 35, height: 35),
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 14.0),
@@ -46,8 +46,7 @@ class WebViewDialog extends StatelessWidget {
                       ),
                     ),
                     IconButton(
-                      icon:
-                          Image.asset("assets/back.png", width: 32, height: 32),
+                      icon: Assets.back.image(width: 32, height: 32),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
