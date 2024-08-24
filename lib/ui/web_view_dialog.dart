@@ -56,7 +56,7 @@ class _WebViewDialog extends StatelessWidget {
                       ),
                     ),
                     IconButton(
-                      icon: Assets.back.image(width: 32, height: 32),
+                      icon: Assets.navigation.close.svg(),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
