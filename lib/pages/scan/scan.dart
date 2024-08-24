@@ -58,7 +58,7 @@ class _MainPageState extends State<MainPage> {
           },
           icon: Assets.icLauncher.image(),
         ),
-        actions: [MenuIconButton()],
+        actions: [MenuIconButton(color: AppColors.whiteColor)],
         title: Text(
           t.scan.scanning,
            style: TextStyle(

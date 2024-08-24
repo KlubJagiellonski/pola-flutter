@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/models/search_result.dart';
+import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/ui/menu_icon_button.dart';
 import 'detail_lidl.dart';
 import 'detail_content.dart';
@@ -24,7 +25,7 @@ class DetailPage extends StatelessWidget {
           icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        actions: [MenuIconButton()],
+        actions: [MenuIconButton(color: AppColors.textColor)],
       ),
       body: SafeArea(
         child: SingleChildScrollView(

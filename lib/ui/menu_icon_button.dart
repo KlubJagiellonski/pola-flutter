@@ -7,6 +7,9 @@ import 'package:pola_flutter/theme/colors.dart';
 
 class MenuIconButton extends StatelessWidget {
   final PolaAnalytics _analytics = PolaAnalytics.instance();
+  final Color color;
+
+  MenuIconButton({super.key, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +26,7 @@ class MenuIconButton extends StatelessWidget {
         );
       },
       icon: Assets.menuPage.menu.svg(
-        colorFilter: ColorFilter.mode(AppColors.textColor, BlendMode.srcIn)
+        colorFilter: ColorFilter.mode(color, BlendMode.srcIn)
         ),
     );
   }
