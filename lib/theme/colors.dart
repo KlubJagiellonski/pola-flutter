@@ -16,7 +16,7 @@ class AppColors {
   static const Color inactive = Color(0xFF898989);
 
   /// Color: Dividers
-  static const Color dividerColor = Color(0xFFF0F0F0);
+  static const Color divider = Color(0xFFF0F0F0);
 
   /// Color: Text fields
   static const Color textFieldColor = Color(0xFFF8F8F8);

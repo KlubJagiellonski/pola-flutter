@@ -88,7 +88,7 @@ class DetailContent extends StatelessWidget {
               const SizedBox(height: 17.0),
               Divider(
                 thickness: 1.0,
-                color: AppColors.dividerColor,
+                color: AppColors.divider,
                 indent: 0,
                 endIndent: 0,
               ),
@@ -136,7 +136,7 @@ class DetailContent extends StatelessWidget {
               const SizedBox(height: 22.0),
               Divider(
                 thickness: 1.0,
-                color: AppColors.dividerColor,
+                color: AppColors.divider,
                 indent: 0,
                 endIndent: 0,
               ),
@@ -148,7 +148,7 @@ class DetailContent extends StatelessWidget {
                 if (hasLogo)
                   Divider(
                     thickness: 1.0,
-                    color:  AppColors.dividerColor,
+                    color:  AppColors.divider,
                     indent: 0,
                     endIndent: 0,
                   ),
@@ -161,7 +161,7 @@ class DetailContent extends StatelessWidget {
               if (hasLogo)
                 Divider(
                   thickness: 1.0,
-                  color: AppColors.dividerColor,
+                  color: AppColors.divider,
                   indent: 0,
                   endIndent: 0,
                 ),
