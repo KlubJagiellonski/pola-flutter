@@ -21,6 +21,6 @@ class AppColors {
   /// Color: Text fields
   static const Color textField = Color(0xFFF8F8F8);
 
-  /// Color: White (default)
-  static const Color whiteColor = Color(0xFFFFFFFF);
+  /// Color: White
+  static const Color white = Color(0xFFFFFFFF);
 }
