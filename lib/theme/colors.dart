@@ -19,7 +19,7 @@ class AppColors {
   static const Color divider = Color(0xFFF0F0F0);
 
   /// Color: Text fields
-  static const Color textFieldColor = Color(0xFFF8F8F8);
+  static const Color textField = Color(0xFFF8F8F8);
 
   /// Color: White (default)
   static const Color whiteColor = Color(0xFFFFFFFF);
