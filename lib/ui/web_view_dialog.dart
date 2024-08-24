@@ -40,7 +40,7 @@ class WebViewDialog extends StatelessWidget {
                           style: TextStyle(
                             fontSize: TextSize.newsTitle,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.textColor,
+                            color: AppColors.text,
                           ),
                         ),
                       ),

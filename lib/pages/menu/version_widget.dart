@@ -36,7 +36,7 @@ class _VersionLabelWidget extends StatelessWidget {
         fontSize: TextSize.smallTitle,
         fontWeight: FontWeight.w400,
         fontFamily: FontFamily.lato,
-        color: AppColors.inactiveColor,
+        color: AppColors.inactive,
       ),
       textAlign: TextAlign.end,
     );
