@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
+import 'package:pola_flutter/pages/menu/menu_footer.dart';
+import 'package:pola_flutter/pages/menu/social_media_list_view.dart';
 import 'package:pola_flutter/theme/colors.dart';
-import 'package:pola_flutter/ui/social_media_list_view.dart';
 import 'menu_item_list_view.dart';
 
 class MenuBottomSheet extends StatelessWidget {
@@ -43,6 +44,8 @@ class MenuBottomSheet extends StatelessWidget {
             ),
             const SizedBox(height: 17),
             SocialMediaListView(analytics: analytics),
+            const SizedBox(height: 17.0),
+            MenuFooter(),
             const SizedBox(height: 33),
           ],
         ),

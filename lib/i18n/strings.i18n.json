@@ -23,5 +23,8 @@
         "points":"$score pkt",
         "companyFriend": " Ta firma jest przyjacielem Poli",
         "polaFriends": "Przyjaciele Poli"
+    },
+    "scan": {
+        "scanning": "Skanowanie"
     }
 }
