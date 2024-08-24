@@ -13,6 +13,7 @@ import 'package:pola_flutter/pages/menu/menu_bottom_sheet.dart';
 import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/text_size.dart';
+import 'package:pola_flutter/ui/menu_icon_button.dart';
 import 'package:pola_flutter/ui/web_view_dialog.dart';
 import 'companies_list.dart';
 import 'scan_bloc.dart';
@@ -57,21 +58,7 @@ class _MainPageState extends State<MainPage> {
           },
           icon: Assets.icLauncher.image(),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              _analytics.aboutOpened(AnalyticsAboutRow.menu);
-              showModalBottomSheet<void>(
-                  backgroundColor: Colors.transparent,
-                  isScrollControlled: true,
-                  context: context,
-                  builder: (BuildContext context) {
-                    return MenuBottomSheet(analytics: _analytics);
-                  });
-            },
-            icon: Assets.menuPage.menu.svg(),
-          ),
-        ],
+        actions: [MenuIconButton()],
         title: Text(
           t.scan.scanning,
            style: TextStyle(
