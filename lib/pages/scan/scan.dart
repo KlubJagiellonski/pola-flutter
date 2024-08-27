@@ -72,12 +72,15 @@ class _MainPageState extends State<MainPage> {
             icon: Assets.menuPage.menu.svg(),
           ),
         ],
-        title: Text(
-          t.scan.scanning,
-           style: TextStyle(
-                  fontSize: TextSize.newsTitle,
-                  color: AppColors.white,
-                  fontWeight: FontWeight.bold,
+        title: Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            t.scan.scanning,
+            style: TextStyle(
+              fontSize: TextSize.newsTitle,
+              color: AppColors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),
