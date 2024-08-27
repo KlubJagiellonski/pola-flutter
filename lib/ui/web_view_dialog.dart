@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/pages/web/web_view_page.dart';
+import 'package:pola_flutter/theme/colors.dart';
+import 'package:pola_flutter/theme/text_size.dart';
 
 class WebViewDialog extends StatelessWidget {
   final String url;
@@ -36,9 +38,9 @@ class WebViewDialog extends StatelessWidget {
                         child: Text(
                           title,
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: TextSize.newsTitle,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF1C1B1F),
+                            color: AppColors.text,
                           ),
                         ),
                       ),

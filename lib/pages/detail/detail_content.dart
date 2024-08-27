@@ -3,7 +3,9 @@ import 'package:pola_flutter/models/company.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/theme/assets.gen.dart';
+import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/fonts.gen.dart';
+import 'package:pola_flutter/theme/text_size.dart';
 import 'logotypes.dart';
 import 'expandandable_text.dart';
 import 'polish_capital_graph.dart';
@@ -51,20 +53,20 @@ class DetailContent extends StatelessWidget {
                     Text(
                       t.companyScreen.ourRating,
                       style: TextStyle(
-                        fontSize: 16.0,
+                        fontSize: TextSize.mediumTitle,
                         fontWeight: FontWeight.w600,
                         fontFamily: FontFamily.lato,
-                        color: const Color(0xFF1C1B1F),
+                        color: AppColors.text,
                       ),
                     ),
                     const SizedBox(width: 8.0),
                     Text(
                       t.companyScreen.points(score: score),
                       style: TextStyle(
-                        fontSize: 20.0,
+                        fontSize: TextSize.newsTitle,
                         fontWeight: FontWeight.w700,
                         fontFamily: FontFamily.lato,
-                        color: const Color(0xFF1C1B1F),
+                        color: AppColors.text,
                       ),
                     ),
                   ],
@@ -76,9 +78,9 @@ class DetailContent extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10.0),
                   child: LinearProgressIndicator(
                     value: score / 100.0,
-                    backgroundColor: const Color(0xFFF5DEDD),
+                    backgroundColor:  AppColors.buttonBackground,
                     valueColor:
-                        const AlwaysStoppedAnimation<Color>(Color(0xFFE1203E)),
+                        const AlwaysStoppedAnimation<Color>(AppColors.defaultRed),
                     minHeight: 12.0,
                   ),
                 ),
@@ -86,7 +88,7 @@ class DetailContent extends StatelessWidget {
               const SizedBox(height: 17.0),
               Divider(
                 thickness: 1.0,
-                color: const Color(0xFFF0F0F0),
+                color: AppColors.divider,
                 indent: 0,
                 endIndent: 0,
               ),
@@ -97,10 +99,10 @@ class DetailContent extends StatelessWidget {
                   child: Text(
                     t.companyScreen.gradingCriteria,
                     style: TextStyle(
-                      fontSize: 16.0,
+                      fontSize: TextSize.mediumTitle,
                       fontWeight: FontWeight.w600,
                       fontFamily: FontFamily.lato,
-                      color: const Color(0xFF1C1B1F),
+                      color: AppColors.text,
                     ),
                   ),
                 ),
@@ -134,7 +136,7 @@ class DetailContent extends StatelessWidget {
               const SizedBox(height: 22.0),
               Divider(
                 thickness: 1.0,
-                color: const Color(0xFFF0F0F0),
+                color: AppColors.divider,
                 indent: 0,
                 endIndent: 0,
               ),
@@ -146,7 +148,7 @@ class DetailContent extends StatelessWidget {
                 if (hasLogo)
                   Divider(
                     thickness: 1.0,
-                    color: const Color(0xFFF0F0F0),
+                    color:  AppColors.divider,
                     indent: 0,
                     endIndent: 0,
                   ),
@@ -159,7 +161,7 @@ class DetailContent extends StatelessWidget {
               if (hasLogo)
                 Divider(
                   thickness: 1.0,
-                  color: const Color(0xFFF0F0F0),
+                  color: AppColors.divider,
                   indent: 0,
                   endIndent: 0,
                 ),
@@ -191,10 +193,10 @@ class _DetailItem extends StatelessWidget {
           child: Text(
             text,
             style: TextStyle(
-              fontSize: 11,
+              fontSize: TextSize.description,
               fontWeight: FontWeight.w400,
               fontFamily: FontFamily.lato,
-              color: const Color(0xFF1C1B1F),
+              color: AppColors.text,
             ),
             softWrap: true,
             overflow: TextOverflow.visible,

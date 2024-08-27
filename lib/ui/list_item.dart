@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/models/search_result.dart';
+import 'package:pola_flutter/theme/text_size.dart';
 
 class ResultListItem extends StatelessWidget {
   ResultListItem(this.searchResult);
@@ -8,7 +9,7 @@ class ResultListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: 16.0);
+    final textStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: TextSize.mediumTitle);
     return _ListItem(
       child: Column(
       children: [
@@ -45,7 +46,7 @@ class LoadingListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: 16.0);
+    final textStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: TextSize.mediumTitle);
     return _ListItem(
       child: Expanded(
         child: Align(

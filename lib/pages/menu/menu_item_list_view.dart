@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/fonts.gen.dart';
+import 'package:pola_flutter/theme/text_size.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:pola_flutter/analytics/analytics_about_row.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
-import 'web_view_dialog.dart';
+import '../../ui/web_view_dialog.dart';
 
 class MenuItemListView extends StatelessWidget {
   final PolaAnalytics analytics;
@@ -20,41 +22,41 @@ class MenuItemListView extends StatelessWidget {
         _webViewItem(
           context: context,
           text: t.menu.aboutPola,
-          iconPath: 'info',
+          icon: Assets.menuPage.info.svg(),
           analyticsRow: AnalyticsAboutRow.aboutPola,
           url: 'https://www.pola-app.pl/m/about',
         ),
         _webViewItem(
           context: context,
           text: t.menu.aboutClub,
-          iconPath: 'info',
+          icon: Assets.menuPage.info.svg(),
           analyticsRow: AnalyticsAboutRow.aboutKJ,
           url: 'https://klubjagiellonski.pl/o-klubie-jagiellonskim/',
         ),
         _webViewItem(
           context: context,
           text: t.menu.instruction,
-          iconPath: 'thumbs',
+          icon: Assets.menuPage.thumbs.svg(),
           analyticsRow: AnalyticsAboutRow.instructionSet,
           url: 'https://www.pola-app.pl/m/method',
         ),
         _webViewItem(
           context: context,
           text: t.menu.partners,
-          iconPath: 'handshake',
+          icon: Assets.menuPage.handshake.svg(),
           analyticsRow: AnalyticsAboutRow.partners,
           url: 'https://www.pola-app.pl/m/partners',
         ),
         _webViewItem(
           context: context,
           text: t.menu.polasFriends,
-          iconPath: 'diversity',
+          icon: Assets.menuPage.diversity.svg(),
           analyticsRow: AnalyticsAboutRow.polasFriends,
           url: 'https://www.pola-app.pl/m/friends',
         ),
         _externalUrlItem(
           text: t.menu.rateUS,
-          iconPath: 'star',
+          icon: Assets.menuPage.star.svg(), 
           analyticsRow: AnalyticsAboutRow.rateUs,
           url: Platform.isIOS
               ? "https://apps.apple.com/app/id1038401148"
@@ -63,13 +65,13 @@ class MenuItemListView extends StatelessWidget {
         _webViewItem(
           context: context,
           text: t.menu.team,
-          iconPath: 'groups',
+          icon: Assets.menuPage.groups.svg(),
           analyticsRow: AnalyticsAboutRow.team,
           url: 'https://www.pola-app.pl/m/team',
         ),
         _externalUrlItem(
           text: "Github",
-          iconPath: 'github',
+          icon: Assets.menuPage.github.svg(),
           analyticsRow: AnalyticsAboutRow.github,
           url: 'https://github.com/KlubJagiellonski',
         ),
@@ -80,13 +82,13 @@ class MenuItemListView extends StatelessWidget {
   Widget _webViewItem({
     required BuildContext context,
     required String text,
-    required String iconPath,
+    required Widget icon,
     required AnalyticsAboutRow analyticsRow,
     required String url,
   }) {
     return _MenuBottomItem(
       text: text,
-      iconPath: iconPath,
+      icon: icon,
       onClick: () {
         analytics.aboutOpened(analyticsRow);
         showDialog(
@@ -101,13 +103,13 @@ class MenuItemListView extends StatelessWidget {
 
   Widget _externalUrlItem({
     required String text,
-    required String iconPath,
+    required Widget icon,
     required AnalyticsAboutRow analyticsRow,
     required String url,
   }) {
     return _MenuBottomItem(
       text: text,
-      iconPath: iconPath,
+      icon: icon,
       onClick: () {
         analytics.aboutOpened(analyticsRow);
         _launchURL(url);
@@ -125,17 +127,17 @@ class MenuItemListView extends StatelessWidget {
 
 class _MenuBottomItem extends StatelessWidget {
   final String text;
-  final String iconPath;
+  final Widget icon;
   final VoidCallback onClick;
 
   const _MenuBottomItem({
     required this.text,
-    required this.iconPath,
+    required this.icon,
     required this.onClick,
   });
 
   final textStyle = const TextStyle(
-      fontWeight: FontWeight.w500, fontSize: 16.0, fontFamily: FontFamily.lato);
+      fontWeight: FontWeight.w500, fontSize: TextSize.mediumTitle, fontFamily: FontFamily.lato);
 
   @override
   Widget build(BuildContext context) {
@@ -147,7 +149,7 @@ class _MenuBottomItem extends StatelessWidget {
           Row(
             children: [
               const SizedBox(width: 32),
-              Image.asset("assets/icons/$iconPath.png"),
+              icon,
               const SizedBox(width: 20.0),
               Text(text, style: textStyle),
               const SizedBox(width: 32),

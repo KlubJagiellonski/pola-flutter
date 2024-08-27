@@ -36,6 +36,7 @@ dependencies:
   slang_flutter: ^3.31.0
   syncfusion_flutter_gauges: ^26.1.42
   flutter_svg: ^2.0.9
+  package_info_plus: ^8.0.2
 
 dev_dependencies:
   flutter_test:
@@ -53,9 +54,7 @@ flutter:
 
   assets:
     - assets/
-    - assets/icons/
-    - assets/icons/2.0x/
-    - assets/icons/3.0x/
+    - assets/menuPage/
     - assets/fonts/
     - assets/company/
   fonts:
@@ -69,6 +68,8 @@ flutter:
         - asset: assets/fonts/Lato/Lato-Regular.ttf
         - asset: assets/fonts/Lato/Lato-Bold.ttf
           weight: 700 
+        - asset: assets/fonts/Lato/Lato-SemiBold.ttf
+          weight: 600
 
 flutter_gen:
   output: lib/theme/

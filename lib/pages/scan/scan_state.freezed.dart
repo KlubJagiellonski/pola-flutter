@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ScanState {
   List<SearchResult> get list => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
+  bool get isError => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ScanStateCopyWith<ScanState> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $ScanStateCopyWith<$Res> {
   factory $ScanStateCopyWith(ScanState value, $Res Function(ScanState) then) =
       _$ScanStateCopyWithImpl<$Res, ScanState>;
   @useResult
-  $Res call({List<SearchResult> list, bool isLoading});
+  $Res call({List<SearchResult> list, bool isLoading, bool isError});
 }
 
 /// @nodoc
@@ -47,6 +48,7 @@ class _$ScanStateCopyWithImpl<$Res, $Val extends ScanState>
   $Res call({
     Object? list = null,
     Object? isLoading = null,
+    Object? isError = null,
   }) {
     return _then(_value.copyWith(
       list: null == list
@@ -56,6 +58,10 @@ class _$ScanStateCopyWithImpl<$Res, $Val extends ScanState>
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isError: null == isError
+          ? _value.isError
+          : isError // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -69,7 +75,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       __$$InitialImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<SearchResult> list, bool isLoading});
+  $Res call({List<SearchResult> list, bool isLoading, bool isError});
 }
 
 /// @nodoc
@@ -85,6 +91,7 @@ class __$$InitialImplCopyWithImpl<$Res>
   $Res call({
     Object? list = null,
     Object? isLoading = null,
+    Object? isError = null,
   }) {
     return _then(_$InitialImpl(
       list: null == list
@@ -95,6 +102,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      isError: null == isError
+          ? _value.isError
+          : isError // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -103,7 +114,9 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 class _$InitialImpl implements Initial {
   const _$InitialImpl(
-      {final List<SearchResult> list = const [], this.isLoading = false})
+      {final List<SearchResult> list = const [],
+      this.isLoading = false,
+      this.isError = false})
       : _list = list;
 
   final List<SearchResult> _list;
@@ -118,10 +131,13 @@ class _$InitialImpl implements Initial {
   @override
   @JsonKey()
   final bool isLoading;
+  @override
+  @JsonKey()
+  final bool isError;
 
   @override
   String toString() {
-    return 'ScanState(list: $list, isLoading: $isLoading)';
+    return 'ScanState(list: $list, isLoading: $isLoading, isError: $isError)';
   }
 
   @override
@@ -131,12 +147,13 @@ class _$InitialImpl implements Initial {
             other is _$InitialImpl &&
             const DeepCollectionEquality().equals(other._list, _list) &&
             (identical(other.isLoading, isLoading) ||
-                other.isLoading == isLoading));
+                other.isLoading == isLoading) &&
+            (identical(other.isError, isError) || other.isError == isError));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_list), isLoading);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_list), isLoading, isError);
 
   @JsonKey(ignore: true)
   @override
@@ -146,13 +163,17 @@ class _$InitialImpl implements Initial {
 }
 
 abstract class Initial implements ScanState {
-  const factory Initial({final List<SearchResult> list, final bool isLoading}) =
-      _$InitialImpl;
+  const factory Initial(
+      {final List<SearchResult> list,
+      final bool isLoading,
+      final bool isError}) = _$InitialImpl;
 
   @override
   List<SearchResult> get list;
   @override
   bool get isLoading;
+  @override
+  bool get isError;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
