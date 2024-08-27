@@ -13,14 +13,10 @@ class FriendsBar extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        showDialog(
+        showWebViewDialog(
           context: context,
-          builder: (context) {
-            return WebViewDialog(
-              url: "https://www.pola-app.pl/m/friends", 
-              title: t.companyScreen.polaFriends 
-              );
-          },
+          url: "https://www.pola-app.pl/m/friends",
+          title: t.companyScreen.polaFriends
         );
       },
       child: Container(
