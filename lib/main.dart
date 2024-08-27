@@ -49,46 +49,44 @@ class _PolaAppState extends State<PolaApp> {
       home: DefaultTabController(
         length: 3,
         child: Scaffold(
-          bottomNavigationBar: BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.smartphone),
-                label: 'Skaner kodów',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                label: 'Wyszukiwarka',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.newspaper),
-                label: 'Wiadomości',
-              ),
-            ],
-            onTap: _onItemTapped,
-            currentIndex: _selectedIndex,
-          ),
-          body: _getTabContentWidget(),
+            bottomNavigationBar: BottomNavigationBar(
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.smartphone),
+                  label: 'Skaner kodów',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.search),
+                  label: 'Wyszukiwarka',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.newspaper),
+                  label: 'Wiadomości',
+                ),
+              ],
+              onTap: _onItemTapped,
+              currentIndex: _selectedIndex,
+            ),
+            body: IndexedStack(
+              index: _selectedIndex,
+              children: _tabs,
+            )
         ),
       ),
     );
   }
 
-  Widget _getTabContentWidget() {
-    switch (_selectedIndex) {
-      case 0:
-        return MainPage();
-      case 1:
-        return WebViewTab(
-            title: "Wyszukiwarka",
-            url: "https://www.pola-app.pl/m/search/");
-      case 2:
-        return WebViewTab(
-            title: "Wiadomości",
-            url: "https://www.pola-app.pl/m/blog/");
-      default:
-        return MainPage();
-    }
-  }
+  final List<Widget> _tabs = [
+    MainPage(),
+    WebViewTab(
+      title: "Wyszukiwarka",
+      url: "https://www.pola-app.pl/m/search/"
+    ),
+    WebViewTab(
+      title: "Wiadomości",
+      url: "https://www.pola-app.pl/m/blog/"
+    )
+  ];
 
   AnalyticsMainTab _getTabParameter(int index) {
     switch (index) {
