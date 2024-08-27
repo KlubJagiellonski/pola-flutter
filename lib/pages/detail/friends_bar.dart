@@ -13,14 +13,10 @@ class FriendsBar extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        showDialog(
+        showWebViewDialog(
           context: context,
-          builder: (context) {
-            return WebViewDialog(
-              url: "https://www.pola-app.pl/m/friends", 
-              title: t.companyScreen.polaFriends 
-              );
-          },
+          url: "https://www.pola-app.pl/m/friends",
+          title: t.companyScreen.polaFriends
         );
       },
       child: Container(
@@ -30,7 +26,7 @@ class FriendsBar extends StatelessWidget {
         child: Row(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 9.0),
+              padding: const EdgeInsets.only(left: 19.0),
               child: Assets.company.heart.svg()
             ),
             Expanded(
@@ -48,7 +44,7 @@ class FriendsBar extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(right: 9.0),
+              padding: const EdgeInsets.only(right: 19.0),
               child: Assets.company.heart.svg()
             ),
           ],

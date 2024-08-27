@@ -57,6 +57,8 @@ flutter:
     - assets/menuPage/
     - assets/fonts/
     - assets/company/
+    - assets/navigation/
+
   fonts:
     - family: Roboto 
       fonts: 

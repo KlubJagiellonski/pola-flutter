@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
+import 'package:pola_flutter/pages/scan/companies_list.dart';
+import 'package:pola_flutter/pages/scan/scan_bloc.dart';
 import 'package:pola_flutter/pages/scan/scan_event.dart';
 import 'package:pola_flutter/pages/scan/scan_state.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
@@ -13,8 +15,6 @@ import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/text_size.dart';
 import 'package:pola_flutter/ui/menu_icon_button.dart';
 import 'package:pola_flutter/ui/web_view_dialog.dart';
-import 'companies_list.dart';
-import 'scan_bloc.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -44,25 +44,24 @@ class _MainPageState extends State<MainPage> {
         leading: IconButton(
           onPressed: () {
             _analytics.aboutPolaOpened();
-            showDialog(
+            showWebViewDialog(
               context: context,
-              builder: (context) {
-                return WebViewDialog(
-                  url: "https://www.pola-app.pl/m/about",
-                  title: t.menu.aboutPola,
-                );
-              },
+              url: "https://www.pola-app.pl/m/about",
+              title: t.menu.aboutPola
             );
           },
           icon: Assets.icLauncher.image(),
         ),
         actions: [MenuIconButton(color: AppColors.white)],
-        title: Text(
-          t.scan.scanning,
-           style: TextStyle(
-                  fontSize: TextSize.newsTitle,
-                  color: AppColors.white,
-                  fontWeight: FontWeight.bold,
+        title: Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            t.scan.scanning,
+            style: TextStyle(
+              fontSize: TextSize.newsTitle,
+              color: AppColors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),

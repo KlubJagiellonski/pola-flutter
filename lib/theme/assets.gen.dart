@@ -62,10 +62,19 @@ class $AssetsMenuPageGen {
   List<SvgGenImage> get values => [diversity, github, groups, handshake, info, menu, star, thumbs];
 }
 
+class $AssetsNavigationGen {
+  const $AssetsNavigationGen();
+
+  /// File path: assets/navigation/close.svg
+  SvgGenImage get close => const SvgGenImage('assets/navigation/close.svg');
+
+  /// List of all assets
+  List<SvgGenImage> get values => [close];
+}
+
 class Assets {
   Assets._();
 
-  static const AssetGenImage back = AssetGenImage('assets/back.png');
   static const $AssetsCompanyGen company = $AssetsCompanyGen();
   static const AssetGenImage icAddBlack24dp = AssetGenImage('assets/ic_add_black_24dp.png');
   static const AssetGenImage icBackspaceWhite36dp = AssetGenImage('assets/ic_backspace_white_36dp.png');
@@ -76,10 +85,10 @@ class Assets {
   static const AssetGenImage icLauncher = AssetGenImage('assets/ic_launcher.png');
   static const AssetGenImage menu = AssetGenImage('assets/menu.png');
   static const $AssetsMenuPageGen menuPage = $AssetsMenuPageGen();
+  static const $AssetsNavigationGen navigation = $AssetsNavigationGen();
 
   /// List of all assets
   static List<AssetGenImage> get values => [
-        back,
         icAddBlack24dp,
         icBackspaceWhite36dp,
         icDialpadWhite36dp,

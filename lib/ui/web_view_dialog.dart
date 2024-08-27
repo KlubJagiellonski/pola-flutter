@@ -1,13 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/pages/web/web_view_page.dart';
+import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/text_size.dart';
 
-class WebViewDialog extends StatelessWidget {
+showWebViewDialog({required BuildContext context, required String url, required String title}) {
+  showDialog(
+    context: context,
+    useSafeArea: false,
+    builder: (context) {
+      return _WebViewDialog(url: url, title: title);
+    },
+  );
+}
+
+class _WebViewDialog extends StatelessWidget {
   final String url;
   final String title;
 
-  const WebViewDialog({Key? key, required this.url, required this.title})
+  const _WebViewDialog({Key? key, required this.url, required this.title})
       : super(key: key);
 
   @override
@@ -19,7 +30,7 @@ class WebViewDialog extends StatelessWidget {
       builder: (BuildContext context, ScrollController scrollController) {
         return Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColors.white,
             borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
           ),
           child: Column(
@@ -30,8 +41,7 @@ class WebViewDialog extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Image.asset("assets/ic_launcher.png",
-                        width: 35, height: 35),
+                    Assets.icLauncher.image(width: 35, height: 35),
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 14.0),
@@ -46,8 +56,7 @@ class WebViewDialog extends StatelessWidget {
                       ),
                     ),
                     IconButton(
-                      icon:
-                          Image.asset("assets/back.png", width: 32, height: 32),
+                      icon: Assets.navigation.close.svg(),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
