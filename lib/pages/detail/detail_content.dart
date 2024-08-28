@@ -115,14 +115,18 @@ class DetailContent extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 22.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Assets.company.unpublished.svg(height: 109.42, width: 109.55),  
+          Center(child: 
+          Assets.company.unpublished.svg(height: 109.42, width: 109.55),
+          ),  
           const SizedBox(height: 26.0),
           Padding(
           padding: const EdgeInsets.symmetric(horizontal: 115.0),  
           ),
+          
           Text(
-            "Niestety, ta firma nie została jeszcze zweryfikowana, więc nie możemy wyświetlić jej oceny. Stale rozszerzamy naszą bazę, aby uwzględnić więcej firm.\n\nDziękujemy za cierpliwość!",
+            "Niestety, ta firma nie została jeszcze zweryfikowana, więc nie możemy wyświetlić jej oceny. Stale rozszerzamy naszą bazę, aby uwzględnić więcej firm.\n\n",
             style: TextStyle(
               fontSize: TextSize.description,
               fontWeight: FontWeight.w400,
@@ -131,6 +135,17 @@ class DetailContent extends StatelessWidget {
             ),
             textAlign: TextAlign.left,
           ),
+          Text(
+            "Dziękujemy za cierpliwość!",
+            style: TextStyle(
+              fontSize: 
+              TextSize.description,
+              fontWeight: FontWeight.w700,
+              fontFamily: FontFamily.lato,
+              color: AppColors.text,
+            ),
+            textAlign: TextAlign.left,
+          )
         ],
       ),
     );
