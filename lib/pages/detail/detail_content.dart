@@ -202,8 +202,8 @@ class DetailContent extends StatelessWidget {
 
  
 
-class _DetailItem extends StatelessWidget {
-  const _DetailItem(this.text, this.state, {Key? key}) : super(key: key);
+class DetailItem extends StatelessWidget {
+  const DetailItem(this.text, this.state, {Key? key}) : super(key: key);
 
   final String text;
   final bool state;
