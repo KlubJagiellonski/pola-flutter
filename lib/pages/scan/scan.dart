@@ -29,7 +29,7 @@ class _MainPageState extends State<MainPage> {
   final PolaAnalytics _analytics = PolaAnalytics.instance();
 
   ScrollController listScrollController = ScrollController();
-  bool _isTorchOn = false; // Zmienna do przechowywania stanu latarki
+  bool _isTorchOn = false;
 
   @override
   void initState() {
@@ -47,10 +47,9 @@ class _MainPageState extends State<MainPage> {
           onPressed: () {
             _analytics.aboutPolaOpened();
             showWebViewDialog(
-              context: context,
-              url: "https://www.pola-app.pl/m/about",
-              title: t.menu.aboutPola
-            );
+                context: context,
+                url: "https://www.pola-app.pl/m/about",
+                title: t.menu.aboutPola);
           },
           icon: Assets.icLauncher.image(),
         ),
@@ -115,13 +114,16 @@ class _MainPageState extends State<MainPage> {
                         builder: (_) {
                           return AlertDialog(
                             title: Text('Wystąpił błąd'),
-                            content: Text('Niestety nie udało się pobrać danych. Spróbuj ponownie.'),
+                            content: Text(
+                                'Niestety nie udało się pobrać danych. Spróbuj ponownie.'),
                             actions: <Widget>[
                               TextButton(
                                 child: Text('Zamknij.'),
                                 onPressed: () {
-                                  _scanBloc.add(ScanEvent.alertDialogDismissed());
-                                  SchedulerBinding.instance.addPostFrameCallback((_) {
+                                  _scanBloc
+                                      .add(ScanEvent.alertDialogDismissed());
+                                  SchedulerBinding.instance
+                                      .addPostFrameCallback((_) {
                                     Navigator.pop(context);
                                   });
                                 },
@@ -130,7 +132,7 @@ class _MainPageState extends State<MainPage> {
                           );
                         },
                       );
-                    });                  
+                    });
                   }
                   return CompaniesList(state, listScrollController);
                 },
@@ -144,16 +146,13 @@ class _MainPageState extends State<MainPage> {
             child: GestureDetector(
               onTap: () {
                 setState(() {
-                  _isTorchOn = !_isTorchOn; // Zmiana stanu latarki
-                  cameraController.toggleTorch(); // Włączanie/wyłączanie latarki
+                  _isTorchOn = !_isTorchOn;
+                  cameraController.toggleTorch();
                 });
               },
               child: _isTorchOn
-                  ? Assets.menuPage.flashlighton.svg(
-                   
-                    ) // Ikona latarki włączonej
-                  : Assets.menuPage.flashlightoff.svg(
-                    ), // Ikona latarki wyłączonej
+                  ? Assets.menuPage.flashlighton.svg()
+                  : Assets.menuPage.flashlightoff.svg(),
             ),
           ),
         ],
