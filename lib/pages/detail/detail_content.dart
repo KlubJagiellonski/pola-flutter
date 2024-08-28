@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:pola_flutter/models/company.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
@@ -26,7 +26,7 @@ class DetailContent extends StatelessWidget {
     }
 
     final company = searchResult.companies!.first;
-    final score = company.plScore ?? 0;
+    final score = company.plScore;
     final double plCapital = (company.plCapital ?? 0).toDouble();
     final Translations t = Translations.of(context);
 
@@ -36,22 +36,30 @@ class DetailContent extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if ((company.isFriend ?? false))
-          FriendsBar(),
+        if ((company.isFriend ?? false)) FriendsBar(),
         const SizedBox(height: 20.0),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 17.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Row(
-                  children: [
-                    Assets.company.info.svg(height: 24.0, width: 24.0),
-                    const SizedBox(width: 8.0),
-                    Text(
-                      t.companyScreen.ourRating,
+              if (score == null) ...[
+                _buildNoScoreMessage(t),
+              ] else ...[
+                _buildScoreSection(t, score),
+                const SizedBox(height: 17.0),
+                Divider(
+                  thickness: 1.0,
+                  color: AppColors.divider,
+                  indent: 0,
+                  endIndent: 0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 22.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      t.companyScreen.gradingCriteria,
                       style: TextStyle(
                         fontSize: TextSize.mediumTitle,
                         fontWeight: FontWeight.w600,
@@ -59,87 +67,18 @@ class DetailContent extends StatelessWidget {
                         color: AppColors.text,
                       ),
                     ),
-                    const SizedBox(width: 8.0),
-                    Text(
-                      t.companyScreen.points(score: score),
-                      style: TextStyle(
-                        fontSize: TextSize.newsTitle,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: FontFamily.lato,
-                        color: AppColors.text,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: LinearProgressIndicator(
-                    value: score / 100.0,
-                    backgroundColor:  AppColors.buttonBackground,
-                    valueColor:
-                        const AlwaysStoppedAnimation<Color>(AppColors.defaultRed),
-                    minHeight: 12.0,
                   ),
                 ),
-              ),
-              const SizedBox(height: 17.0),
-              Divider(
-                thickness: 1.0,
-                color: AppColors.divider,
-                indent: 0,
-                endIndent: 0,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 22.0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    t.companyScreen.gradingCriteria,
-                    style: TextStyle(
-                      fontSize: TextSize.mediumTitle,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: FontFamily.lato,
-                      color: AppColors.text,
-                    ),
-                  ),
+                const SizedBox(height: 22.0),
+                PolishCapitalGraph(percentage: plCapital),
+                const SizedBox(height: 22.0),
+                Divider(
+                  thickness: 1.0,
+                  color: AppColors.divider,
+                  indent: 0,
+                  endIndent: 0,
                 ),
-              ),
-              const SizedBox(height: 22.0),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  PolishCapitalGraph(percentage: plCapital),
-                  const SizedBox(width: 35.0),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _DetailItem(t.companyScreen.producedInPoland,
-                            (company.plWorkers ?? 0) != 0),
-                        const SizedBox(height: 14.0),
-                        _DetailItem(t.companyScreen.researchInPoland,
-                            (company.plRnD ?? 0) != 0),
-                        const SizedBox(height: 14.0),
-                        _DetailItem(t.companyScreen.registeredInPoland,
-                            (company.plRegistered ?? 0) != 0),
-                        const SizedBox(height: 14.0),
-                        _DetailItem(t.companyScreen.notConcernPart,
-                            (company.plNotGlobEnt ?? 0) != 0),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 22.0),
-              Divider(
-                thickness: 1.0,
-                color: AppColors.divider,
-                indent: 0,
-                endIndent: 0,
-              ),
+              ],
               if (hasDescription) ...[
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 22.0),
@@ -148,7 +87,7 @@ class DetailContent extends StatelessWidget {
                 if (hasLogo)
                   Divider(
                     thickness: 1.0,
-                    color:  AppColors.divider,
+                    color: AppColors.divider,
                     indent: 0,
                     endIndent: 0,
                   ),
@@ -171,7 +110,79 @@ class DetailContent extends StatelessWidget {
       ],
     );
   }
+
+  Widget _buildNoScoreMessage(Translations t) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 22.0),
+      child: Column(
+        children: [
+          Assets.company.unpublished.svg(height: 50.0, width: 50.0),  
+          const SizedBox(height: 12.0),  
+          Text(
+            "Niestety, ta firma nie została jeszcze zweryfikowana, więc nie możemy wyświetlić jej oceny. Stale rozszerzamy naszą bazę, aby uwzględnić więcej firm.\n\nDziękujemy za cierpliwość!",
+            style: TextStyle(
+              fontSize: TextSize.description,
+              fontWeight: FontWeight.w400,
+              fontFamily: FontFamily.lato,
+              color: AppColors.text,
+            ),
+            textAlign: TextAlign.left,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildScoreSection(Translations t, int score) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Row(
+            children: [
+              Assets.company.info.svg(height: 24.0, width: 24.0),
+              const SizedBox(width: 8.0),
+              Text(
+                t.companyScreen.ourRating,
+                style: TextStyle(
+                  fontSize: TextSize.mediumTitle,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: FontFamily.lato,
+                  color: AppColors.text,
+                ),
+              ),
+              const SizedBox(width: 8.0),
+              Text(
+                t.companyScreen.points(score: score),
+                style: TextStyle(
+                  fontSize: TextSize.newsTitle,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: FontFamily.lato,
+                  color: AppColors.text,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10.0),
+            child: LinearProgressIndicator(
+              value: score / 100.0,
+              backgroundColor: AppColors.buttonBackground,
+              valueColor: const AlwaysStoppedAnimation<Color>(AppColors.defaultRed),
+              minHeight: 12.0,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 }
+
+ 
 
 class _DetailItem extends StatelessWidget {
   const _DetailItem(this.text, this.state, {Key? key}) : super(key: key);
@@ -187,8 +198,8 @@ class _DetailItem extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(right: 3.0),
-          child: state ? Assets.company.taskAlt.svg() : Assets.company.radioButtonUnchecked.svg()    
-          ),
+          child: state ? Assets.company.taskAlt.svg() : Assets.company.radioButtonUnchecked.svg(),
+        ),
         Expanded(
           child: Text(
             text,
@@ -210,14 +221,14 @@ class _DetailItem extends StatelessWidget {
 extension on SearchResult {
   List<Logotype> logotypes() {
     var brandLogotypes = allCompanyBrands?.map((brand) {
-          final brandLogotype = brand.logotypeUrl;
-          if (brandLogotype != null) {
-            return Logotype(brandLogotype, null);
-          } else {
-            return null;
-          }
-        }).toList() ??
-        [];
+      final brandLogotype = brand.logotypeUrl;
+      if (brandLogotype != null) {
+        return Logotype(brandLogotype, null);
+      } else {
+        return null;
+      }
+    }).toList() ??
+    [];
 
     final logotypeCompany = companies?.first.logotype();
 
