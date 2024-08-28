@@ -116,8 +116,11 @@ class DetailContent extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 22.0),
       child: Column(
         children: [
-          Assets.company.unpublished.svg(height: 50.0, width: 50.0),  
-          const SizedBox(height: 12.0),  
+          Assets.company.unpublished.svg(height: 109.42, width: 109.55),  
+          const SizedBox(height: 26.0),
+          Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 115.0),  
+          ),
           Text(
             "Niestety, ta firma nie została jeszcze zweryfikowana, więc nie możemy wyświetlić jej oceny. Stale rozszerzamy naszą bazę, aby uwzględnić więcej firm.\n\nDziękujemy za cierpliwość!",
             style: TextStyle(
