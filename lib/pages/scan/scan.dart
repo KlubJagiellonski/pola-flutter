@@ -29,6 +29,7 @@ class _MainPageState extends State<MainPage> {
   final PolaAnalytics _analytics = PolaAnalytics.instance();
 
   ScrollController listScrollController = ScrollController();
+  bool _isTorchOn = false; // Zmienna do przechowywania stanu latarki
 
   @override
   void initState() {
@@ -136,6 +137,25 @@ class _MainPageState extends State<MainPage> {
               ),
             ],
           )),
+          // Ikona latarki
+          Positioned(
+            bottom: 20,
+            right: 20,
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _isTorchOn = !_isTorchOn; // Zmiana stanu latarki
+                  cameraController.toggleTorch(); // Włączanie/wyłączanie latarki
+                });
+              },
+              child: _isTorchOn
+                  ? Assets.menuPage.flashlighton.svg(
+                   
+                    ) // Ikona latarki włączonej
+                  : Assets.menuPage.flashlightoff.svg(
+                    ), // Ikona latarki wyłączonej
+            ),
+          ),
         ],
       ),
       extendBodyBehindAppBar: true,
