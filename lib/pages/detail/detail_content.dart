@@ -126,8 +126,8 @@ class DetailContent extends StatelessWidget {
           ),
           
           Text(
-            "Niestety, ta firma nie została jeszcze zweryfikowana, więc nie możemy wyświetlić jej oceny. Stale rozszerzamy naszą bazę, aby uwzględnić więcej firm.\n\n",
-            style: TextStyle(
+ t.companyScreen.companyUnverified,
+             style: TextStyle(
               fontSize: TextSize.description,
               fontWeight: FontWeight.w400,
               fontFamily: FontFamily.lato,
@@ -136,8 +136,8 @@ class DetailContent extends StatelessWidget {
             textAlign: TextAlign.left,
           ),
           Text(
-            "Dziękujemy za cierpliwość!",
-            style: TextStyle(
+ t.companyScreen.thankYou,
+             style: TextStyle(
               fontSize: 
               TextSize.description,
               fontWeight: FontWeight.w700,

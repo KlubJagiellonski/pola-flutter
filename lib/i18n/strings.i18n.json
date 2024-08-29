@@ -22,7 +22,10 @@
         "seeLess":" zobacz mniej",
         "points":"$score pkt",
         "companyFriend": " Ta firma jest przyjacielem Poli",
-        "polaFriends": "Przyjaciele Poli"
+        "polaFriends": "Przyjaciele Poli",
+        "companyUnverified": "Niestety, ta firma nie została jeszcze zweryfikowana, więc nie możemy wyświetlić jej oceny. Stale rozszerzamy naszą bazę, aby uwzględnić więcej firm.\n\n",
+        "thankYou": "Dziękujemy za cierpliwość!"
+
     },
     "scan": {
         "scanning": "Skanowanie"
