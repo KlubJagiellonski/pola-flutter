@@ -139,7 +139,6 @@ class _MainPageState extends State<MainPage> {
               ),
             ],
           )),
-          // Ikona latarki
           Positioned(
             bottom: 20,
             right: 20,

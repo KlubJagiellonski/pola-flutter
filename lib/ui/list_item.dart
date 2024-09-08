@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/models/search_result.dart';
+import 'package:pola_flutter/theme/colors.dart';
+import 'package:pola_flutter/theme/fonts.gen.dart';
 import 'package:pola_flutter/theme/text_size.dart';
 
 class ResultListItem extends StatelessWidget {
@@ -9,34 +11,76 @@ class ResultListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: TextSize.mediumTitle);
+    final pointsStyle = TextStyle(
+      fontWeight: FontWeight.w700,
+      fontFamily: FontFamily.roboto,
+      fontSize: TextSize.mediumTitle,
+      color: Colors.white,
+    );
+
+    final pktStyle = TextStyle(
+      fontWeight: FontWeight.w700,
+      fontFamily: FontFamily.roboto,
+      fontSize: 9,
+      color: Colors.white,
+    );
+
     return _ListItem(
-      child: Column(
-      children: [
-        Expanded(
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: EdgeInsets.all(4.0),
-              child: Text(searchResult.name!, style: textStyle,)
-            )
-          )
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: ClipRRect(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(5),
-              bottomRight: Radius.circular(5)
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+              color: AppColors.defaultRed,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                bottomLeft: Radius.circular(20),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black,
+                  offset: Offset(2, 2),
+                  blurRadius: 4,
+                ),
+              ],
             ),
-            child: LinearProgressIndicator(
-              value:(searchResult.companies?.first.plScore ?? 0) / 100.toDouble(),
-              backgroundColor: Colors.white,
-              semanticsLabel: 'Linear progress indicator',
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '${searchResult.companies?.first.plScore ?? 0}',
+                  style: pointsStyle,
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  'pkt',
+                  style: pktStyle,
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
           ),
-        )],
-      )
+          SizedBox(width: 8.0),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.only(top: 10.0),
+              alignment: Alignment.centerLeft,
+              child: Text(
+                searchResult.name!,
+                style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  fontSize: TextSize.mediumTitle,
+                ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -46,24 +90,29 @@ class LoadingListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: TextSize.mediumTitle);
+    final textStyle = TextStyle(
+      fontWeight: FontWeight.normal,
+      fontSize: TextSize.mediumTitle,
+    );
     return _ListItem(
-      child: Expanded(
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: Padding(
-            padding: EdgeInsets.all(4.0),
-            child: Row(
-              children: [
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Padding(
+          padding: EdgeInsets.all(4.0),
+          child: Row(
+            children: [
               CircularProgressIndicator(),
               Padding(
-                  padding: EdgeInsets.only(left: 8.0),
-                  child: Text("Ładowanie...",style: textStyle,)
-              )]
-            )
+                padding: EdgeInsets.only(left: 8.0),
+                child: Text(
+                  "Proszę czekać, trwa Ładowanie...",
+                  style: textStyle,
+                ),
+              ),
+            ],
           ),
         ),
-      ) 
+      ),
     );
   }
 }
@@ -76,17 +125,18 @@ class _ListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 4.0, left: 8.0, right: 8.0, bottom: 4.0),
+      padding: EdgeInsets.only(top: 4.0, left: 16.0, right: 68.0, bottom: 4.0),
       child: Container(
-        height: 50,
+        height: 40,
         child: DecoratedBox(
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(5),
-                topRight: Radius.circular(5),
-                bottomRight: Radius.circular(5),
-                bottomLeft: Radius.circular(5)),
+              topLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
+              bottomRight: Radius.circular(30),
+              bottomLeft: Radius.circular(30),
+            ),
           ),
           child: child,
         ),
