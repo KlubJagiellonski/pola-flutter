@@ -17,20 +17,7 @@ class CompaniesList extends StatelessWidget {
     return Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Ostatnie skany:',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
+          _ListHeader(),
           Container(
             height: 190,
             child: Align(
@@ -68,5 +55,25 @@ class CompaniesList extends StatelessWidget {
         listScrollController.jumpTo(position);
       }
     });
+  }
+}
+
+class _ListHeader extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Text(
+          'Ostatnie skany:',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
   }
 }
