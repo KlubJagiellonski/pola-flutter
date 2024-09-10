@@ -17,9 +17,9 @@ class CompaniesList extends StatelessWidget {
     return Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          _ListHeader(),
+          _ListHeader(listSize: state.list.length),
           Container(
-            height: 190,
+            height: 49.0 * state.list.length,
             child: Align(
               alignment: Alignment.bottomCenter,
               child: ListView.builder(
@@ -59,21 +59,29 @@ class CompaniesList extends StatelessWidget {
 }
 
 class _ListHeader extends StatelessWidget {
+  final int listSize;
+
+  const _ListHeader({required this.listSize});
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16.0),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Text(
-          'Ostatnie skany:',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
+    if (listSize > 0) {
+      return Padding(
+        padding: const EdgeInsets.only(left: 16.0),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            'Ostatnie skany:',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
         ),
-      ),
-    );
+      );
+    } else {
+      return Container();
+    }
   }
 }
