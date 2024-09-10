@@ -68,7 +68,7 @@ class CompanyScoreWidget extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10.0),
             child: LinearProgressIndicator(
-              value: data.plCapital / 100.0,
+              value: data.plScore / 100.0,
               backgroundColor: AppColors.buttonBackground,
               valueColor:
                   const AlwaysStoppedAnimation<Color>(AppColors.defaultRed),

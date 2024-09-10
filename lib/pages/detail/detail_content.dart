@@ -45,6 +45,8 @@ class DetailContent extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              _ScoreSection(company: company),
+
               Align(
                 alignment: Alignment.centerLeft,
                 child: Row(
