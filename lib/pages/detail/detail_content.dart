@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pola_flutter/models/company.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
+import 'package:pola_flutter/pages/detail/%20company_score_widget.dart';
+import 'package:pola_flutter/pages/menu/version_bloc.dart';
 import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/fonts.gen.dart';
@@ -36,8 +38,7 @@ class DetailContent extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if ((company.isFriend ?? false))
-          FriendsBar(),
+        if ((company.isFriend ?? false)) FriendsBar(),
         const SizedBox(height: 20.0),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 17.0),
@@ -78,9 +79,9 @@ class DetailContent extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10.0),
                   child: LinearProgressIndicator(
                     value: score / 100.0,
-                    backgroundColor:  AppColors.buttonBackground,
-                    valueColor:
-                        const AlwaysStoppedAnimation<Color>(AppColors.defaultRed),
+                    backgroundColor: AppColors.buttonBackground,
+                    valueColor: const AlwaysStoppedAnimation<Color>(
+                        AppColors.defaultRed),
                     minHeight: 12.0,
                   ),
                 ),
@@ -148,7 +149,7 @@ class DetailContent extends StatelessWidget {
                 if (hasLogo)
                   Divider(
                     thickness: 1.0,
-                    color:  AppColors.divider,
+                    color: AppColors.divider,
                     indent: 0,
                     endIndent: 0,
                   ),
@@ -186,9 +187,10 @@ class _DetailItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.only(right: 3.0),
-          child: state ? Assets.company.taskAlt.svg() : Assets.company.radioButtonUnchecked.svg()    
-          ),
+            padding: const EdgeInsets.only(right: 3.0),
+            child: state
+                ? Assets.company.taskAlt.svg()
+                : Assets.company.radioButtonUnchecked.svg()),
         Expanded(
           child: Text(
             text,
@@ -237,6 +239,45 @@ extension on Company {
       return Logotype(logotypeUrl, officialUrl);
     } else {
       return null;
+    }
+  }
+
+  CompanyScoreData? scoreData() {
+    final int? plCapital = this.plCapital;
+    final int? plWorkers = this.plWorkers;
+    final int? plRnD = this.plRnD;
+    final int? plRegistered = this.plRegistered;
+    final int? plNotGlobEnt = this.plNotGlobEnt;
+    final int? plScore = this.plScore;
+
+    if (plCapital != null &&
+        plWorkers != null &&
+        plRnD != null &&
+        plRegistered != null &&
+        plNotGlobEnt != null &&
+        plScore != null) {
+      return CompanyScoreData(
+          plCapital: plCapital.toDouble(),
+          plWorkers: plWorkers != 0,
+          plRnD: plRnD != 0,
+          plRegistered: plRegistered != 0,
+          plNotGlobEnt: plNotGlobEnt != 0,
+          plScore: plScore);
+    }
+  }
+}
+
+class _ScoreSection extends StatelessWidget {
+  final Company company;
+
+  const _ScoreSection({super.key, required this.company});
+  @override
+  Widget build(BuildContext context) {
+    final scoreData = company.scoreData();
+    if (scoreData != null) {
+      return CompanyScoreWidget(data: scoreData);
+    } else {
+      return Container();
     }
   }
 }
