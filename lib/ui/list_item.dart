@@ -12,14 +12,14 @@ class ResultListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pointsStyle = TextStyle(
+    final pointValueStyle = TextStyle(
       fontWeight: FontWeight.w700,
       fontFamily: FontFamily.roboto,
       fontSize: TextSize.mediumTitle,
       color: Colors.white,
     );
 
-    final pktStyle = TextStyle(
+    final pointDescriptionStyle = TextStyle(
       fontWeight: FontWeight.w700,
       fontFamily: FontFamily.roboto,
       fontSize: 9,
@@ -47,12 +47,12 @@ class ResultListItem extends StatelessWidget {
               children: [
                 Text(
                   '${searchResult.companies?.first.plScore ?? 0}',
-                  style: pointsStyle,
+                  style: pointValueStyle,
                   textAlign: TextAlign.center,
                 ),
                 Text(
                   'pkt',
-                  style: pktStyle,
+                  style: pointDescriptionStyle,
                   textAlign: TextAlign.center,
                 ),
               ],
