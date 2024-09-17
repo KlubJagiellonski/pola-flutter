@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/models/search_result.dart';
+import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/fonts.gen.dart';
 import 'package:pola_flutter/theme/text_size.dart';
@@ -138,7 +139,17 @@ class _ListItem extends StatelessWidget {
               bottomLeft: Radius.circular(30),
             ),
           ),
-          child: child,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(child: child),
+              Padding(
+                padding: EdgeInsets.only(right: 8.0),
+                child: Assets.menuPage.showmore.svg(
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
