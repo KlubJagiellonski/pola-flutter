@@ -39,13 +39,7 @@ class ResultListItem extends StatelessWidget {
                 topLeft: Radius.circular(20),
                 bottomLeft: Radius.circular(20),
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black,
-                  offset: Offset(2, 2),
-                  blurRadius: 4,
-                ),
-              ],
+              
             ),
             alignment: Alignment.center,
             child: Column(
