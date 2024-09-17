@@ -70,22 +70,15 @@ class _PolaAppState extends State<PolaApp> {
             body: IndexedStack(
               index: _selectedIndex,
               children: _tabs,
-            )
-        ),
+            )),
       ),
     );
   }
 
   final List<Widget> _tabs = [
     MainPage(),
-    WebViewTab(
-      title: "Wyszukiwarka",
-      url: "https://www.pola-app.pl/m/search/"
-    ),
-    WebViewTab(
-      title: "Wiadomości",
-      url: "https://www.pola-app.pl/m/blog/"
-    )
+    WebViewTab(title: "Wyszukiwarka", url: "https://www.pola-app.pl/m/search/"),
+    WebViewTab(title: "Wiadomości", url: "https://www.pola-app.pl/m/blog/")
   ];
 
   AnalyticsMainTab _getTabParameter(int index) {

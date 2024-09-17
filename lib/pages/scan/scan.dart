@@ -87,61 +87,60 @@ class _MainPageState extends State<MainPage> {
             child: Column(
               children: <Widget>[
                 Center(
-                    child: Padding(
-                        padding: const EdgeInsets.only(top: 20.0),
-                        child: Text(
-                            "Umieść kod kreskowy produktu w prostokącie powyżej aby dowiedzieć się więcej o firmie, która go wyprodukowała.",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.white,
-                            )))),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 20.0),
+                    child: Text(
+                      "Umieść kod kreskowy produktu w prostokącie powyżej aby dowiedzieć się więcej o firmie, która go wyprodukowała.",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
           SafeArea(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Spacer(),
-              BlocBuilder<ScanBloc, ScanState>(
-                bloc: _scanBloc,
-                builder: (context, state) {
-                  if (state.isError) {
-                    SchedulerBinding.instance.addPostFrameCallback((_) {
-                      showDialog(
-                        context: context,
-                        barrierDismissible: false,
-                        builder: (_) {
-                          return AlertDialog(
-                            title: Text('Wystąpił błąd'),
-                            content: Text(
-                                'Niestety nie udało się pobrać danych. Spróbuj ponownie.'),
-                            actions: <Widget>[
-                              TextButton(
-                                child: Text('Zamknij.'),
-                                onPressed: () {
-                                  _scanBloc
-                                      .add(ScanEvent.alertDialogDismissed());
-                                  SchedulerBinding.instance
-                                      .addPostFrameCallback((_) {
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Spacer(),
+                BlocBuilder<ScanBloc, ScanState>(
+                  bloc: _scanBloc,
+                  builder: (context, state) {
+                    if (state.isError) {
+                      SchedulerBinding.instance.addPostFrameCallback((_) {
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Wystąpił błąd'),
+                              content: Text(
+                                  'Niestety nie udało się pobrać danych. Spróbuj ponownie.'),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: Text('Zamknij.'),
+                                  onPressed: () {
+                                    _scanBloc
+                                        .add(ScanEvent.alertDialogDismissed());
                                     Navigator.pop(context);
-                                  });
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    });
-                  }
-                  return CompaniesList(state, listScrollController);
-                },
-              ),
-            ],
-          )),
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      });
+                    }
+                    return CompaniesList(state, listScrollController);
+                  },
+                ),
+              ],
+            ),
+          ),
           Positioned(
-            bottom: 20,
-            right: 20,
+            bottom: 35,
+            right: 5,
             child: GestureDetector(
               onTap: () {
                 setState(() {
@@ -149,9 +148,14 @@ class _MainPageState extends State<MainPage> {
                   cameraController.toggleTorch();
                 });
               },
-              child: _isTorchOn
-                  ? Assets.menuPage.flashlighton.svg()
-                  : Assets.menuPage.flashlightoff.svg(),
+              child: Container(
+                decoration: BoxDecoration(
+                  boxShadow: [],
+                ),
+                child: _isTorchOn
+                    ? Assets.menuPage.flashlighton.svg()
+                    : Assets.menuPage.flashlightoff.svg(),
+              ),
             ),
           ),
         ],
@@ -169,15 +173,16 @@ class _MainPageState extends State<MainPage> {
       children: [
         Positioned.fill(
           child: MobileScanner(
-              controller: cameraController,
-              onDetect: (capture) {
-                final List<Barcode> barcodes = capture.barcodes;
-                for (final barcode in barcodes) {
-                  final String code = barcode.rawValue!;
-                  debugPrint('Barcode found! $code');
-                  _scanBloc.add(ScanEvent.barcodeScanned(code));
-                }
-              }),
+            controller: cameraController,
+            onDetect: (capture) {
+              final List<Barcode> barcodes = capture.barcodes;
+              for (final barcode in barcodes) {
+                final String code = barcode.rawValue!;
+                debugPrint('Barcode found! $code');
+                _scanBloc.add(ScanEvent.barcodeScanned(code));
+              }
+            },
+          ),
         ),
         Positioned.fill(
           child: Align(
