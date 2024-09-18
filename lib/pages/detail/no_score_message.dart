@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/colors.dart';
