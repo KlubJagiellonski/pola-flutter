@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
+import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/pages/scan/remote_button.dart';
 import 'package:pola_flutter/pages/scan/scan_state.dart';
+import 'package:pola_flutter/theme/text_size.dart';
 import 'package:pola_flutter/ui/list_item.dart';
+import 'dart:math';
 
 class CompaniesList extends StatelessWidget {
   CompaniesList(this.state, this.listScrollController);
@@ -17,16 +20,7 @@ class CompaniesList extends StatelessWidget {
 
     _scrollToTop();
 
-    double maxHeight;
-    if (listSize == 1) {
-      maxHeight = 47.5;
-    } else if (listSize == 2) {
-      maxHeight = 95.0;
-    } else if (listSize == 3) {
-      maxHeight = 142.5;
-    } else {
-      maxHeight = 190.0;
-    }
+    double maxHeight = min(listSize * 47.5, 190.0);
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -89,9 +83,9 @@ class _ListHeader extends StatelessWidget {
         child: Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            'Ostatnie skany:',
+            t.scan.lastscans,
             style: TextStyle(
-              fontSize: 16,
+              fontSize: TextSize.mediumTitle,
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),

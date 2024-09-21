@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/colors.dart';
@@ -9,6 +10,7 @@ class ResultListItem extends StatelessWidget {
   ResultListItem(this.searchResult);
 
   final SearchResult searchResult;
+  static const double leftBoxSize = 40.0;
 
   @override
   Widget build(BuildContext context) {
@@ -31,15 +33,14 @@ class ResultListItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            width: 40,
-            height: 40,
+            width: leftBoxSize,
+            height: leftBoxSize,
             decoration: BoxDecoration(
               color: AppColors.defaultRed,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                bottomLeft: Radius.circular(20),
+                topLeft: Radius.circular(leftBoxSize / 2),
+                bottomLeft: Radius.circular(leftBoxSize / 2),
               ),
-              
             ),
             alignment: Alignment.center,
             child: Column(
@@ -51,7 +52,7 @@ class ResultListItem extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 Text(
-                  'pkt',
+                  t.scan.pkt,
                   style: pointDescriptionStyle,
                   textAlign: TextAlign.center,
                 ),
@@ -89,6 +90,7 @@ class LoadingListItem extends StatelessWidget {
       fontWeight: FontWeight.normal,
       fontSize: TextSize.mediumTitle,
     );
+
     return _ListItem(
       child: Align(
         alignment: Alignment.centerLeft,
@@ -100,7 +102,7 @@ class LoadingListItem extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 8.0),
                 child: Text(
-                  "Proszę czekać, trwa Ładowanie...",
+                  t.scan.wait,
                   style: textStyle,
                 ),
               ),

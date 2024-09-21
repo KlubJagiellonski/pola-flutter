@@ -115,8 +115,7 @@ class _MainPageState extends State<MainPage> {
                           builder: (BuildContext context) {
                             return AlertDialog(
                               title: Text('Wystąpił błąd'),
-                              content: Text(
-                                  'Niestety nie udało się pobrać danych. Spróbuj ponownie.'),
+                              content: Text(t.scan.tryagain),
                               actions: <Widget>[
                                 TextButton(
                                   child: Text('Zamknij.'),
@@ -132,7 +131,28 @@ class _MainPageState extends State<MainPage> {
                         );
                       });
                     }
-                    return CompaniesList(state, listScrollController);
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(child: CompaniesList(state, listScrollController)),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _isTorchOn = !_isTorchOn;
+                              cameraController.toggleTorch();
+                            });
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              boxShadow: [],
+                            ),
+                            child: _isTorchOn
+                                ? Assets.menuPage.flashlighton.svg()
+                                : Assets.menuPage.flashlightoff.svg(),
+                          ),
+                        ),
+                      ],
+                    );
                   },
                 ),
               ],
