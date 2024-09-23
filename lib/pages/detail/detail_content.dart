@@ -9,6 +9,7 @@ import 'package:pola_flutter/theme/text_size.dart';
 import 'company_score_widget.dart';
 import 'expandandable_text.dart';
 import 'logotypes.dart';
+import 'no_score_message.dart';
 import 'polish_capital_graph.dart';
 import 'friends_bar.dart';
 
@@ -147,7 +148,7 @@ extension on Company {
     }
   }
 
-  CompanyScoreData? scoreData() {
+  CompanyScoreData? _scoreData() {
     final int? plCapital = this.plCapital;
     final int? plWorkers = this.plWorkers;
     final int? plRnD = this.plRnD;
@@ -179,14 +180,12 @@ class _ScoreSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scoreData = company.scoreData();
+    final scoreData = company._scoreData();
 
      if (scoreData != null) {
-      if (scoreData.plScore == 0) {
-      }
       return CompanyScoreWidget(data: scoreData);
     } else {
-      return Container();
+      return  NoScoreMessage();
     }
   }
 }
