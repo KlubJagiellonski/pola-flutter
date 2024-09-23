@@ -1,15 +1,15 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:pola_flutter/models/company.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
- import 'package:pola_flutter/theme/assets.gen.dart';
+import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/fonts.gen.dart';
 import 'package:pola_flutter/theme/text_size.dart';
-import ' company_score_widget.dart';
+import 'company_score_widget.dart';
 import 'expandandable_text.dart';
 import 'logotypes.dart';
- import 'polish_capital_graph.dart';
+import 'polish_capital_graph.dart';
 import 'friends_bar.dart';
 
 class DetailContent extends StatelessWidget {
@@ -278,24 +278,8 @@ class _ScoreSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final scoreData = company.scoreData();
 
-    // Check if scoreData is not null and if the score is zero
-    if (scoreData != null) {
+     if (scoreData != null) {
       if (scoreData.plScore == 0) {
-        return Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Text(
-            "Niestety, ta firma nie została jeszcze zweryfikowana, więc nie możemy wyświetlić jej oceny. "
-            "Stale rozszerzamy naszą bazę, aby uwzględnić więcej firm.\n\n"
-            "Dziękujemy za cierpliwość!",
-            style: TextStyle(
-              fontSize: TextSize.description,
-              fontWeight: FontWeight.w400,
-              fontFamily: FontFamily.lato,
-              color: AppColors.text,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        );
       }
       return CompanyScoreWidget(data: scoreData);
     } else {

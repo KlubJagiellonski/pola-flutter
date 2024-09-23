@@ -21,9 +21,6 @@ class NoScoreMessage extends StatelessWidget {
             child: Assets.company.unpublished.svg(height: 109.42, width: 109.55),
           ),
           const SizedBox(height: 26.0),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 115.0),
-          ),
           Text(
             t.companyScreen.companyUnverified,
             style: TextStyle(
