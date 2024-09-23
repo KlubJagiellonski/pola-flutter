@@ -46,34 +46,7 @@ class DetailContent extends StatelessWidget {
             children: [
               _ScoreSection(company: company),
 
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Row(
-                  children: [
-                    Assets.company.info.svg(height: 24.0, width: 24.0),
-                    const SizedBox(width: 8.0),
-                    Text(
-                      t.companyScreen.ourRating,
-                      style: TextStyle(
-                        fontSize: TextSize.mediumTitle,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: FontFamily.lato,
-                        color: AppColors.text,
-                      ),
-                    ),
-                    const SizedBox(width: 8.0),
-                    Text(
-                      t.companyScreen.points(score: score),
-                      style: TextStyle(
-                        fontSize: TextSize.newsTitle,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: FontFamily.lato,
-                        color: AppColors.text,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: ClipRRect(
