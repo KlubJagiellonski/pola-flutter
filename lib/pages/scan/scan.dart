@@ -114,8 +114,8 @@ class _MainPageState extends State<MainPage> {
                           barrierDismissible: false,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: Text('Wystąpił błąd'),
-                              content: Text(t.scan.tryagain),
+                              title: Text(t.scan.error),
+                              content: Text(t.scan.tryAgain),
                               actions: <Widget>[
                                 TextButton(
                                   child: Text('Zamknij.'),
@@ -156,26 +156,6 @@ class _MainPageState extends State<MainPage> {
                   },
                 ),
               ],
-            ),
-          ),
-          Positioned(
-            bottom: 35,
-            right: 5,
-            child: GestureDetector(
-              onTap: () {
-                setState(() {
-                  _isTorchOn = !_isTorchOn;
-                  cameraController.toggleTorch();
-                });
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  boxShadow: [],
-                ),
-                child: _isTorchOn
-                    ? Assets.menuPage.flashlighton.svg()
-                    : Assets.menuPage.flashlightoff.svg(),
-              ),
             ),
           ),
         ],

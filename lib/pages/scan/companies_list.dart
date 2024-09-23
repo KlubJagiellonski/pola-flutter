@@ -83,7 +83,7 @@ class _ListHeader extends StatelessWidget {
         child: Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            t.scan.lastscans,
+            t.scan.lastScans,
             style: TextStyle(
               fontSize: TextSize.mediumTitle,
               fontWeight: FontWeight.bold,

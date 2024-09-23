@@ -122,7 +122,7 @@ class _ListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 4.0, left: 16.0, right: 68.0, bottom: 4.0),
+      padding: EdgeInsets.only(top: 4.0, left: 16.0, right: 8.0, bottom: 4.0),
       child: Container(
         height: 40,
         child: DecoratedBox(

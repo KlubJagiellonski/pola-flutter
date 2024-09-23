@@ -26,10 +26,11 @@
     },
     "scan": {
         "scanning": "Skanowanie",
-        "tryagain": "Niestety nie udało się pobrać danych. Spróbuj ponownie.",
+        "tryAgain": "Niestety nie udało się pobrać danych. Spróbuj ponownie.",
         "pkt":" pkt",
         "wait": "Proszę czekać, trwa Ładowanie...",
-        "lastscans": "Ostatnie skany:"
+        "lastScans": "Ostatnie skany:",
+        "error": "Wystąpił błąd"
 
 
     }
