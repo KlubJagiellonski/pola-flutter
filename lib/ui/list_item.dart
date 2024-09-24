@@ -141,7 +141,7 @@ class _ListItem extends StatelessWidget {
               Expanded(child: child),
               Padding(
                 padding: EdgeInsets.only(right: 8.0),
-                child: Assets.menuPage.showmore.svg(),
+                child: Assets.menuPage.showMore.svg(),
               ),
             ],
           ),

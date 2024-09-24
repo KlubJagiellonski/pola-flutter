@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 1
-/// Strings: 27
+/// Strings: 28
 ///
-/// Built on 2024-09-23 at 20:18 UTC
+/// Built on 2024-09-24 at 17:35 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -204,6 +204,7 @@ class _StringsScanEn {
 	String get wait => 'Proszę czekać, trwa Ładowanie...';
 	String get lastScans => 'Ostatnie skany:';
 	String get error => 'Wystąpił błąd';
+	String get closeError => 'Zamknij.';
 }
 
 /// Flat map(s) containing all translations.
@@ -239,6 +240,7 @@ extension on Translations {
 			case 'scan.wait': return 'Proszę czekać, trwa Ładowanie...';
 			case 'scan.lastScans': return 'Ostatnie skany:';
 			case 'scan.error': return 'Wystąpił błąd';
+			case 'scan.closeError': return 'Zamknij.';
 			default: return null;
 		}
 	}

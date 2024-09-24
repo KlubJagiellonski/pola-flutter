@@ -37,12 +37,6 @@ class $AssetsMenuPageGen {
   /// File path: assets/menuPage/diversity.svg
   SvgGenImage get diversity => const SvgGenImage('assets/menuPage/diversity.svg');
 
-  /// File path: assets/menuPage/flashlightoff.svg
-  SvgGenImage get flashlightoff => const SvgGenImage('assets/menuPage/flashlightoff.svg');
-
-  /// File path: assets/menuPage/flashlighton.svg
-  SvgGenImage get flashlighton => const SvgGenImage('assets/menuPage/flashlighton.svg');
-
   /// File path: assets/menuPage/github.svg
   SvgGenImage get github => const SvgGenImage('assets/menuPage/github.svg');
 
@@ -58,8 +52,8 @@ class $AssetsMenuPageGen {
   /// File path: assets/menuPage/menu.svg
   SvgGenImage get menu => const SvgGenImage('assets/menuPage/menu.svg');
 
-  /// File path: assets/menuPage/showmore.svg
-  SvgGenImage get showmore => const SvgGenImage('assets/menuPage/showmore.svg');
+  /// File path: assets/menuPage/showMore.svg
+  SvgGenImage get showMore => const SvgGenImage('assets/menuPage/showMore.svg');
 
   /// File path: assets/menuPage/star.svg
   SvgGenImage get star => const SvgGenImage('assets/menuPage/star.svg');
@@ -68,8 +62,7 @@ class $AssetsMenuPageGen {
   SvgGenImage get thumbs => const SvgGenImage('assets/menuPage/thumbs.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values =>
-      [diversity, flashlightoff, flashlighton, github, groups, handshake, info, menu, showmore, star, thumbs];
+  List<SvgGenImage> get values => [diversity, github, groups, handshake, info, menu, showMore, star, thumbs];
 }
 
 class $AssetsNavigationGen {
@@ -80,6 +73,19 @@ class $AssetsNavigationGen {
 
   /// List of all assets
   List<SvgGenImage> get values => [close];
+}
+
+class $AssetsScanGen {
+  const $AssetsScanGen();
+
+  /// File path: assets/scan/flashlightOff.svg
+  SvgGenImage get flashlightOff => const SvgGenImage('assets/scan/flashlightOff.svg');
+
+  /// File path: assets/scan/flashlightOn.svg
+  SvgGenImage get flashlightOn => const SvgGenImage('assets/scan/flashlightOn.svg');
+
+  /// List of all assets
+  List<SvgGenImage> get values => [flashlightOff, flashlightOn];
 }
 
 class Assets {
@@ -94,6 +100,7 @@ class Assets {
   static const AssetGenImage menu = AssetGenImage('assets/menu.png');
   static const $AssetsMenuPageGen menuPage = $AssetsMenuPageGen();
   static const $AssetsNavigationGen navigation = $AssetsNavigationGen();
+  static const $AssetsScanGen scan = $AssetsScanGen();
 
   /// List of all assets
   static List<AssetGenImage> get values =>

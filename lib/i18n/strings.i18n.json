@@ -30,8 +30,8 @@
         "pkt":" pkt",
         "wait": "Proszę czekać, trwa Ładowanie...",
         "lastScans": "Ostatnie skany:",
-        "error": "Wystąpił błąd"
-
-
+        "error": "Wystąpił błąd",
+        "closeError": "Zamknij."
     }
+   
 }

@@ -118,7 +118,7 @@ class _MainPageState extends State<MainPage> {
                               content: Text(t.scan.tryAgain),
                               actions: <Widget>[
                                 TextButton(
-                                  child: Text('Zamknij.'),
+                                  child: Text(t.scan.closeError),
                                   onPressed: () {
                                     _scanBloc
                                         .add(ScanEvent.alertDialogDismissed());
@@ -147,8 +147,8 @@ class _MainPageState extends State<MainPage> {
                               boxShadow: [],
                             ),
                             child: _isTorchOn
-                                ? Assets.menuPage.flashlighton.svg()
-                                : Assets.menuPage.flashlightoff.svg(),
+                                ? Assets.scan.flashlightOn.svg()
+                                : Assets.scan.flashlightOff.svg(),
                           ),
                         ),
                       ],
