@@ -23,8 +23,8 @@
         "points":"$score pkt",
         "companyFriend": " Ta firma jest przyjacielem Poli",
         "polaFriends": "Przyjaciele Poli",
-        "companyUnverified": "Firma niezweryfikowana",
-        "thankYou": "Dziekujemy"
+        "companyUnverified": "Niestety, ta firma nie została jeszcze zweryfikowana, więc nie możemy wyświetlić jej oceny. Stale rozszerzamy naszą bazę, aby uwzględnić więcej firm.",
+        "thankYou": "Dziękujemy za cierpliwość!"
     },
     "scan": {
         "scanning": "Skanowanie"

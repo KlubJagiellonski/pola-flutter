@@ -6,7 +6,7 @@
 /// Locales: 1
 /// Strings: 24
 ///
-/// Built on 2024-09-23 at 13:35 UTC
+/// Built on 2024-09-25 at 20:42 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -189,8 +189,8 @@ class _StringsCompanyScreenEn {
 	String points({required Object score}) => '${score} pkt';
 	String get companyFriend => ' Ta firma jest przyjacielem Poli';
 	String get polaFriends => 'Przyjaciele Poli';
-	String get companyUnverified => 'Firma niezweryfikowana';
-	String get thankYou => 'Dziekujemy';
+	String get companyUnverified => 'Niestety, ta firma nie została jeszcze zweryfikowana, więc nie możemy wyświetlić jej oceny. Stale rozszerzamy naszą bazę, aby uwzględnić więcej firm.';
+	String get thankYou => 'Dziękujemy za cierpliwość!';
 }
 
 // Path: scan
@@ -230,8 +230,8 @@ extension on Translations {
 			case 'companyScreen.points': return ({required Object score}) => '${score} pkt';
 			case 'companyScreen.companyFriend': return ' Ta firma jest przyjacielem Poli';
 			case 'companyScreen.polaFriends': return 'Przyjaciele Poli';
-			case 'companyScreen.companyUnverified': return 'Firma niezweryfikowana';
-			case 'companyScreen.thankYou': return 'Dziekujemy';
+			case 'companyScreen.companyUnverified': return 'Niestety, ta firma nie została jeszcze zweryfikowana, więc nie możemy wyświetlić jej oceny. Stale rozszerzamy naszą bazę, aby uwzględnić więcej firm.';
+			case 'companyScreen.thankYou': return 'Dziękujemy za cierpliwość!';
 			case 'scan.scanning': return 'Skanowanie';
 			default: return null;
 		}
