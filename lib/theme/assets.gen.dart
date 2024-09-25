@@ -52,9 +52,6 @@ class $AssetsMenuPageGen {
   /// File path: assets/menuPage/menu.svg
   SvgGenImage get menu => const SvgGenImage('assets/menuPage/menu.svg');
 
-  /// File path: assets/menuPage/showMore.svg
-  SvgGenImage get showMore => const SvgGenImage('assets/menuPage/showMore.svg');
-
   /// File path: assets/menuPage/star.svg
   SvgGenImage get star => const SvgGenImage('assets/menuPage/star.svg');
 
@@ -62,7 +59,7 @@ class $AssetsMenuPageGen {
   SvgGenImage get thumbs => const SvgGenImage('assets/menuPage/thumbs.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [diversity, github, groups, handshake, info, menu, showMore, star, thumbs];
+  List<SvgGenImage> get values => [diversity, github, groups, handshake, info, menu, star, thumbs];
 }
 
 class $AssetsNavigationGen {
@@ -84,8 +81,11 @@ class $AssetsScanGen {
   /// File path: assets/scan/flashlightOn.svg
   SvgGenImage get flashlightOn => const SvgGenImage('assets/scan/flashlightOn.svg');
 
+  /// File path: assets/scan/showMore.svg
+  SvgGenImage get showMore => const SvgGenImage('assets/scan/showMore.svg');
+
   /// List of all assets
-  List<SvgGenImage> get values => [flashlightOff, flashlightOn];
+  List<SvgGenImage> get values => [flashlightOff, flashlightOn, showMore];
 }
 
 class Assets {
