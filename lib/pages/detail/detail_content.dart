@@ -10,7 +10,6 @@ import 'company_score_widget.dart';
 import 'expandandable_text.dart';
 import 'logotypes.dart';
 import 'no_score_message.dart';
-import 'polish_capital_graph.dart';
 import 'friends_bar.dart';
 
 class DetailContent extends StatelessWidget {
@@ -28,9 +27,8 @@ class DetailContent extends StatelessWidget {
     }
 
     final company = searchResult.companies!.first;
-    final score = company.plScore ?? 0;
-    final double plCapital = (company.plCapital ?? 0).toDouble();
-    final Translations t = Translations.of(context);
+    (company.plCapital ?? 0).toDouble();
+    Translations.of(context);
 
     final hasLogo = company.logotypeUrl != null;
     final hasDescription = company.description?.isNotEmpty ?? false;
@@ -79,8 +77,8 @@ class DetailContent extends StatelessWidget {
   }
 }
 
-class _DetailItem extends StatelessWidget {
-  const _DetailItem(this.text, this.state, {Key? key}) : super(key: key);
+class DetailItem extends StatelessWidget {
+  const DetailItem(this.text, this.state, {Key? key}) : super(key: key);
 
   final String text;
   final bool state;
@@ -170,13 +168,14 @@ extension on Company {
           plNotGlobEnt: plNotGlobEnt != 0,
           plScore: plScore);
     }
+    return null;
   }
 }
 
 class _ScoreSection extends StatelessWidget {
   final Company company;
 
-  const _ScoreSection({super.key, required this.company});
+  const _ScoreSection({required this.company});
 
   @override
   Widget build(BuildContext context) {
