@@ -85,9 +85,9 @@ class LoadingListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = TextStyle(
-      fontWeight: FontWeight.normal,
-      fontSize: TextSize.mediumTitle,
+     final textStyle = TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: TextSize.smallTitle,
     );
 
     return _ListItem(
@@ -102,9 +102,10 @@ class LoadingListItem extends StatelessWidget {
                 padding: EdgeInsets.only(left: 8.0),
                 child: Text(
                   t.scan.wait,
-                  style: textStyle,
+                 style: textStyle,
+                 ),
                 ),
-              ),
+              
             ],
           ),
         ),
