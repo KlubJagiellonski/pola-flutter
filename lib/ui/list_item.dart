@@ -85,11 +85,6 @@ class LoadingListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     final textStyle = TextStyle(
-      fontWeight: FontWeight.w400,
-      fontSize: TextSize.smallTitle,
-    );
-
     return _ListItem(
       child: Align(
         alignment: Alignment.centerLeft,
@@ -102,22 +97,31 @@ class LoadingListItem extends StatelessWidget {
                 padding: EdgeInsets.only(left: 8.0),
                 child: Text(
                   t.scan.wait,
-                 style: textStyle,
-                 ),
+                  style: TextStyle(
+                    fontWeight:
+                        FontWeight.w400,
+                    fontSize:
+                        TextSize.smallTitle,
+                  ),
                 ),
-              
+              ),
             ],
           ),
         ),
       ),
+      showMore: false,
     );
   }
 }
 
 class _ListItem extends StatelessWidget {
   final Widget child;
+  final bool showMore;
 
-  const _ListItem({required this.child});
+  const _ListItem({
+    required this.child,
+    this.showMore = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -139,10 +143,11 @@ class _ListItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(child: child),
-              Padding(
-                padding: EdgeInsets.only(right: 8.0),
-                child: Assets.scan.showMore.svg(),
-              ),
+              if (showMore)
+                Padding(
+                  padding: EdgeInsets.only(right: 8.0),
+                  child: Assets.scan.showMore.svg(),
+                ),
             ],
           ),
         ),
