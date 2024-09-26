@@ -62,13 +62,12 @@ class ResultListItem extends StatelessWidget {
           SizedBox(width: 8.0),
           Expanded(
             child: Container(
-              padding: EdgeInsets.only(top: 10.0),
               alignment: Alignment.centerLeft,
               child: Text(
                 searchResult.name!,
                 style: TextStyle(
-                  fontWeight: FontWeight.normal,
-                  fontSize: TextSize.mediumTitle,
+                  fontWeight: FontWeight.w400,
+                  fontSize: TextSize.smallTitle,
                 ),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
