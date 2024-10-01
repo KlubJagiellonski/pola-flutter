@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/models/company.dart';
 import 'package:pola_flutter/models/search_result.dart';
-import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/fonts.gen.dart';
@@ -27,8 +26,6 @@ class DetailContent extends StatelessWidget {
     }
 
     final company = searchResult.companies!.first;
-    (company.plCapital ?? 0).toDouble();
-    Translations.of(context);
 
     final hasLogo = company.logotypeUrl != null;
     final hasDescription = company.description?.isNotEmpty ?? false;
@@ -37,7 +34,6 @@ class DetailContent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if ((company.isFriend ?? false)) FriendsBar(),
-        const SizedBox(height: 20.0),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 17.0),
           child: Column(
@@ -181,10 +177,10 @@ class _ScoreSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final scoreData = company._scoreData();
 
-     if (scoreData != null) {
+    if (scoreData != null) {
       return CompanyScoreWidget(data: scoreData);
     } else {
-      return  NoScoreMessage();
+      return NoScoreMessage();
     }
   }
 }
