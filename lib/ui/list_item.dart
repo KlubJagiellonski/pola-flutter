@@ -15,6 +15,7 @@ class ResultListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pointValueStyle = TextStyle(
+      height: 0,
       fontWeight: FontWeight.w700,
       fontFamily: FontFamily.roboto,
       fontSize: TextSize.mediumTitle,
@@ -22,6 +23,7 @@ class ResultListItem extends StatelessWidget {
     );
 
     final pointDescriptionStyle = TextStyle(
+      height: 0.1,
       fontWeight: FontWeight.w700,
       fontFamily: FontFamily.roboto,
       fontSize: 9,
