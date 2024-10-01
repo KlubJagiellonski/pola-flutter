@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 1
-/// Strings: 28
+/// Strings: 30
 ///
-/// Built on 2024-09-24 at 17:35 UTC
+/// Built on 2024-10-01 at 14:21 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -189,6 +189,8 @@ class _StringsCompanyScreenEn {
 	String points({required Object score}) => '${score} pkt';
 	String get companyFriend => ' Ta firma jest przyjacielem Poli';
 	String get polaFriends => 'Przyjaciele Poli';
+	String get companyUnverified => 'Niestety, ta firma nie została jeszcze zweryfikowana, więc nie możemy wyświetlić jej oceny. Stale rozszerzamy naszą bazę, aby uwzględnić więcej firm.';
+	String get thankYou => 'Dziękujemy za cierpliwość!';
 }
 
 // Path: scan
@@ -234,6 +236,8 @@ extension on Translations {
 			case 'companyScreen.points': return ({required Object score}) => '${score} pkt';
 			case 'companyScreen.companyFriend': return ' Ta firma jest przyjacielem Poli';
 			case 'companyScreen.polaFriends': return 'Przyjaciele Poli';
+			case 'companyScreen.companyUnverified': return 'Niestety, ta firma nie została jeszcze zweryfikowana, więc nie możemy wyświetlić jej oceny. Stale rozszerzamy naszą bazę, aby uwzględnić więcej firm.';
+			case 'companyScreen.thankYou': return 'Dziękujemy za cierpliwość!';
 			case 'scan.scanning': return 'Skanowanie';
 			case 'scan.tryAgain': return 'Niestety nie udało się pobrać danych. Spróbuj ponownie.';
 			case 'scan.pkt': return ' pkt';

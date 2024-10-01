@@ -27,8 +27,11 @@ class $AssetsCompanyGen {
   /// File path: assets/company/task_alt.svg
   SvgGenImage get taskAlt => const SvgGenImage('assets/company/task_alt.svg');
 
+  /// File path: assets/company/unpublished.svg
+  SvgGenImage get unpublished => const SvgGenImage('assets/company/unpublished.svg');
+
   /// List of all assets
-  List<SvgGenImage> get values => [heart, info, radioButtonUnchecked, taskAlt];
+  List<SvgGenImage> get values => [heart, info, radioButtonUnchecked, taskAlt, unpublished];
 }
 
 class $AssetsMenuPageGen {
