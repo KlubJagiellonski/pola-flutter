@@ -132,25 +132,30 @@ class _MainPageState extends State<MainPage> {
                       });
                     }
                     return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Expanded(child: CompaniesList(state, listScrollController)),
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _isTorchOn = !_isTorchOn;
-                              cameraController.toggleTorch();
-                            });
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              boxShadow: [],
-                            ),
-                            child: _isTorchOn
-                                ? Assets.scan.flashlightOn.svg()
-                                : Assets.scan.flashlightOff.svg(),
-                          ),
-                        ),
+                        Expanded(
+                            child: CompaniesList(state, listScrollController)),
+                        Column(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _isTorchOn = !_isTorchOn;
+                                  cameraController.toggleTorch();
+                                });
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  boxShadow: [],
+                                ),
+                                child: _isTorchOn
+                                    ? Assets.scan.flashlightOn.svg()
+                                    : Assets.scan.flashlightOff.svg(),
+                              ),
+                            )
+                          ],
+                        )
                       ],
                     );
                   },
