@@ -6,10 +6,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
 import 'package:pola_flutter/analytics/analytics_main_tab.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
+import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/pages/dialpad/dialpad.dart';
 import 'package:pola_flutter/pages/scan/scan.dart';
-import 'package:pola_flutter/pages/web/web_view_page.dart';
+import 'package:pola_flutter/ui/web_view_tab.dart';
 import 'firebase_options.dart';
 import 'pages/detail/detail.dart';
 
@@ -22,7 +23,7 @@ void main() async {
       options: DefaultFirebaseOptions.currentPlatform,
     );
   }
-  runApp(PolaApp());
+  runApp(TranslationProvider(child: PolaApp()));
 }
 
 class PolaApp extends StatefulWidget {
@@ -69,24 +70,15 @@ class _PolaAppState extends State<PolaApp> {
             body: IndexedStack(
               index: _selectedIndex,
               children: _tabs,
-            )
-        ),
+            )),
       ),
     );
   }
 
   final List<Widget> _tabs = [
     MainPage(),
-    WebViewPage(
-      title: "Wyszukiwarka",
-      url: "https://www.pola-app.pl/m/search/",
-      showBackButton: false
-    ),
-    WebViewPage(
-      title: "Wiadomości",
-      url: "https://www.pola-app.pl/m/blog/",
-      showBackButton: false
-    )
+    WebViewTab(title: "Wyszukiwarka", url: "https://www.pola-app.pl/m/search/"),
+    WebViewTab(title: "Wiadomości", url: "https://www.pola-app.pl/m/blog/")
   ];
 
   AnalyticsMainTab _getTabParameter(int index) {
@@ -128,17 +120,6 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => MainPage());
       case '/dialpad':
         return MaterialPageRoute(builder: (_) => DialPadPage());
-      case '/web':
-        if (args is String) {
-          return MaterialPageRoute(
-            builder: (_) => WebViewPage(
-              title: "O Aplikacji Pola",
-              url: args,
-              showBackButton: true
-            ),
-          );
-        }
-        return MaterialPageRoute(builder: (_) => MainPage());
       default:
         return MaterialPageRoute(builder: (_) => MainPage());
     }
