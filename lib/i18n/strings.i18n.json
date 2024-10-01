@@ -25,6 +25,13 @@
         "polaFriends": "Przyjaciele Poli"
     },
     "scan": {
-        "scanning": "Skanowanie"
+        "scanning": "Skanowanie",
+        "tryAgain": "Niestety nie udało się pobrać danych. Spróbuj ponownie.",
+        "pkt":" pkt",
+        "wait": "Proszę czekać, trwa Ładowanie...",
+        "lastScans": "Ostatnie skany:",
+        "error": "Wystąpił błąd",
+        "closeError": "Zamknij."
     }
+   
 }

@@ -72,6 +72,22 @@ class $AssetsNavigationGen {
   List<SvgGenImage> get values => [close];
 }
 
+class $AssetsScanGen {
+  const $AssetsScanGen();
+
+  /// File path: assets/scan/flashlightOff.svg
+  SvgGenImage get flashlightOff => const SvgGenImage('assets/scan/flashlightOff.svg');
+
+  /// File path: assets/scan/flashlightOn.svg
+  SvgGenImage get flashlightOn => const SvgGenImage('assets/scan/flashlightOn.svg');
+
+  /// File path: assets/scan/showMore.svg
+  SvgGenImage get showMore => const SvgGenImage('assets/scan/showMore.svg');
+
+  /// List of all assets
+  List<SvgGenImage> get values => [flashlightOff, flashlightOn, showMore];
+}
+
 class Assets {
   Assets._();
 
@@ -80,24 +96,15 @@ class Assets {
   static const AssetGenImage icBackspaceWhite36dp = AssetGenImage('assets/ic_backspace_white_36dp.png');
   static const AssetGenImage icDialpadWhite36dp = AssetGenImage('assets/ic_dialpad_white_36dp.png');
   static const AssetGenImage icDoneWhite36dp = AssetGenImage('assets/ic_done_white_36dp.png');
-  static const AssetGenImage icFlashOffWhite48dp = AssetGenImage('assets/ic_flash_off_white_48dp.png');
-  static const AssetGenImage icFlashOnWhite48dp = AssetGenImage('assets/ic_flash_on_white_48dp.png');
   static const AssetGenImage icLauncher = AssetGenImage('assets/ic_launcher.png');
   static const AssetGenImage menu = AssetGenImage('assets/menu.png');
   static const $AssetsMenuPageGen menuPage = $AssetsMenuPageGen();
   static const $AssetsNavigationGen navigation = $AssetsNavigationGen();
+  static const $AssetsScanGen scan = $AssetsScanGen();
 
   /// List of all assets
-  static List<AssetGenImage> get values => [
-        icAddBlack24dp,
-        icBackspaceWhite36dp,
-        icDialpadWhite36dp,
-        icDoneWhite36dp,
-        icFlashOffWhite48dp,
-        icFlashOnWhite48dp,
-        icLauncher,
-        menu
-      ];
+  static List<AssetGenImage> get values =>
+      [icAddBlack24dp, icBackspaceWhite36dp, icDialpadWhite36dp, icDoneWhite36dp, icLauncher, menu];
 }
 
 class AssetGenImage {

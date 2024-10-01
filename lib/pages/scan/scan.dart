@@ -28,6 +28,7 @@ class _MainPageState extends State<MainPage> {
   final PolaAnalytics _analytics = PolaAnalytics.instance();
 
   ScrollController listScrollController = ScrollController();
+  bool _isTorchOn = false;
 
   @override
   void initState() {
@@ -45,10 +46,9 @@ class _MainPageState extends State<MainPage> {
           onPressed: () {
             _analytics.aboutPolaOpened();
             showWebViewDialog(
-              context: context,
-              url: "https://www.pola-app.pl/m/about",
-              title: t.menu.aboutPola
-            );
+                context: context,
+                url: "https://www.pola-app.pl/m/about",
+                title: t.menu.aboutPola);
           },
           icon: Assets.icLauncher.image(),
         ),
@@ -72,55 +72,82 @@ class _MainPageState extends State<MainPage> {
             child: Column(
               children: <Widget>[
                 Center(
-                    child: Padding(
-                        padding: const EdgeInsets.only(top: 20.0),
-                        child: Text(
-                            "Umieść kod kreskowy produktu w prostokącie powyżej aby dowiedzieć się więcej o firmie, która go wyprodukowała.",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.white,
-                            )))),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 20.0),
+                    child: Text(
+                      "Umieść kod kreskowy produktu w prostokącie powyżej aby dowiedzieć się więcej o firmie, która go wyprodukowała.",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
           SafeArea(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Spacer(),
-              BlocBuilder<ScanBloc, ScanState>(
-                bloc: _scanBloc,
-                builder: (context, state) {
-                  if (state.isError) {
-                    SchedulerBinding.instance.addPostFrameCallback((_) {
-                      showDialog(
-                        context: context,
-                        barrierDismissible: false,
-                        builder: (_) {
-                          return AlertDialog(
-                            title: Text('Wystąpił błąd'),
-                            content: Text('Niestety nie udało się pobrać danych. Spróbuj ponownie.'),
-                            actions: <Widget>[
-                              TextButton(
-                                child: Text('Zamknij.'),
-                                onPressed: () {
-                                  _scanBloc.add(ScanEvent.alertDialogDismissed());
-                                  SchedulerBinding.instance.addPostFrameCallback((_) {
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Spacer(),
+                BlocBuilder<ScanBloc, ScanState>(
+                  bloc: _scanBloc,
+                  builder: (context, state) {
+                    if (state.isError) {
+                      SchedulerBinding.instance.addPostFrameCallback((_) {
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text(t.scan.error),
+                              content: Text(t.scan.tryAgain),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: Text(t.scan.closeError),
+                                  onPressed: () {
+                                    _scanBloc
+                                        .add(ScanEvent.alertDialogDismissed());
                                     Navigator.pop(context);
-                                  });
-                                },
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      });
+                    }
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Expanded(
+                            child: CompaniesList(state, listScrollController)),
+                        Column(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _isTorchOn = !_isTorchOn;
+                                  cameraController.toggleTorch();
+                                });
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  boxShadow: [],
+                                ),
+                                child: _isTorchOn
+                                    ? Assets.scan.flashlightOn.svg()
+                                    : Assets.scan.flashlightOff.svg(),
                               ),
-                            ],
-                          );
-                        },
-                      );
-                    });                  
-                  }
-                  return CompaniesList(state, listScrollController);
-                },
-              ),
-            ],
-          )),
+                            )
+                          ],
+                        )
+                      ],
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
         ],
       ),
       extendBodyBehindAppBar: true,
@@ -136,15 +163,16 @@ class _MainPageState extends State<MainPage> {
       children: [
         Positioned.fill(
           child: MobileScanner(
-              controller: cameraController,
-              onDetect: (capture) {
-                final List<Barcode> barcodes = capture.barcodes;
-                for (final barcode in barcodes) {
-                  final String code = barcode.rawValue!;
-                  debugPrint('Barcode found! $code');
-                  _scanBloc.add(ScanEvent.barcodeScanned(code));
-                }
-              }),
+            controller: cameraController,
+            onDetect: (capture) {
+              final List<Barcode> barcodes = capture.barcodes;
+              for (final barcode in barcodes) {
+                final String code = barcode.rawValue!;
+                debugPrint('Barcode found! $code');
+                _scanBloc.add(ScanEvent.barcodeScanned(code));
+              }
+            },
+          ),
         ),
         Positioned.fill(
           child: Align(
