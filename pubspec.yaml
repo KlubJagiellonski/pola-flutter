@@ -58,6 +58,7 @@ flutter:
     - assets/fonts/
     - assets/company/
     - assets/navigation/
+    - assets/scan/
 
   fonts:
     - family: Roboto 

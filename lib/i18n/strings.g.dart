@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 1
-/// Strings: 24
+/// Strings: 30
 ///
-/// Built on 2024-09-25 at 20:42 UTC
+/// Built on 2024-10-01 at 14:21 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -201,6 +201,12 @@ class _StringsScanEn {
 
 	// Translations
 	String get scanning => 'Skanowanie';
+	String get tryAgain => 'Niestety nie udało się pobrać danych. Spróbuj ponownie.';
+	String get pkt => ' pkt';
+	String get wait => 'Proszę czekać, trwa Ładowanie...';
+	String get lastScans => 'Ostatnie skany:';
+	String get error => 'Wystąpił błąd';
+	String get closeError => 'Zamknij.';
 }
 
 /// Flat map(s) containing all translations.
@@ -233,6 +239,12 @@ extension on Translations {
 			case 'companyScreen.companyUnverified': return 'Niestety, ta firma nie została jeszcze zweryfikowana, więc nie możemy wyświetlić jej oceny. Stale rozszerzamy naszą bazę, aby uwzględnić więcej firm.';
 			case 'companyScreen.thankYou': return 'Dziękujemy za cierpliwość!';
 			case 'scan.scanning': return 'Skanowanie';
+			case 'scan.tryAgain': return 'Niestety nie udało się pobrać danych. Spróbuj ponownie.';
+			case 'scan.pkt': return ' pkt';
+			case 'scan.wait': return 'Proszę czekać, trwa Ładowanie...';
+			case 'scan.lastScans': return 'Ostatnie skany:';
+			case 'scan.error': return 'Wystąpił błąd';
+			case 'scan.closeError': return 'Zamknij.';
 			default: return null;
 		}
 	}
