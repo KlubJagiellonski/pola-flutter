@@ -20,6 +20,8 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
       await event.when(
         barcodeScanned: (barcode) async => await _onBarcodeScanned(barcode, emit),
         alertDialogDismissed: () => _onAlertDialogDismissed(emit),
+        torchSwitched: () => _onTorchSwitched(emit),
+
       );
     });
   }
@@ -46,6 +48,11 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
       emit(state.copyWith(isLoading: false, isError: true));
     }
   }
+
+  _onTorchSwitched( Emitter<ScanState> emit) {
+    emit(state.copyWith(isTorchOn: !state.isTorchOn));
+  }
+
 
   _onAlertDialogDismissed(Emitter<ScanState> emit) {
     emit(state.copyWith(isError: false));

@@ -28,7 +28,6 @@ class _MainPageState extends State<MainPage> {
   final PolaAnalytics _analytics = PolaAnalytics.instance();
 
   ScrollController listScrollController = ScrollController();
-  bool _isTorchOn = false;
 
   @override
   void initState() {
@@ -125,16 +124,14 @@ class _MainPageState extends State<MainPage> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                setState(() {
-                                  _isTorchOn = !_isTorchOn;
+                                _scanBloc.add(ScanEvent.torchSwitched());
                                   cameraController.toggleTorch();
-                                });
                               },
                               child: Container(
                                 decoration: BoxDecoration(
                                   boxShadow: [],
                                 ),
-                                child: _isTorchOn
+                                child: state.isTorchOn
                                     ? Assets.scan.flashlightOn.svg()
                                     : Assets.scan.flashlightOff.svg(),
                               ),

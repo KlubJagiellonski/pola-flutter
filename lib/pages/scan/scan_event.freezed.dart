@@ -20,18 +20,21 @@ mixin _$ScanEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String barcode) barcodeScanned,
     required TResult Function() alertDialogDismissed,
+    required TResult Function() torchSwitched,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String barcode)? barcodeScanned,
     TResult? Function()? alertDialogDismissed,
+    TResult? Function()? torchSwitched,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String barcode)? barcodeScanned,
     TResult Function()? alertDialogDismissed,
+    TResult Function()? torchSwitched,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,21 @@ mixin _$ScanEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(BarcodeScanned value) barcodeScanned,
     required TResult Function(AlertDialogDismissed value) alertDialogDismissed,
+    required TResult Function(TorchSwitched value) torchSwitched,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BarcodeScanned value)? barcodeScanned,
     TResult? Function(AlertDialogDismissed value)? alertDialogDismissed,
+    TResult? Function(TorchSwitched value)? torchSwitched,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BarcodeScanned value)? barcodeScanned,
     TResult Function(AlertDialogDismissed value)? alertDialogDismissed,
+    TResult Function(TorchSwitched value)? torchSwitched,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -140,6 +146,7 @@ class _$BarcodeScannedImpl implements BarcodeScanned {
   TResult when<TResult extends Object?>({
     required TResult Function(String barcode) barcodeScanned,
     required TResult Function() alertDialogDismissed,
+    required TResult Function() torchSwitched,
   }) {
     return barcodeScanned(barcode);
   }
@@ -149,6 +156,7 @@ class _$BarcodeScannedImpl implements BarcodeScanned {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String barcode)? barcodeScanned,
     TResult? Function()? alertDialogDismissed,
+    TResult? Function()? torchSwitched,
   }) {
     return barcodeScanned?.call(barcode);
   }
@@ -158,6 +166,7 @@ class _$BarcodeScannedImpl implements BarcodeScanned {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String barcode)? barcodeScanned,
     TResult Function()? alertDialogDismissed,
+    TResult Function()? torchSwitched,
     required TResult orElse(),
   }) {
     if (barcodeScanned != null) {
@@ -171,6 +180,7 @@ class _$BarcodeScannedImpl implements BarcodeScanned {
   TResult map<TResult extends Object?>({
     required TResult Function(BarcodeScanned value) barcodeScanned,
     required TResult Function(AlertDialogDismissed value) alertDialogDismissed,
+    required TResult Function(TorchSwitched value) torchSwitched,
   }) {
     return barcodeScanned(this);
   }
@@ -180,6 +190,7 @@ class _$BarcodeScannedImpl implements BarcodeScanned {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BarcodeScanned value)? barcodeScanned,
     TResult? Function(AlertDialogDismissed value)? alertDialogDismissed,
+    TResult? Function(TorchSwitched value)? torchSwitched,
   }) {
     return barcodeScanned?.call(this);
   }
@@ -189,6 +200,7 @@ class _$BarcodeScannedImpl implements BarcodeScanned {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BarcodeScanned value)? barcodeScanned,
     TResult Function(AlertDialogDismissed value)? alertDialogDismissed,
+    TResult Function(TorchSwitched value)? torchSwitched,
     required TResult orElse(),
   }) {
     if (barcodeScanned != null) {
@@ -248,6 +260,7 @@ class _$AlertDialogDismissedImpl implements AlertDialogDismissed {
   TResult when<TResult extends Object?>({
     required TResult Function(String barcode) barcodeScanned,
     required TResult Function() alertDialogDismissed,
+    required TResult Function() torchSwitched,
   }) {
     return alertDialogDismissed();
   }
@@ -257,6 +270,7 @@ class _$AlertDialogDismissedImpl implements AlertDialogDismissed {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String barcode)? barcodeScanned,
     TResult? Function()? alertDialogDismissed,
+    TResult? Function()? torchSwitched,
   }) {
     return alertDialogDismissed?.call();
   }
@@ -266,6 +280,7 @@ class _$AlertDialogDismissedImpl implements AlertDialogDismissed {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String barcode)? barcodeScanned,
     TResult Function()? alertDialogDismissed,
+    TResult Function()? torchSwitched,
     required TResult orElse(),
   }) {
     if (alertDialogDismissed != null) {
@@ -279,6 +294,7 @@ class _$AlertDialogDismissedImpl implements AlertDialogDismissed {
   TResult map<TResult extends Object?>({
     required TResult Function(BarcodeScanned value) barcodeScanned,
     required TResult Function(AlertDialogDismissed value) alertDialogDismissed,
+    required TResult Function(TorchSwitched value) torchSwitched,
   }) {
     return alertDialogDismissed(this);
   }
@@ -288,6 +304,7 @@ class _$AlertDialogDismissedImpl implements AlertDialogDismissed {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BarcodeScanned value)? barcodeScanned,
     TResult? Function(AlertDialogDismissed value)? alertDialogDismissed,
+    TResult? Function(TorchSwitched value)? torchSwitched,
   }) {
     return alertDialogDismissed?.call(this);
   }
@@ -297,6 +314,7 @@ class _$AlertDialogDismissedImpl implements AlertDialogDismissed {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BarcodeScanned value)? barcodeScanned,
     TResult Function(AlertDialogDismissed value)? alertDialogDismissed,
+    TResult Function(TorchSwitched value)? torchSwitched,
     required TResult orElse(),
   }) {
     if (alertDialogDismissed != null) {
@@ -308,4 +326,112 @@ class _$AlertDialogDismissedImpl implements AlertDialogDismissed {
 
 abstract class AlertDialogDismissed implements ScanEvent {
   const factory AlertDialogDismissed() = _$AlertDialogDismissedImpl;
+}
+
+/// @nodoc
+abstract class _$$TorchSwitchedImplCopyWith<$Res> {
+  factory _$$TorchSwitchedImplCopyWith(
+          _$TorchSwitchedImpl value, $Res Function(_$TorchSwitchedImpl) then) =
+      __$$TorchSwitchedImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$TorchSwitchedImplCopyWithImpl<$Res>
+    extends _$ScanEventCopyWithImpl<$Res, _$TorchSwitchedImpl>
+    implements _$$TorchSwitchedImplCopyWith<$Res> {
+  __$$TorchSwitchedImplCopyWithImpl(
+      _$TorchSwitchedImpl _value, $Res Function(_$TorchSwitchedImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$TorchSwitchedImpl implements TorchSwitched {
+  const _$TorchSwitchedImpl();
+
+  @override
+  String toString() {
+    return 'ScanEvent.torchSwitched()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$TorchSwitchedImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String barcode) barcodeScanned,
+    required TResult Function() alertDialogDismissed,
+    required TResult Function() torchSwitched,
+  }) {
+    return torchSwitched();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String barcode)? barcodeScanned,
+    TResult? Function()? alertDialogDismissed,
+    TResult? Function()? torchSwitched,
+  }) {
+    return torchSwitched?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String barcode)? barcodeScanned,
+    TResult Function()? alertDialogDismissed,
+    TResult Function()? torchSwitched,
+    required TResult orElse(),
+  }) {
+    if (torchSwitched != null) {
+      return torchSwitched();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(BarcodeScanned value) barcodeScanned,
+    required TResult Function(AlertDialogDismissed value) alertDialogDismissed,
+    required TResult Function(TorchSwitched value) torchSwitched,
+  }) {
+    return torchSwitched(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(BarcodeScanned value)? barcodeScanned,
+    TResult? Function(AlertDialogDismissed value)? alertDialogDismissed,
+    TResult? Function(TorchSwitched value)? torchSwitched,
+  }) {
+    return torchSwitched?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(BarcodeScanned value)? barcodeScanned,
+    TResult Function(AlertDialogDismissed value)? alertDialogDismissed,
+    TResult Function(TorchSwitched value)? torchSwitched,
+    required TResult orElse(),
+  }) {
+    if (torchSwitched != null) {
+      return torchSwitched(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class TorchSwitched implements ScanEvent {
+  const factory TorchSwitched() = _$TorchSwitchedImpl;
 }
