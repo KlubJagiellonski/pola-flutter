@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:pola_flutter/analytics/analytics_barcode_source.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/data/api_response.dart';
@@ -13,8 +14,9 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
   final PolaApi _polaApiRepository;
   final ScanVibration _scanVibration;
   final PolaAnalytics _analytics;
+  final MobileScannerController _cameraController;
 
-  ScanBloc(this._polaApiRepository, this._scanVibration, this._analytics, {ScanState state = const ScanState()})
+  ScanBloc(this._polaApiRepository, this._scanVibration, this._analytics, this._cameraController, {ScanState state = const ScanState()})
       : super(state) {
     on<ScanEvent>((event, emit) async {
       await event.when(
@@ -50,6 +52,8 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
   }
 
   _onTorchSwitched( Emitter<ScanState> emit) {
+    _cameraController.toggleTorch();
+
     emit(state.copyWith(isTorchOn: !state.isTorchOn));
   }
 

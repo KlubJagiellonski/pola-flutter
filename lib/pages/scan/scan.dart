@@ -32,7 +32,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    _scanBloc = ScanBloc(PolaApiRepository(), ScanVibrationImpl(), _analytics);
+    _scanBloc = ScanBloc(PolaApiRepository(), ScanVibrationImpl(), _analytics, cameraController);
   }
 
   @override
