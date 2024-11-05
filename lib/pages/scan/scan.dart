@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,7 +7,6 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
 import 'package:pola_flutter/pages/scan/companies_list.dart';
-import 'package:pola_flutter/pages/scan/scan_background.dart';
 import 'package:pola_flutter/pages/scan/scan_bloc.dart';
 import 'package:pola_flutter/pages/scan/scan_event.dart';
 import 'package:pola_flutter/pages/scan/scan_state.dart';
@@ -156,6 +157,11 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _buildQrView(BuildContext context) {
+    var scanArea = (MediaQuery.of(context).size.width < 400 ||
+            MediaQuery.of(context).size.height < 400)
+        ? 250.0
+        : 300.0;
+
     return Stack(
       children: [
         Positioned.fill(
@@ -171,7 +177,18 @@ class _MainPageState extends State<MainPage> {
             },
           ),
         ),
-        ScanBackground(),
+        Positioned.fill(
+          child: Align(
+            alignment: Alignment.center,
+            child: SizedBox(
+              width: scanArea,
+              height: scanArea / 1.25,
+              child: CustomPaint(
+                painter: RoundedDashedRectanglePainter(),
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -180,5 +197,34 @@ class _MainPageState extends State<MainPage> {
   void dispose() {
     cameraController.dispose();
     super.dispose();
+  }
+}
+
+class RoundedDashedRectanglePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Colors.red
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 3;
+
+    double radius = 20.0;
+
+  
+    canvas.drawArc(Rect.fromLTWH(0, 0, radius * 2, radius * 2), 
+                   pi, 1.57, false, paint);
+    canvas.drawArc(Rect.fromLTWH(size.width - radius * 2, 0, radius * 2, radius * 2), 
+                   4.71, 1.57, false, paint);
+
+    canvas.drawArc(Rect.fromLTWH(size.width - radius * 2, size.height - radius * 2, radius * 2, radius * 2), 
+                   0, 1.57, false, paint);
+
+    canvas.drawArc(Rect.fromLTWH(0, size.height - radius * 2, radius * 2, radius * 2), 
+                   1.57, 1.57, false, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return false;
   }
 }
