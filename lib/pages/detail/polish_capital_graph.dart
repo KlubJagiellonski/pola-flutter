@@ -19,7 +19,12 @@ class PolishCapitalGraph extends StatelessWidget {
         SizedBox(
           height: size,
           width: size,
-          child: SfRadialGauge(
+          child: 
+          TweenAnimationBuilder(
+            duration: Duration(milliseconds: percentage.toInt() * 10),
+            tween: Tween<double>(begin: 0, end:  percentage),
+             builder: (_, double score, __) {
+              return       SfRadialGauge(
             axes: <RadialAxis>[
               RadialAxis(
                 minimum: 0,
@@ -34,7 +39,7 @@ class PolishCapitalGraph extends StatelessWidget {
                 ),
                 pointers: <GaugePointer>[
                   RangePointer(
-                    value: percentage,
+                    value: score,
                     cornerStyle: CornerStyle.bothCurve,
                     width: thickness,
                     sizeUnit: GaugeSizeUnit.factor,
@@ -54,11 +59,14 @@ class PolishCapitalGraph extends StatelessWidget {
                          color: AppColors.text),
                       ),
                     ),
-                  
+             
                 ],
               ),
             ],
-          ),
+          );
+             }
+          )
+  
         ),
         Padding(
           padding: const EdgeInsets.only(top: 0.0),
