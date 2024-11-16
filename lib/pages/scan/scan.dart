@@ -183,35 +183,34 @@ class _MainPageState extends State<MainPage> {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-               
-                  
+
                   Positioned(
-                    left: 0,
-                    top: 0,
+                    left: 25,
+                    top: 25,
                     child: Assets.menuPage.topleftcorner.svg(
                       width: 40,
                       height: 40,
                     ),
                   ),
                   Positioned(
-                    right: 0,
-                    top: 0,
+                    right: 25,
+                    top: 25,
                     child: Assets.menuPage.toprightcorner.svg(
                       width: 40,
                       height: 40,
                     ),
                   ),
                   Positioned(
-                    left: 0,
-                    bottom: 0,
+                    left: 25,
+                    bottom: 25,
                     child: Assets.menuPage.leftbottomcorner.svg(
                       width: 40,
                       height: 40,
                     ),
                   ),
                   Positioned(
-                    right: 0,
-                    bottom: 0,
+                    right: 25,
+                    bottom: 25,
                     child: Assets.menuPage.rightbottomcorner.svg(
                       width: 40,
                       height: 40,
