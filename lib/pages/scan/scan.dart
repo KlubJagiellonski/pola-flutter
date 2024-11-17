@@ -175,6 +175,11 @@ class _MainPageState extends State<MainPage> {
           ),
         ),
         Positioned.fill(
+          child: Container(
+            color: Colors.black.withOpacity(0.5),
+          ),
+        ),
+        Positioned.fill(
           child: Align(
             alignment: Alignment.center,
             child: SizedBox(
@@ -183,7 +188,6 @@ class _MainPageState extends State<MainPage> {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-
                   Positioned(
                     left: 25,
                     top: 25,
