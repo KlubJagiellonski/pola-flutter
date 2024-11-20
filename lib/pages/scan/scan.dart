@@ -10,6 +10,7 @@ import 'package:pola_flutter/pages/scan/scan_event.dart';
 import 'package:pola_flutter/pages/scan/scan_state.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/pages/scan/scan_vibration.dart';
+import 'package:pola_flutter/pages/scan/torch_controller.dart';
 import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/text_size.dart';
@@ -32,7 +33,8 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    _scanBloc = ScanBloc(PolaApiRepository(), ScanVibrationImpl(), _analytics, cameraController);
+    _scanBloc = ScanBloc(PolaApiRepository(), ScanVibrationImpl(), _analytics,
+        TorchControllerImpl(cameraController: cameraController));
   }
 
   @override
@@ -125,7 +127,7 @@ class _MainPageState extends State<MainPage> {
                             GestureDetector(
                               onTap: () {
                                 _scanBloc.add(ScanEvent.torchSwitched());
-                                  cameraController.toggleTorch();
+                                cameraController.toggleTorch();
                               },
                               child: Container(
                                 decoration: BoxDecoration(
