@@ -5,6 +5,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
 import 'package:pola_flutter/pages/scan/companies_list.dart';
+import 'package:pola_flutter/pages/scan/scan_background.dart';
 import 'package:pola_flutter/pages/scan/scan_bloc.dart';
 import 'package:pola_flutter/pages/scan/scan_event.dart';
 import 'package:pola_flutter/pages/scan/scan_state.dart';
@@ -174,57 +175,7 @@ class _MainPageState extends State<MainPage> {
             },
           ),
         ),
-        Positioned.fill(
-          child: Container(
-            color: Colors.black.withOpacity(0.5),
-          ),
-        ),
-        Positioned.fill(
-          child: Align(
-            alignment: Alignment.center,
-            child: SizedBox(
-              width: scanArea,
-              height: scanArea / 1.25,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Positioned(
-                    left: 25,
-                    top: 25,
-                    child: Assets.menuPage.topleftcorner.svg(
-                      width: 40,
-                      height: 40,
-                    ),
-                  ),
-                  Positioned(
-                    right: 25,
-                    top: 25,
-                    child: Assets.menuPage.toprightcorner.svg(
-                      width: 40,
-                      height: 40,
-                    ),
-                  ),
-                  Positioned(
-                    left: 25,
-                    bottom: 25,
-                    child: Assets.menuPage.leftbottomcorner.svg(
-                      width: 40,
-                      height: 40,
-                    ),
-                  ),
-                  Positioned(
-                    right: 25,
-                    bottom: 25,
-                    child: Assets.menuPage.rightbottomcorner.svg(
-                      width: 40,
-                      height: 40,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+        ScanBackground(),
       ],
     );
   }

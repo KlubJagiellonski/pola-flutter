@@ -1,27 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/colors.dart';
 
 class ScanBackground extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-     return 
-     Positioned.fill(
-          child:
-           Row(
-            children: [
-              _BlackOpacity(),
-              Column(
-                children: [
-                  _BlackOpacity(),
-                  _RedRectangle(),
-                  _BlackOpacity(),
-                ],
-              ),
-              _BlackOpacity(),
-            ]
-          )
-     );
+    return Positioned.fill(
+        child: Row(children: [
+      _BlackOpacity(),
+      Column(
+        children: [
+          _BlackOpacity(),
+          _RedRectangle(),
+          _BlackOpacity(),
+        ],
+      ),
+      _BlackOpacity(),
+    ]));
   }
 }
 
@@ -39,12 +34,33 @@ class _BlackOpacity extends StatelessWidget {
 class _RedRectangle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
- return Container(
+    return SizedBox(
       width: 250,
       height: 187,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.red, width: 2),
-        borderRadius: BorderRadius.circular(15), // Zaokrąglenie narożników
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Positioned(
+            left: 0,
+            top: 0,
+            child: Assets.menuPage.topleftcorner.svg(),
+          ),
+          Positioned(
+            right: 0,
+            top: 0,
+            child: Assets.menuPage.toprightcorner.svg(),
+          ),
+          Positioned(
+            left: 0,
+            bottom: 0,
+            child: Assets.menuPage.leftbottomcorner.svg(),
+          ),
+          Positioned(
+            right: 0,
+            bottom: 0,
+            child: Assets.menuPage.rightbottomcorner.svg(),
+          ),
+        ],
       ),
     );
   }
