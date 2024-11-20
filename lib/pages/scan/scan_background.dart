@@ -5,18 +5,29 @@ import 'package:pola_flutter/theme/colors.dart';
 class ScanBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Positioned.fill(
-        child: Row(children: [
+    return Column (
+      children: [
       _BlackOpacity(),
-      Column(
+      Row(
         children: [
-          _BlackOpacity(),
+          _SizedBlackOpacity(),
           _RedRectangle(),
-          _BlackOpacity(),
+          _SizedBlackOpacity(),
         ],
       ),
       _BlackOpacity(),
-    ]));
+    ]);
+  }
+}
+
+class _SizedBlackOpacity extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: SizedBox(height: 187, child: Container(
+        color: AppColors.text.withOpacity(0.5),
+      ),
+    ));
   }
 }
 
@@ -25,7 +36,7 @@ class _BlackOpacity extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        color: AppColors.text.withOpacity(0.9),
+        color: AppColors.text.withOpacity(0.5),
       ),
     );
   }
