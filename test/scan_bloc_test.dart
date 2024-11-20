@@ -22,6 +22,15 @@ void main() {
     });
 
     blocTest(
+      'toggle torch',
+      build: () => _scanBloc(),
+      act: (bloc) => bloc.add(ScanEvent.torchSwitched()),
+      expect: () => [
+        ScanState(isTorchOn: true),
+      ],
+    );
+
+    blocTest(
       'emits ScanLoaded([searchResult1]) when barcodeScanned(5900311000360) is added',
       build: () => _scanBloc(),
       act: (bloc) => bloc.add(ScanEvent.barcodeScanned("5900311000360")),
