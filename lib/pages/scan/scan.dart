@@ -156,10 +156,6 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _buildQrView(BuildContext context) {
-    var scanArea = (MediaQuery.of(context).size.width < 400 ||
-            MediaQuery.of(context).size.height < 400)
-        ? 250.0
-        : 300.0;
     return Stack(
       children: [
         Positioned.fill(
