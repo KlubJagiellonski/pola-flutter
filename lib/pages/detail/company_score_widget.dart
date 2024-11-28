@@ -66,15 +66,19 @@ class CompanyScoreWidget extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(10.0),
-            child: LinearProgressIndicator(
-              value: data.plScore / 100.0,
-              backgroundColor: AppColors.buttonBackground,
-              valueColor:
-                  const AlwaysStoppedAnimation<Color>(AppColors.defaultRed),
-              minHeight: 12.0,
-            ),
-          ),
+              borderRadius: BorderRadius.circular(10.0),
+              child: TweenAnimationBuilder(
+                  duration: Duration(milliseconds: data.plScore * 10),
+                  tween: Tween<double>(begin: 0, end: data.plScore.toDouble()),
+                  builder: (_, double score, __) {
+                    return LinearProgressIndicator(
+                      value: score / 100.0,
+                      backgroundColor: AppColors.buttonBackground,
+                      valueColor: const AlwaysStoppedAnimation<Color>(
+                          AppColors.defaultRed),
+                      minHeight: 12.0,
+                    );
+                  })),
         ),
         const SizedBox(height: 17.0),
         Divider(
