@@ -58,6 +58,9 @@ class $AssetsMenuPageGen {
   /// File path: assets/menuPage/menu.svg
   SvgGenImage get menu => const SvgGenImage('assets/menuPage/menu.svg');
 
+  /// File path: assets/menuPage/rectangle.svg
+  SvgGenImage get rectangle => const SvgGenImage('assets/menuPage/rectangle.svg');
+
   /// File path: assets/menuPage/rightbottomcorner.svg
   SvgGenImage get rightbottomcorner => const SvgGenImage('assets/menuPage/rightbottomcorner.svg');
 
@@ -82,6 +85,7 @@ class $AssetsMenuPageGen {
         info,
         leftbottomcorner,
         menu,
+        rectangle,
         rightbottomcorner,
         star,
         thumbs,
