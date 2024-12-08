@@ -10,6 +10,7 @@ import 'package:pola_flutter/pages/scan/scan_event.dart';
 import 'package:pola_flutter/pages/scan/scan_state.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/pages/scan/scan_vibration.dart';
+import 'package:pola_flutter/pages/scan/torch_controller.dart';
 import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/text_size.dart';
@@ -28,12 +29,12 @@ class _MainPageState extends State<MainPage> {
   final PolaAnalytics _analytics = PolaAnalytics.instance();
 
   ScrollController listScrollController = ScrollController();
-  bool _isTorchOn = false;
 
   @override
   void initState() {
     super.initState();
-    _scanBloc = ScanBloc(PolaApiRepository(), ScanVibrationImpl(), _analytics);
+    _scanBloc = ScanBloc(PolaApiRepository(), ScanVibrationImpl(), _analytics,
+        TorchControllerImpl(cameraController: cameraController));
   }
 
   @override
@@ -125,16 +126,14 @@ class _MainPageState extends State<MainPage> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                setState(() {
-                                  _isTorchOn = !_isTorchOn;
-                                  cameraController.toggleTorch();
-                                });
+                                _scanBloc.add(ScanEvent.torchSwitched());
+                                cameraController.toggleTorch();
                               },
                               child: Container(
                                 decoration: BoxDecoration(
                                   boxShadow: [],
                                 ),
-                                child: _isTorchOn
+                                child: state.isTorchOn
                                     ? Assets.scan.flashlightOn.svg()
                                     : Assets.scan.flashlightOff.svg(),
                               ),

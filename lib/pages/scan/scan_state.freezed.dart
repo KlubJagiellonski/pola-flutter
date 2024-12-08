@@ -19,6 +19,7 @@ mixin _$ScanState {
   List<SearchResult> get list => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isError => throw _privateConstructorUsedError;
+  bool get isTorchOn => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ScanStateCopyWith<ScanState> get copyWith =>
@@ -30,7 +31,8 @@ abstract class $ScanStateCopyWith<$Res> {
   factory $ScanStateCopyWith(ScanState value, $Res Function(ScanState) then) =
       _$ScanStateCopyWithImpl<$Res, ScanState>;
   @useResult
-  $Res call({List<SearchResult> list, bool isLoading, bool isError});
+  $Res call(
+      {List<SearchResult> list, bool isLoading, bool isError, bool isTorchOn});
 }
 
 /// @nodoc
@@ -49,6 +51,7 @@ class _$ScanStateCopyWithImpl<$Res, $Val extends ScanState>
     Object? list = null,
     Object? isLoading = null,
     Object? isError = null,
+    Object? isTorchOn = null,
   }) {
     return _then(_value.copyWith(
       list: null == list
@@ -63,6 +66,10 @@ class _$ScanStateCopyWithImpl<$Res, $Val extends ScanState>
           ? _value.isError
           : isError // ignore: cast_nullable_to_non_nullable
               as bool,
+      isTorchOn: null == isTorchOn
+          ? _value.isTorchOn
+          : isTorchOn // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -75,7 +82,8 @@ abstract class _$$InitialImplCopyWith<$Res>
       __$$InitialImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<SearchResult> list, bool isLoading, bool isError});
+  $Res call(
+      {List<SearchResult> list, bool isLoading, bool isError, bool isTorchOn});
 }
 
 /// @nodoc
@@ -92,6 +100,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? list = null,
     Object? isLoading = null,
     Object? isError = null,
+    Object? isTorchOn = null,
   }) {
     return _then(_$InitialImpl(
       list: null == list
@@ -106,6 +115,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.isError
           : isError // ignore: cast_nullable_to_non_nullable
               as bool,
+      isTorchOn: null == isTorchOn
+          ? _value.isTorchOn
+          : isTorchOn // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -116,7 +129,8 @@ class _$InitialImpl implements Initial {
   const _$InitialImpl(
       {final List<SearchResult> list = const [],
       this.isLoading = false,
-      this.isError = false})
+      this.isError = false,
+      this.isTorchOn = false})
       : _list = list;
 
   final List<SearchResult> _list;
@@ -134,10 +148,13 @@ class _$InitialImpl implements Initial {
   @override
   @JsonKey()
   final bool isError;
+  @override
+  @JsonKey()
+  final bool isTorchOn;
 
   @override
   String toString() {
-    return 'ScanState(list: $list, isLoading: $isLoading, isError: $isError)';
+    return 'ScanState(list: $list, isLoading: $isLoading, isError: $isError, isTorchOn: $isTorchOn)';
   }
 
   @override
@@ -148,12 +165,18 @@ class _$InitialImpl implements Initial {
             const DeepCollectionEquality().equals(other._list, _list) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
-            (identical(other.isError, isError) || other.isError == isError));
+            (identical(other.isError, isError) || other.isError == isError) &&
+            (identical(other.isTorchOn, isTorchOn) ||
+                other.isTorchOn == isTorchOn));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_list), isLoading, isError);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_list),
+      isLoading,
+      isError,
+      isTorchOn);
 
   @JsonKey(ignore: true)
   @override
@@ -166,7 +189,8 @@ abstract class Initial implements ScanState {
   const factory Initial(
       {final List<SearchResult> list,
       final bool isLoading,
-      final bool isError}) = _$InitialImpl;
+      final bool isError,
+      final bool isTorchOn}) = _$InitialImpl;
 
   @override
   List<SearchResult> get list;
@@ -174,6 +198,8 @@ abstract class Initial implements ScanState {
   bool get isLoading;
   @override
   bool get isError;
+  @override
+  bool get isTorchOn;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
