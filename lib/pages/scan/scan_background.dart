@@ -49,10 +49,6 @@ class _BlackOpacity extends StatelessWidget {
 class _RedRectangle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 250,
-      height: 187,
-      child: Assets.menuPage.rectangle.svg(),
-    );
+    return Assets.menuPage.rectangle.svg();
   }
 }
