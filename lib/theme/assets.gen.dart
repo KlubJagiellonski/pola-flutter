@@ -52,8 +52,17 @@ class $AssetsMenuPageGen {
   /// File path: assets/menuPage/info.svg
   SvgGenImage get info => const SvgGenImage('assets/menuPage/info.svg');
 
+  /// File path: assets/menuPage/leftbottomcorner.svg
+  SvgGenImage get leftbottomcorner => const SvgGenImage('assets/menuPage/leftbottomcorner.svg');
+
   /// File path: assets/menuPage/menu.svg
   SvgGenImage get menu => const SvgGenImage('assets/menuPage/menu.svg');
+
+  /// File path: assets/menuPage/rectangle.svg
+  SvgGenImage get rectangle => const SvgGenImage('assets/menuPage/rectangle.svg');
+
+  /// File path: assets/menuPage/rightbottomcorner.svg
+  SvgGenImage get rightbottomcorner => const SvgGenImage('assets/menuPage/rightbottomcorner.svg');
 
   /// File path: assets/menuPage/star.svg
   SvgGenImage get star => const SvgGenImage('assets/menuPage/star.svg');
@@ -61,8 +70,28 @@ class $AssetsMenuPageGen {
   /// File path: assets/menuPage/thumbs.svg
   SvgGenImage get thumbs => const SvgGenImage('assets/menuPage/thumbs.svg');
 
+  /// File path: assets/menuPage/topleftcorner.svg
+  SvgGenImage get topleftcorner => const SvgGenImage('assets/menuPage/topleftcorner.svg');
+
+  /// File path: assets/menuPage/toprightcorner.svg
+  SvgGenImage get toprightcorner => const SvgGenImage('assets/menuPage/toprightcorner.svg');
+
   /// List of all assets
-  List<SvgGenImage> get values => [diversity, github, groups, handshake, info, menu, star, thumbs];
+  List<SvgGenImage> get values => [
+        diversity,
+        github,
+        groups,
+        handshake,
+        info,
+        leftbottomcorner,
+        menu,
+        rectangle,
+        rightbottomcorner,
+        star,
+        thumbs,
+        topleftcorner,
+        toprightcorner
+      ];
 }
 
 class $AssetsNavigationGen {

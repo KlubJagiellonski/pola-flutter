@@ -5,6 +5,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
 import 'package:pola_flutter/pages/scan/companies_list.dart';
+import 'package:pola_flutter/pages/scan/scan_background.dart';
 import 'package:pola_flutter/pages/scan/scan_bloc.dart';
 import 'package:pola_flutter/pages/scan/scan_event.dart';
 import 'package:pola_flutter/pages/scan/scan_state.dart';
@@ -154,10 +155,6 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _buildQrView(BuildContext context) {
-    var scanArea = (MediaQuery.of(context).size.width < 400 ||
-            MediaQuery.of(context).size.height < 400)
-        ? 250.0
-        : 300.0;
     return Stack(
       children: [
         Positioned.fill(
@@ -173,21 +170,7 @@ class _MainPageState extends State<MainPage> {
             },
           ),
         ),
-        Positioned.fill(
-          child: Align(
-            alignment: Alignment.center,
-            child: SizedBox(
-              width: scanArea,
-              height: scanArea / 1.25,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  border: Border.all(width: 5.0, color: Colors.black),
-                  color: Colors.transparent,
-                ),
-              ),
-            ),
-          ),
-        ),
+        ScanBackground(),
       ],
     );
   }
