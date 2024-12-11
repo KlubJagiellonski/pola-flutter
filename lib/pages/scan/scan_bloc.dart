@@ -26,6 +26,7 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
             await _onBarcodeScanned(barcode, emit),
         alertDialogDismissed: () => _onAlertDialogDismissed(emit),
         torchSwitched: () => _onTorchSwitched(emit),
+        closeRemoteButton: () => _onCloseRemoteButton(emit),
       );
     });
   }
@@ -63,4 +64,6 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
   _onAlertDialogDismissed(Emitter<ScanState> emit) {
     emit(state.copyWith(isError: false));
   }
+
+  _onCloseRemoteButton(Emitter<ScanState> emit) {}
 }

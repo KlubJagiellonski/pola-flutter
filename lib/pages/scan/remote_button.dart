@@ -28,9 +28,7 @@ class RemoteButton extends StatelessWidget {
       return Container();
     }
 
-    return Padding(
-        padding: EdgeInsets.only(left: 8.0, top: 0.0, right: 8.0, bottom: 0.0),
-        child: TextButton(
+    return TextButton(
           style: ButtonStyle(
             fixedSize: WidgetStateProperty.all<Size>(Size(double.infinity, 0)),
             backgroundColor: WidgetStateProperty.all<Color>(Colors.red),
@@ -44,6 +42,6 @@ class RemoteButton extends StatelessWidget {
             );
           },
           child: Text(buttonDto.title),
-        ));
+        );
   }
 }
