@@ -9,6 +9,7 @@ class ScanState with _$ScanState {
     @Default([]) List<SearchResult> list,
     @Default(false) bool isLoading,
     @Default(false) bool isError,
-    @Default(false) bool isTorchOn
+    @Default(false) bool isTorchOn,
+    @Default(false) bool wasRemoteButtonClosed,
   }) = Initial;
 }
