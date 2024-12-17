@@ -17,6 +17,7 @@ import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/text_size.dart';
 import 'package:pola_flutter/ui/menu_icon_button.dart';
 import 'package:pola_flutter/ui/web_view_dialog.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -76,10 +77,32 @@ class _MainPageState extends State<MainPage> {
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.only(top: 20.0),
-                    child: Text(
-                      "Umieść kod kreskowy produktu w prostokącie powyżej aby dowiedzieć się więcej o firmie, która go wyprodukowała.",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
+                    child: Container(
+                      width: 328,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: 20.0, right: 10),
+                            child: SvgPicture.asset(
+                              'assets/search.svg',
+                            ),
+                          ),
+                          Text(
+                            'Wyszukaj',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
