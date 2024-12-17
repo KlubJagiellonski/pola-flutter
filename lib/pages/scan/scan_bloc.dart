@@ -65,5 +65,7 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
     emit(state.copyWith(isError: false));
   }
 
-  _onCloseRemoteButton(Emitter<ScanState> emit) {}
+  _onCloseRemoteButton(Emitter<ScanState> emit) {
+    emit(state.copyWith(wasRemoteButtonClosed: true));
+  }
 }
