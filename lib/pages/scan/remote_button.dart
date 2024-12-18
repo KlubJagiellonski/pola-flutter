@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/models/donate.dart';
+import 'package:pola_flutter/theme/assets.gen.dart';
+import 'package:pola_flutter/theme/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class RemoteButtonState {
@@ -10,16 +12,26 @@ class RemoteButtonState {
   RemoteButtonState(this.buttonDto, this.code);
 }
 
-class RemoteButton extends StatelessWidget {
+class RemoteButton extends StatefulWidget {
+  final RemoteButtonState state;
+
   RemoteButton(this.state);
 
-  final RemoteButtonState state;
-  final PolaAnalytics _analytics = PolaAnalytics.instance();
+  @override
+  _RemoteButtonState createState() => _RemoteButtonState();
+}
+
+class _RemoteButtonState extends State<RemoteButton> {
+  bool _isVisible = true;
 
   @override
   Widget build(BuildContext context) {
-    Donate? buttonDto = state.buttonDto;
-    String? code = state.code;
+    if (!_isVisible) {
+      return Container();
+    }
+
+    Donate? buttonDto = widget.state.buttonDto;
+    String? code = widget.state.code;
     if (buttonDto == null || buttonDto.showButton == false || code == null) {
       return Container();
     }
@@ -28,20 +40,45 @@ class RemoteButton extends StatelessWidget {
       return Container();
     }
 
-    return TextButton(
-          style: ButtonStyle(
-            fixedSize: WidgetStateProperty.all<Size>(Size(double.infinity, 0)),
-            backgroundColor: WidgetStateProperty.all<Color>(Colors.red),
-            foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
+    return Container(
+      width: 328,
+      height: 40,
+      decoration: BoxDecoration(
+        color: AppColors.defaultRed,
+        borderRadius: BorderRadius.circular(25),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextButton(
+              style: ButtonStyle(
+                foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
+              ),
+              onPressed: () async {
+                PolaAnalytics.instance().donateOpened(code);
+                await launchUrl(
+                  url,
+                  mode: LaunchMode.externalApplication,
+                );
+              },
+              child: Text(buttonDto.title),
+            ),
           ),
-          onPressed: () async {
-            _analytics.donateOpened(code);
-            launchUrl(
-              url,
-              mode: LaunchMode.externalApplication,
-            );
-          },
-          child: Text(buttonDto.title),
-        );
+          Container(
+            margin: const EdgeInsets.only(right: 8.0),
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _isVisible = false;
+                });
+              },
+              child: Assets.scan.closeSmall.svg(
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
