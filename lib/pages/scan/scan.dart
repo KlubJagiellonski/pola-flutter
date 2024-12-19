@@ -17,7 +17,6 @@ import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/text_size.dart';
 import 'package:pola_flutter/ui/menu_icon_button.dart';
 import 'package:pola_flutter/ui/web_view_dialog.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -72,14 +71,15 @@ class _MainPageState extends State<MainPage> {
         children: <Widget>[
           _buildQrView(context),
           SafeArea(
-            child: Column(
-              children: <Widget>[
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
+              child: Column(
+                children: <Widget>[
+                  Center(
                     child: Container(
-                      width: 328,
-                      height: 40,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10.0, vertical: 10.0),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(25),
@@ -87,26 +87,25 @@ class _MainPageState extends State<MainPage> {
                       child: Row(
                         children: [
                           Padding(
-                            padding:
-                                const EdgeInsets.only(left: 20.0, right: 10),
-                            child: SvgPicture.asset(
-                              'assets/search.svg',
-                            ),
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Assets.search.svg(),
                           ),
-                          Text(
-                            'Wyszukaj',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black,
+                          Expanded(
+                            child: Text(
+                              'Wyszukaj',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                              ),
                             ),
                           ),
                         ],
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           SafeArea(
@@ -145,24 +144,24 @@ class _MainPageState extends State<MainPage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Expanded(
-                            child: CompaniesList(state, listScrollController)),
-                        Column(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                _scanBloc.add(ScanEvent.torchSwitched());
-                                cameraController.toggleTorch();
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  boxShadow: [],
-                                ),
-                                child: state.isTorchOn
-                                    ? Assets.scan.flashlightOn.svg()
-                                    : Assets.scan.flashlightOff.svg(),
+                          child: CompaniesList(state, listScrollController),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              _scanBloc.add(ScanEvent.torchSwitched());
+                              cameraController.toggleTorch();
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                boxShadow: [],
                               ),
-                            )
-                          ],
+                              child: state.isTorchOn
+                                  ? Assets.scan.flashlightOn.svg()
+                                  : Assets.scan.flashlightOff.svg(),
+                            ),
+                          ),
                         )
                       ],
                     );
