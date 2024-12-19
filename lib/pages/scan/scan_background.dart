@@ -28,7 +28,7 @@ class _SizedBlackOpacity extends StatelessWidget {
       child: SizedBox(
         height: 187,
         child: Container(
-          color: AppColors.text.withOpacity(0.7),
+          color: getColorWithOpacity(AppColors.text, 0.7),
         ),
       ),
     );
@@ -40,7 +40,7 @@ class _BlackOpacity extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        color: AppColors.text.withOpacity(0.7),
+        color: getColorWithOpacity(AppColors.text, 0.7),
       ),
     );
   }
@@ -51,4 +51,8 @@ class _RedRectangle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Assets.menuPage.rectangle.svg();
   }
+}
+
+Color getColorWithOpacity(Color color, double opacity) {
+  return color.withAlpha((opacity * 255).toInt());
 }
