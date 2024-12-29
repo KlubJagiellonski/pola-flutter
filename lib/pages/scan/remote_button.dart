@@ -48,9 +48,7 @@ class RemoteButton extends StatelessWidget {
             margin: const EdgeInsets.only(right: 8.0),
             child: GestureDetector(
               onTap: onCloseTap,
-              child: Assets.scan.closeSmall.svg(
-                color: Colors.white,
-              ),
+              child: Assets.scan.closeSmall.svg(),
             ),
           ),
         ],
