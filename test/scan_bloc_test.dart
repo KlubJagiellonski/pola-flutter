@@ -55,10 +55,10 @@ void main() {
       ],
     );
 
-      blocTest(
+    blocTest(
       'emits close remote button should remove button',
       build: () => _scanBloc(),
-      act: (bloc) { 
+      act: (bloc) {
         bloc.add(ScanEvent.barcodeScanned("button1"));
         bloc.add(ScanEvent.closeRemoteButton());
       },
@@ -76,10 +76,10 @@ void main() {
       ],
     );
 
-          blocTest(
+    blocTest(
       'emits close remote button should block appearing remote button',
       build: () => _scanBloc(),
-      act: (bloc) { 
+      act: (bloc) {
         bloc.add(ScanEvent.barcodeScanned("button1"));
         bloc.add(ScanEvent.closeRemoteButton());
         bloc.add(ScanEvent.barcodeScanned("button2"));
@@ -95,7 +95,7 @@ void main() {
             isLoading: false,
             remoteButtonState: null,
             wasRemoteButtonClosed: true),
-                    ScanState(
+        ScanState(
             list: [_testSearchResultWithButton("button1")],
             isLoading: true,
             remoteButtonState: null,
@@ -103,8 +103,8 @@ void main() {
         ScanState(
             list: [
               _testSearchResultWithButton("button1"),
-                            _testSearchResultWithButton("button2")
-              ],
+              _testSearchResultWithButton("button2")
+            ],
             isLoading: false,
             remoteButtonState: null,
             wasRemoteButtonClosed: true),
