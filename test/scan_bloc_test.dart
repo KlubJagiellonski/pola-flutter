@@ -55,6 +55,62 @@ void main() {
       ],
     );
 
+      blocTest(
+      'emits close remote button should remove button',
+      build: () => _scanBloc(),
+      act: (bloc) { 
+        bloc.add(ScanEvent.barcodeScanned("button1"));
+        bloc.add(ScanEvent.closeRemoteButton());
+      },
+      expect: () => [
+        ScanState(isLoading: true),
+        ScanState(
+            list: [_testSearchResultWithButton("button1")],
+            isLoading: false,
+            remoteButtonState: _remoteStateButton("button1")),
+        ScanState(
+            list: [_testSearchResultWithButton("button1")],
+            isLoading: false,
+            remoteButtonState: null,
+            wasRemoteButtonClosed: true),
+      ],
+    );
+
+          blocTest(
+      'emits close remote button should block appearing remote button',
+      build: () => _scanBloc(),
+      act: (bloc) { 
+        bloc.add(ScanEvent.barcodeScanned("button1"));
+        bloc.add(ScanEvent.closeRemoteButton());
+        bloc.add(ScanEvent.barcodeScanned("button2"));
+      },
+      expect: () => [
+        ScanState(isLoading: true),
+        ScanState(
+            list: [_testSearchResultWithButton("button1")],
+            isLoading: false,
+            remoteButtonState: _remoteStateButton("button1")),
+        ScanState(
+            list: [_testSearchResultWithButton("button1")],
+            isLoading: false,
+            remoteButtonState: null,
+            wasRemoteButtonClosed: true),
+                    ScanState(
+            list: [_testSearchResultWithButton("button1")],
+            isLoading: true,
+            remoteButtonState: null,
+            wasRemoteButtonClosed: true),
+        ScanState(
+            list: [
+              _testSearchResultWithButton("button1"),
+                            _testSearchResultWithButton("button2")
+              ],
+            isLoading: false,
+            remoteButtonState: null,
+            wasRemoteButtonClosed: true),
+      ],
+    );
+
     blocTest(
       'emits state with error when scanned barcode results in error',
       build: () => _scanBloc(),
