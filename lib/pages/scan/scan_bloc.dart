@@ -79,7 +79,7 @@ extension on SearchResult {
   RemoteButtonState? remoteButton() {
     final donate = this.donate;
     final code = this.code;
-    if (code != null && donate != null) {
+    if (code != null && donate != null && donate.showButton) {
       final uri = Uri.parse(donate.url);
       return RemoteButtonState(title: donate.title, uri: uri, code: code);
     }

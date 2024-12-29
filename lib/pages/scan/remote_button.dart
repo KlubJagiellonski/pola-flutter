@@ -3,13 +3,17 @@ import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:equatable/equatable.dart';
 
-class RemoteButtonState {
+class RemoteButtonState extends Equatable {
   final String title;
   final Uri uri;
   final String code;
 
   RemoteButtonState({required this.title, required this.uri, required this.code});
+
+    @override
+  List<Object?> get props => [title, uri, code];
 }
 
 class RemoteButton extends StatelessWidget {
