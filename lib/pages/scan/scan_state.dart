@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:pola_flutter/models/search_result.dart';
+import 'package:pola_flutter/pages/scan/remote_button.dart';
 
 part 'scan_state.freezed.dart';
 
@@ -11,5 +12,6 @@ class ScanState with _$ScanState {
     @Default(false) bool isError,
     @Default(false) bool isTorchOn,
     @Default(false) bool wasRemoteButtonClosed,
+    RemoteButtonState? remoteButtonState,
   }) = Initial;
 }
