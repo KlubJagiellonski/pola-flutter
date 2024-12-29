@@ -11,6 +11,7 @@ import 'package:pola_flutter/pages/scan/scan_event.dart';
 import 'package:pola_flutter/pages/scan/scan_state.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/pages/scan/scan_vibration.dart';
+import 'package:pola_flutter/pages/scan/torch_button.dart';
 import 'package:pola_flutter/pages/scan/torch_controller.dart';
 import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/colors.dart';
@@ -125,18 +126,11 @@ class _MainPageState extends State<MainPage> {
                             child: CompaniesList(state, listScrollController)),
                         Column(
                           children: [
-                            GestureDetector(
+                            TorchButton(
+                              isTorchOn: state.isTorchOn,
                               onTap: () {
                                 _scanBloc.add(ScanEvent.torchSwitched());
                               },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  boxShadow: [],
-                                ),
-                                child: state.isTorchOn
-                                    ? Assets.scan.flashlightOn.svg()
-                                    : Assets.scan.flashlightOff.svg(),
-                              ),
                             )
                           ],
                         )
