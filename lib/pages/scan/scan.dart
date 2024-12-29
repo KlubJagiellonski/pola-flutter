@@ -119,7 +119,10 @@ class _MainPageState extends State<MainPage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Expanded(
-                            child: CompaniesList(state, listScrollController)),
+                            child:
+                                CompaniesList(state, listScrollController, () {
+                          _scanBloc.add(ScanEvent.closeRemoteButton());
+                        })),
                         Column(
                           children: [
                             TorchButton(

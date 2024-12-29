@@ -1,45 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
-import 'package:pola_flutter/models/donate.dart';
 import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class RemoteButtonState {
-  final Donate? buttonDto;
-  final String? code;
+  final String title;
+  final Uri uri;
+  final String code;
 
-  RemoteButtonState(this.buttonDto, this.code);
+  RemoteButtonState({required this.title, required this.uri, required this.code});
 }
 
-class RemoteButton extends StatefulWidget {
+class RemoteButton extends StatelessWidget {
   final RemoteButtonState state;
+  final GestureTapCallback onCloseTap;
 
-  RemoteButton(this.state);
-
-  @override
-  _RemoteButtonState createState() => _RemoteButtonState();
-}
-
-class _RemoteButtonState extends State<RemoteButton> {
-  bool _isVisible = true;
+  RemoteButton(this.state, this.onCloseTap);
 
   @override
   Widget build(BuildContext context) {
-    if (!_isVisible) {
-      return Container();
-    }
-
-    Donate? buttonDto = widget.state.buttonDto;
-    String? code = widget.state.code;
-    if (buttonDto == null || buttonDto.showButton == false || code == null) {
-      return Container();
-    }
-    Uri? url = Uri.tryParse(buttonDto.url);
-    if (url == null) {
-      return Container();
-    }
-
     return Container(
       width: 328,
       height: 40,
@@ -55,23 +35,19 @@ class _RemoteButtonState extends State<RemoteButton> {
                 foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
               ),
               onPressed: () async {
-                PolaAnalytics.instance().donateOpened(code);
+                PolaAnalytics.instance().donateOpened(state.code);
                 await launchUrl(
-                  url,
+                  state.uri,
                   mode: LaunchMode.externalApplication,
                 );
               },
-              child: Text(buttonDto.title),
+              child: Text(state.title),
             ),
           ),
           Container(
             margin: const EdgeInsets.only(right: 8.0),
             child: GestureDetector(
-              onTap: () {
-                setState(() {
-                  _isVisible = false;
-                });
-              },
+              onTap: onCloseTap,
               child: Assets.scan.closeSmall.svg(
                 color: Colors.white,
               ),
