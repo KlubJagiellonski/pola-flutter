@@ -128,7 +128,6 @@ class _MainPageState extends State<MainPage> {
                             GestureDetector(
                               onTap: () {
                                 _scanBloc.add(ScanEvent.torchSwitched());
-                                cameraController.toggleTorch();
                               },
                               child: Container(
                                 decoration: BoxDecoration(
