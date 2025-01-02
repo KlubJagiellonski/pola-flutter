@@ -31,4 +31,5 @@ jobs:
         key: ${{ runner.os }}-pods-${{ hashFiles('ios/Podfile.lock') }}
         restore-keys: ${{ runner.os }}-pods-
     - run: dart run build_runner build
+    - run: dart run slang
     - run: bundle exec flutter build ios --no-codesign

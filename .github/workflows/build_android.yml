@@ -22,6 +22,7 @@ jobs:
             - name: Get dependencies
               run: flutter pub get  
             - run: dart run build_runner build
+            - run: dart run slang
             - name: Create googleservices file
               run: cat /home/runner/work/pola-flutter/pola-flutter/android/app/google-services.json | base64
             - name: Putting secret data
