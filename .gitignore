@@ -874,3 +874,9 @@ FodyWeavers.xsd
 *.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/dart,flutter,android,xcode,androidstudio,intellij,visualstudio
+
+# Generated files with `dart run build_runner build`
+*.g.dart
+*.chopper.dart
+*.freezed.dart
+*.gen.dart
