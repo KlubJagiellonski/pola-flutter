@@ -12,7 +12,17 @@ Currently available on Play store and [pola-app.pl](https://www.pola-app.pl/)
 
 # Uruchomienie
 
-TODO
+Część plików jest generowana, dlatego przed pierwszym uruchomieniem aplikacji czy też po zmianie brancha warto uruchomić build_runnera:
+
+```bash
+dart run build_runner build
+```
+
+W trakcie prac nad plikami, które powodują konieczność ponownego uruchomienia build_runnera warto użyc:
+
+```bash
+dart run build_runner watch
+```
 
 # Screenshoty
 
