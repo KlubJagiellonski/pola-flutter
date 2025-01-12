@@ -33,7 +33,8 @@
         "wait": "Proszę czekać, trwa Ładowanie...",
         "lastScans": "Ostatnie skany:",
         "error": "Wystąpił błąd",
-        "closeError": "Zamknij."
+        "closeError": "Zamknij.",
+        "search": "Wyszukaj"
     }
    
 }
