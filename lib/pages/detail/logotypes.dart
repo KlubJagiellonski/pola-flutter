@@ -45,7 +45,7 @@ class Logotypes extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
-                  color: AppColors.textField,
+                  color: AppColors.textField.withAlpha((0.7 * 255).toInt()),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withValues(alpha: 0.3),
