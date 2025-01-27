@@ -28,7 +28,7 @@ class _SizedBlackOpacity extends StatelessWidget {
       child: SizedBox(
         height: 187,
         child: Container(
-          color: AppColors.text.withValues(alpha: 0.7),
+          color: AppColors.text.withOpacity(0.7),
         ),
       ),
     );
@@ -40,7 +40,7 @@ class _BlackOpacity extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        color: AppColors.text.withValues(alpha: 0.7),
+        color: AppColors.text.withOpacity(0.7),
       ),
     );
   }
