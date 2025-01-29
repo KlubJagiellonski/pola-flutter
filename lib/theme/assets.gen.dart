@@ -52,17 +52,11 @@ class $AssetsMenuPageGen {
   /// File path: assets/menuPage/info.svg
   SvgGenImage get info => const SvgGenImage('assets/menuPage/info.svg');
 
-  /// File path: assets/menuPage/leftbottomcorner.svg
-  SvgGenImage get leftbottomcorner => const SvgGenImage('assets/menuPage/leftbottomcorner.svg');
-
   /// File path: assets/menuPage/menu.svg
   SvgGenImage get menu => const SvgGenImage('assets/menuPage/menu.svg');
 
   /// File path: assets/menuPage/rectangle.svg
   SvgGenImage get rectangle => const SvgGenImage('assets/menuPage/rectangle.svg');
-
-  /// File path: assets/menuPage/rightbottomcorner.svg
-  SvgGenImage get rightbottomcorner => const SvgGenImage('assets/menuPage/rightbottomcorner.svg');
 
   /// File path: assets/menuPage/star.svg
   SvgGenImage get star => const SvgGenImage('assets/menuPage/star.svg');
@@ -70,28 +64,8 @@ class $AssetsMenuPageGen {
   /// File path: assets/menuPage/thumbs.svg
   SvgGenImage get thumbs => const SvgGenImage('assets/menuPage/thumbs.svg');
 
-  /// File path: assets/menuPage/topleftcorner.svg
-  SvgGenImage get topleftcorner => const SvgGenImage('assets/menuPage/topleftcorner.svg');
-
-  /// File path: assets/menuPage/toprightcorner.svg
-  SvgGenImage get toprightcorner => const SvgGenImage('assets/menuPage/toprightcorner.svg');
-
   /// List of all assets
-  List<SvgGenImage> get values => [
-        diversity,
-        github,
-        groups,
-        handshake,
-        info,
-        leftbottomcorner,
-        menu,
-        rectangle,
-        rightbottomcorner,
-        star,
-        thumbs,
-        topleftcorner,
-        toprightcorner
-      ];
+  List<SvgGenImage> get values => [diversity, github, groups, handshake, info, menu, rectangle, star, thumbs];
 }
 
 class $AssetsNavigationGen {
@@ -133,10 +107,11 @@ class Assets {
   static const $AssetsMenuPageGen menuPage = $AssetsMenuPageGen();
   static const $AssetsNavigationGen navigation = $AssetsNavigationGen();
   static const $AssetsScanGen scan = $AssetsScanGen();
+  static const SvgGenImage search = SvgGenImage('assets/search.svg');
 
   /// List of all assets
-  static List<AssetGenImage> get values =>
-      [icAddBlack24dp, icBackspaceWhite36dp, icDialpadWhite36dp, icDoneWhite36dp, icLauncher, menu];
+  static List<dynamic> get values =>
+      [icAddBlack24dp, icBackspaceWhite36dp, icDialpadWhite36dp, icDoneWhite36dp, icLauncher, menu, search];
 }
 
 class AssetGenImage {

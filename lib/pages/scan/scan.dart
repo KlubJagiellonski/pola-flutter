@@ -8,6 +8,7 @@ import 'package:pola_flutter/pages/scan/companies_list.dart';
 import 'package:pola_flutter/pages/scan/scan_background.dart';
 import 'package:pola_flutter/pages/scan/scan_bloc.dart';
 import 'package:pola_flutter/pages/scan/scan_event.dart';
+import 'package:pola_flutter/pages/scan/scan_search_button.dart';
 import 'package:pola_flutter/pages/scan/scan_state.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/pages/scan/scan_vibration.dart';
@@ -72,19 +73,14 @@ class _MainPageState extends State<MainPage> {
         children: <Widget>[
           _buildQrView(context),
           SafeArea(
-            child: Column(
-              children: <Widget>[
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: Text(
-                      "Umieść kod kreskowy produktu w prostokącie powyżej aby dowiedzieć się więcej o firmie, która go wyprodukowała.",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
-              ],
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
+              child: Column(
+                children: <Widget>[
+                  ScanSearchButton(),
+                ],
+              ),
             ),
           ),
           SafeArea(
