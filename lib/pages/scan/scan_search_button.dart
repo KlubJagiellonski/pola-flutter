@@ -9,29 +9,34 @@ class ScanSearchButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(25),
-        ),
-        child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Assets.search.svg(),
-            ),
-            Expanded(
-              child: Text(
-                t.scan.search,
-                style: TextStyle(
-                  fontSize: TextSize.mediumTitle,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black,
+      child: GestureDetector(
+        onTap: () {
+          Navigator.pushNamed(context, '/search');
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(25),
+          ),
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Assets.search.svg(),
+              ),
+              Expanded(
+                child: Text(
+                  t.scan.search,
+                  style: TextStyle(
+                    fontSize: TextSize.mediumTitle,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
