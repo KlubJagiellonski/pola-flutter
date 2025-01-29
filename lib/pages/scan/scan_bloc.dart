@@ -8,23 +8,29 @@ import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/pages/scan/scan_event.dart';
 import 'package:pola_flutter/pages/scan/scan_state.dart';
 import 'package:pola_flutter/pages/scan/scan_vibration.dart';
+import 'package:pola_flutter/pages/scan/torch_controller.dart';
 
 class ScanBloc extends Bloc<ScanEvent, ScanState> {
   final PolaApi _polaApiRepository;
   final ScanVibration _scanVibration;
   final PolaAnalytics _analytics;
+  final TorchController _torchController;
 
-  ScanBloc(this._polaApiRepository, this._scanVibration, this._analytics, {ScanState state = const ScanState()})
+  ScanBloc(this._polaApiRepository, this._scanVibration, this._analytics,
+      this._torchController,
+      {ScanState state = const ScanState()})
       : super(state) {
     on<ScanEvent>((event, emit) async {
       await event.when(
-        barcodeScanned: (barcode) async => await _onBarcodeScanned(barcode, emit),
+        barcodeScanned: (barcode) async =>
+            await _onBarcodeScanned(barcode, emit),
         alertDialogDismissed: () => _onAlertDialogDismissed(emit),
+        torchSwitched: () => _onTorchSwitched(emit),
       );
     });
   }
 
-    _onBarcodeScanned(String barcode, Emitter<ScanState> emit) async {
+  _onBarcodeScanned(String barcode, Emitter<ScanState> emit) async {
     if (state.list.any((element) => element.code == barcode) ||
         state.isLoading ||
         state.isError) {
@@ -33,7 +39,8 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
     emit(state.copyWith(isLoading: true));
     debugPrint('Scanned barcode event received: $barcode');
     _scanVibration.vibrate();
-    _analytics.barcodeScanned(barcode.toString(), AnalyticsBarcodeSource.camera);
+    _analytics.barcodeScanned(
+        barcode.toString(), AnalyticsBarcodeSource.camera);
 
     final res = await _polaApiRepository.getCompany(barcode);
     if (res.status == Status.COMPLETED) {
@@ -45,6 +52,12 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
     } else {
       emit(state.copyWith(isLoading: false, isError: true));
     }
+  }
+
+  _onTorchSwitched(Emitter<ScanState> emit) {
+    _torchController.toggleTorch();
+
+    emit(state.copyWith(isTorchOn: !state.isTorchOn));
   }
 
   _onAlertDialogDismissed(Emitter<ScanState> emit) {

@@ -7,6 +7,7 @@ import 'package:pola_flutter/pages/scan/scan_bloc.dart';
 import 'package:pola_flutter/pages/scan/scan_event.dart';
 import 'package:pola_flutter/pages/scan/scan_state.dart';
 import 'package:pola_flutter/pages/scan/scan_vibration.dart';
+import 'package:pola_flutter/pages/scan/torch_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
 
@@ -21,13 +22,22 @@ void main() {
     });
 
     blocTest(
+      'toggle torch',
+      build: () => _scanBloc(),
+      act: (bloc) => bloc.add(ScanEvent.torchSwitched()),
+      expect: () => [
+        ScanState(isTorchOn: true),
+      ],
+    );
+
+    blocTest(
       'emits ScanLoaded([searchResult1]) when barcodeScanned(5900311000360) is added',
       build: () => _scanBloc(),
       act: (bloc) => bloc.add(ScanEvent.barcodeScanned("5900311000360")),
       expect: () => [
         ScanState(isLoading: true),
         ScanState(list: [_testSearchResult], isLoading: false)
-        ],
+      ],
     );
 
     blocTest(
@@ -37,26 +47,22 @@ void main() {
       expect: () => [
         ScanState(isLoading: true),
         ScanState(isLoading: false, isError: true)
-        ],
+      ],
     );
 
     blocTest(
       'emits state with no error when alert dialog dismissed',
       build: () => _scanBloc(state: ScanState(isError: true)),
       act: (bloc) => bloc.add(ScanEvent.alertDialogDismissed()),
-      expect: () => [
-        ScanState(isError: false)
-      ],
+      expect: () => [ScanState(isError: false)],
     );
   });
 }
 
 ScanBloc _scanBloc({ScanState state = const ScanState()}) {
-  return ScanBloc(
-    _MockPolaApi(), 
-    _MockScanVibration(), 
-    PolaAnalytics(provider: MockAnalyticsProvider()), 
-    state: state);
+  return ScanBloc(_MockPolaApi(), _MockScanVibration(),
+      PolaAnalytics(provider: MockAnalyticsProvider()), _MockTorchController(),
+      state: state);
 }
 
 var _testSearchResult = SearchResult(
@@ -82,6 +88,10 @@ class _MockPolaApi extends PolaApi {
 
 class _MockScanVibration extends ScanVibration {
   @override
-  void vibrate() {
-  }
+  void vibrate() {}
+}
+
+class _MockTorchController extends TorchController {
+  @override
+  void toggleTorch() {}
 }
