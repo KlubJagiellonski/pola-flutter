@@ -20,6 +20,9 @@ mixin _$ScanState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isError => throw _privateConstructorUsedError;
   bool get isTorchOn => throw _privateConstructorUsedError;
+  bool get wasRemoteButtonClosed => throw _privateConstructorUsedError;
+  RemoteButtonState? get remoteButtonState =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ScanStateCopyWith<ScanState> get copyWith =>
@@ -32,7 +35,12 @@ abstract class $ScanStateCopyWith<$Res> {
       _$ScanStateCopyWithImpl<$Res, ScanState>;
   @useResult
   $Res call(
-      {List<SearchResult> list, bool isLoading, bool isError, bool isTorchOn});
+      {List<SearchResult> list,
+      bool isLoading,
+      bool isError,
+      bool isTorchOn,
+      bool wasRemoteButtonClosed,
+      RemoteButtonState? remoteButtonState});
 }
 
 /// @nodoc
@@ -52,6 +60,8 @@ class _$ScanStateCopyWithImpl<$Res, $Val extends ScanState>
     Object? isLoading = null,
     Object? isError = null,
     Object? isTorchOn = null,
+    Object? wasRemoteButtonClosed = null,
+    Object? remoteButtonState = freezed,
   }) {
     return _then(_value.copyWith(
       list: null == list
@@ -70,6 +80,14 @@ class _$ScanStateCopyWithImpl<$Res, $Val extends ScanState>
           ? _value.isTorchOn
           : isTorchOn // ignore: cast_nullable_to_non_nullable
               as bool,
+      wasRemoteButtonClosed: null == wasRemoteButtonClosed
+          ? _value.wasRemoteButtonClosed
+          : wasRemoteButtonClosed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      remoteButtonState: freezed == remoteButtonState
+          ? _value.remoteButtonState
+          : remoteButtonState // ignore: cast_nullable_to_non_nullable
+              as RemoteButtonState?,
     ) as $Val);
   }
 }
@@ -83,7 +101,12 @@ abstract class _$$InitialImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<SearchResult> list, bool isLoading, bool isError, bool isTorchOn});
+      {List<SearchResult> list,
+      bool isLoading,
+      bool isError,
+      bool isTorchOn,
+      bool wasRemoteButtonClosed,
+      RemoteButtonState? remoteButtonState});
 }
 
 /// @nodoc
@@ -101,6 +124,8 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? isError = null,
     Object? isTorchOn = null,
+    Object? wasRemoteButtonClosed = null,
+    Object? remoteButtonState = freezed,
   }) {
     return _then(_$InitialImpl(
       list: null == list
@@ -119,6 +144,14 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.isTorchOn
           : isTorchOn // ignore: cast_nullable_to_non_nullable
               as bool,
+      wasRemoteButtonClosed: null == wasRemoteButtonClosed
+          ? _value.wasRemoteButtonClosed
+          : wasRemoteButtonClosed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      remoteButtonState: freezed == remoteButtonState
+          ? _value.remoteButtonState
+          : remoteButtonState // ignore: cast_nullable_to_non_nullable
+              as RemoteButtonState?,
     ));
   }
 }
@@ -130,7 +163,9 @@ class _$InitialImpl implements Initial {
       {final List<SearchResult> list = const [],
       this.isLoading = false,
       this.isError = false,
-      this.isTorchOn = false})
+      this.isTorchOn = false,
+      this.wasRemoteButtonClosed = false,
+      this.remoteButtonState})
       : _list = list;
 
   final List<SearchResult> _list;
@@ -151,10 +186,15 @@ class _$InitialImpl implements Initial {
   @override
   @JsonKey()
   final bool isTorchOn;
+  @override
+  @JsonKey()
+  final bool wasRemoteButtonClosed;
+  @override
+  final RemoteButtonState? remoteButtonState;
 
   @override
   String toString() {
-    return 'ScanState(list: $list, isLoading: $isLoading, isError: $isError, isTorchOn: $isTorchOn)';
+    return 'ScanState(list: $list, isLoading: $isLoading, isError: $isError, isTorchOn: $isTorchOn, wasRemoteButtonClosed: $wasRemoteButtonClosed, remoteButtonState: $remoteButtonState)';
   }
 
   @override
@@ -167,7 +207,11 @@ class _$InitialImpl implements Initial {
                 other.isLoading == isLoading) &&
             (identical(other.isError, isError) || other.isError == isError) &&
             (identical(other.isTorchOn, isTorchOn) ||
-                other.isTorchOn == isTorchOn));
+                other.isTorchOn == isTorchOn) &&
+            (identical(other.wasRemoteButtonClosed, wasRemoteButtonClosed) ||
+                other.wasRemoteButtonClosed == wasRemoteButtonClosed) &&
+            (identical(other.remoteButtonState, remoteButtonState) ||
+                other.remoteButtonState == remoteButtonState));
   }
 
   @override
@@ -176,7 +220,9 @@ class _$InitialImpl implements Initial {
       const DeepCollectionEquality().hash(_list),
       isLoading,
       isError,
-      isTorchOn);
+      isTorchOn,
+      wasRemoteButtonClosed,
+      remoteButtonState);
 
   @JsonKey(ignore: true)
   @override
@@ -190,7 +236,9 @@ abstract class Initial implements ScanState {
       {final List<SearchResult> list,
       final bool isLoading,
       final bool isError,
-      final bool isTorchOn}) = _$InitialImpl;
+      final bool isTorchOn,
+      final bool wasRemoteButtonClosed,
+      final RemoteButtonState? remoteButtonState}) = _$InitialImpl;
 
   @override
   List<SearchResult> get list;
@@ -200,6 +248,10 @@ abstract class Initial implements ScanState {
   bool get isError;
   @override
   bool get isTorchOn;
+  @override
+  bool get wasRemoteButtonClosed;
+  @override
+  RemoteButtonState? get remoteButtonState;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

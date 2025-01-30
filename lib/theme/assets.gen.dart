@@ -81,6 +81,9 @@ class $AssetsNavigationGen {
 class $AssetsScanGen {
   const $AssetsScanGen();
 
+  /// File path: assets/scan/close_small.svg
+  SvgGenImage get closeSmall => const SvgGenImage('assets/scan/close_small.svg');
+
   /// File path: assets/scan/flashlightOff.svg
   SvgGenImage get flashlightOff => const SvgGenImage('assets/scan/flashlightOff.svg');
 
@@ -91,7 +94,7 @@ class $AssetsScanGen {
   SvgGenImage get showMore => const SvgGenImage('assets/scan/showMore.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [flashlightOff, flashlightOn, showMore];
+  List<SvgGenImage> get values => [closeSmall, flashlightOff, flashlightOn, showMore];
 }
 
 class Assets {

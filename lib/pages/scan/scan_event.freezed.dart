@@ -21,6 +21,7 @@ mixin _$ScanEvent {
     required TResult Function(String barcode) barcodeScanned,
     required TResult Function() alertDialogDismissed,
     required TResult Function() torchSwitched,
+    required TResult Function() closeRemoteButton,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +29,7 @@ mixin _$ScanEvent {
     TResult? Function(String barcode)? barcodeScanned,
     TResult? Function()? alertDialogDismissed,
     TResult? Function()? torchSwitched,
+    TResult? Function()? closeRemoteButton,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +37,7 @@ mixin _$ScanEvent {
     TResult Function(String barcode)? barcodeScanned,
     TResult Function()? alertDialogDismissed,
     TResult Function()? torchSwitched,
+    TResult Function()? closeRemoteButton,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -43,6 +46,7 @@ mixin _$ScanEvent {
     required TResult Function(BarcodeScanned value) barcodeScanned,
     required TResult Function(AlertDialogDismissed value) alertDialogDismissed,
     required TResult Function(TorchSwitched value) torchSwitched,
+    required TResult Function(CloseRemoteButton value) closeRemoteButton,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,6 +54,7 @@ mixin _$ScanEvent {
     TResult? Function(BarcodeScanned value)? barcodeScanned,
     TResult? Function(AlertDialogDismissed value)? alertDialogDismissed,
     TResult? Function(TorchSwitched value)? torchSwitched,
+    TResult? Function(CloseRemoteButton value)? closeRemoteButton,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,6 +62,7 @@ mixin _$ScanEvent {
     TResult Function(BarcodeScanned value)? barcodeScanned,
     TResult Function(AlertDialogDismissed value)? alertDialogDismissed,
     TResult Function(TorchSwitched value)? torchSwitched,
+    TResult Function(CloseRemoteButton value)? closeRemoteButton,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -147,6 +153,7 @@ class _$BarcodeScannedImpl implements BarcodeScanned {
     required TResult Function(String barcode) barcodeScanned,
     required TResult Function() alertDialogDismissed,
     required TResult Function() torchSwitched,
+    required TResult Function() closeRemoteButton,
   }) {
     return barcodeScanned(barcode);
   }
@@ -157,6 +164,7 @@ class _$BarcodeScannedImpl implements BarcodeScanned {
     TResult? Function(String barcode)? barcodeScanned,
     TResult? Function()? alertDialogDismissed,
     TResult? Function()? torchSwitched,
+    TResult? Function()? closeRemoteButton,
   }) {
     return barcodeScanned?.call(barcode);
   }
@@ -167,6 +175,7 @@ class _$BarcodeScannedImpl implements BarcodeScanned {
     TResult Function(String barcode)? barcodeScanned,
     TResult Function()? alertDialogDismissed,
     TResult Function()? torchSwitched,
+    TResult Function()? closeRemoteButton,
     required TResult orElse(),
   }) {
     if (barcodeScanned != null) {
@@ -181,6 +190,7 @@ class _$BarcodeScannedImpl implements BarcodeScanned {
     required TResult Function(BarcodeScanned value) barcodeScanned,
     required TResult Function(AlertDialogDismissed value) alertDialogDismissed,
     required TResult Function(TorchSwitched value) torchSwitched,
+    required TResult Function(CloseRemoteButton value) closeRemoteButton,
   }) {
     return barcodeScanned(this);
   }
@@ -191,6 +201,7 @@ class _$BarcodeScannedImpl implements BarcodeScanned {
     TResult? Function(BarcodeScanned value)? barcodeScanned,
     TResult? Function(AlertDialogDismissed value)? alertDialogDismissed,
     TResult? Function(TorchSwitched value)? torchSwitched,
+    TResult? Function(CloseRemoteButton value)? closeRemoteButton,
   }) {
     return barcodeScanned?.call(this);
   }
@@ -201,6 +212,7 @@ class _$BarcodeScannedImpl implements BarcodeScanned {
     TResult Function(BarcodeScanned value)? barcodeScanned,
     TResult Function(AlertDialogDismissed value)? alertDialogDismissed,
     TResult Function(TorchSwitched value)? torchSwitched,
+    TResult Function(CloseRemoteButton value)? closeRemoteButton,
     required TResult orElse(),
   }) {
     if (barcodeScanned != null) {
@@ -261,6 +273,7 @@ class _$AlertDialogDismissedImpl implements AlertDialogDismissed {
     required TResult Function(String barcode) barcodeScanned,
     required TResult Function() alertDialogDismissed,
     required TResult Function() torchSwitched,
+    required TResult Function() closeRemoteButton,
   }) {
     return alertDialogDismissed();
   }
@@ -271,6 +284,7 @@ class _$AlertDialogDismissedImpl implements AlertDialogDismissed {
     TResult? Function(String barcode)? barcodeScanned,
     TResult? Function()? alertDialogDismissed,
     TResult? Function()? torchSwitched,
+    TResult? Function()? closeRemoteButton,
   }) {
     return alertDialogDismissed?.call();
   }
@@ -281,6 +295,7 @@ class _$AlertDialogDismissedImpl implements AlertDialogDismissed {
     TResult Function(String barcode)? barcodeScanned,
     TResult Function()? alertDialogDismissed,
     TResult Function()? torchSwitched,
+    TResult Function()? closeRemoteButton,
     required TResult orElse(),
   }) {
     if (alertDialogDismissed != null) {
@@ -295,6 +310,7 @@ class _$AlertDialogDismissedImpl implements AlertDialogDismissed {
     required TResult Function(BarcodeScanned value) barcodeScanned,
     required TResult Function(AlertDialogDismissed value) alertDialogDismissed,
     required TResult Function(TorchSwitched value) torchSwitched,
+    required TResult Function(CloseRemoteButton value) closeRemoteButton,
   }) {
     return alertDialogDismissed(this);
   }
@@ -305,6 +321,7 @@ class _$AlertDialogDismissedImpl implements AlertDialogDismissed {
     TResult? Function(BarcodeScanned value)? barcodeScanned,
     TResult? Function(AlertDialogDismissed value)? alertDialogDismissed,
     TResult? Function(TorchSwitched value)? torchSwitched,
+    TResult? Function(CloseRemoteButton value)? closeRemoteButton,
   }) {
     return alertDialogDismissed?.call(this);
   }
@@ -315,6 +332,7 @@ class _$AlertDialogDismissedImpl implements AlertDialogDismissed {
     TResult Function(BarcodeScanned value)? barcodeScanned,
     TResult Function(AlertDialogDismissed value)? alertDialogDismissed,
     TResult Function(TorchSwitched value)? torchSwitched,
+    TResult Function(CloseRemoteButton value)? closeRemoteButton,
     required TResult orElse(),
   }) {
     if (alertDialogDismissed != null) {
@@ -369,6 +387,7 @@ class _$TorchSwitchedImpl implements TorchSwitched {
     required TResult Function(String barcode) barcodeScanned,
     required TResult Function() alertDialogDismissed,
     required TResult Function() torchSwitched,
+    required TResult Function() closeRemoteButton,
   }) {
     return torchSwitched();
   }
@@ -379,6 +398,7 @@ class _$TorchSwitchedImpl implements TorchSwitched {
     TResult? Function(String barcode)? barcodeScanned,
     TResult? Function()? alertDialogDismissed,
     TResult? Function()? torchSwitched,
+    TResult? Function()? closeRemoteButton,
   }) {
     return torchSwitched?.call();
   }
@@ -389,6 +409,7 @@ class _$TorchSwitchedImpl implements TorchSwitched {
     TResult Function(String barcode)? barcodeScanned,
     TResult Function()? alertDialogDismissed,
     TResult Function()? torchSwitched,
+    TResult Function()? closeRemoteButton,
     required TResult orElse(),
   }) {
     if (torchSwitched != null) {
@@ -403,6 +424,7 @@ class _$TorchSwitchedImpl implements TorchSwitched {
     required TResult Function(BarcodeScanned value) barcodeScanned,
     required TResult Function(AlertDialogDismissed value) alertDialogDismissed,
     required TResult Function(TorchSwitched value) torchSwitched,
+    required TResult Function(CloseRemoteButton value) closeRemoteButton,
   }) {
     return torchSwitched(this);
   }
@@ -413,6 +435,7 @@ class _$TorchSwitchedImpl implements TorchSwitched {
     TResult? Function(BarcodeScanned value)? barcodeScanned,
     TResult? Function(AlertDialogDismissed value)? alertDialogDismissed,
     TResult? Function(TorchSwitched value)? torchSwitched,
+    TResult? Function(CloseRemoteButton value)? closeRemoteButton,
   }) {
     return torchSwitched?.call(this);
   }
@@ -423,6 +446,7 @@ class _$TorchSwitchedImpl implements TorchSwitched {
     TResult Function(BarcodeScanned value)? barcodeScanned,
     TResult Function(AlertDialogDismissed value)? alertDialogDismissed,
     TResult Function(TorchSwitched value)? torchSwitched,
+    TResult Function(CloseRemoteButton value)? closeRemoteButton,
     required TResult orElse(),
   }) {
     if (torchSwitched != null) {
@@ -434,4 +458,118 @@ class _$TorchSwitchedImpl implements TorchSwitched {
 
 abstract class TorchSwitched implements ScanEvent {
   const factory TorchSwitched() = _$TorchSwitchedImpl;
+}
+
+/// @nodoc
+abstract class _$$CloseRemoteButtonImplCopyWith<$Res> {
+  factory _$$CloseRemoteButtonImplCopyWith(_$CloseRemoteButtonImpl value,
+          $Res Function(_$CloseRemoteButtonImpl) then) =
+      __$$CloseRemoteButtonImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$CloseRemoteButtonImplCopyWithImpl<$Res>
+    extends _$ScanEventCopyWithImpl<$Res, _$CloseRemoteButtonImpl>
+    implements _$$CloseRemoteButtonImplCopyWith<$Res> {
+  __$$CloseRemoteButtonImplCopyWithImpl(_$CloseRemoteButtonImpl _value,
+      $Res Function(_$CloseRemoteButtonImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$CloseRemoteButtonImpl implements CloseRemoteButton {
+  const _$CloseRemoteButtonImpl();
+
+  @override
+  String toString() {
+    return 'ScanEvent.closeRemoteButton()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$CloseRemoteButtonImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String barcode) barcodeScanned,
+    required TResult Function() alertDialogDismissed,
+    required TResult Function() torchSwitched,
+    required TResult Function() closeRemoteButton,
+  }) {
+    return closeRemoteButton();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String barcode)? barcodeScanned,
+    TResult? Function()? alertDialogDismissed,
+    TResult? Function()? torchSwitched,
+    TResult? Function()? closeRemoteButton,
+  }) {
+    return closeRemoteButton?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String barcode)? barcodeScanned,
+    TResult Function()? alertDialogDismissed,
+    TResult Function()? torchSwitched,
+    TResult Function()? closeRemoteButton,
+    required TResult orElse(),
+  }) {
+    if (closeRemoteButton != null) {
+      return closeRemoteButton();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(BarcodeScanned value) barcodeScanned,
+    required TResult Function(AlertDialogDismissed value) alertDialogDismissed,
+    required TResult Function(TorchSwitched value) torchSwitched,
+    required TResult Function(CloseRemoteButton value) closeRemoteButton,
+  }) {
+    return closeRemoteButton(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(BarcodeScanned value)? barcodeScanned,
+    TResult? Function(AlertDialogDismissed value)? alertDialogDismissed,
+    TResult? Function(TorchSwitched value)? torchSwitched,
+    TResult? Function(CloseRemoteButton value)? closeRemoteButton,
+  }) {
+    return closeRemoteButton?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(BarcodeScanned value)? barcodeScanned,
+    TResult Function(AlertDialogDismissed value)? alertDialogDismissed,
+    TResult Function(TorchSwitched value)? torchSwitched,
+    TResult Function(CloseRemoteButton value)? closeRemoteButton,
+    required TResult orElse(),
+  }) {
+    if (closeRemoteButton != null) {
+      return closeRemoteButton(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class CloseRemoteButton implements ScanEvent {
+  const factory CloseRemoteButton() = _$CloseRemoteButtonImpl;
 }
