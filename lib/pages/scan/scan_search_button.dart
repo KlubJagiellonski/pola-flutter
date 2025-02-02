@@ -27,7 +27,7 @@ class ScanSearchButton extends StatelessWidget {
               ),
               Expanded(
                 child: Text(
-                  t.scan.search,
+                  Translations.of(context).scan.search,
                   style: TextStyle(
                     fontSize: TextSize.mediumTitle,
                     fontWeight: FontWeight.w400,
