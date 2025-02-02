@@ -78,7 +78,7 @@ class _MainPageState extends State<MainPage> {
                   const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
               child: Column(
                 children: <Widget>[
-                  ScanSearchButton(),
+                  ScanSearchButton(analytics: _analytics),
                 ],
               ),
             ),

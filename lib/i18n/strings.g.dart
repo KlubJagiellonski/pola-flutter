@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 1
-/// Strings: 31
+/// Strings: 32
 ///
-/// Built on 2025-01-12 at 20:22 UTC
+/// Built on 2025-02-02 at 08:25 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -150,6 +150,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final _StringsMenuEn menu = _StringsMenuEn._(_root);
 	late final _StringsCompanyScreenEn companyScreen = _StringsCompanyScreenEn._(_root);
 	late final _StringsScanEn scan = _StringsScanEn._(_root);
+	late final _StringsSearchEn search = _StringsSearchEn._(_root);
 }
 
 // Path: menu
@@ -210,6 +211,16 @@ class _StringsScanEn {
 	String get search => 'Wyszukaj';
 }
 
+// Path: search
+class _StringsSearchEn {
+	_StringsSearchEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Wyszukiwarka';
+}
+
 /// Flat map(s) containing all translations.
 /// Only for edge cases! For simple maps, use the map function of this library.
 
@@ -247,6 +258,7 @@ extension on Translations {
 			case 'scan.error': return 'Wystąpił błąd';
 			case 'scan.closeError': return 'Zamknij.';
 			case 'scan.search': return 'Wyszukaj';
+			case 'search.title': return 'Wyszukiwarka';
 			default: return null;
 		}
 	}

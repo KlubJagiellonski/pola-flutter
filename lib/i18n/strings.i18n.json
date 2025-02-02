@@ -35,6 +35,8 @@
         "error": "Wystąpił błąd",
         "closeError": "Zamknij.",
         "search": "Wyszukaj"
+    },
+    "search": {
+        "title": "Wyszukiwarka"
     }
-   
 }
