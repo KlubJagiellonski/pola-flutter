@@ -10,9 +10,10 @@ class RemoteButtonState extends Equatable {
   final Uri uri;
   final String code;
 
-  RemoteButtonState({required this.title, required this.uri, required this.code});
+  RemoteButtonState(
+      {required this.title, required this.uri, required this.code});
 
-    @override
+  @override
   List<Object?> get props => [title, uri, code];
 }
 
@@ -25,37 +26,39 @@ class RemoteButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 328,
       height: 40,
       decoration: BoxDecoration(
         color: AppColors.defaultRed,
         borderRadius: BorderRadius.circular(25),
       ),
-      child: Row(
-        children: [
-          Expanded(
-            child: TextButton(
-              style: ButtonStyle(
-                foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 11.0),
+        child: Row(
+          children: [
+            Expanded(
+              child: TextButton(
+                style: ButtonStyle(
+                  foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
+                ),
+                onPressed: () async {
+                  PolaAnalytics.instance().donateOpened(state.code);
+                  await launchUrl(
+                    state.uri,
+                    mode: LaunchMode.externalApplication,
+                  );
+                },
+                child: Text(state.title),
               ),
-              onPressed: () async {
-                PolaAnalytics.instance().donateOpened(state.code);
-                await launchUrl(
-                  state.uri,
-                  mode: LaunchMode.externalApplication,
-                );
-              },
-              child: Text(state.title),
             ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(right: 8.0),
-            child: GestureDetector(
+            GestureDetector(
               onTap: onCloseTap,
-              child: Assets.scan.closeSmall.svg(),
+              child: Container(
+                padding: const EdgeInsets.all(8.0),
+                child: Assets.scan.closeSmall.svg(),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

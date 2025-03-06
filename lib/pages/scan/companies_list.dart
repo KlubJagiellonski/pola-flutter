@@ -8,7 +8,8 @@ import 'package:pola_flutter/ui/list_item.dart';
 import 'dart:math';
 
 class CompaniesList extends StatelessWidget {
-  CompaniesList(this.state, this.listScrollController, this.onCloseRemoteButtonTap);
+  CompaniesList(
+      this.state, this.listScrollController, this.onCloseRemoteButtonTap);
 
   final ScanState state;
   final ScrollController listScrollController;
@@ -53,7 +54,8 @@ class CompaniesList extends StatelessWidget {
             ),
           ),
         ),
-        if (state.remoteButtonState != null) RemoteButton(state.remoteButtonState!, onCloseRemoteButtonTap),
+        if (state.remoteButtonState != null)
+          RemoteButton(state.remoteButtonState!, onCloseRemoteButtonTap),
       ],
     );
   }
