@@ -8,6 +8,7 @@ import 'package:pola_flutter/analytics/analytics_main_tab.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/pages/scan/scan_navigator.dart';
+import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/ui/web_view_tab.dart';
 import 'firebase_options.dart';
 
@@ -45,28 +46,29 @@ class _PolaAppState extends State<PolaApp> {
       home: DefaultTabController(
         length: 3,
         child: Scaffold(
-            bottomNavigationBar: BottomNavigationBar(
-              items: const <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.smartphone),
-                  label: 'Skaner kodów',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.search),
-                  label: 'Wyszukiwarka',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.newspaper),
-                  label: 'Wiadomości',
-                ),
-              ],
-              onTap: _onItemTapped,
-              currentIndex: _selectedIndex,
-            ),
-            body: IndexedStack(
-              index: _selectedIndex,
-              children: _tabs,
-            )),
+          bottomNavigationBar: BottomNavigationBar(
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Assets.scan.searchengine.svg(),
+                label: 'Wyszukaj',
+              ),
+              BottomNavigationBarItem(
+                icon: Assets.scan.news.svg(),
+                label: 'Aktualności',
+              ),
+              BottomNavigationBarItem(
+                icon: Assets.scan.collections.svg(),
+                label: 'Zbiórki',
+              ),
+            ],
+            onTap: _onItemTapped,
+            currentIndex: _selectedIndex,
+          ),
+          body: IndexedStack(
+            index: _selectedIndex,
+            children: _tabs,
+          ),
+        ),
       ),
     );
   }

@@ -48,7 +48,7 @@ class Logotypes extends StatelessWidget {
                   color: AppColors.textField.withAlpha((0.7 * 255).toInt()),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey.withValues(alpha: 0.3),
+                      color: Colors.grey.withOpacity( 0.3),
                       spreadRadius: 1,
                       blurRadius: 5,
                       offset: Offset(0, 3),

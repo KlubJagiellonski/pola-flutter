@@ -81,17 +81,26 @@ class $AssetsNavigationGen {
 class $AssetsScanGen {
   const $AssetsScanGen();
 
+  /// File path: assets/scan/collections.svg
+  SvgGenImage get collections => const SvgGenImage('assets/scan/collections.svg');
+
   /// File path: assets/scan/flashlightOff.svg
   SvgGenImage get flashlightOff => const SvgGenImage('assets/scan/flashlightOff.svg');
 
   /// File path: assets/scan/flashlightOn.svg
   SvgGenImage get flashlightOn => const SvgGenImage('assets/scan/flashlightOn.svg');
 
+  /// File path: assets/scan/news.svg
+  SvgGenImage get news => const SvgGenImage('assets/scan/news.svg');
+
+  /// File path: assets/scan/searchengine.svg
+  SvgGenImage get searchengine => const SvgGenImage('assets/scan/searchengine.svg');
+
   /// File path: assets/scan/showMore.svg
   SvgGenImage get showMore => const SvgGenImage('assets/scan/showMore.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [flashlightOff, flashlightOn, showMore];
+  List<SvgGenImage> get values => [collections, flashlightOff, flashlightOn, news, searchengine, showMore];
 }
 
 class Assets {
