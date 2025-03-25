@@ -10,8 +10,11 @@ class RemoteButtonState extends Equatable {
   final Uri uri;
   final String code;
 
-  RemoteButtonState(
-      {required this.title, required this.uri, required this.code});
+  RemoteButtonState({
+    required this.title,
+    required this.uri,
+    required this.code,
+  });
 
   @override
   List<Object?> get props => [title, uri, code];
@@ -26,7 +29,8 @@ class RemoteButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
+      margin: const EdgeInsets.only(
+          left: 16.0, right: 16.0, top: 9.0, bottom: 11.0),
       decoration: BoxDecoration(
         color: AppColors.defaultRed,
         borderRadius: BorderRadius.circular(25),

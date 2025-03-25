@@ -128,19 +128,19 @@ class _MainPageState extends State<MainPage> {
                           })),
                           Column(
                             children: [
-                            TorchButton(
-                              isTorchOn: state.isTorchOn,
-                              onTap: () {
-                                _scanBloc.add(ScanEvent.torchSwitched());
-                              },
-                            )
+                              TorchButton(
+                                isTorchOn: state.isTorchOn,
+                                onTap: () {
+                                  _scanBloc.add(ScanEvent.torchSwitched());
+                                },
+                              )
                             ],
                           )
                         ],
                       ),
                       if (state.remoteButtonState != null)
                         RemoteButton(state.remoteButtonState!, () {
-                                                      _scanBloc.add(ScanEvent.closeRemoteButton());
+                          _scanBloc.add(ScanEvent.closeRemoteButton());
                         })
                     ]);
                   },

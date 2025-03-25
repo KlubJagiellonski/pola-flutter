@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
-import 'package:pola_flutter/pages/scan/remote_button.dart';
 import 'package:pola_flutter/pages/scan/scan_state.dart';
 import 'package:pola_flutter/theme/text_size.dart';
 import 'package:pola_flutter/ui/list_item.dart';
@@ -54,8 +53,6 @@ class CompaniesList extends StatelessWidget {
             ),
           ),
         ),
-        if (state.remoteButtonState != null)
-          RemoteButton(state.remoteButtonState!, onCloseRemoteButtonTap),
       ],
     );
   }
