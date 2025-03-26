@@ -5,6 +5,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
 import 'package:pola_flutter/pages/scan/companies_list.dart';
+import 'package:pola_flutter/pages/scan/remote_button.dart';
 import 'package:pola_flutter/pages/scan/scan_background.dart';
 import 'package:pola_flutter/pages/scan/scan_bloc.dart';
 import 'package:pola_flutter/pages/scan/scan_event.dart';
@@ -115,23 +116,33 @@ class _MainPageState extends State<MainPage> {
                         );
                       });
                     }
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Expanded(
-                            child: CompaniesList(state, listScrollController)),
-                        Column(
-                          children: [
-                            TorchButton(
-                              isTorchOn: state.isTorchOn,
-                              onTap: () {
-                                _scanBloc.add(ScanEvent.torchSwitched());
-                              },
-                            )
-                          ],
-                        )
-                      ],
-                    );
+
+                    return Column(children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Expanded(
+                              child: CompaniesList(state, listScrollController,
+                                  () {
+                            _scanBloc.add(ScanEvent.closeRemoteButton());
+                          })),
+                          Column(
+                            children: [
+                              TorchButton(
+                                isTorchOn: state.isTorchOn,
+                                onTap: () {
+                                  _scanBloc.add(ScanEvent.torchSwitched());
+                                },
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                      if (state.remoteButtonState != null)
+                        RemoteButton(state.remoteButtonState!, () {
+                          _scanBloc.add(ScanEvent.closeRemoteButton());
+                        })
+                    ]);
                   },
                 ),
               ],

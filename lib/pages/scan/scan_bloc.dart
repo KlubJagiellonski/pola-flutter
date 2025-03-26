@@ -5,6 +5,7 @@ import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/data/api_response.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
 import 'package:pola_flutter/models/search_result.dart';
+import 'package:pola_flutter/pages/scan/remote_button.dart';
 import 'package:pola_flutter/pages/scan/scan_event.dart';
 import 'package:pola_flutter/pages/scan/scan_state.dart';
 import 'package:pola_flutter/pages/scan/scan_vibration.dart';
@@ -26,6 +27,7 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
             await _onBarcodeScanned(barcode, emit),
         alertDialogDismissed: () => _onAlertDialogDismissed(emit),
         torchSwitched: () => _onTorchSwitched(emit),
+        closeRemoteButton: () => _onCloseRemoteButton(emit),
       );
     });
   }
@@ -48,7 +50,11 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
       var results = List<SearchResult>.from(state.list);
       results.add(result);
       _analytics.searchResultReceived(result);
-      emit(state.copyWith(list: results, isLoading: false, isError: false));
+      var remoteButtonState = state.remoteButtonState;
+      if (remoteButtonState == null && !state.wasRemoteButtonClosed) {
+          remoteButtonState = result.remoteButton();
+      }
+      emit(state.copyWith(list: results, isLoading: false, isError: false, remoteButtonState: remoteButtonState));
     } else {
       emit(state.copyWith(isLoading: false, isError: true));
     }
@@ -62,5 +68,21 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
 
   _onAlertDialogDismissed(Emitter<ScanState> emit) {
     emit(state.copyWith(isError: false));
+  }
+
+  _onCloseRemoteButton(Emitter<ScanState> emit) {
+    emit(state.copyWith(wasRemoteButtonClosed: true, remoteButtonState: null));
+  }
+}
+
+extension on SearchResult {
+  RemoteButtonState? remoteButton() {
+    final donate = this.donate;
+    final code = this.code;
+    if (code != null && donate != null && donate.showButton) {
+      final uri = Uri.parse(donate.url);
+      return RemoteButtonState(title: donate.title, uri: uri, code: code);
+    }
+    return null;
   }
 }
