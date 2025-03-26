@@ -33,5 +33,14 @@ void main() {
       )).called(1);
     });
 
+    test('searchOpened should send searchOpened event name', () {
+      polaAnalytics.searchOpened();
+
+      verify(mockAnalyticsProvider.logEvent(
+        'search_opened',
+        null
+      )).called(1);
+    });
+
   });
 }
