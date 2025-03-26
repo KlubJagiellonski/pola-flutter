@@ -8,9 +8,11 @@ import 'package:pola_flutter/pages/scan/companies_list.dart';
 import 'package:pola_flutter/pages/scan/scan_background.dart';
 import 'package:pola_flutter/pages/scan/scan_bloc.dart';
 import 'package:pola_flutter/pages/scan/scan_event.dart';
+import 'package:pola_flutter/pages/scan/scan_search_button.dart';
 import 'package:pola_flutter/pages/scan/scan_state.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/pages/scan/scan_vibration.dart';
+import 'package:pola_flutter/pages/scan/torch_button.dart';
 import 'package:pola_flutter/pages/scan/torch_controller.dart';
 import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/colors.dart';
@@ -71,19 +73,14 @@ class _MainPageState extends State<MainPage> {
         children: <Widget>[
           _buildQrView(context),
           SafeArea(
-            child: Column(
-              children: <Widget>[
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: Text(
-                      "Umieść kod kreskowy produktu w prostokącie powyżej aby dowiedzieć się więcej o firmie, która go wyprodukowała.",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
-              ],
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
+              child: Column(
+                children: <Widget>[
+                  ScanSearchButton(analytics: _analytics),
+                ],
+              ),
             ),
           ),
           SafeArea(
@@ -125,19 +122,11 @@ class _MainPageState extends State<MainPage> {
                             child: CompaniesList(state, listScrollController)),
                         Column(
                           children: [
-                            GestureDetector(
+                            TorchButton(
+                              isTorchOn: state.isTorchOn,
                               onTap: () {
                                 _scanBloc.add(ScanEvent.torchSwitched());
-                                cameraController.toggleTorch();
                               },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  boxShadow: [],
-                                ),
-                                child: state.isTorchOn
-                                    ? Assets.scan.flashlightOn.svg()
-                                    : Assets.scan.flashlightOff.svg(),
-                              ),
                             )
                           ],
                         )

@@ -19,6 +19,7 @@ class MenuIconButton extends StatelessWidget {
           backgroundColor: Colors.transparent,
           isScrollControlled: true,
           context: context,
+          useRootNavigator: true,
           builder: (BuildContext context) {
             return MenuBottomSheet(analytics: _analytics);
           }

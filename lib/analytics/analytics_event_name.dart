@@ -11,7 +11,8 @@ enum AnalyticsEventName {
   polasFriends("polas_friends"),
   openGallery("open_gallery"),
   barcodeNotFoundOnPhoto("barcode_not_found_on_photo"),
-  mainTabChanged("main_tab_changed");
+  mainTabChanged("main_tab_changed"),
+  searchOpened("search_opened");
  
   final String name;
 
