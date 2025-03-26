@@ -32,8 +32,8 @@ dependencies:
   firebase_analytics: ^11.1.0
   freezed: ^2.5.2
   freezed_annotation: ^2.4.1
-  slang: ^3.31.1
-  slang_flutter: ^3.31.0
+  slang: ^4.6.0
+  slang_flutter: ^4.6.0
   syncfusion_flutter_gauges: ^26.1.42
   flutter_svg: ^2.0.9
   package_info_plus: ^8.0.2

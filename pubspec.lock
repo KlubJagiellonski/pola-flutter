@@ -430,6 +430,11 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.6.0"
+  flutter_localizations:
+    dependency: transitive
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -945,18 +950,18 @@ packages:
     dependency: "direct main"
     description:
       name: slang
-      sha256: f68f6d6709890f85efabfb0318e9d694be2ebdd333e57fe5cb50eee449e4e3ab
+      sha256: a2422a1a60d17d37bce226467caf2487c975804255e3d2d10bc4078c442b1a8c
       url: "https://pub.dev"
     source: hosted
-    version: "3.31.1"
+    version: "4.6.0"
   slang_flutter:
     dependency: "direct main"
     description:
       name: slang_flutter
-      sha256: f8400292be49c11697d94af58d7f7d054c91af759f41ffe71e4e5413871ffc62
+      sha256: afd0058c027dd8a3ee9aab9dfabb828bd4e6b7207d50896dc5ec02c71d8f8b9f
       url: "https://pub.dev"
     source: hosted
-    version: "3.31.0"
+    version: "4.6.0"
   source_gen:
     dependency: transitive
     description:
