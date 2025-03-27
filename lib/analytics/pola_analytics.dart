@@ -85,6 +85,10 @@ class PolaAnalytics {
     );
   }
 
+  void searchOpened() {
+    _logEvent(AnalyticsEventName.searchOpened, null);
+  }
+
   void _logEvent(AnalyticsEventName name, [Map<String, dynamic>? parameters]) {
     provider.logEvent(name.name, parameters);
   }
