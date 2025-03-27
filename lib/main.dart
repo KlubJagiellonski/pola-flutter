@@ -44,38 +44,32 @@ class _PolaAppState extends State<PolaApp> {
         colorScheme: ColorScheme.light().copyWith(primary: Colors.red),
       ),
       home: DefaultTabController(
-        length: 3,
+        length: 2,
         child: Scaffold(
-          bottomNavigationBar: BottomNavigationBar(
-            items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Assets.scan.searchengine.svg(),
-                label: 'Wyszukaj',
-              ),
-              BottomNavigationBarItem(
-                icon: Assets.scan.news.svg(),
-                label: 'Aktualności',
-              ),
-              BottomNavigationBarItem(
-                icon: Assets.scan.collections.svg(),
-                label: 'Zbiórki',
-              ),
-            ],
-            onTap: _onItemTapped,
-            currentIndex: _selectedIndex,
-          ),
-          body: IndexedStack(
-            index: _selectedIndex,
-            children: _tabs,
-          ),
-        ),
+            bottomNavigationBar: BottomNavigationBar(
+              items: <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Assets.scan.searchengine.svg(),
+                  label: 'Wyszukaj',
+                ),
+                BottomNavigationBarItem(
+                  icon: Assets.scan.news.svg(),
+                  label: 'Aktualności',
+                ),
+              ],
+              onTap: _onItemTapped,
+              currentIndex: _selectedIndex,
+            ),
+            body: IndexedStack(
+              index: _selectedIndex,
+              children: _tabs,
+            )),
       ),
     );
   }
 
   final List<Widget> _tabs = [
     ScanNavigator(),
-    WebViewTab(title: "Wyszukiwarka", url: "https://www.pola-app.pl/m/search/"),
     WebViewTab(title: "Wiadomości", url: "https://www.pola-app.pl/m/blog/")
   ];
 
@@ -84,8 +78,6 @@ class _PolaAppState extends State<PolaApp> {
       case 0:
         return AnalyticsMainTab.scanner;
       case 1:
-        return AnalyticsMainTab.search;
-      case 2:
         return AnalyticsMainTab.news;
       default:
         return AnalyticsMainTab.scanner;

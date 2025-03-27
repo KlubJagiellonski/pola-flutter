@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
-import 'package:pola_flutter/pages/scan/remote_button.dart';
 import 'package:pola_flutter/pages/scan/scan_state.dart';
 import 'package:pola_flutter/theme/text_size.dart';
 import 'package:pola_flutter/ui/list_item.dart';
 import 'dart:math';
 
 class CompaniesList extends StatelessWidget {
-  CompaniesList(this.state, this.listScrollController);
+  CompaniesList(
+      this.state, this.listScrollController, this.onCloseRemoteButtonTap);
 
   final ScanState state;
   final ScrollController listScrollController;
+  final GestureTapCallback onCloseRemoteButtonTap;
   final PolaAnalytics _analytics = PolaAnalytics.instance();
 
   @override
@@ -52,10 +53,6 @@ class CompaniesList extends StatelessWidget {
             ),
           ),
         ),
-        RemoteButton(RemoteButtonState(
-          state.list.firstOrNull?.donate,
-          state.list.firstOrNull?.code,
-        )),
       ],
     );
   }
