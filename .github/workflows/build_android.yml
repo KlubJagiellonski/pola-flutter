@@ -25,10 +25,8 @@ jobs:
               env:
                 DATA: ${{ secrets.GOOGLESERVICES }}
               run: echo $DATA > /home/runner/work/pola-flutter/pola-flutter/android/app/google-services.json
-            - name: Show coded googleservices file
-              run: cat /home/runner/work/pola-flutter/pola-flutter/android/app/google-services.json | base64
             - name: Build apk
-              run: flutter build apk --flavor prod --debug --stacktrace 
+              run: flutter build apk --debug
 #     - uses: "finnp/create-file-action@master" this step doesn't work
 #       env:
 #         FILE_NAME: "/home/runner/work/pola-flutter/pola-flutter/android/app/google-services.json"
