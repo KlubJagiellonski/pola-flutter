@@ -28,6 +28,7 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
         alertDialogDismissed: () => _onAlertDialogDismissed(emit),
         torchSwitched: () => _onTorchSwitched(emit),
         closeRemoteButton: () => _onCloseRemoteButton(emit),
+        resetScannedCompanies: () => _onResetScannedCompanies(emit),
       );
     });
   }
@@ -72,6 +73,10 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
 
   _onCloseRemoteButton(Emitter<ScanState> emit) {
     emit(state.copyWith(wasRemoteButtonClosed: true, remoteButtonState: null));
+  }
+
+  _onResetScannedCompanies(Emitter<ScanState> emit) {
+    emit(state.copyWith(list: []));
   }
 }
 

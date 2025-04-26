@@ -14,6 +14,7 @@ import 'package:pola_flutter/pages/scan/scan_state.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/pages/scan/scan_vibration.dart';
 import 'package:pola_flutter/pages/scan/torch_button.dart';
+import 'package:pola_flutter/pages/scan/reset_button.dart';
 import 'package:pola_flutter/pages/scan/torch_controller.dart';
 import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/colors.dart';
@@ -127,15 +128,21 @@ class _MainPageState extends State<MainPage> {
                             _scanBloc.add(ScanEvent.closeRemoteButton());
                           })),
                           Column(
-                            children: [
-                              TorchButton(
-                                isTorchOn: state.isTorchOn,
-                                onTap: () {
-                                  _scanBloc.add(ScanEvent.torchSwitched());
-                                },
-                              )
-                            ],
-                          )
+  children: [
+    if (state.list.isNotEmpty)
+      ResetButton(
+        onTap: () {
+          _scanBloc.add(ScanEvent.resetScannedCompanies());
+        },
+      ),
+    TorchButton(
+      isTorchOn: state.isTorchOn,
+      onTap: () {
+        _scanBloc.add(ScanEvent.torchSwitched());
+      },
+    ),
+  ],
+)
                         ],
                       ),
                       if (state.remoteButtonState != null)
