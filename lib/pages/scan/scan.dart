@@ -128,21 +128,22 @@ class _MainPageState extends State<MainPage> {
                             _scanBloc.add(ScanEvent.closeRemoteButton());
                           })),
                           Column(
-  children: [
-    if (state.list.isNotEmpty)
-      ResetButton(
-        onTap: () {
-          _scanBloc.add(ScanEvent.resetScannedCompanies());
-        },
-      ),
-    TorchButton(
-      isTorchOn: state.isTorchOn,
-      onTap: () {
-        _scanBloc.add(ScanEvent.torchSwitched());
-      },
-    ),
-  ],
-)
+                            children: [
+                              if (state.list.isNotEmpty)
+                                ResetButton(
+                                  onTap: () {
+                                    _scanBloc
+                                        .add(ScanEvent.resetScannedCompanies());
+                                  },
+                                ),
+                              TorchButton(
+                                isTorchOn: state.isTorchOn,
+                                onTap: () {
+                                  _scanBloc.add(ScanEvent.torchSwitched());
+                                },
+                              ),
+                            ],
+                          )
                         ],
                       ),
                       if (state.remoteButtonState != null)
