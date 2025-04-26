@@ -38,5 +38,10 @@
     },
     "search": {
         "title": "Wyszukiwarka"
+    },
+    "tabs": {
+        "search": "Wyszukaj",
+        "news": "Aktualności"
     }
+
 }

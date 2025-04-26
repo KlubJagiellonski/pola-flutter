@@ -47,14 +47,14 @@ class _PolaAppState extends State<PolaApp> {
         length: 2,
         child: Scaffold(
             bottomNavigationBar: BottomNavigationBar(
-              items: <BottomNavigationBarItem>[
+              items: [
                 BottomNavigationBarItem(
-                  icon: Assets.scan.searchengine.svg(),
-                  label: 'Wyszukaj',
+                  icon: Assets.tabs.searchengine.svg(),
+                  label: t.tabs.search,
                 ),
                 BottomNavigationBarItem(
-                  icon: Assets.scan.news.svg(),
-                  label: 'Aktualności',
+                  icon: Assets.tabs.news.svg(),
+                  label: t.tabs.news,
                 ),
               ],
               onTap: _onItemTapped,
