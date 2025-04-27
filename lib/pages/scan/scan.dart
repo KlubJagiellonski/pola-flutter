@@ -133,7 +133,7 @@ class _MainPageState extends State<MainPage> {
                                 ResetButton(
                                   onTap: () {
                                     _scanBloc
-                                        .add(ScanEvent.resetScannedCompanies());
+                                        .add(ScanEvent.resetScannedCompaniesButton());
                                   },
                                 ),
                               TorchButton(

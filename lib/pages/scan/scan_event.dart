@@ -8,5 +8,5 @@ class ScanEvent with _$ScanEvent {
   const factory ScanEvent.alertDialogDismissed() = AlertDialogDismissed;
   const factory ScanEvent.torchSwitched() = TorchSwitched;
   const factory ScanEvent.closeRemoteButton() = CloseRemoteButton;
-  const factory ScanEvent.resetScannedCompanies() = ResetScannedCompanies;
+  const factory ScanEvent.resetScannedCompaniesButton() = ResetScannedCompaniesButton;
 }

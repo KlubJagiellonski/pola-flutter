@@ -28,7 +28,7 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
         alertDialogDismissed: () => _onAlertDialogDismissed(emit),
         torchSwitched: () => _onTorchSwitched(emit),
         closeRemoteButton: () => _onCloseRemoteButton(emit),
-        resetScannedCompanies: () => _onResetScannedCompanies(emit),
+        resetScannedCompaniesButton: () => _onResetScannedCompanies(emit),
       );
     });
   }

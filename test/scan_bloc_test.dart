@@ -127,6 +127,15 @@ void main() {
       act: (bloc) => bloc.add(ScanEvent.alertDialogDismissed()),
       expect: () => [ScanState(isError: false)],
     );
+
+    blocTest(
+      'emits state with empty list when reset scanned companies button tapped',
+      build: () => _scanBloc(state: ScanState(list: [_testSearchResult])),
+      act: (bloc) => bloc.add(ScanEvent.resetScannedCompaniesButton()),
+      expect: () => [
+        ScanState(list: [])
+      ],
+    );
   });
 }
 
