@@ -59,6 +59,7 @@ flutter:
     - assets/company/
     - assets/navigation/
     - assets/scan/
+    - assets/tabs/
 
   fonts:
     - family: Roboto 

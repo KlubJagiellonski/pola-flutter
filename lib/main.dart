@@ -8,6 +8,7 @@ import 'package:pola_flutter/analytics/analytics_main_tab.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/pages/scan/scan_navigator.dart';
+import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/ui/web_view_tab.dart';
 import 'firebase_options.dart';
 
@@ -46,14 +47,18 @@ class _PolaAppState extends State<PolaApp> {
         length: 2,
         child: Scaffold(
             bottomNavigationBar: BottomNavigationBar(
-              items: const <BottomNavigationBarItem>[
+              items: [
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.smartphone),
-                  label: 'Skaner kodów',
+                  icon: _selectedIndex == 0
+                      ? Assets.tabs.searchBackground.svg()
+                      : Assets.tabs.search.svg(),
+                  label: t.tabs.search,
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.newspaper),
-                  label: 'Wiadomości',
+                  icon: _selectedIndex == 1
+                      ? Assets.tabs.newsBackground.svg()
+                      : Assets.tabs.news.svg(),
+                  label: t.tabs.news,
                 ),
               ],
               onTap: _onItemTapped,
