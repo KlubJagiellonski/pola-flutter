@@ -50,8 +50,8 @@ class _PolaAppState extends State<PolaApp> {
               items: [
                 BottomNavigationBarItem(
                   icon: _selectedIndex == 0
-                      ? Assets.tabs.searchEngineBackground.svg()
-                      : Assets.tabs.searchEngine.svg(),
+                      ? Assets.tabs.searchBackground.svg()
+                      : Assets.tabs.search.svg(),
                   label: t.tabs.search,
                 ),
                 BottomNavigationBarItem(
