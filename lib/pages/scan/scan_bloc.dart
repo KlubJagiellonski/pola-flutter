@@ -28,6 +28,7 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
         alertDialogDismissed: () => _onAlertDialogDismissed(emit),
         torchSwitched: () => _onTorchSwitched(emit),
         closeRemoteButton: () => _onCloseRemoteButton(emit),
+        resetScannedCompaniesButton: () => _onResetScannedCompanies(emit),
       );
     });
   }
@@ -52,9 +53,13 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
       _analytics.searchResultReceived(result);
       var remoteButtonState = state.remoteButtonState;
       if (remoteButtonState == null && !state.wasRemoteButtonClosed) {
-          remoteButtonState = result.remoteButton();
+        remoteButtonState = result.remoteButton();
       }
-      emit(state.copyWith(list: results, isLoading: false, isError: false, remoteButtonState: remoteButtonState));
+      emit(state.copyWith(
+          list: results,
+          isLoading: false,
+          isError: false,
+          remoteButtonState: remoteButtonState));
     } else {
       emit(state.copyWith(isLoading: false, isError: true));
     }
@@ -72,6 +77,10 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
 
   _onCloseRemoteButton(Emitter<ScanState> emit) {
     emit(state.copyWith(wasRemoteButtonClosed: true, remoteButtonState: null));
+  }
+
+  _onResetScannedCompanies(Emitter<ScanState> emit) {
+    emit(state.copyWith(list: []));
   }
 }
 
