@@ -30,7 +30,7 @@ jobs:
                 echo "Checking build.gradle content:"
                 cat android/app/build.gradle
             - name: Build apk
-              run: flutter build apk --flavor prod --debug --verbose
+              run: flutter build apk --debug --verbose
 #     - uses: "finnp/create-file-action@master" this step doesn't work
 #       env:
 #         FILE_NAME: "/home/runner/work/pola-flutter/pola-flutter/android/app/google-services.json"
