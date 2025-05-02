@@ -29,11 +29,6 @@ jobs:
               run: |
                 echo "Checking build.gradle content:"
                 cat android/app/build.gradle
-            - name: Check Gradle tasks
-              run: |
-                cd android
-                chmod +x ./gradlew
-                ./gradlew tasks --group="build"
             - name: Build apk
               run: flutter build apk --flavor prod --debug --verbose
 #     - uses: "finnp/create-file-action@master" this step doesn't work
