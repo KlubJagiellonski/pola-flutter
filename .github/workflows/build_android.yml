@@ -25,6 +25,15 @@ jobs:
               env:
                 DATA: ${{ secrets.GOOGLESERVICES }}
               run: echo $DATA > /home/runner/work/pola-flutter/pola-flutter/android/app/google-services.json
+            - name: Debug build configuration
+              run: |
+                echo "Checking build.gradle content:"
+                cat android/app/build.gradle
+            - name: Check Gradle tasks
+              run: |
+                cd android
+                chmod +x ./gradlew
+                ./gradlew tasks --group="build"
             - name: Build apk
               run: flutter build apk --flavor prod --debug --verbose
 #     - uses: "finnp/create-file-action@master" this step doesn't work
