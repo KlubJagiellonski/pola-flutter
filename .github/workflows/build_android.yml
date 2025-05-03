@@ -51,7 +51,7 @@ jobs:
                   --groups "QA-Group" \
                   --release-notes "Automatyczny build z GitHub Actions - commit: ${{ github.sha }}"
             - name: Upload QA APK as artifact
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v2
               with:
                 name: app-qa-debug
                 path: build/app/outputs/flutter-apk/app-qa-debug.apk
