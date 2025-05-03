@@ -50,8 +50,8 @@ jobs:
                   --token $FIREBASE_TOKEN \
                   --groups "QA-Group" \
                   --release-notes "Automatyczny build z GitHub Actions - commit: ${{ github.sha }}"
-            - name: Upload QA APK as artifact
-              uses: actions/upload-artifact@v3
-              with:
-                name: app-qa-debug
-                path: build/app/outputs/flutter-apk/app-qa-debug.apk
+            - name: Archive qa APK
+              run: |
+                mkdir -p /tmp/artifacts
+                cp build/app/outputs/flutter-apk/app-qa-debug.apk /tmp/artifacts/
+                  echo "::set-output name=artifact_path::/tmp/artifacts/app-qa-debug.apk"    
