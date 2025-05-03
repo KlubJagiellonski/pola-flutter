@@ -4,6 +4,10 @@ on:
   push:
   pull_request:
 
+permissions:
+  contents: read
+  actions: write
+
 jobs:
     build_android:
         runs-on: ubuntu-latest
@@ -32,7 +36,7 @@ jobs:
             - name: Build prod apk
               run: flutter build apk --flavor prod --debug --verbose
             - name: Upload PROD APK as artifact
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-artifact@v3
               with:
                 name: app-prod-debug
                 path: build/app/outputs/flutter-apk/app-prod-debug.apk
@@ -51,7 +55,7 @@ jobs:
                   --groups "QA-Group" \
                   --release-notes "Automatyczny build z GitHub Actions - commit: ${{ github.sha }}"
             - name: Upload QA APK as artifact
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-artifact@v3
               with:
                 name: app-qa-debug
                 path: build/app/outputs/flutter-apk/app-qa-debug.apk
