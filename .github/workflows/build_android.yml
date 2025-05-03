@@ -4,10 +4,6 @@ on:
   push:
   pull_request:
 
-permissions:
-  contents: read
-  actions: write
-
 jobs:
     build_android:
         runs-on: ubuntu-latest
@@ -35,11 +31,11 @@ jobs:
                 cat android/app/build.gradle
             - name: Build prod apk
               run: flutter build apk --flavor prod --debug --verbose
-            - name: Upload PROD APK as artifact
-              uses: actions/upload-artifact@v3
-              with:
-                name: app-prod-debug
-                path: build/app/outputs/flutter-apk/app-prod-debug.apk
+            - name: Archive prod APK
+              run: |
+                mkdir -p /tmp/artifacts
+                cp build/app/outputs/flutter-apk/app-prod-debug.apk /tmp/artifacts/
+                echo "::set-output name=artifact_path::/tmp/artifacts/app-prod-debug.apk"
             - name: Build QA APK
               run: flutter build apk --flavor qa --debug --verbose
             - name: Install Firebase CLI
