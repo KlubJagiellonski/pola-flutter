@@ -1,0 +1,80 @@
+name: Bump App Version
+
+on:
+  # Dodaj wyzwalacz dla pushy do feature/redesign
+  push:
+    branches:
+      - feature/redesign
+  
+  # Zachowaj istniejącą konfigurację workflow_call
+  workflow_call:
+    inputs:
+      branch_name:
+        required: true
+        type: string
+        description: 'Branch name that triggered the workflow'
+    outputs:
+      new_version:
+        description: "The new version number"
+        value: ${{ jobs.bump_version.outputs.new_version }}
+
+jobs:
+  bump_version:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Potrzebne uprawnienia do pushowania zmian
+    outputs:
+      new_version: ${{ steps.increment_version.outputs.new_version }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Pełna historia git jest potrzebna
+          # Użyj odpowiedniego brancha
+          ref: ${{ inputs.branch_name || github.ref }}
+
+      - name: Skip if auto commit
+        id: skip_check
+        run: |
+          # Sprawdź, czy commit jest automatycznym committem zwiększającym wersję
+          COMMIT_MSG=$(git log -1 --pretty=%B)
+          if [[ "$COMMIT_MSG" == *"Automatyczne zwiększenie wersji"* ]] || [[ "$COMMIT_MSG" == *"[skip ci]"* ]]; then
+            echo "Skipping version bump - automatic commit detected"
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup Git
+        if: steps.skip_check.outputs.skip == 'false'
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+      
+      - name: Increment build number
+        if: steps.skip_check.outputs.skip == 'false'
+        id: increment_version
+        run: |
+          # Pobierz aktualną wersję z pubspec.yaml
+          VERSION=$(grep 'version:' pubspec.yaml | sed -E 's/version: ([0-9]+\.[0-9]+\.[0-9]+)\+([0-9]+)/\1/')
+          BUILD_NUMBER=$(grep 'version:' pubspec.yaml | sed -E 's/version: ([0-9]+\.[0-9]+\.[0-9]+)\+([0-9]+)/\2/')
+          
+          # Zwiększ build number
+          NEW_BUILD_NUMBER=$((BUILD_NUMBER + 1))
+          
+          # Utwórz nową wersję
+          NEW_VERSION="${VERSION}+${NEW_BUILD_NUMBER}"
+          echo "New version: $NEW_VERSION"
+          
+          # Zaktualizuj pubspec.yaml
+          sed -i "s/version: [0-9]\+\.[0-9]\+\.[0-9]\+\+[0-9]\+/version: $NEW_VERSION/" pubspec.yaml
+          
+          # Zapisz nową wersję jako output
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+      
+      - name: Commit version bump
+        if: steps.skip_check.outputs.skip == 'false'
+        run: |
+          git add pubspec.yaml
+          git commit -m "Automatyczne zwiększenie wersji do ${{ steps.increment_version.outputs.new_version }} [skip ci]"
+          git push
