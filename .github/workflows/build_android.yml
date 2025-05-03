@@ -29,5 +29,29 @@ jobs:
               run: |
                 echo "Checking build.gradle content:"
                 cat android/app/build.gradle
-            - name: Build apk
+            - name: Build prod apk
               run: flutter build apk --flavor prod --debug --verbose
+            - name: Upload PROD APK as artifact
+              uses: actions/upload-artifact@v3
+              with:
+                name: app-prod-debug
+                path: build/app/outputs/flutter-apk/app-prod-debug.apk
+            - name: Build QA APK
+              run: flutter build apk --flavor qa --debug --verbose
+            - name: Install Firebase CLI
+              run: npm install -g firebase-tools        
+            - name: Deploy QA to Firebase App Distribution
+              env:
+                FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+                FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+              run: |
+                firebase appdistribution:distribute build/app/outputs/flutter-apk/app-qa-debug.apk \
+                  --app $FIREBASE_APP_ID \
+                  --token $FIREBASE_TOKEN \
+                  --groups "QA-Group" \
+                  --release-notes "Automatyczny build z GitHub Actions - commit: ${{ github.sha }}"
+            - name: Upload QA APK as artifact
+              uses: actions/upload-artifact@v3
+              with:
+                name: app-qa-debug
+                path: build/app/outputs/flutter-apk/app-qa-debug.apk
