@@ -197,7 +197,7 @@ class _MainPageState extends State<MainPage>
     final scanAreaTop =
         MediaQuery.of(context).size.height / 2 - scanAreaSize / 2;
 
-    final laserTopLimit = scanAreaTop + 15;
+    final laserTopLimit = scanAreaTop + 16;
     final laserBottomLimit = scanAreaTop + scanAreaSize - 85;
 
     return Stack(
