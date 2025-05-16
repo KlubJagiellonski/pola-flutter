@@ -27,19 +27,42 @@ class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _MainPageState extends State<MainPage>
+    with SingleTickerProviderStateMixin {
   late ScanBloc _scanBloc;
   MobileScannerController cameraController =
       MobileScannerController(detectionSpeed: DetectionSpeed.normal);
   final PolaAnalytics _analytics = PolaAnalytics.instance();
-
   ScrollController listScrollController = ScrollController();
+
+  late AnimationController _animationController;
+  late Animation<double> _animation;
 
   @override
   void initState() {
     super.initState();
-    _scanBloc = ScanBloc(PolaApiRepository(), ScanVibrationImpl(), _analytics,
-        TorchControllerImpl(cameraController: cameraController));
+    _scanBloc = ScanBloc(
+      PolaApiRepository(),
+      ScanVibrationImpl(),
+      _analytics,
+      TorchControllerImpl(cameraController: cameraController),
+    );
+
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    )..repeat(reverse: true);
+
+    _animation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    cameraController.dispose();
+    super.dispose();
   }
 
   @override
@@ -52,9 +75,10 @@ class _MainPageState extends State<MainPage> {
           onPressed: () {
             _analytics.aboutPolaOpened();
             showWebViewDialog(
-                context: context,
-                url: "https://www.pola-app.pl/m/about",
-                title: t.menu.aboutPola);
+              context: context,
+              url: "https://www.pola-app.pl/m/about",
+              title: t.menu.aboutPola,
+            );
           },
           icon: Assets.icLauncher.image(),
         ),
@@ -118,39 +142,45 @@ class _MainPageState extends State<MainPage> {
                       });
                     }
 
-                    return Column(children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Expanded(
-                              child: CompaniesList(state, listScrollController,
-                                  () {
-                            _scanBloc.add(ScanEvent.closeRemoteButton());
-                          })),
-                          Column(
-                            children: [
-                              if (state.list.isNotEmpty)
-                                ResetButton(
-                                  onTap: () {
-                                    _scanBloc
-                                        .add(ScanEvent.resetScannedCompaniesButton());
-                                  },
-                                ),
-                              TorchButton(
-                                isTorchOn: state.isTorchOn,
-                                onTap: () {
-                                  _scanBloc.add(ScanEvent.torchSwitched());
+                    return Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Expanded(
+                              child: CompaniesList(
+                                state,
+                                listScrollController,
+                                () {
+                                  _scanBloc.add(ScanEvent.closeRemoteButton());
                                 },
                               ),
-                            ],
-                          )
-                        ],
-                      ),
-                      if (state.remoteButtonState != null)
-                        RemoteButton(state.remoteButtonState!, () {
-                          _scanBloc.add(ScanEvent.closeRemoteButton());
-                        })
-                    ]);
+                            ),
+                            Column(
+                              children: [
+                                if (state.list.isNotEmpty)
+                                  ResetButton(
+                                    onTap: () {
+                                      _scanBloc.add(ScanEvent
+                                          .resetScannedCompaniesButton());
+                                    },
+                                  ),
+                                TorchButton(
+                                  isTorchOn: state.isTorchOn,
+                                  onTap: () {
+                                    _scanBloc.add(ScanEvent.torchSwitched());
+                                  },
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                        if (state.remoteButtonState != null)
+                          RemoteButton(state.remoteButtonState!, () {
+                            _scanBloc.add(ScanEvent.closeRemoteButton());
+                          }),
+                      ],
+                    );
                   },
                 ),
               ],
@@ -163,6 +193,13 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _buildQrView(BuildContext context) {
+    final scanAreaSize = 250.0;
+    final scanAreaTop =
+        MediaQuery.of(context).size.height / 2 - scanAreaSize / 2;
+
+    final laserTopLimit = scanAreaTop + 15;
+    final laserBottomLimit = scanAreaTop + scanAreaSize - 85;
+
     return Stack(
       children: [
         Positioned.fill(
@@ -179,13 +216,26 @@ class _MainPageState extends State<MainPage> {
           ),
         ),
         ScanBackground(),
+        AnimatedBuilder(
+          animation: _animation,
+          builder: (context, child) {
+            final laserTop = laserTopLimit +
+                _animation.value * (laserBottomLimit - laserTopLimit);
+            return Positioned(
+              top: laserTop,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: Container(
+                  width: 250,
+                  height: 2,
+                  color: AppColors.defaultRed,
+                ),
+              ),
+            );
+          },
+        ),
       ],
     );
-  }
-
-  @override
-  void dispose() {
-    cameraController.dispose();
-    super.dispose();
   }
 }
