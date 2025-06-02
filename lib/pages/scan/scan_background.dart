@@ -66,7 +66,7 @@ class _ScanBackgroundState extends State<ScanBackground>
               right: 0,
               child: Center(
                 child: Container(
-                  width: 250,
+                  width: scanAreaSize,
                   height: 2,
                   color: AppColors.defaultRed,
                 ),
@@ -98,7 +98,7 @@ class _BlackOpacity extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        color: AppColors.text.withOpacity(0.7),
+        color: AppColors.text.withValues(alpha: 0.7),
       ),
     );
   }
