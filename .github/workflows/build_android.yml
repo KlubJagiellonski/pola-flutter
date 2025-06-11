@@ -30,6 +30,8 @@ jobs:
                 DATA: ${{ secrets.GOOGLESERVICES }}
               run: echo $DATA > /home/runner/work/pola-flutter/pola-flutter/android/app/google-services.json
             - name: Build apk
+              env:
+                GRADLE_OPTS: "-Xmx4g -XX:MaxPermSize=512m -Dorg.gradle.jvmargs=-Xmx4g"
               run: flutter build apk --debug  
 #     - uses: "finnp/create-file-action@master" this step doesn't work
 #       env:
