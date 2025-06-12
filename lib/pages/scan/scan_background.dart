@@ -2,13 +2,64 @@ import 'package:flutter/material.dart';
 import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/colors.dart';
 
-class ScanBackground extends StatefulWidget {
+const double _rectangleHeight = 187.0;
+
+class ScanBackground extends StatelessWidget {
   @override
-  State<ScanBackground> createState() => _ScanBackgroundState();
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        _BlackOpacity(),
+        Row(
+          children: [
+            _SizedBlackOpacity(),
+            _RedRectangle(),
+            _SizedBlackOpacity(),
+          ],
+        ),
+        _BlackOpacity(),
+      ],
+    );
+  }
 }
 
-class _ScanBackgroundState extends State<ScanBackground>
+class _SizedBlackOpacity extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: SizedBox(
+        height: _rectangleHeight,
+        child: _BlackContainer(),
+      ),
+    );
+  }
+}
+
+class _BlackOpacity extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(child: _BlackContainer());
+  }
+}
+
+class _BlackContainer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: AppColors.text.withValues(alpha: 0.7),
+    );
+  }
+}
+
+class _RedRectangle extends StatefulWidget {
+  @override
+  State<_RedRectangle> createState() => _RedRectangleState();
+}
+
+class _RedRectangleState extends State<_RedRectangle>
     with SingleTickerProviderStateMixin {
+  static const double _verticalMargin = 16.0;
+
   late AnimationController _animationController;
   late Animation<double> _animation;
 
@@ -33,40 +84,20 @@ class _ScanBackgroundState extends State<ScanBackground>
 
   @override
   Widget build(BuildContext context) {
-    final scanAreaSize = 250.0;
-    final screenHeight = MediaQuery.of(context).size.height;
-    final scanAreaTop = screenHeight / 2 - scanAreaSize / 2;
-
-    final laserTopLimit = scanAreaTop + 16;
-    final laserBottomLimit = scanAreaTop + scanAreaSize - 85;
-
     return Stack(
       children: [
-        Column(
-          children: [
-            _BlackOpacity(),
-            Row(
-              children: [
-                _SizedBlackOpacity(),
-                _RedRectangle(),
-                _SizedBlackOpacity(),
-              ],
-            ),
-            _BlackOpacity(),
-          ],
-        ),
+        Assets.menuPage.rectangle.svg(),
         AnimatedBuilder(
           animation: _animation,
           builder: (context, child) {
-            final laserTop = laserTopLimit +
-                _animation.value * (laserBottomLimit - laserTopLimit);
+            final laserTop = _verticalMargin +
+                _animation.value * (_rectangleHeight - _verticalMargin * 2);
             return Positioned(
               top: laserTop,
               left: 0,
               right: 0,
               child: Center(
                 child: Container(
-                  width: scanAreaSize,
                   height: 2,
                   color: AppColors.defaultRed,
                 ),
@@ -76,37 +107,5 @@ class _ScanBackgroundState extends State<ScanBackground>
         ),
       ],
     );
-  }
-}
-
-class _SizedBlackOpacity extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: SizedBox(
-        height: 187,
-        child: Container(
-          color: AppColors.text.withValues(alpha: 0.7),
-        ),
-      ),
-    );
-  }
-}
-
-class _BlackOpacity extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        color: AppColors.text.withValues(alpha: 0.7),
-      ),
-    );
-  }
-}
-
-class _RedRectangle extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Assets.menuPage.rectangle.svg();
   }
 }
