@@ -25,6 +25,18 @@ jobs:
               env:
                 DATA: ${{ secrets.GOOGLESERVICES }}
               run: echo $DATA > /home/runner/work/pola-flutter/pola-flutter/android/app/google-services.json
+            - name: Update build number
+              run: |
+                # Pobierz numer run z GitHub Actions
+                BUILD_NUMBER=${{ github.run_number }}
+                echo "Setting build number to: $BUILD_NUMBER"
+                
+                # Aktualizuj pubspec.yaml z nowym numerem builda
+                sed -i "s/version: 2.0.8+[0-9]*/version: 2.0.8+$BUILD_NUMBER/" pubspec.yaml
+                
+                # Wyświetl zaktualizowany pubspec.yaml dla weryfikacji
+                echo "Updated pubspec.yaml:"
+                grep "version:" pubspec.yaml
             - name: Debug build configuration
               run: |
                 echo "Checking build.gradle content:"
@@ -49,7 +61,7 @@ jobs:
                   --app $FIREBASE_APP_ID \
                   --token $FIREBASE_TOKEN \
                   --groups "QA-Group" \
-                  --release-notes "Automatyczny build z GitHub Actions - commit: ${{ github.sha }}"
+                  --release-notes "Automatyczny build z GitHub Actions - commit: ${{ github.sha }} - build: ${{ github.run_number }}"
             - name: Archive qa APK
               run: |
                 mkdir -p /tmp/artifacts
