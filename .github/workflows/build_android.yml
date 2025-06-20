@@ -25,31 +25,19 @@ jobs:
               env:
                 DATA: ${{ secrets.GOOGLESERVICES }}
               run: echo $DATA > /home/runner/work/pola-flutter/pola-flutter/android/app/google-services.json
-            - name: Update build number
-              run: |
-                # Pobierz numer run z GitHub Actions
-                BUILD_NUMBER=${{ github.run_number }}
-                echo "Setting build number to: $BUILD_NUMBER"
-                
-                # Aktualizuj pubspec.yaml z nowym numerem builda
-                sed -i "s/version: 2.0.8+[0-9]*/version: 2.0.8+$BUILD_NUMBER/" pubspec.yaml
-                
-                # Wyświetl zaktualizowany pubspec.yaml dla weryfikacji
-                echo "Updated pubspec.yaml:"
-                grep "version:" pubspec.yaml
             - name: Debug build configuration
               run: |
                 echo "Checking build.gradle content:"
                 cat android/app/build.gradle
             - name: Build prod apk
-              run: flutter build apk --flavor prod --debug --verbose
+              run: flutter build apk --flavor prod --debug --verbose --build-number=${{ github.run_number }}
             - name: Archive prod APK
               run: |
                 mkdir -p /tmp/artifacts
                 cp build/app/outputs/flutter-apk/app-prod-debug.apk /tmp/artifacts/
                 echo "::set-output name=artifact_path::/tmp/artifacts/app-prod-debug.apk"
             - name: Build QA APK
-              run: flutter build apk --flavor qa --debug --verbose
+              run: flutter build apk --flavor qa --debug --verbose --build-number=${{ github.run_number }}
             - name: Install Firebase CLI
               run: npm install -g firebase-tools        
             - name: Deploy QA to Firebase App Distribution
