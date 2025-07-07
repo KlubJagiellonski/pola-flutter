@@ -30,17 +30,17 @@ jobs:
                 echo "Checking build.gradle content:"
                 cat android/app/build.gradle
             - name: Build prod apk
-              run: flutter build apk --flavor prod --debug --verbose
-            - name: Archive prod APK
-              run: |
-                mkdir -p /tmp/artifacts
-                cp build/app/outputs/flutter-apk/app-prod-debug.apk /tmp/artifacts/
-                echo "::set-output name=artifact_path::/tmp/artifacts/app-prod-debug.apk"
+              run: flutter build apk --flavor prod --debug --verbose --build-number=${{ github.run_number }}
+            - uses: actions/upload-artifact@v4
+              with:
+                name: app-prod-debug.apk
+                path: build/app/outputs/flutter-apk/app-prod-debug.apk
             - name: Build QA APK
-              run: flutter build apk --flavor qa --debug --verbose
+              run: flutter build apk --flavor qa --debug --verbose --build-number=${{ github.run_number }}
             - name: Install Firebase CLI
               run: npm install -g firebase-tools        
             - name: Deploy QA to Firebase App Distribution
+              if: github.ref == 'refs/heads/main'
               env:
                 FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
                 FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
@@ -50,8 +50,7 @@ jobs:
                   --token $FIREBASE_TOKEN \
                   --groups "QA-Group" \
                   --release-notes "Automatyczny build z GitHub Actions - commit: ${{ github.sha }}"
-            - name: Archive qa APK
-              run: |
-                mkdir -p /tmp/artifacts
-                cp build/app/outputs/flutter-apk/app-qa-debug.apk /tmp/artifacts/
-                  echo "::set-output name=artifact_path::/tmp/artifacts/app-qa-debug.apk"    
+            - uses: actions/upload-artifact@v4
+              with:
+                name: app-qa-debug.apk
+                path: build/app/outputs/flutter-apk/app-qa-debug.apk
