@@ -48,7 +48,7 @@ android {
         ndk {
             abiFilters 'arm64-v8a', 'x86_64'
         }
-        
+
     }
 
     compileOptions {
@@ -58,6 +58,22 @@ android {
 
     kotlinOptions {
         jvmTarget = '17'
+    }
+
+    flavorDimensions "version"
+    productFlavors {
+        prod {
+            dimension "version"
+            applicationId "pl.pola_app"
+            versionNameSuffix "-prod"
+            resValue "string", "app_name", "Pola App"
+        }
+        qa {
+            dimension "version"
+            applicationId "pl.pola_app.qa"
+            versionNameSuffix "-qa"
+            resValue "string", "app_name", "Pola App QA"
+        }
     }
 
     lintOptions {
