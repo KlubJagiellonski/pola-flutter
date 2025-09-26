@@ -65,6 +65,7 @@ class _DetailContent extends StatelessWidget {
           child: Text(searchResult.altText ?? ""));
     }
     final company = searchResult.companies!.first;
+    final reportText = searchResult.report?.text;
     return Column(
       children: [
         Padding(
@@ -91,6 +92,9 @@ class _DetailContent extends StatelessWidget {
         Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(company.description ?? "")),
+        if (reportText != null && reportText.isNotEmpty)
+          Padding(
+              padding: EdgeInsets.all(8.0), child: Text(reportText)),
         _DetailCompanyLogotype(company.logotypeUrl),
         _BrandLogotypes(searchResult.allCompanyBrands),
         _ReadMoreButton(searchResult)
