@@ -91,10 +91,54 @@ class _DetailContent extends StatelessWidget {
         Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(company.description ?? "")),
+        _ReplacementsText(searchResult),
         _DetailCompanyLogotype(company.logotypeUrl),
         _BrandLogotypes(searchResult.allCompanyBrands),
         _ReadMoreButton(searchResult)
       ],
+    );
+  }
+}
+
+class _ReplacementsText extends StatelessWidget {
+  final SearchResult searchResult;
+  const _ReplacementsText(this.searchResult, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final replacements = searchResult.replacements;
+    if (replacements == null || replacements.isEmpty) {
+      return SizedBox.shrink();
+    }
+
+    final text = replacements
+        .map((r) {
+          final name = r.name ?? '';
+          final companyDisplay = r.displayName ?? r.company ?? '';
+          if (name.isEmpty && companyDisplay.isEmpty) return null;
+          return "$name ($companyDisplay)".trim();
+        })
+        .whereType<String>()
+        .where((s) => s.isNotEmpty)
+        .join(", ");
+
+    if (text.isEmpty) {
+      return SizedBox.shrink();
+    }
+
+    return Padding(
+      padding: EdgeInsets.all(8.0),
+      child: RichText(
+        text: TextSpan(
+          style: DefaultTextStyle.of(context).style,
+          children: [
+            TextSpan(
+                text: 'Polskie zamienniki: ',
+                style: TextStyle(fontWeight: FontWeight.bold)),
+            TextSpan(text: text),
+          ],
+        ),
+      ),
     );
   }
 }
