@@ -18,23 +18,41 @@ jobs:
               uses: subosito/flutter-action@v2
               with:
                 channel: 'stable'
-                cache: true # Speed up the process
+                cache: true
             - name: Get dependencies
               run: flutter pub get  
             - run: dart run build_runner build
             - run: dart run slang
-            - name: Create googleservices file
-              run: cat /home/runner/work/pola-flutter/pola-flutter/android/app/google-services.json | base64
             - name: Putting secret data
               env:
                 DATA: ${{ secrets.GOOGLESERVICES }}
               run: echo $DATA > /home/runner/work/pola-flutter/pola-flutter/android/app/google-services.json
-            - name: Build apk
+            - name: Debug build configuration
+              run: |
+                echo "Checking build.gradle content:"
+                cat android/app/build.gradle
+            - name: Build prod apk
+              run: flutter build apk --flavor prod --debug --verbose --build-number=${{ github.run_number }}
+            - uses: actions/upload-artifact@v4
+              with:
+                name: app-prod-debug.apk
+                path: build/app/outputs/flutter-apk/app-prod-debug.apk
+            - name: Build QA APK
+              run: flutter build apk --flavor qa --debug --verbose --build-number=${{ github.run_number }}
+            - name: Install Firebase CLI
+              run: npm install -g firebase-tools        
+            - name: Deploy QA to Firebase App Distribution
+              if: github.ref == 'refs/heads/main'
               env:
-                GRADLE_OPTS: "-Xmx4g -Dorg.gradle.jvmargs=-Xmx4g"
-              run: flutter build apk --debug  
-#     - uses: "finnp/create-file-action@master" this step doesn't work
-#       env:
-#         FILE_NAME: "/home/runner/work/pola-flutter/pola-flutter/android/app/google-services.json"
-#         FILE_BASE64: ${{ secrets.GOOGLESERVICES }}
-#     - run: flutter build apk --debug
+                FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+                FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+              run: |
+                firebase appdistribution:distribute build/app/outputs/flutter-apk/app-qa-debug.apk \
+                  --app $FIREBASE_APP_ID \
+                  --token $FIREBASE_TOKEN \
+                  --groups "QA-Group" \
+                  --release-notes "Automatyczny build z GitHub Actions - commit: ${{ github.sha }}"
+            - uses: actions/upload-artifact@v4
+              with:
+                name: app-qa-debug.apk
+                path: build/app/outputs/flutter-apk/app-qa-debug.apk
