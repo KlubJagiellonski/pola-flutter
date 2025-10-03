@@ -1,0 +1,47 @@
+{
+    "menu": {
+        "aboutPola": "O aplikacji Pola",
+        "aboutClub": " O Klubie Jagielońskim",
+        "instruction": "Jak oceniamy Firmy",
+        "partners": "Partnerzy",
+        "polasFriends": "Przyjaciele Poli",
+        "rateUS": "Oceń Polę",
+        "team": "Zespół",
+        "findUs": "Znajdź nas tutaj",
+        "footer": "Aplikacja Pola \n© Klub Jagielloński"
+    },
+    "companyScreen": {
+        "ourRating": "Nasza ocena:",
+        "gradingCriteria": "Kryteria oceniania:",
+        "polishCapital": "Polski kapitał",
+        "producedInPoland": "Produkuje w Polsce",
+        "researchInPoland": "Prowadzi badania w Polsce",
+        "registeredInPoland": "Zarejestrowana w Polsce",
+        "notConcernPart":"Nie jest częścią zagranicznego koncernu",
+        "seeMore":" zobacz więcej",
+        "seeLess":" zobacz mniej",
+        "points":"$score pkt",
+        "companyFriend": " Ta firma jest przyjacielem Poli",
+        "polaFriends": "Przyjaciele Poli",
+        "companyUnverified": "Niestety, ta firma nie została jeszcze zweryfikowana, więc nie możemy wyświetlić jej oceny. Stale rozszerzamy naszą bazę, aby uwzględnić więcej firm.",
+        "thankYou": "Dziękujemy za cierpliwość!"
+    },
+    "scan": {
+        "scanning": "Skanowanie",
+        "tryAgain": "Niestety nie udało się pobrać danych. Spróbuj ponownie.",
+        "pkt":" pkt",
+        "wait": "Proszę czekać, trwa Ładowanie...",
+        "lastScans": "Ostatnie skany:",
+        "error": "Wystąpił błąd",
+        "closeError": "Zamknij.",
+        "search": "Wyszukaj"
+    },
+    "search": {
+        "title": "Wyszukiwarka"
+    },
+    "tabs": {
+        "search": "Wyszukaj",
+        "news": "Aktualności"
+    }
+
+}

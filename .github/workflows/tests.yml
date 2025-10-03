@@ -17,5 +17,7 @@ jobs:
         channel: 'stable'
         cache: true
     - run: flutter pub get
+    - run: dart run build_runner build
+    - run: dart run slang
     - run: flutter analyze
     - run: flutter test

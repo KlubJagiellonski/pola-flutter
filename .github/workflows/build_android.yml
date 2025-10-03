@@ -21,6 +21,8 @@ jobs:
                 cache: true
             - name: Get dependencies
               run: flutter pub get  
+            - run: dart run build_runner build
+            - run: dart run slang
             - name: Putting secret data
               env:
                 DATA: ${{ secrets.GOOGLESERVICES }}
