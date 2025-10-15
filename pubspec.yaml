@@ -25,7 +25,7 @@ dependencies:
   shared_preferences: ^2.0.6
   firebase_core: ^3.1.1
   firebase_crashlytics: ^4.0.2
-  firebase_messaging: ^15.0.2
+  firebase_messaging: ^15.2.10
   url_launcher: ^6.3.1
   url_launcher_ios: ^6.3.2
   vibration: ^3.1.3
