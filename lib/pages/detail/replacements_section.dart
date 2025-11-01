@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/models/replacement.dart';
+import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/fonts.gen.dart';
 import 'package:pola_flutter/theme/text_size.dart';
@@ -65,7 +66,8 @@ class _ReplacementCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-             Text(
+            Expanded(
+              child: Text(
                 replacement.displayName.isNotEmpty ? replacement.displayName : replacement.name,
                 style: TextStyle(
                   fontSize: TextSize.description,
@@ -76,19 +78,32 @@ class _ReplacementCard extends StatelessWidget {
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
               ),
-            const SizedBox(height: 1.0),
-            Expanded(
-              child:Text(
-              replacement.company,
-              style: TextStyle(
-                fontSize: 9.0,
-                fontWeight: FontWeight.w400,
-                fontFamily: FontFamily.lato,
-                color: AppColors.inactive,
-              ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
             ),
+            const SizedBox(height: 1.0),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Text(
+                    replacement.company,
+                    style: TextStyle(
+                      fontSize: 9.0,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: FontFamily.lato,
+                      color: AppColors.inactive,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                if (replacement.isFriend) ...[
+                  const SizedBox(width: 4.0),
+                  Assets.company.heart.svg(
+                    width: 16.0,
+                    height: 16.0,
+                  ),
+                ],
+              ],
             ),
           ],
         ),
