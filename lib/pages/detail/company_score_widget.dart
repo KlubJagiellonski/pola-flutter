@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
+import 'package:pola_flutter/models/replacement.dart';
 import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/fonts.gen.dart';
 import 'package:pola_flutter/theme/text_size.dart';
 import 'polish_capital_graph.dart';
+import 'replacements_section.dart';
 
 class CompanyScoreData {
   final double plCapital;
@@ -25,8 +27,9 @@ class CompanyScoreData {
 
 class CompanyScoreWidget extends StatelessWidget {
   final CompanyScoreData data;
+  final List<Replacement>? replacements;
 
-  const CompanyScoreWidget({super.key, required this.data});
+  const CompanyScoreWidget({super.key, required this.data, this.replacements});
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +84,10 @@ class CompanyScoreWidget extends StatelessWidget {
                   })),
         ),
         const SizedBox(height: 17.0),
+        if (replacements != null && replacements!.isNotEmpty) ...[
+          ReplacementsSection(replacements: replacements!),
+          const SizedBox(height: 17.0),
+        ],
         Divider(
           thickness: 1.0,
           color: AppColors.divider,

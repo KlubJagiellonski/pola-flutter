@@ -39,7 +39,7 @@ class DetailContent extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _ScoreSection(company: company),
+              _ScoreSection(company: company, searchResult: searchResult),
               if (hasDescription) ...[
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 22.0),
@@ -170,15 +170,16 @@ extension on Company {
 
 class _ScoreSection extends StatelessWidget {
   final Company company;
+  final SearchResult searchResult;
 
-  const _ScoreSection({required this.company});
+  const _ScoreSection({required this.company, required this.searchResult});
 
   @override
   Widget build(BuildContext context) {
     final scoreData = company._scoreData();
 
     if (scoreData != null) {
-      return CompanyScoreWidget(data: scoreData);
+      return CompanyScoreWidget(data: scoreData, replacements: searchResult.replacements);
     } else {
       return NoScoreMessage();
     }
