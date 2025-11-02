@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
+import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/models/replacement.dart';
 import 'package:pola_flutter/pages/detail/detail.dart';
 import 'package:pola_flutter/pages/detail/replacement/replacement_bloc.dart';
@@ -49,7 +50,7 @@ class ReplacementsSection extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-                'Niska punktacja Pola. Zobacz Polskie zamienniki:',
+              Translations.of(context).companyScreen.replecemntSectionTitle,
                 style: TextStyle(
                   fontSize: TextSize.smallTitle,
                   fontWeight: FontWeight.w600,
