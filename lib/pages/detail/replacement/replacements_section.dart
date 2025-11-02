@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
@@ -23,6 +24,8 @@ class ReplacementsSection extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
+    final Translations t = Translations.of(context);
+    
     return BlocProvider(
       create: (context) => ReplacementBloc(PolaApiRepository()),
       child: BlocListener<ReplacementBloc, ReplacementState>(
@@ -38,42 +41,66 @@ class ReplacementsSection extends StatelessWidget {
                 const ReplacementEvent.navigationCompleted(),
               );
             });
-          } else if (state.isError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.errorMessage ?? 'Failed to load product details'),
-              ),
-            );
           }
         },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              Translations.of(context).companyScreen.replecemntSectionTitle,
-                style: TextStyle(
-                  fontSize: TextSize.smallTitle,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: FontFamily.lato,
-                  color: AppColors.text,
+        child: BlocBuilder<ReplacementBloc, ReplacementState>(
+          builder: (context, state) {
+            if (state.isError) {
+              SchedulerBinding.instance.addPostFrameCallback((_) {
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text(t.scan.error),
+                      content: Text(t.scan.tryAgain),
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text(t.scan.closeError),
+                          onPressed: () {
+                            context.read<ReplacementBloc>().add(
+                              const ReplacementEvent.alertDialogDismissed(),
+                            );
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              });
+            }
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  t.companyScreen.replecemntSectionTitle,
+                  style: TextStyle(
+                    fontSize: TextSize.smallTitle,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: FontFamily.lato,
+                    color: AppColors.text,
+                  ),
                 ),
-            ),
-            const SizedBox(height: 12.0),
-            SizedBox(
-              height: 90.0,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 0.0),
-                itemCount: replacements.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.only(right: 11.0),
-                    child: _ReplacementCard(replacement: replacements[index]),
-                  );
-                },
-              ),
-            ),
-          ],
+                const SizedBox(height: 12.0),
+                SizedBox(
+                  height: 90.0,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.symmetric(horizontal: 0.0),
+                    itemCount: replacements.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.only(right: 11.0),
+                        child: _ReplacementCard(replacement: replacements[index]),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );

@@ -14,12 +14,16 @@ class ReplacementBloc extends Bloc<ReplacementEvent, ReplacementState> {
       await event.when(
         replacementTapped: (replacement) async => await _onReplacementTapped(replacement, emit),
         navigationCompleted: () async => _onNavigationCompleted(emit),
+        alertDialogDismissed: () async => _onAlertDialogDismissed(emit),
       );
     });
   }
 
   Future<void> _onReplacementTapped(Replacement replacement, Emitter<ReplacementState> emit) async {
-    emit(state.copyWith(isLoading: true, isError: false, errorMessage: null, currentReplacement: replacement));
+    if (state.isLoading || state.isError) {
+      return;
+    }
+    emit(state.copyWith(isLoading: true, isError: false, currentReplacement: replacement));
     debugPrint('SIEMA Loading replacement for code: ${replacement.code}');
 
     final response = await _polaApiRepository.getCompany(replacement.code);
@@ -32,16 +36,15 @@ class ReplacementBloc extends Bloc<ReplacementEvent, ReplacementState> {
         currentReplacement: replacement,
       ));
     } else {
-      emit(state.copyWith(
-        isLoading: false,
-        isError: true,
-        errorMessage: response.message,
-        currentReplacement: null,
-      ));
+      emit(state.copyWith(isLoading: false, isError: true, currentReplacement: null));
     }
   }
 
   Future<void> _onNavigationCompleted(Emitter<ReplacementState> emit) async {
     emit(state.copyWith(result: null, currentReplacement: null));
+  }
+
+  Future<void> _onAlertDialogDismissed(Emitter<ReplacementState> emit) async {
+    emit(state.copyWith(isError: false));
   }
 }

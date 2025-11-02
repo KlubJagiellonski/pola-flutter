@@ -7,4 +7,5 @@ part 'replacement_event.freezed.dart';
 class ReplacementEvent with _$ReplacementEvent {
   const factory ReplacementEvent.replacementTapped(Replacement replacement) = ReplacementTapped;
   const factory ReplacementEvent.navigationCompleted() = NavigationCompleted;
+  const factory ReplacementEvent.alertDialogDismissed() = AlertDialogDismissed;
 }
