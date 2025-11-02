@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pola_flutter/data/api_response.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
 import 'package:pola_flutter/models/replacement.dart';
-import 'package:pola_flutter/pages/detail/replacement_event.dart';
-import 'package:pola_flutter/pages/detail/replacement_state.dart';
+import 'package:pola_flutter/pages/detail/replacement/replacement_event.dart';
+import 'package:pola_flutter/pages/detail/replacement/replacement_state.dart';
 
 class ReplacementBloc extends Bloc<ReplacementEvent, ReplacementState> {
   final PolaApi _polaApiRepository;

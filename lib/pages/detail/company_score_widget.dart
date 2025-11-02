@@ -6,7 +6,7 @@ import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/fonts.gen.dart';
 import 'package:pola_flutter/theme/text_size.dart';
 import 'polish_capital_graph.dart';
-import 'replacements_section.dart';
+import 'replacement/replacements_section.dart';
 
 class CompanyScoreData {
   final double plCapital;
