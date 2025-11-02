@@ -11,6 +11,5 @@ class ReplacementState with _$ReplacementState {
     Replacement? loadingReplacement,
     SearchResult? resultToPush,
     @Default(false) bool isError,
-    String? errorMessage,
   }) = Initial;
 }

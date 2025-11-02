@@ -25,15 +25,12 @@ class ReplacementBloc extends Bloc<ReplacementEvent, ReplacementState> {
       return;
     }
 
-    // Sprawdź, czy wynik jest już w słowniku
     final cachedResult = state.results[replacement.code];
     if (cachedResult != null) {
-      // Użyj wyniku z cache bez ładowania - ustawiamy resultToPush, aby BlocListener wiedział, że ma nawigować
       emit(state.copyWith(resultToPush: cachedResult));
       return;
     }
 
-    // Jeśli nie ma w cache, załaduj wynik
     emit(state.copyWith(loadingReplacement: replacement, isError: false));
     debugPrint('Loading replacement for code: ${replacement.code}');
 
