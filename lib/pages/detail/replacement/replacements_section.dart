@@ -28,21 +28,21 @@ class ReplacementsSection extends StatelessWidget {
     
     return BlocProvider(
       create: (context) => ReplacementBloc(PolaApiRepository()),
-      child: BlocListener<ReplacementBloc, ReplacementState>(
-        listener: (context, state) {
-          if (state.result != null) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DetailPage(searchResult: state.result!),
-              ),
-            ).then((_) {
-              context.read<ReplacementBloc>().add(
-                const ReplacementEvent.navigationCompleted(),
-              );
-            });
-          }
-        },
+        child: BlocListener<ReplacementBloc, ReplacementState>(
+          listener: (context, state) {
+            if (state.resultToPush != null) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailPage(searchResult: state.resultToPush!),
+                ),
+              ).then((_) {
+                context.read<ReplacementBloc>().add(
+                  const ReplacementEvent.resultPushed(),
+                );
+              });
+            }
+          },
         child: BlocBuilder<ReplacementBloc, ReplacementState>(
           builder: (context, state) {
             if (state.isError) {
@@ -116,9 +116,7 @@ class _ReplacementCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ReplacementBloc, ReplacementState>(
       builder: (context, state) {
-        final isLoadingForThisCard = state.isLoading && 
-            state.result == null &&
-            state.currentReplacement?.code == replacement.code;
+        final isLoadingForThisCard = state.loadingReplacement?.code == replacement.code;
 
         return GestureDetector(
           onTap: isLoadingForThisCard
