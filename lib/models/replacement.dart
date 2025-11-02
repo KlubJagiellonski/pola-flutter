@@ -6,12 +6,19 @@ part 'replacement.g.dart';
 @JsonSerializable(fieldRename: FieldRename.snake)
 class Replacement extends Equatable {
   final String name;
+  final String code;
   final String company;
   final String description;
   final String displayName;
   final bool isFriend;
 
-  Replacement({required this.name, required this.company, required this.description, required this.displayName, required this.isFriend});
+  Replacement(
+    {required this.name, 
+    required this.code,
+    required this.company, 
+    required this.description,
+    required this.displayName,
+    required this.isFriend});
 
   factory Replacement.fromJson(Map<String, dynamic> json) => _$ReplacementFromJson(json);
 
