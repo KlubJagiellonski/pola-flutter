@@ -12,7 +12,8 @@ enum AnalyticsEventName {
   openGallery("open_gallery"),
   barcodeNotFoundOnPhoto("barcode_not_found_on_photo"),
   mainTabChanged("main_tab_changed"),
-  searchOpened("search_opened");
+  searchOpened("search_opened"),
+  replacemntCardOpened("replacemnt_card_opened");
  
   final String name;
 

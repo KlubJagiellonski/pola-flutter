@@ -17,6 +17,7 @@ class CompanyScoreData {
   final int plScore;
 
   final List<Replacement>? replacements;
+  final String productCode;
 
   CompanyScoreData(
       {required this.plCapital,
@@ -25,7 +26,8 @@ class CompanyScoreData {
       required this.plRegistered,
       required this.plNotGlobEnt,
       required this.plScore,
-      required this.replacements});
+      required this.replacements,
+      required this.productCode});
 }
 
 class CompanyScoreWidget extends StatelessWidget {
@@ -88,7 +90,7 @@ class CompanyScoreWidget extends StatelessWidget {
         ),
         const SizedBox(height: 17.0),
         if (replacements != null && replacements.isNotEmpty) ...[
-          ReplacementsSection(replacements: replacements),
+          ReplacementsSection(replacements: replacements, productCode: data.productCode),
           const SizedBox(height: 17.0),
         ],
         Divider(

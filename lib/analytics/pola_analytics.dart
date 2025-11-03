@@ -89,8 +89,17 @@ class PolaAnalytics {
     _logEvent(AnalyticsEventName.searchOpened, null);
   }
 
+  void replacementCardOpened(String originCode, String replacementCode) {
+    _logEvent(
+      AnalyticsEventName.replacemntCardOpened, 
+      AnalyticsReplacementCardOpenedParameters(
+        originCode: originCode, 
+        replacementCode: replacementCode
+      ).toJson()
+    );
+  }
+
   void _logEvent(AnalyticsEventName name, [Map<String, dynamic>? parameters]) {
     provider.logEvent(name.name, parameters);
   }
-
 }

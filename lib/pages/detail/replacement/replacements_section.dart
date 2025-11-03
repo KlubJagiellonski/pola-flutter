@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/models/replacement.dart';
@@ -14,9 +15,10 @@ import 'package:pola_flutter/theme/fonts.gen.dart';
 import 'package:pola_flutter/theme/text_size.dart';
 
 class ReplacementsSection extends StatelessWidget {
-  const ReplacementsSection({Key? key, required this.replacements}) : super(key: key);
+  const ReplacementsSection({Key? key, required this.replacements, required this.productCode}) : super(key: key);
 
   final List<Replacement> replacements;
+  final String productCode;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class ReplacementsSection extends StatelessWidget {
     final Translations t = Translations.of(context);
     
     return BlocProvider(
-      create: (context) => ReplacementBloc(PolaApiRepository()),
+      create: (context) => ReplacementBloc(PolaApiRepository(), PolaAnalytics.instance(), state: ReplacementState(productCode: productCode)),
         child: BlocListener<ReplacementBloc, ReplacementState>(
           listener: (context, state) {
             if (state.resultToPush != null) {

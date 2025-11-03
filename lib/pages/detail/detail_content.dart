@@ -143,7 +143,7 @@ extension on Company {
     }
   }
 
-  CompanyScoreData? _scoreData(List<Replacement>? replacements) {
+  CompanyScoreData? _scoreData(List<Replacement>? replacements, String? productCode) {
     final int? plCapital = this.plCapital;
     final int? plWorkers = this.plWorkers;
     final int? plRnD = this.plRnD;
@@ -164,7 +164,8 @@ extension on Company {
           plRegistered: plRegistered != 0,
           plNotGlobEnt: plNotGlobEnt != 0,
           plScore: plScore,
-          replacements: replacements);
+          replacements: replacements,
+          productCode: productCode ?? '');
     }
     return null;
   }
@@ -178,7 +179,7 @@ class _ScoreSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scoreData = company._scoreData(searchResult.replacements);
+    final scoreData = company._scoreData(searchResult.replacements, searchResult.code);
 
     if (scoreData != null) {
       return CompanyScoreWidget(data: scoreData);
