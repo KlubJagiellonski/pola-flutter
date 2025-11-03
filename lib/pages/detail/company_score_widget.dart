@@ -16,24 +16,27 @@ class CompanyScoreData {
   final bool plNotGlobEnt;
   final int plScore;
 
+  final List<Replacement>? replacements;
+
   CompanyScoreData(
       {required this.plCapital,
       required this.plWorkers,
       required this.plRnD,
       required this.plRegistered,
       required this.plNotGlobEnt,
-      required this.plScore});
+      required this.plScore,
+      required this.replacements});
 }
 
 class CompanyScoreWidget extends StatelessWidget {
   final CompanyScoreData data;
-  final List<Replacement>? replacements;
 
-  const CompanyScoreWidget({super.key, required this.data, this.replacements});
+  const CompanyScoreWidget({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
     final Translations t = Translations.of(context);
+    final replacements = data.replacements;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,8 +87,8 @@ class CompanyScoreWidget extends StatelessWidget {
                   })),
         ),
         const SizedBox(height: 17.0),
-        if (replacements != null && replacements!.isNotEmpty) ...[
-          ReplacementsSection(replacements: replacements!),
+        if (replacements != null && replacements.isNotEmpty) ...[
+          ReplacementsSection(replacements: replacements),
           const SizedBox(height: 17.0),
         ],
         Divider(

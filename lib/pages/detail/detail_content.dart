@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/models/company.dart';
+import 'package:pola_flutter/models/replacement.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/colors.dart';
@@ -142,7 +143,7 @@ extension on Company {
     }
   }
 
-  CompanyScoreData? _scoreData() {
+  CompanyScoreData? _scoreData(List<Replacement>? replacements) {
     final int? plCapital = this.plCapital;
     final int? plWorkers = this.plWorkers;
     final int? plRnD = this.plRnD;
@@ -162,7 +163,8 @@ extension on Company {
           plRnD: plRnD != 0,
           plRegistered: plRegistered != 0,
           plNotGlobEnt: plNotGlobEnt != 0,
-          plScore: plScore);
+          plScore: plScore,
+          replacements: replacements);
     }
     return null;
   }
@@ -176,10 +178,10 @@ class _ScoreSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scoreData = company._scoreData();
+    final scoreData = company._scoreData(searchResult.replacements);
 
     if (scoreData != null) {
-      return CompanyScoreWidget(data: scoreData, replacements: searchResult.replacements);
+      return CompanyScoreWidget(data: scoreData);
     } else {
       return NoScoreMessage();
     }
