@@ -54,3 +54,14 @@ class AnalyticsMainTabParameters {
 
   Map<String, dynamic> toJson() => _$AnalyticsMainTabParametersToJson(this);
 }
+
+@JsonSerializable(createFactory: false, fieldRename: FieldRename.snake)
+class AnalyticsReplacementCardOpenedParameters {
+  final String originCode;
+  final String replacementCode;
+
+  AnalyticsReplacementCardOpenedParameters(
+      {required this.originCode, required this.replacementCode});
+
+  Map<String, dynamic> toJson() => _$AnalyticsReplacementCardOpenedParametersToJson(this);
+}
