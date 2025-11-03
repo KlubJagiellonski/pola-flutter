@@ -1,4 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
+import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/data/api_response.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
 import 'package:pola_flutter/models/donate.dart';
@@ -7,12 +10,13 @@ import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/pages/detail/replacement/replacement_bloc.dart';
 import 'package:pola_flutter/pages/detail/replacement/replacement_event.dart';
 import 'package:pola_flutter/pages/detail/replacement/replacement_state.dart';
-import 'package:test/test.dart';
+
+import 'analytics/mock_analytics_provider.dart';
 
 void main() {
   group('ReplacementBloc', () {
     test('initial state is empty state', () {
-      expect(_replacementBloc().state, const ReplacementState());
+      expect(_replacementBloc().state, const ReplacementState(productCode: 'testOriginCode'));
     });
 
     blocTest(
@@ -20,6 +24,7 @@ void main() {
       build: () => _replacementBloc(),
       seed: () => ReplacementState(
         results: {'code1': _testSearchResult('code1')},
+        productCode: 'testOriginCode',
       ),
       act: (bloc) => bloc.add(
         ReplacementEvent.replacementTapped(_testReplacement('code1')),
@@ -28,6 +33,7 @@ void main() {
         ReplacementState(
           results: {'code1': _testSearchResult('code1')},
           resultToPush: _testSearchResult('code1'),
+          productCode: 'testOriginCode',
         ),
       ],
     );
@@ -42,12 +48,14 @@ void main() {
         ReplacementState(
           loadingReplacement: _testReplacement('code1'),
           isError: false,
+          productCode: 'testOriginCode',
         ),
         ReplacementState(
           loadingReplacement: null,
           results: {'code1': _testSearchResult('code1')},
           resultToPush: _testSearchResult('code1'),
           isError: false,
+          productCode: 'testOriginCode',
         ),
       ],
     );
@@ -62,10 +70,12 @@ void main() {
         ReplacementState(
           loadingReplacement: _testReplacement('error'),
           isError: false,
+          productCode: 'testOriginCode',
         ),
         ReplacementState(
           loadingReplacement: null,
           isError: true,
+          productCode: 'testOriginCode',
         ),
       ],
     );
@@ -75,24 +85,25 @@ void main() {
       build: () => _replacementBloc(),
       seed: () => ReplacementState(
         resultToPush: _testSearchResult('code1'),
+        productCode: 'testOriginCode',
       ),
       act: (bloc) => bloc.add(
         const ReplacementEvent.resultPushed(),
       ),
       expect: () => [
-        const ReplacementState(resultToPush: null),
+        const ReplacementState(resultToPush: null, productCode: 'testOriginCode'),
       ],
     );
 
     blocTest(
       'send alertDialogDismissed when error exists should clear error',
       build: () => _replacementBloc(),
-      seed: () => const ReplacementState(isError: true),
+      seed: () => const ReplacementState(isError: true, productCode: 'testOriginCode'),
       act: (bloc) => bloc.add(
         const ReplacementEvent.alertDialogDismissed(),
       ),
       expect: () => [
-        const ReplacementState(isError: false),
+        const ReplacementState(isError: false, productCode: 'testOriginCode'),
       ],
     );
 
@@ -101,6 +112,7 @@ void main() {
       build: () => _replacementBloc(),
       seed: () => ReplacementState(
         loadingReplacement: _testReplacement('code1'),
+        productCode: 'testOriginCode',
       ),
       act: (bloc) => bloc.add(
         ReplacementEvent.replacementTapped(_testReplacement('code2')),
@@ -111,7 +123,7 @@ void main() {
     blocTest(
       'send replacementTapped during error state should ignore request',
       build: () => _replacementBloc(),
-      seed: () => const ReplacementState(isError: true),
+      seed: () => const ReplacementState(isError: true, productCode: 'testOriginCode'),
       act: (bloc) => bloc.add(
         ReplacementEvent.replacementTapped(_testReplacement('code1')),
       ),
@@ -129,11 +141,30 @@ void main() {
         expect(bloc.state.results['code1'], equals(_testSearchResult('code1')));
       },
     );
+
+    test('send replacementTapped should call replacementCardOpened with correct codes', () async {
+      final mockProvider = MockAnalyticsProvider();
+      final analytics = PolaAnalytics(provider: mockProvider);
+      final bloc = ReplacementBloc(_MockPolaApi(), analytics, state: const ReplacementState(productCode: 'productCode123'));
+      
+      bloc.add(ReplacementEvent.replacementTapped(_testReplacement('replacementCode456')));
+      
+      await Future.delayed(Duration(milliseconds: 100));
+      await pumpEventQueue();
+      
+      verify(mockProvider.logEvent(
+        'replacemnt_card_opened',
+        {
+          'origin_code': 'productCode123',
+          'replacement_code': 'replacementCode456',
+        }
+      )).called(1);
+    });
   });
 }
 
 ReplacementBloc _replacementBloc() {
-  return ReplacementBloc(_MockPolaApi());
+  return ReplacementBloc(_MockPolaApi(), PolaAnalytics(provider: MockAnalyticsProvider()), state: const ReplacementState(productCode: 'testOriginCode'));
 }
 
 Replacement _testReplacement(String code) {
