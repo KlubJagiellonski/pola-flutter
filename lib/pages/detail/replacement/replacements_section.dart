@@ -75,7 +75,7 @@ class ReplacementsSection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  t.companyScreen.replecemntSectionTitle,
+                  t.companyScreen.replecementSectionTitle,
                   style: TextStyle(
                     fontSize: TextSize.smallTitle,
                     fontWeight: FontWeight.w600,
