@@ -24,7 +24,8 @@
         "companyFriend": " Ta firma jest przyjacielem Poli",
         "polaFriends": "Przyjaciele Poli",
         "companyUnverified": "Niestety, ta firma nie została jeszcze zweryfikowana, więc nie możemy wyświetlić jej oceny. Stale rozszerzamy naszą bazę, aby uwzględnić więcej firm.",
-        "thankYou": "Dziękujemy za cierpliwość!"
+        "thankYou": "Dziękujemy za cierpliwość!",
+        "replecementSectionTitle": "Niska punktacja. Zobacz polskie alternatywy:"
     },
     "scan": {
         "scanning": "Skanowanie",
