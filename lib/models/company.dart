@@ -32,7 +32,7 @@ class Company extends Equatable {
   @JsonKey(name: 'official_url')
   final String? officialUrl;
 
-  final List<Brand> brands;
+  final List<Brand>? brands;
 
   Company(
       {required this.name,
