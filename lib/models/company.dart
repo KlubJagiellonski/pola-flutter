@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pola_flutter/models/brand.dart';
 
 part 'company.g.dart';
 
@@ -31,6 +32,8 @@ class Company extends Equatable {
   @JsonKey(name: 'official_url')
   final String? officialUrl;
 
+  final List<Brand> brands;
+
   Company(
       {required this.name,
       required this.plCapital,
@@ -48,7 +51,8 @@ class Company extends Equatable {
       required this.friendText,
       required this.description,
       required this.logotypeUrl,
-      required this.officialUrl});
+      required this.officialUrl,
+      required this.brands});
 
   factory Company.fromJson(Map<String, dynamic> json) =>
       _$CompanyFromJson(json);
