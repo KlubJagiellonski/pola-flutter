@@ -42,7 +42,7 @@ class SocialMediaListView extends StatelessWidget {
                   child: Row(
                     children: [
                       _socialItem(
-                        text: "Twitter",
+                        text: "X (Twitter)",
                         analyticsRow: AnalyticsAboutRow.twitter,
                         url: 'https://twitter.com/pola_app',
                       ),
@@ -50,7 +50,7 @@ class SocialMediaListView extends StatelessWidget {
                       _socialItem(
                         text: "Facebook",
                         analyticsRow: AnalyticsAboutRow.facebook,
-                        url: 'https://facebook.com',
+                        url: 'https://www.facebook.com/share/1EVVFxN1Qn/',
                       ),
                     ],
                   ),
