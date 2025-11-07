@@ -7,8 +7,9 @@ part 'brand.g.dart';
 class Brand extends Equatable {
   final String? name;
   final String? logotypeUrl;
+  final String? websiteUrl;
 
-  Brand({required this.name, required this.logotypeUrl});
+  Brand({required this.name, required this.logotypeUrl, required this.websiteUrl});
 
   factory Brand.fromJson(Map<String, dynamic> json) => _$BrandFromJson(json);
 

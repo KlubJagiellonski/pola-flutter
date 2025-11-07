@@ -28,7 +28,8 @@ class DetailContent extends StatelessWidget {
 
     final company = searchResult.companies!.first;
 
-    final hasLogo = company.logotypeUrl != null;
+    final logotypes = company.logotypes();
+    final hasLogo = logotypes.isNotEmpty;
     final hasDescription = company.description?.isNotEmpty ?? false;
 
     return Column(
@@ -56,7 +57,7 @@ class DetailContent extends StatelessWidget {
               ],
               if (hasLogo)
                 Logotypes(
-                    logotypes: searchResult.logotypes(),
+                    logotypes: logotypes,
                     searchResult: searchResult),
               const SizedBox(height: 26.0),
               if (hasLogo)
@@ -110,37 +111,29 @@ class DetailItem extends StatelessWidget {
   }
 }
 
-extension on SearchResult {
-  List<Logotype> logotypes() {
-    var brandLogotypes = allCompanyBrands?.map((brand) {
-          final brandLogotype = brand.logotypeUrl;
-          if (brandLogotype != null) {
-            return Logotype(brandLogotype, null);
-          } else {
-            return null;
-          }
-        }).toList() ??
-        [];
-
-    final logotypeCompany = companies?.first.logotype();
-
-    brandLogotypes.insert(0, logotypeCompany);
-
-    return brandLogotypes
-        .where((logotype) => logotype != null)
-        .cast<Logotype>()
-        .toList();
-  }
-}
-
 extension on Company {
-  Logotype? logotype() {
-    final logotypeUrl = this.logotypeUrl;
-    if (logotypeUrl != null) {
-      return Logotype(logotypeUrl, officialUrl);
-    } else {
-      return null;
+    List<Logotype> logotypes() {
+    final brands = this.brands;
+    var logotypes = <Logotype>[];
+    if (brands != null) {
+      logotypes = brands.map((brand) {
+        final logotypeUrl = brand.logotypeUrl;
+        final websiteUrl = brand.websiteUrl;
+        if (logotypeUrl == null || websiteUrl == null) {
+          return null;
+        }
+          return Logotype(logotypeUrl, websiteUrl);
+      }).where((logotype) => logotype != null)
+      .cast<Logotype>()
+      .toList();
     }
+
+    final companyLogotypeUrl = this.logotypeUrl;
+    final companyWebsiteUrl = this.officialUrl;
+    if (companyLogotypeUrl != null && companyWebsiteUrl != null) {
+      logotypes.insert(0, Logotype(companyLogotypeUrl, companyWebsiteUrl));
+    }
+    return logotypes;
   }
 
   CompanyScoreData? _scoreData(List<Replacement>? replacements, String? productCode) {
