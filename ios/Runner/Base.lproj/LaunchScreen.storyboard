@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24128" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -24,12 +24,12 @@
                                 <rect key="frame" x="69" y="205" width="237.5" height="257.5"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launch_logo_bottom" translatesAutoresizingMaskIntoConstraints="NO" id="Uvg-KA-EiN">
-                                <rect key="frame" x="118.5" y="626" width="138" height="26"/>
+                                <rect key="frame" x="118.5" y="591" width="138" height="26"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="gyK-eW-uVb" firstAttribute="top" secondItem="Uvg-KA-EiN" secondAttribute="bottom" constant="15" id="7zf-oO-spm"/>
+                            <constraint firstItem="Uvg-KA-EiN" firstAttribute="bottom" secondItem="Ze5-6b-2t3" secondAttribute="bottomMargin" constant="-50" id="7zf-oO-spm"/>
                             <constraint firstItem="Lrl-P5-R6A" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="unQ-dq-gfB"/>
                             <constraint firstItem="Lrl-P5-R6A" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="zMr-PA-fzW"/>
                             <constraint firstItem="Uvg-KA-EiN" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="zRf-9x-Du2"/>
