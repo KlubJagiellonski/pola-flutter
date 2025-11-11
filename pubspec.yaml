@@ -19,7 +19,7 @@ dependencies:
   json_annotation: any
   logger: ^2.3.0
   rxdart: ^0.28.0
-  mobile_scanner: ^5.1.1
+  mobile_scanner: ^6.0.11
   in_app_review: ^2.0.2
   uuid: ^4.4.0
   shared_preferences: ^2.0.6
