@@ -33,4 +33,7 @@ jobs:
         restore-keys: ${{ runner.os }}-pods-
     - run: dart run build_runner build
     - run: dart run slang
+    - name: Update CocoaPods specs
+      working-directory: ios
+      run: bundle exec pod repo update
     - run: bundle exec flutter build ios --no-codesign
