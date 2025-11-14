@@ -13,6 +13,8 @@ jobs:
       with:
         channel: 'stable'
         cache: true
+    - name: Install FlutterFire CLI
+      run: dart pub global activate flutterfire_cli
     - run: flutter pub get
     - name: Cache bundler gems
       uses: actions/cache@v4

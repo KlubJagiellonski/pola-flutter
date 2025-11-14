@@ -18,6 +18,7 @@ void main() async {
     _setupLogging();
   } else {
     await Firebase.initializeApp(
+      name: "Pola",
       options: DefaultFirebaseOptions.currentPlatform,
     );
   }

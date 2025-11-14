@@ -32,7 +32,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace 'pl.pola.flutter'
-    compileSdkVersion 34
+    compileSdkVersion 35
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -41,8 +41,8 @@ android {
     defaultConfig {
         applicationId "pl.pola_app"
         minSdkVersion 25
-        targetSdkVersion 34
-        versionCode flutterVersionCode.toInteger()
+        targetSdkVersion 35
+        versionCode 54
         versionName flutterVersionName
 
         ndk {
