@@ -33,7 +33,7 @@ jobs:
                 cat android/app/build.gradle
             - name: Build prod apk
               run: flutter build apk --flavor prod --debug --verbose --build-number=${{ github.run_number }}
-            - uses: actions/upload-artifact@v4
+            - uses: actions/upload-artifact@v5
               with:
                 name: app-prod-debug.apk
                 path: build/app/outputs/flutter-apk/app-prod-debug.apk
@@ -52,7 +52,7 @@ jobs:
                   --token $FIREBASE_TOKEN \
                   --groups "QA-Group" \
                   --release-notes "Automatyczny build z GitHub Actions - commit: ${{ github.sha }}"
-            - uses: actions/upload-artifact@v4
+            - uses: actions/upload-artifact@v5
               with:
                 name: app-qa-debug.apk
                 path: build/app/outputs/flutter-apk/app-qa-debug.apk
