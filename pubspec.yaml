@@ -34,7 +34,7 @@ dependencies:
   freezed_annotation: ^2.4.1
   slang: ^4.7.2
   slang_flutter: ^4.10.0
-  syncfusion_flutter_gauges: ^29.2.7
+  syncfusion_flutter_gauges: ^31.2.15
   flutter_svg: ^2.0.9
   package_info_plus: ^8.0.2
 
