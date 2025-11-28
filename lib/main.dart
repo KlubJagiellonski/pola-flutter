@@ -75,7 +75,17 @@ class _PolaAppState extends State<PolaApp> {
 
   final List<Widget> _tabs = [
     ScanNavigator(),
-    WebViewTab(title: "Wiadomości", url: "https://www.pola-app.pl/m/blog/")
+    Navigator(
+      onGenerateRoute: (settings) {
+        return MaterialPageRoute(
+          builder: (context) => WebViewTab(
+            title: "Wiadomości",
+            url: "https://www.pola-app.pl/m/blog/",
+          ),
+        );
+      },
+      initialRoute: '/',
+    ),
   ];
 
   AnalyticsMainTab _getTabParameter(int index) {
