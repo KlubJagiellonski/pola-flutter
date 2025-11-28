@@ -8,6 +8,7 @@ import 'package:pola_flutter/analytics/analytics_main_tab.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/pages/scan/scan_navigator.dart';
+import 'package:pola_flutter/pages/web/web_view_page.dart';
 import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/ui/web_view_tab.dart';
 import 'firebase_options.dart';
@@ -34,6 +35,7 @@ class _PolaAppState extends State<PolaApp> {
   int _selectedIndex = 0;
   final _analytics = PolaAnalytics.instance();
   final _scanNavigatorKey = GlobalKey<NavigatorState>();
+  final _newsWebViewPageKey = GlobalKey<WebViewPageState>();
 
   @override
   Widget build(BuildContext context) {
@@ -79,6 +81,7 @@ class _PolaAppState extends State<PolaApp> {
     WebViewTab(
       title: t.news.title,
       url: "https://www.pola-app.pl/m/blog/",
+      pageKey: _newsWebViewPageKey
     )
   ];
 
@@ -100,6 +103,13 @@ class _PolaAppState extends State<PolaApp> {
           final navigator = _scanNavigatorKey.currentState;
           if (navigator != null && navigator.canPop()) {
             navigator.popUntil((route) => route.isFirst);
+          }
+          break;
+
+        case 1:
+          final webViewPage = _newsWebViewPageKey.currentState;
+          if (webViewPage != null) {
+            webViewPage.popToRootPage();
           }
           break;
       }

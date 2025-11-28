@@ -6,8 +6,9 @@ import 'package:pola_flutter/theme/fonts.gen.dart';
 class WebViewTab extends StatefulWidget {
   final String title;
   final String url;
+  final GlobalKey<WebViewPageState>? pageKey;
 
-  WebViewTab({Key? key, required this.title, required this.url})
+  WebViewTab({Key? key, required this.title, required this.url, this.pageKey})
       : super(key: key);
 
   @override
@@ -54,6 +55,7 @@ class _WebViewTabState extends State<WebViewTab> {
       ),
       body: Center(
         child: WebViewPage(
+          key: widget.pageKey,
           url: widget.url,
           canGoBackNotifier: canGoBackNotifier,
         ),

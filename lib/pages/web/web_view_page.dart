@@ -10,10 +10,10 @@ class WebViewPage extends StatefulWidget {
   final ValueNotifier<bool>? canGoBackNotifier;
 
   @override
-  _WebViewPageState createState() => _WebViewPageState();
+  WebViewPageState createState() => WebViewPageState();
 }
 
-class _WebViewPageState extends State<WebViewPage> {
+class WebViewPageState extends State<WebViewPage> {
   late final WebViewController controller;
 
   var loadingPercentage = 0;
@@ -22,6 +22,13 @@ class _WebViewPageState extends State<WebViewPage> {
   ValueNotifier<bool> get _canGoBackNotifier =>
       widget.canGoBackNotifier ??
       (_internalCanGoBackNotifier ??= ValueNotifier<bool>(false));
+
+  void popToRootPage() async {
+    while (await controller.canGoBack()) {
+      await controller.goBack();
+    }
+    _updateCanGoBack();
+  }
 
   @override
   void initState() {
