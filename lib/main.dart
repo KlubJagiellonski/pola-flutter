@@ -33,6 +33,7 @@ class PolaApp extends StatefulWidget {
 class _PolaAppState extends State<PolaApp> {
   int _selectedIndex = 0;
   final _analytics = PolaAnalytics.instance();
+  final _scanNavigatorKey = GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) {
@@ -73,8 +74,8 @@ class _PolaAppState extends State<PolaApp> {
     );
   }
 
-  final List<Widget> _tabs = [
-    ScanNavigator(),
+  List<Widget> get _tabs => [
+    ScanNavigator(navigatorKey: _scanNavigatorKey),
     Navigator(
       onGenerateRoute: (settings) {
         return MaterialPageRoute(
@@ -100,10 +101,21 @@ class _PolaAppState extends State<PolaApp> {
   }
 
   void _onItemTapped(int index) {
-    _analytics.mainTabChanged(_getTabParameter(index));
-    setState(() {
-      _selectedIndex = index;
-    });
+    if (index == _selectedIndex) {
+      switch (index) {
+        case 0:
+          final navigator = _scanNavigatorKey.currentState;
+          if (navigator != null && navigator.canPop()) {
+            navigator.popUntil((route) => route.isFirst);
+          }
+          break;
+      }
+    } else {
+      _analytics.mainTabChanged(_getTabParameter(index));
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
   }
 }
 
