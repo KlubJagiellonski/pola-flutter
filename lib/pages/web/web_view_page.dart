@@ -3,11 +3,9 @@ import 'package:pola_flutter/theme/colors.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewPage extends StatefulWidget {
-  WebViewPage({Key? key, required this.url, this.canGoBackNotifier})
-      : super(key: key);
+  WebViewPage({Key? key, required this.url}) : super(key: key);
 
   final String url;
-  final ValueNotifier<bool>? canGoBackNotifier;
 
   @override
   WebViewPageState createState() => WebViewPageState();
@@ -17,11 +15,6 @@ class WebViewPageState extends State<WebViewPage> {
   late final WebViewController controller;
 
   var loadingPercentage = 0;
-  ValueNotifier<bool>? _internalCanGoBackNotifier;
-
-  ValueNotifier<bool> get _canGoBackNotifier =>
-      widget.canGoBackNotifier ??
-      (_internalCanGoBackNotifier ??= ValueNotifier<bool>(false));
 
   @override
   void initState() {
@@ -37,12 +30,10 @@ class WebViewPageState extends State<WebViewPage> {
           setState(() {
             loadingPercentage = 0;
           });
-          _updateCanGoBack();
         }, onPageFinished: (String url) {
           setState(() {
             loadingPercentage = 100;
           });
-          _updateCanGoBack();
         }),
       )
       ..setBackgroundColor(AppColors.white)
@@ -53,30 +44,6 @@ class WebViewPageState extends State<WebViewPage> {
   void didUpdateWidget(WebViewPage oldWidget) {
     super.didUpdateWidget(oldWidget);
     controller.loadRequest(Uri.parse(widget.url));
-    _updateCanGoBack();
-  }
-
-  @override
-  void dispose() {
-    _internalCanGoBackNotifier?.dispose();
-    super.dispose();
-  }
-
-  Future<void> _updateCanGoBack() async {
-    final canGoBack = await controller.canGoBack();
-    if (!mounted) {
-      return;
-    }
-    if (_canGoBackNotifier.value != canGoBack) {
-      _canGoBackNotifier.value = canGoBack;
-    }
-  }
-
-  Future<void> handleBackNavigation() async {
-    if (await controller.canGoBack()) {
-      await controller.goBack();
-      _updateCanGoBack();
-    }
   }
 
   void _handlePopInvokedWithResult(bool didPop, dynamic result) async {
@@ -84,7 +51,6 @@ class WebViewPageState extends State<WebViewPage> {
       final canGoBack = await controller.canGoBack();
       if (canGoBack) {
         await controller.goBack();
-        _updateCanGoBack();
       } else {
         if (mounted && context.mounted) {
           Navigator.of(context).pop();
