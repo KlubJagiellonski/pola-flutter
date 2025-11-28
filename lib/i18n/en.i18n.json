@@ -40,6 +40,9 @@
     "search": {
         "title": "Wyszukiwarka"
     },
+    "news": {
+        "title": "Wiadomości"
+    },
     "tabs": {
         "search": "Wyszukaj",
         "news": "Aktualności"

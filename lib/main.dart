@@ -79,7 +79,7 @@ class _PolaAppState extends State<PolaApp> {
       onGenerateRoute: (settings) {
         return MaterialPageRoute(
           builder: (context) => WebViewTab(
-            title: "Wiadomości",
+            title: Translations.of(context).news.title,
             url: "https://www.pola-app.pl/m/blog/",
           ),
         );
