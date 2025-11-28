@@ -52,7 +52,6 @@ class _WebViewPageState extends State<WebViewPage> {
   @override
   void didUpdateWidget(WebViewPage oldWidget) {
     super.didUpdateWidget(oldWidget);
-    controller.loadRequest(Uri.parse(widget.url));
     _updateCanGoBack();
   }
 
