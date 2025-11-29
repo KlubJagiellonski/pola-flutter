@@ -44,22 +44,16 @@ class WebViewPageState extends State<WebViewPage> {
           setState(() {
             loadingPercentage = 0;
           });
-          _updateCanGoBack();
         }, onPageFinished: (String url) {
           setState(() {
             loadingPercentage = 100;
           });
+        }, onUrlChange: (UrlChange urlChange) {
           _updateCanGoBack();
         }),
       )
       ..setBackgroundColor(AppColors.white)
       ..loadRequest(Uri.parse(widget.url));
-  }
-
-  @override
-  void didUpdateWidget(WebViewPage oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    _updateCanGoBack();
   }
 
   @override
