@@ -6,6 +6,7 @@ import 'package:pola_flutter/theme/fonts.gen.dart';
 class WebViewTab extends StatefulWidget {
   final String title;
   final String url;
+  /// Optional key to access the [WebViewPageState] from outside, for example to call [WebViewPageState.popToRootPage].
   final GlobalKey<WebViewPageState>? pageKey;
 
   WebViewTab({Key? key, required this.title, required this.url, this.pageKey})
