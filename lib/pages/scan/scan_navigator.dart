@@ -7,15 +7,20 @@ import 'package:pola_flutter/pages/scan/scan.dart';
 import 'package:pola_flutter/ui/web_view_tab.dart';
 
 class ScanNavigator extends StatelessWidget {
+  final GlobalKey<NavigatorState>? navigatorKey;
+
+  const ScanNavigator({this.navigatorKey});
+
   @override
   Widget build(BuildContext context) {
     return Navigator(
-      onGenerateRoute: generateRoute,
+      key: navigatorKey,
+      onGenerateRoute: _generateRoute,
       initialRoute: '/',
     );
   }
 
-  Route<dynamic> generateRoute(RouteSettings settings) {
+  Route<dynamic> _generateRoute(RouteSettings settings) {
     final args = settings.arguments;
 
     switch (settings.name) {
