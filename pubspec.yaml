@@ -20,7 +20,7 @@ dependencies:
   logger: ^2.3.0
   rxdart: ^0.28.0
   mobile_scanner: ^6.0.11
-  in_app_review: ^2.0.2
+  in_app_review: ^2.0.11
   uuid: ^4.4.0
   shared_preferences: ^2.5.3
   firebase_core: ^4.2.1
