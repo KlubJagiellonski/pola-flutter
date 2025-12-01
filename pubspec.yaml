@@ -47,7 +47,7 @@ dev_dependencies:
   chopper_generator: ^8.0.1
   test: any
   bloc_test: ^9.1.7
-  mockito:  ^5.0.0-nullsafety.7
+  mockito: ^5.4.6
 
 flutter:
   uses-material-design: true
