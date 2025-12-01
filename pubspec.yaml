@@ -43,7 +43,7 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.0.6
   flutter_gen_runner: ^5.6.0
-  json_serializable: any
+  json_serializable: 6.9.5
   chopper_generator: ^8.0.1
   test: any
   bloc_test: ^9.1.7
