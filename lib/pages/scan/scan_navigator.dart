@@ -4,6 +4,7 @@ import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/pages/detail/detail.dart';
 import 'package:pola_flutter/pages/dialpad/dialpad.dart';
 import 'package:pola_flutter/pages/scan/scan.dart';
+import 'package:pola_flutter/pages/scan/scan_route_observer.dart';
 import 'package:pola_flutter/ui/web_view_tab.dart';
 
 class ScanNavigator extends StatelessWidget {
@@ -15,6 +16,7 @@ class ScanNavigator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Navigator(
       key: navigatorKey,
+      observers: [scanRouteObserver],
       onGenerateRoute: _generateRoute,
       initialRoute: '/',
     );

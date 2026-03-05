@@ -9,6 +9,7 @@ import 'package:pola_flutter/pages/scan/remote_button.dart';
 import 'package:pola_flutter/pages/scan/scan_background.dart';
 import 'package:pola_flutter/pages/scan/scan_bloc.dart';
 import 'package:pola_flutter/pages/scan/scan_event.dart';
+import 'package:pola_flutter/pages/scan/scan_route_observer.dart';
 import 'package:pola_flutter/pages/scan/scan_search_button.dart';
 import 'package:pola_flutter/pages/scan/scan_state.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
@@ -27,7 +28,7 @@ class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _MainPageState extends State<MainPage> with RouteAware {
   late ScanBloc _scanBloc;
   MobileScannerController cameraController =
       MobileScannerController(detectionSpeed: DetectionSpeed.normal);
@@ -40,6 +41,27 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     _scanBloc = ScanBloc(PolaApiRepository(), ScanVibrationImpl(), _analytics,
         TorchControllerImpl(cameraController: cameraController));
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final route = ModalRoute.of(context);
+    if (route != null) {
+      scanRouteObserver.subscribe(this, route);
+    }
+  }
+
+  @override
+  void didPushNext() {
+    cameraController.stop();
+  }
+
+  @override
+  void didPopNext() {
+    if (!_scanBloc.state.isError) {
+      cameraController.start();
+    }
   }
 
   @override
@@ -95,6 +117,7 @@ class _MainPageState extends State<MainPage> {
                   builder: (context, state) {
                     if (state.isError) {
                       SchedulerBinding.instance.addPostFrameCallback((_) {
+                        cameraController.stop();
                         showDialog(
                           context: context,
                           barrierDismissible: false,
@@ -108,6 +131,7 @@ class _MainPageState extends State<MainPage> {
                                   onPressed: () {
                                     _scanBloc
                                         .add(ScanEvent.alertDialogDismissed());
+                                    cameraController.start();
                                     Navigator.pop(context);
                                   },
                                 ),
@@ -185,6 +209,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   void dispose() {
+    scanRouteObserver.unsubscribe(this);
     cameraController.dispose();
     super.dispose();
   }
