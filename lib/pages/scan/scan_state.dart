@@ -5,7 +5,7 @@ import 'package:pola_flutter/pages/scan/remote_button.dart';
 part 'scan_state.freezed.dart';
 
 @freezed
-class ScanState with _$ScanState {
+abstract class ScanState with _$ScanState {
   const factory ScanState({
     @Default([]) List<SearchResult> list,
     @Default(false) bool isLoading,
