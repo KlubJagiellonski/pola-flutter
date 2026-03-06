@@ -5,7 +5,7 @@ import 'package:pola_flutter/models/search_result.dart';
 part 'replacement_state.freezed.dart';
 
 @freezed
-class ReplacementState with _$ReplacementState {
+abstract class ReplacementState with _$ReplacementState {
   const factory ReplacementState({
     @Default({}) Map<String, SearchResult> results,
     Replacement? loadingReplacement,

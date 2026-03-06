@@ -4,7 +4,7 @@ part 'pola_api_service.chopper.dart';
 @ChopperApi()
 abstract class PolaApiService extends ChopperService {
   //example code 5900311000360
-  @Get(path: 'a/v4/get_by_code')
+  @GET(path: 'a/v4/get_by_code')
   Future<Response> getCompany(
       @Query("code") String code, @Query("device_id") String deviceId);
 

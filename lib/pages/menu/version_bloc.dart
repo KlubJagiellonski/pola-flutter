@@ -5,7 +5,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 part 'version_bloc.freezed.dart';
 
 @freezed
-class VersionState with _$VersionState {
+abstract class VersionState with _$VersionState {
   const factory VersionState({
     @Default(null) String? version,
   }) = Initial;
@@ -13,7 +13,7 @@ class VersionState with _$VersionState {
 
 @freezed
 class VersionEvent with _$VersionEvent {
-  const factory VersionEvent.onApear() = onApear;
+  const factory VersionEvent.onApear() = OnApear;
 }
 
 class VersionBloc extends Bloc<VersionEvent, VersionState> {
