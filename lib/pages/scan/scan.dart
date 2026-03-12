@@ -59,9 +59,7 @@ class _MainPageState extends State<MainPage> with RouteAware {
 
   @override
   void didPopNext() {
-    if (!_scanBloc.state.isError) {
-      cameraController.start();
-    }
+    cameraController.start();
   }
 
   @override
@@ -117,7 +115,6 @@ class _MainPageState extends State<MainPage> with RouteAware {
                   builder: (context, state) {
                     if (state.isError) {
                       SchedulerBinding.instance.addPostFrameCallback((_) {
-                        cameraController.stop();
                         showDialog(
                           context: context,
                           barrierDismissible: false,
@@ -131,7 +128,6 @@ class _MainPageState extends State<MainPage> with RouteAware {
                                   onPressed: () {
                                     _scanBloc
                                         .add(ScanEvent.alertDialogDismissed());
-                                    cameraController.start();
                                     Navigator.pop(context);
                                   },
                                 ),
