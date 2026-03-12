@@ -9,7 +9,6 @@ import 'package:pola_flutter/pages/scan/remote_button.dart';
 import 'package:pola_flutter/pages/scan/scan_background.dart';
 import 'package:pola_flutter/pages/scan/scan_bloc.dart';
 import 'package:pola_flutter/pages/scan/scan_event.dart';
-import 'package:pola_flutter/pages/scan/scan_route_observer.dart';
 import 'package:pola_flutter/pages/scan/scan_search_button.dart';
 import 'package:pola_flutter/pages/scan/scan_state.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
@@ -24,6 +23,8 @@ import 'package:pola_flutter/ui/menu_icon_button.dart';
 import 'package:pola_flutter/ui/web_view_dialog.dart';
 
 class MainPage extends StatefulWidget {
+  static final routeObserver = RouteObserver<ModalRoute<dynamic>>();
+
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -48,7 +49,7 @@ class _MainPageState extends State<MainPage> with RouteAware {
     super.didChangeDependencies();
     final route = ModalRoute.of(context);
     if (route != null) {
-      scanRouteObserver.subscribe(this, route);
+      MainPage.routeObserver.subscribe(this, route);
     }
   }
 
@@ -205,7 +206,7 @@ class _MainPageState extends State<MainPage> with RouteAware {
 
   @override
   void dispose() {
-    scanRouteObserver.unsubscribe(this);
+    MainPage.routeObserver.unsubscribe(this);
     cameraController.dispose();
     super.dispose();
   }
