@@ -23,7 +23,9 @@ import 'package:pola_flutter/ui/menu_icon_button.dart';
 import 'package:pola_flutter/ui/web_view_dialog.dart';
 
 class MainPage extends StatefulWidget {
-  static final routeObserver = RouteObserver<ModalRoute<dynamic>>();
+  final RouteObserver<ModalRoute<dynamic>> routeObserver;
+
+  const MainPage({required this.routeObserver});
 
   @override
   _MainPageState createState() => _MainPageState();
@@ -49,7 +51,7 @@ class _MainPageState extends State<MainPage> with RouteAware {
     super.didChangeDependencies();
     final route = ModalRoute.of(context);
     if (route != null) {
-      MainPage.routeObserver.subscribe(this, route);
+      widget.routeObserver.subscribe(this, route);
     }
   }
 
@@ -206,7 +208,7 @@ class _MainPageState extends State<MainPage> with RouteAware {
 
   @override
   void dispose() {
-    MainPage.routeObserver.unsubscribe(this);
+    widget.routeObserver.unsubscribe(this);
     cameraController.dispose();
     super.dispose();
   }
