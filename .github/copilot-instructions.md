@@ -193,6 +193,3 @@ blocTest<ScanBloc, ScanState>(
 
 Firebase is integrated for analytics, crash reporting, and push notifications. Firebase configuration files (`google-services.json` for Android, `GoogleService-Info.plist` for iOS) are **not** committed to the repository; they are injected via CI secrets.
 
-## Contact
-
-For questions, contact [@rafalgawlik](https://github.com/rafalgawlik).
