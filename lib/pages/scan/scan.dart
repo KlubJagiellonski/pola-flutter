@@ -29,8 +29,10 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   late ScanBloc _scanBloc;
-  MobileScannerController cameraController =
-      MobileScannerController(detectionSpeed: DetectionSpeed.normal);
+  MobileScannerController cameraController = MobileScannerController(
+    detectionSpeed: DetectionSpeed.normal,
+    formats: [BarcodeFormat.ean13, BarcodeFormat.ean8],
+  );
   final PolaAnalytics _analytics = PolaAnalytics.instance();
 
   ScrollController listScrollController = ScrollController();
