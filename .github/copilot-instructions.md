@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-**Pola** is a Flutter mobile application that helps users identify Polish products by scanning barcodes. It supports Android, iOS, and Web platforms.
+**Pola** is a Flutter mobile application that helps users identify Polish products by scanning barcodes. It supports Android and iOS platforms.
 
 - **App name**: `pola_flutter`
 - **Flavors**: `prod` (production) and `qa` (QA testing)
