@@ -23,11 +23,15 @@ import 'package:pola_flutter/ui/menu_icon_button.dart';
 import 'package:pola_flutter/ui/web_view_dialog.dart';
 
 class MainPage extends StatefulWidget {
+  final RouteObserver<ModalRoute<dynamic>> routeObserver;
+
+  const MainPage({required this.routeObserver});
+
   @override
   _MainPageState createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _MainPageState extends State<MainPage> with RouteAware {
   late ScanBloc _scanBloc;
   MobileScannerController cameraController =
       MobileScannerController(detectionSpeed: DetectionSpeed.normal);
@@ -40,6 +44,25 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     _scanBloc = ScanBloc(PolaApiRepository(), ScanVibrationImpl(), _analytics,
         TorchControllerImpl(cameraController: cameraController));
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final route = ModalRoute.of(context);
+    if (route != null) {
+      widget.routeObserver.subscribe(this, route);
+    }
+  }
+
+  @override
+  void didPushNext() {
+    cameraController.stop();
+  }
+
+  @override
+  void didPopNext() {
+    cameraController.start();
   }
 
   @override
@@ -185,6 +208,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   void dispose() {
+    widget.routeObserver.unsubscribe(this);
     cameraController.dispose();
     super.dispose();
   }
