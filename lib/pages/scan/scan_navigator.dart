@@ -9,16 +9,22 @@ import 'package:pola_flutter/ui/web_view_tab.dart';
 class ScanNavigator extends StatefulWidget {
   final GlobalKey<NavigatorState>? navigatorKey;
   final bool isActive;
+  final RouteObserver<ModalRoute<dynamic>> rootNavigatorObserver;
 
-  const ScanNavigator({this.navigatorKey, this.isActive = true});
+  const ScanNavigator({
+    this.navigatorKey,
+    this.isActive = true,
+    required this.rootNavigatorObserver,
+  });
 
   @override
   State<ScanNavigator> createState() => _ScanNavigatorState();
 }
 
-class _ScanNavigatorState extends State<ScanNavigator> {
+class _ScanNavigatorState extends State<ScanNavigator> with RouteAware {
   final routeObserver = RouteObserver<ModalRoute<dynamic>>();
   late final ValueNotifier<bool> _scanTabActive;
+  bool _rootOverlayPushed = false;
 
   @override
   void initState() {
@@ -27,15 +33,41 @@ class _ScanNavigatorState extends State<ScanNavigator> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final route = ModalRoute.of(context);
+    if (route != null) {
+      widget.rootNavigatorObserver.subscribe(this, route);
+    }
+  }
+
+  void _updateScanTabActive() {
+    _scanTabActive.value = widget.isActive && !_rootOverlayPushed;
+  }
+
+  @override
+  void didPushNext() {
+    _rootOverlayPushed = true;
+    _updateScanTabActive();
+  }
+
+  @override
+  void didPopNext() {
+    _rootOverlayPushed = false;
+    _updateScanTabActive();
+  }
+
+  @override
   void didUpdateWidget(ScanNavigator oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.isActive != widget.isActive) {
-      _scanTabActive.value = widget.isActive;
+      _updateScanTabActive();
     }
   }
 
   @override
   void dispose() {
+    widget.rootNavigatorObserver.unsubscribe(this);
     _scanTabActive.dispose();
     super.dispose();
   }

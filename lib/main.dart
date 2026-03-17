@@ -21,7 +21,14 @@ void main() async {
   runApp(PolaApp());
 }
 
-class PolaApp extends StatelessWidget {
+class PolaApp extends StatefulWidget {
+  @override
+  State<PolaApp> createState() => _PolaAppState();
+}
+
+class _PolaAppState extends State<PolaApp> {
+  final _rootNavigatorObserver = RouteObserver<ModalRoute<dynamic>>();
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -32,7 +39,8 @@ class PolaApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.light().copyWith(primary: Colors.red),
       ),
-      home: PolaTabController(),
+      navigatorObservers: [_rootNavigatorObserver],
+      home: PolaTabController(rootNavigatorObserver: _rootNavigatorObserver),
     ));
   }
 }
