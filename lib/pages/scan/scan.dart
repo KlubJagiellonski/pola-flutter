@@ -24,8 +24,9 @@ import 'package:pola_flutter/ui/web_view_dialog.dart';
 
 class MainPage extends StatefulWidget {
   final RouteObserver<ModalRoute<dynamic>> routeObserver;
+  final ValueNotifier<bool> scanTabActive;
 
-  const MainPage({required this.routeObserver});
+  const MainPage({required this.routeObserver, required this.scanTabActive});
 
   @override
   _MainPageState createState() => _MainPageState();
@@ -36,6 +37,7 @@ class _MainPageState extends State<MainPage> with RouteAware {
   MobileScannerController cameraController =
       MobileScannerController(detectionSpeed: DetectionSpeed.normal);
   final PolaAnalytics _analytics = PolaAnalytics.instance();
+  bool _childRoutePushed = false;
 
   ScrollController listScrollController = ScrollController();
 
@@ -44,6 +46,17 @@ class _MainPageState extends State<MainPage> with RouteAware {
     super.initState();
     _scanBloc = ScanBloc(PolaApiRepository(), ScanVibrationImpl(), _analytics,
         TorchControllerImpl(cameraController: cameraController));
+    widget.scanTabActive.addListener(_onScanTabActiveChanged);
+  }
+
+  void _onScanTabActiveChanged() {
+    if (widget.scanTabActive.value) {
+      if (!_childRoutePushed) {
+        cameraController.start();
+      }
+    } else {
+      cameraController.stop();
+    }
   }
 
   @override
@@ -57,12 +70,16 @@ class _MainPageState extends State<MainPage> with RouteAware {
 
   @override
   void didPushNext() {
+    _childRoutePushed = true;
     cameraController.stop();
   }
 
   @override
   void didPopNext() {
-    cameraController.start();
+    _childRoutePushed = false;
+    if (widget.scanTabActive.value) {
+      cameraController.start();
+    }
   }
 
   @override
@@ -208,6 +225,7 @@ class _MainPageState extends State<MainPage> with RouteAware {
 
   @override
   void dispose() {
+    widget.scanTabActive.removeListener(_onScanTabActiveChanged);
     widget.routeObserver.unsubscribe(this);
     cameraController.dispose();
     super.dispose();

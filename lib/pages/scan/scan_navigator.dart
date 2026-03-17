@@ -8,8 +8,9 @@ import 'package:pola_flutter/ui/web_view_tab.dart';
 
 class ScanNavigator extends StatefulWidget {
   final GlobalKey<NavigatorState>? navigatorKey;
+  final bool isActive;
 
-  const ScanNavigator({this.navigatorKey});
+  const ScanNavigator({this.navigatorKey, this.isActive = true});
 
   @override
   State<ScanNavigator> createState() => _ScanNavigatorState();
@@ -17,6 +18,27 @@ class ScanNavigator extends StatefulWidget {
 
 class _ScanNavigatorState extends State<ScanNavigator> {
   final routeObserver = RouteObserver<ModalRoute<dynamic>>();
+  late final ValueNotifier<bool> _scanTabActive;
+
+  @override
+  void initState() {
+    super.initState();
+    _scanTabActive = ValueNotifier<bool>(widget.isActive);
+  }
+
+  @override
+  void didUpdateWidget(ScanNavigator oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.isActive != widget.isActive) {
+      _scanTabActive.value = widget.isActive;
+    }
+  }
+
+  @override
+  void dispose() {
+    _scanTabActive.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +56,8 @@ class _ScanNavigatorState extends State<ScanNavigator> {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(
-            builder: (_) => MainPage(routeObserver: routeObserver));
+            builder: (_) => MainPage(
+                routeObserver: routeObserver, scanTabActive: _scanTabActive));
       case '/detail':
         if (args is SearchResult) {
           return MaterialPageRoute(
@@ -44,7 +67,8 @@ class _ScanNavigatorState extends State<ScanNavigator> {
           );
         }
         return MaterialPageRoute(
-            builder: (_) => MainPage(routeObserver: routeObserver));
+            builder: (_) => MainPage(
+                routeObserver: routeObserver, scanTabActive: _scanTabActive));
       case '/dialpad':
         return MaterialPageRoute(builder: (_) => DialPadPage());
       case '/search':
@@ -54,7 +78,8 @@ class _ScanNavigatorState extends State<ScanNavigator> {
                 url: "https://www.pola-app.pl/m/search/"));
       default:
         return MaterialPageRoute(
-            builder: (_) => MainPage(routeObserver: routeObserver));
+            builder: (_) => MainPage(
+                routeObserver: routeObserver, scanTabActive: _scanTabActive));
     }
   }
 }
