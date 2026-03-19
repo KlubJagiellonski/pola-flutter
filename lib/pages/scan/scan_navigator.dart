@@ -9,19 +9,14 @@ import 'package:pola_flutter/ui/web_view_tab.dart';
 class ScanNavigator extends StatefulWidget {
   final GlobalKey<NavigatorState>? navigatorKey;
   final bool isActive;
-  final RouteObserver<ModalRoute<dynamic>> rootNavigatorObserver;
 
-  const ScanNavigator({
-    this.navigatorKey,
-    this.isActive = true,
-    required this.rootNavigatorObserver,
-  });
+  const ScanNavigator({this.navigatorKey, this.isActive = true});
 
   @override
   State<ScanNavigator> createState() => _ScanNavigatorState();
 }
 
-class _ScanNavigatorState extends State<ScanNavigator> with RouteAware {
+class _ScanNavigatorState extends State<ScanNavigator> {
   final routeObserver = RouteObserver<ModalRoute<dynamic>>();
   late final ValueNotifier<bool> _scanTabActive;
   bool _rootOverlayPushed = false;
@@ -36,25 +31,15 @@ class _ScanNavigatorState extends State<ScanNavigator> with RouteAware {
   void didChangeDependencies() {
     super.didChangeDependencies();
     final route = ModalRoute.of(context);
-    if (route != null) {
-      widget.rootNavigatorObserver.subscribe(this, route);
+    final overlayPushed = route != null && !route.isCurrent;
+    if (overlayPushed != _rootOverlayPushed) {
+      _rootOverlayPushed = overlayPushed;
+      _updateScanTabActive();
     }
   }
 
   void _updateScanTabActive() {
     _scanTabActive.value = widget.isActive && !_rootOverlayPushed;
-  }
-
-  @override
-  void didPushNext() {
-    _rootOverlayPushed = true;
-    _updateScanTabActive();
-  }
-
-  @override
-  void didPopNext() {
-    _rootOverlayPushed = false;
-    _updateScanTabActive();
   }
 
   @override
@@ -67,7 +52,6 @@ class _ScanNavigatorState extends State<ScanNavigator> with RouteAware {
 
   @override
   void dispose() {
-    widget.rootNavigatorObserver.unsubscribe(this);
     _scanTabActive.dispose();
     super.dispose();
   }

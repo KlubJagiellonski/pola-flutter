@@ -8,10 +8,6 @@ import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/ui/web_view_tab.dart';
 
 class PolaTabController extends StatefulWidget {
-  final RouteObserver<ModalRoute<dynamic>> rootNavigatorObserver;
-
-  const PolaTabController({required this.rootNavigatorObserver});
-
   @override
   State<PolaTabController> createState() => _PolaTabControllerState();
 }
@@ -57,7 +53,6 @@ class _PolaTabControllerState extends State<PolaTabController> {
         ScanNavigator(
           navigatorKey: _scanNavigatorKey,
           isActive: _selectedIndex == 0,
-          rootNavigatorObserver: widget.rootNavigatorObserver,
         ),
         WebViewTab(
           title: t.news.title,
