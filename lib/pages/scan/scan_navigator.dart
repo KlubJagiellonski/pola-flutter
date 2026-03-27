@@ -6,15 +6,61 @@ import 'package:pola_flutter/pages/dialpad/dialpad.dart';
 import 'package:pola_flutter/pages/scan/scan.dart';
 import 'package:pola_flutter/ui/web_view_tab.dart';
 
-class ScanNavigator extends StatelessWidget {
+class ScanNavigator extends StatefulWidget {
   final GlobalKey<NavigatorState>? navigatorKey;
+  final bool isActive;
 
-  const ScanNavigator({this.navigatorKey});
+  const ScanNavigator({this.navigatorKey, this.isActive = true});
+
+  @override
+  State<ScanNavigator> createState() => _ScanNavigatorState();
+}
+
+class _ScanNavigatorState extends State<ScanNavigator> {
+  final routeObserver = RouteObserver<ModalRoute<dynamic>>();
+  late final ValueNotifier<bool> _scanTabActive;
+  bool _rootOverlayPushed = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _scanTabActive = ValueNotifier<bool>(widget.isActive);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final route = ModalRoute.of(context);
+    final overlayPushed = route != null && !route.isCurrent;
+    if (overlayPushed != _rootOverlayPushed) {
+      _rootOverlayPushed = overlayPushed;
+      _updateScanTabActive();
+    }
+  }
+
+  void _updateScanTabActive() {
+    _scanTabActive.value = widget.isActive && !_rootOverlayPushed;
+  }
+
+  @override
+  void didUpdateWidget(ScanNavigator oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.isActive != widget.isActive) {
+      _updateScanTabActive();
+    }
+  }
+
+  @override
+  void dispose() {
+    _scanTabActive.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Navigator(
-      key: navigatorKey,
+      key: widget.navigatorKey,
+      observers: [routeObserver],
       onGenerateRoute: _generateRoute,
       initialRoute: '/',
     );
@@ -25,7 +71,9 @@ class ScanNavigator extends StatelessWidget {
 
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(builder: (_) => MainPage());
+        return MaterialPageRoute(
+            builder: (_) => MainPage(
+                routeObserver: routeObserver, scanTabActive: _scanTabActive));
       case '/detail':
         if (args is SearchResult) {
           return MaterialPageRoute(
@@ -34,17 +82,21 @@ class ScanNavigator extends StatelessWidget {
             ),
           );
         }
-        return MaterialPageRoute(builder: (_) => MainPage());
+        return MaterialPageRoute(
+            builder: (_) => MainPage(
+                routeObserver: routeObserver, scanTabActive: _scanTabActive));
       case '/dialpad':
         return MaterialPageRoute(builder: (_) => DialPadPage());
       case '/search':
-      return MaterialPageRoute(
-        builder: (context) => WebViewTab(
-          title: Translations.of(context).search.title,
-           url: "https://www.pola-app.pl/m/search/"
-        ));
+        return MaterialPageRoute(
+            builder: (context) => WebViewTab(
+                title: Translations.of(context).search.title,
+                url: "https://www.pola-app.pl/m/search/"));
       default:
-        return MaterialPageRoute(builder: (_) => MainPage());
+        return MaterialPageRoute(
+            builder: (_) => MainPage(
+                routeObserver: routeObserver, scanTabActive: _scanTabActive));
     }
   }
 }
+

@@ -23,17 +23,23 @@ import 'package:pola_flutter/ui/menu_icon_button.dart';
 import 'package:pola_flutter/ui/web_view_dialog.dart';
 
 class MainPage extends StatefulWidget {
+  final RouteObserver<ModalRoute<dynamic>> routeObserver;
+  final ValueNotifier<bool> scanTabActive;
+
+  const MainPage({required this.routeObserver, required this.scanTabActive});
+
   @override
   _MainPageState createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _MainPageState extends State<MainPage> with RouteAware {
   late ScanBloc _scanBloc;
   MobileScannerController cameraController = MobileScannerController(
     detectionSpeed: DetectionSpeed.normal,
     formats: [BarcodeFormat.ean13, BarcodeFormat.ean8],
   );
   final PolaAnalytics _analytics = PolaAnalytics.instance();
+  bool _childRoutePushed = false;
 
   ScrollController listScrollController = ScrollController();
 
@@ -42,6 +48,40 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     _scanBloc = ScanBloc(PolaApiRepository(), ScanVibrationImpl(), _analytics,
         TorchControllerImpl(cameraController: cameraController));
+    widget.scanTabActive.addListener(_onScanTabActiveChanged);
+  }
+
+  void _onScanTabActiveChanged() {
+    if (widget.scanTabActive.value) {
+      if (!_childRoutePushed) {
+        cameraController.start();
+      }
+    } else {
+      cameraController.stop();
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final route = ModalRoute.of(context);
+    if (route != null) {
+      widget.routeObserver.subscribe(this, route);
+    }
+  }
+
+  @override
+  void didPushNext() {
+    _childRoutePushed = true;
+    cameraController.stop();
+  }
+
+  @override
+  void didPopNext() {
+    _childRoutePushed = false;
+    if (widget.scanTabActive.value) {
+      cameraController.start();
+    }
   }
 
   @override
@@ -187,6 +227,8 @@ class _MainPageState extends State<MainPage> {
 
   @override
   void dispose() {
+    widget.scanTabActive.removeListener(_onScanTabActiveChanged);
+    widget.routeObserver.unsubscribe(this);
     cameraController.dispose();
     super.dispose();
   }

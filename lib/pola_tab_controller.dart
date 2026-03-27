@@ -50,7 +50,10 @@ class _PolaTabControllerState extends State<PolaTabController> {
   }
 
   List<Widget> get _tabs => [
-        ScanNavigator(navigatorKey: _scanNavigatorKey),
+        ScanNavigator(
+          navigatorKey: _scanNavigatorKey,
+          isActive: _selectedIndex == 0,
+        ),
         WebViewTab(
           title: t.news.title,
           url: "https://www.pola-app.pl/m/blog/",
