@@ -34,8 +34,10 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> with RouteAware {
   late ScanBloc _scanBloc;
-  MobileScannerController cameraController =
-      MobileScannerController(detectionSpeed: DetectionSpeed.normal);
+  MobileScannerController cameraController = MobileScannerController(
+    detectionSpeed: DetectionSpeed.normal,
+    formats: [BarcodeFormat.ean13, BarcodeFormat.ean8],
+  );
   final PolaAnalytics _analytics = PolaAnalytics.instance();
   bool _childRoutePushed = false;
 
