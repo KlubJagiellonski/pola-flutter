@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/models/company.dart';
 import 'package:pola_flutter/models/replacement.dart';
 import 'package:pola_flutter/models/search_result.dart';
@@ -67,10 +68,61 @@ class DetailContent extends StatelessWidget {
                   indent: 0,
                   endIndent: 0,
                 ),
+              _ReportButton(productId: searchResult.productId),
             ],
           ),
         ),
       ],
+    );
+  }
+}
+
+class _ReportButton extends StatelessWidget {
+  final int? productId;
+
+  const _ReportButton({required this.productId});
+
+  @override
+  Widget build(BuildContext context) {
+    final t = Translations.of(context);
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 24.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            t.reportScreen.reportPrompt,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: TextSize.mediumTitle,
+              fontFamily: FontFamily.lato,
+              color: AppColors.text,
+            ),
+          ),
+          const SizedBox(height: 12.0),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed('/report', arguments: productId);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.defaultRed,
+              padding: const EdgeInsets.symmetric(vertical: 14.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+            ),
+            child: Text(
+              t.reportScreen.reportButton,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: TextSize.mediumTitle,
+                fontWeight: FontWeight.w600,
+                fontFamily: FontFamily.lato,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
