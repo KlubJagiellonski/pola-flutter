@@ -205,5 +205,14 @@ class _MockPolaApi extends PolaApi {
       );
     }
   }
+
+  @override
+  Future<bool> createReport({
+    required String description,
+    int? productId,
+    int? filesCount,
+    String? fileExt,
+    String? mimeType,
+  }) => Future.value(true);
 }
 
