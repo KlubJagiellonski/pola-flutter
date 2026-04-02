@@ -30,6 +30,8 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>The app requires access to camera in order to scan barcodes.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>The app requires access to photo library in order to attach images to reports.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

@@ -1,7 +1,8 @@
 import 'dart:io';
+import 'dart:ui' as ui;
 
+import 'package:crop_image/crop_image.dart';
 import 'package:flutter/material.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
@@ -54,17 +55,13 @@ class _ReportPageState extends State<ReportPage> {
   }
 
   Future<void> _cropImage(int index) async {
-    final cropped = await ImageCropper().cropImage(
-      sourcePath: _images[index].path,
-      uiSettings: [
-        IOSUiSettings(title: 'Edytuj zdjęcie', doneButtonTitle: 'Gotowe', cancelButtonTitle: 'Anuluj'),
-        AndroidUiSettings(toolbarTitle: 'Edytuj zdjęcie'),
-      ],
+    final result = await Navigator.of(context).push<XFile?>(
+      MaterialPageRoute(builder: (_) => _CropScreen(imageFile: _images[index])),
     );
-    if (cropped == null) return;
+    if (result == null) return;
     setState(() {
       final updated = List<XFile>.from(_images);
-      updated[index] = XFile(cropped.path);
+      updated[index] = result;
       _images = updated;
     });
   }
@@ -503,6 +500,54 @@ class _CircleCheckbox extends StatelessWidget {
       child: checked
           ? Icon(Icons.check, size: 13.0, color: AppColors.defaultRed)
           : null,
+    );
+  }
+}
+
+class _CropScreen extends StatefulWidget {
+  final XFile imageFile;
+
+  const _CropScreen({required this.imageFile});
+
+  @override
+  State<_CropScreen> createState() => _CropScreenState();
+}
+
+class _CropScreenState extends State<_CropScreen> {
+  final _controller = CropController();
+
+  Future<void> _confirm() async {
+    final bitmap = await _controller.croppedBitmap();
+    final data = await bitmap.toByteData(format: ui.ImageByteFormat.png);
+    if (data == null || !mounted) {
+      Navigator.of(context).pop();
+      return;
+    }
+    final dir = await Directory.systemTemp.createTemp('crop');
+    final file = File('${dir.path}/cropped.png');
+    await file.writeAsBytes(data.buffer.asUint8List());
+    if (mounted) Navigator.of(context).pop(XFile(file.path));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        iconTheme: const IconThemeData(color: Colors.white),
+        title: const Text('Edytuj zdjęcie', style: TextStyle(color: Colors.white)),
+        actions: [
+          TextButton(
+            onPressed: _confirm,
+            child: const Text('Gotowe', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
+          ),
+        ],
+      ),
+      body: CropImage(
+        controller: _controller,
+        image: Image.file(File(widget.imageFile.path)),
+      ),
     );
   }
 }
