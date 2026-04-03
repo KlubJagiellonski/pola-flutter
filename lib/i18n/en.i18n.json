@@ -46,6 +46,19 @@
     "tabs": {
         "search": "Wyszukaj",
         "news": "Aktualności"
+    },
+    "reportScreen": {
+        "title": "Zgłoś błąd",
+        "reportPrompt": "Posiadasz aktualne dane dla tego produktu?",
+        "reportButton": "Zgłoś je nam!",
+"descriptionLabel": "Opis zgłoszenia:",
+        "hint": "Zamieść tu dodatkowe informacje",
+        "attachSystemInfo": "Załącz informacje o twoim systemie (opcjonalne)",
+        "send": "Wyślij",
+        "successTitle": "Dziękujemy!",
+        "successMessage": "Twoje zgłoszenie zostało wysłane.",
+        "errorMessage": "Nie udało się wysłać zgłoszenia. Spróbuj ponownie.",
+        "descriptionRequired": "Opis zgłoszenia jest wymagany."
     }
 
 }

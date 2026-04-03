@@ -205,5 +205,9 @@ class _MockPolaApi extends PolaApi {
       );
     }
   }
+
+  @override
+  Future<bool> createReport({required String description, int? productId}) =>
+      Future.value(true);
 }
 

@@ -192,6 +192,10 @@ class _MockPolaApi extends PolaApi {
       return Future.value(ApiResponse.error("error"));
     }
   }
+
+  @override
+  Future<bool> createReport({required String description, int? productId}) =>
+      Future.value(true);
 }
 
 class _MockScanVibration extends ScanVibration {
