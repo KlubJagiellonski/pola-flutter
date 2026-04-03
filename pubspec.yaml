@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.6
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.9
   webview_flutter: ^4.13.0
   webview_flutter_web: ^0.2.3+4
   chopper: ^8.5.1
