@@ -1,9 +1,12 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:package_info_plus/package_info_plus.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
+import 'package:pola_flutter/pages/report/report_bloc.dart';
+import 'package:pola_flutter/pages/report/report_event.dart';
+import 'package:pola_flutter/pages/report/report_state.dart';
+import 'package:pola_flutter/pages/report/report_success_view.dart';
+import 'package:pola_flutter/ui/circle_checkbox.dart';
 import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/fonts.gen.dart';
 import 'package:pola_flutter/theme/text_size.dart';
@@ -17,14 +20,8 @@ class ReportPage extends StatefulWidget {
   State<ReportPage> createState() => _ReportPageState();
 }
 
-enum _ReportState { initial, loading, success, error }
-
 class _ReportPageState extends State<ReportPage> {
   final _controller = TextEditingController();
-  final _repository = PolaApiRepository();
-  _ReportState _state = _ReportState.initial;
-  bool _attachSystemInfo = false;
-  bool _descriptionEmpty = false;
 
   @override
   void dispose() {
@@ -32,82 +29,61 @@ class _ReportPageState extends State<ReportPage> {
     super.dispose();
   }
 
-  Future<String> _buildDescription() async {
-    var description = _controller.text.trim();
-    if (_attachSystemInfo) {
-      final info = await PackageInfo.fromPlatform();
-      final sysInfo = '\n\n--- System info ---'
-          '\nOS: ${Platform.operatingSystem} ${Platform.operatingSystemVersion}'
-          '\nApp: ${info.version}+${info.buildNumber}';
-      description += sysInfo;
-    }
-    return description;
-  }
-
-  Future<void> _submit() async {
-    if (_controller.text.trim().isEmpty) {
-      setState(() => _descriptionEmpty = true);
-      return;
-    }
-    setState(() => _descriptionEmpty = false);
-
-    setState(() => _state = _ReportState.loading);
-
-    final fullDescription = await _buildDescription();
-
-    final success = await _repository.createReport(
-      description: fullDescription,
-      productId: widget.productId,
-    );
-
-    if (!mounted) return;
-    setState(() => _state = success ? _ReportState.success : _ReportState.error);
-
-    if (success) {
-      await Future.delayed(const Duration(seconds: 2));
-      if (mounted) Navigator.of(context).pop();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    final t = Translations.of(context);
-
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(
-          t.reportScreen.title,
-          style: TextStyle(
-            color: AppColors.text,
-            fontSize: TextSize.newsTitle,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-      ),
-      body: SafeArea(
-        child: _state == _ReportState.success
-            ? Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 17.0, vertical: 24.0),
-                child: _SuccessView(t: t),
-              )
-            : _FormView(
-                t: t,
-                controller: _controller,
-                attachSystemInfo: _attachSystemInfo,
-                isLoading: _state == _ReportState.loading,
-                hasError: _state == _ReportState.error,
-                onSystemInfoChanged: (val) =>
-                    setState(() => _attachSystemInfo = val),
-                onSubmit: _submit,
-                descriptionEmpty: _descriptionEmpty,
-                onDescriptionChanged: (_) =>
-                    setState(() => _descriptionEmpty = false),
+    return BlocProvider(
+      create: (_) => ReportBloc(PolaApiRepository(), productId: widget.productId),
+      child: BlocConsumer<ReportBloc, ReportState>(
+        listenWhen: (prev, curr) => !prev.isSuccess && curr.isSuccess,
+        listener: (context, state) async {
+          await Future.delayed(const Duration(seconds: 2));
+          if (context.mounted) Navigator.of(context).pop();
+        },
+        builder: (context, state) {
+          final t = Translations.of(context);
+          return Scaffold(
+            backgroundColor: Colors.white,
+            appBar: AppBar(
+              title: Text(
+                t.reportScreen.title,
+                style: TextStyle(
+                  color: AppColors.text,
+                  fontSize: TextSize.newsTitle,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ),
+            body: SafeArea(
+              child: state.isSuccess
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 17.0, vertical: 24.0),
+                      child: ReportSuccessView(t: t),
+                    )
+                  : _FormView(
+                      t: t,
+                      controller: _controller,
+                      attachSystemInfo: state.attachSystemInfo,
+                      isLoading: state.isLoading,
+                      hasError: state.isError,
+                      descriptionEmpty: state.descriptionEmpty,
+                      onSystemInfoChanged: (val) => context
+                          .read<ReportBloc>()
+                          .add(ReportEvent.systemInfoToggled(val)),
+                      onSubmit: () => context
+                          .read<ReportBloc>()
+                          .add(ReportEvent.submitted(_controller.text)),
+                      onDescriptionChanged: (_) => context
+                          .read<ReportBloc>()
+                          .add(const ReportEvent.descriptionChanged()),
+                    ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -119,9 +95,9 @@ class _FormView extends StatelessWidget {
   final bool attachSystemInfo;
   final bool isLoading;
   final bool hasError;
+  final bool descriptionEmpty;
   final ValueChanged<bool> onSystemInfoChanged;
   final VoidCallback onSubmit;
-  final bool descriptionEmpty;
   final ValueChanged<String> onDescriptionChanged;
 
   const _FormView({
@@ -130,9 +106,9 @@ class _FormView extends StatelessWidget {
     required this.attachSystemInfo,
     required this.isLoading,
     required this.hasError,
+    required this.descriptionEmpty,
     required this.onSystemInfoChanged,
     required this.onSubmit,
-    required this.descriptionEmpty,
     required this.onDescriptionChanged,
   });
 
@@ -142,7 +118,8 @@ class _FormView extends StatelessWidget {
       children: [
         Expanded(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 17.0, vertical: 24.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 17.0, vertical: 24.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -189,15 +166,18 @@ class _FormView extends StatelessWidget {
                   const SizedBox(height: 6.0),
                   Text(
                     t.reportScreen.descriptionRequired,
-                    style: const TextStyle(color: AppColors.defaultRed, fontSize: 13.0),
+                    style: const TextStyle(
+                        color: AppColors.defaultRed, fontSize: 13.0),
                   ),
                 ],
                 const SizedBox(height: 16.0),
                 GestureDetector(
-                  onTap: isLoading ? null : () => onSystemInfoChanged(!attachSystemInfo),
+                  onTap: isLoading
+                      ? null
+                      : () => onSystemInfoChanged(!attachSystemInfo),
                   child: Row(
                     children: [
-                      _CircleCheckbox(checked: attachSystemInfo),
+                      CircleCheckbox(checked: attachSystemInfo),
                       const SizedBox(width: 8.0),
                       Text(
                         t.reportScreen.attachSystemInfo,
@@ -251,70 +231,6 @@ class _FormView extends StatelessWidget {
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _CircleCheckbox extends StatelessWidget {
-  final bool checked;
-
-  const _CircleCheckbox({required this.checked});
-
-  @override
-  Widget build(BuildContext context) {
-    final color = checked ? AppColors.defaultRed : AppColors.inactive;
-    return Container(
-      width: 20.0,
-      height: 20.0,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(color: color, width: 1.5),
-      ),
-      child: checked
-          ? Icon(Icons.check, size: 13.0, color: AppColors.defaultRed)
-          : null,
-    );
-  }
-}
-
-class _SuccessView extends StatelessWidget {
-  final Translations t;
-
-  const _SuccessView({required this.t});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        const Icon(
-          Icons.check_circle_outline,
-          color: AppColors.defaultRed,
-          size: 72.0,
-        ),
-        const SizedBox(height: 24.0),
-        Text(
-          t.reportScreen.successTitle,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: TextSize.pageTitle,
-            fontWeight: FontWeight.w700,
-            fontFamily: FontFamily.lato,
-            color: AppColors.text,
-          ),
-        ),
-        const SizedBox(height: 12.0),
-        Text(
-          t.reportScreen.successMessage,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: TextSize.mediumTitle,
-            fontFamily: FontFamily.lato,
-            color: AppColors.text,
           ),
         ),
       ],
