@@ -34,7 +34,9 @@ class _ReportPageState extends State<ReportPage> {
     return BlocProvider(
       create: (_) => ReportBloc(PolaApiRepository(), productId: widget.productId),
       child: BlocConsumer<ReportBloc, ReportState>(
-        listenWhen: (prev, curr) => !prev.isSuccess && curr.isSuccess,
+        listenWhen: (prev, curr) =>
+            prev.requestState != ReportRequestState.success &&
+            curr.requestState == ReportRequestState.success,
         listener: (context, state) async {
           await Future.delayed(const Duration(seconds: 2));
           if (context.mounted) Navigator.of(context).pop();
@@ -58,7 +60,7 @@ class _ReportPageState extends State<ReportPage> {
               ),
             ),
             body: SafeArea(
-              child: state.isSuccess
+              child: state.requestState == ReportRequestState.success
                   ? Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 17.0, vertical: 24.0),
@@ -68,18 +70,18 @@ class _ReportPageState extends State<ReportPage> {
                       t: t,
                       controller: _controller,
                       attachSystemInfo: state.attachSystemInfo,
-                      isLoading: state.isLoading,
-                      hasError: state.isError,
-                      descriptionEmpty: state.descriptionEmpty,
+                      isLoading: state.requestState == ReportRequestState.loading,
+                      hasError: state.requestState == ReportRequestState.error,
+                      descriptionEmpty: state.requestState == ReportRequestState.emptyDescription,
                       onSystemInfoChanged: (val) => context
                           .read<ReportBloc>()
                           .add(ReportEvent.systemInfoToggled(val)),
                       onSubmit: () => context
                           .read<ReportBloc>()
-                          .add(ReportEvent.submitted(_controller.text)),
-                      onDescriptionChanged: (_) => context
+                          .add(const ReportEvent.submitted()),
+                      onDescriptionChanged: (text) => context
                           .read<ReportBloc>()
-                          .add(const ReportEvent.descriptionChanged()),
+                          .add(ReportEvent.descriptionChanged(text)),
                     ),
             ),
           );
@@ -182,7 +184,7 @@ class _FormView extends StatelessWidget {
                       Text(
                         t.reportScreen.attachSystemInfo,
                         style: TextStyle(
-                          fontSize: TextSize.description + 1,
+                          fontSize: TextSize.smallTitle,
                           fontFamily: FontFamily.lato,
                           color: AppColors.inactive,
                         ),

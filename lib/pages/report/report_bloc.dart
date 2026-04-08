@@ -7,31 +7,31 @@ import 'package:pola_flutter/pages/report/report_event.dart';
 import 'package:pola_flutter/pages/report/report_state.dart';
 
 class ReportBloc extends Bloc<ReportEvent, ReportState> {
-  final PolaApiRepository _repository;
+  final PolaApi _repository;
   final int? _productId;
 
-  ReportBloc(this._repository, {required int? productId})
-      : _productId = productId,
+  ReportBloc(PolaApi repository, {required int? productId})
+      : _repository = repository,
+        _productId = productId,
         super(const ReportState()) {
     on<ReportEvent>((event, emit) async {
       await event.when(
-        submitted: (description) => _onSubmitted(description, emit),
+        submitted: () => _onSubmitted(emit),
         systemInfoToggled: (value) async => _onSystemInfoToggled(value, emit),
-        descriptionChanged: () async => _onDescriptionChanged(emit),
+        descriptionChanged: (description) async => _onDescriptionChanged(description, emit),
       );
     });
   }
 
-  Future<void> _onSubmitted(
-      String description, Emitter<ReportState> emit) async {
-    final trimmed = description.trim();
+  Future<void> _onSubmitted(Emitter<ReportState> emit) async {
+    final trimmed = state.description.trim();
     if (trimmed.isEmpty) {
-      emit(state.copyWith(descriptionEmpty: true));
+      emit(state.copyWith(requestState: ReportRequestState.emptyDescription));
       return;
     }
 
     final attachSystemInfo = state.attachSystemInfo;
-    emit(state.copyWith(descriptionEmpty: false, isLoading: true, isError: false));
+    emit(state.copyWith(requestState: ReportRequestState.loading));
 
     final fullDescription = await _buildDescription(trimmed, attachSystemInfo);
     final success = await _repository.createReport(
@@ -40,9 +40,7 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
     );
 
     emit(state.copyWith(
-      isLoading: false,
-      isSuccess: success,
-      isError: !success,
+      requestState: success ? ReportRequestState.success : ReportRequestState.error,
     ));
   }
 
@@ -62,9 +60,12 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
     emit(state.copyWith(attachSystemInfo: value));
   }
 
-  void _onDescriptionChanged(Emitter<ReportState> emit) {
-    if (state.descriptionEmpty) {
-      emit(state.copyWith(descriptionEmpty: false));
-    }
+  void _onDescriptionChanged(String description, Emitter<ReportState> emit) {
+    emit(state.copyWith(
+      description: description,
+      requestState: state.requestState == ReportRequestState.emptyDescription
+          ? ReportRequestState.idle
+          : state.requestState,
+    ));
   }
 }
