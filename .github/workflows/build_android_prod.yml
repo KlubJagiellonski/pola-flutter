@@ -1,4 +1,4 @@
-name: Build Android
+name: Build Android Prod
 
 on:
   push:
@@ -27,26 +27,25 @@ jobs:
               env:
                 DATA: ${{ secrets.GOOGLESERVICES }}
               run: echo $DATA > /home/runner/work/pola-flutter/pola-flutter/android/app/google-services.json
+            - name: Restore keystore file
+              shell: bash
+              env:
+                KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+              run: |
+                echo "$KEYSTORE_BASE64" | base64 --decode > android/pola-android-release-key.keystore
+            - name: Generate keystore.properties
+              run: |
+                echo "store=../pola-android-release-key.keystore" > android/keystore.properties
+                echo "alias=${{ secrets.KEY_ALIAS }}" >> android/keystore.properties
+                echo "storePass=${{ secrets.STORE_PASSWORD }}" >> android/keystore.properties
+                echo "pass=${{ secrets.KEY_PASSWORD }}" >> android/keystore.properties
             - name: Debug build configuration
               run: |
                 echo "Checking build.gradle content:"
                 cat android/app/build.gradle
-            - name: Build QA APK
-              run: flutter build apk --flavor qa --debug --verbose --build-number=${{ github.run_number }}
-            - name: Install Firebase CLI
-              run: npm install -g firebase-tools        
-            - name: Deploy QA to Firebase App Distribution
-              if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/release/')
-              env:
-                FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-                FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
-              run: |
-                firebase appdistribution:distribute build/app/outputs/flutter-apk/app-qa-debug.apk \
-                  --app $FIREBASE_APP_ID \
-                  --token $FIREBASE_TOKEN \
-                  --groups "QA-Group" \
-                  --release-notes "Automatyczny build z GitHub Actions - branch: ${{ github.ref }} - commit: ${{ github.sha }}"
+            - name: Build prod appbundle
+              run: flutter build appbundle --flavor prod --release --build-number=${{ github.run_number }}         
             - uses: actions/upload-artifact@v7
               with:
-                name: app-qa-debug.apk
-                path: build/app/outputs/flutter-apk/app-qa-debug.apk
+                name: app-prod-release-aab
+                path: build/app/outputs/bundle/prodRelease/app-prod-release.aab
