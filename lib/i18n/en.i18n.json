@@ -49,9 +49,7 @@
     },
     "reportScreen": {
         "title": "Zgłoś błąd",
-        "reportPrompt": "Posiadasz aktualne dane dla tego produktu?",
-        "reportButton": "Zgłoś je nam!",
-"descriptionLabel": "Opis zgłoszenia:",
+        "descriptionLabel": "Opis zgłoszenia:",
         "hint": "Zamieść tu dodatkowe informacje",
         "attachSystemInfo": "Załącz informacje o twoim systemie (opcjonalne)",
         "send": "Wyślij",
@@ -60,5 +58,4 @@
         "errorMessage": "Nie udało się wysłać zgłoszenia. Spróbuj ponownie.",
         "descriptionRequired": "Opis zgłoszenia jest wymagany."
     }
-
 }

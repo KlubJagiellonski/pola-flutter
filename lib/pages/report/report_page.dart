@@ -70,9 +70,7 @@ class _ReportPageState extends State<ReportPage> {
                       t: t,
                       controller: _controller,
                       attachSystemInfo: state.attachSystemInfo,
-                      isLoading: state.requestState == ReportRequestState.loading,
-                      hasError: state.requestState == ReportRequestState.error,
-                      descriptionEmpty: state.requestState == ReportRequestState.emptyDescription,
+                      requestState: state.requestState,
                       onSystemInfoChanged: (val) => context
                           .read<ReportBloc>()
                           .add(ReportEvent.systemInfoToggled(val)),
@@ -95,9 +93,7 @@ class _FormView extends StatelessWidget {
   final Translations t;
   final TextEditingController controller;
   final bool attachSystemInfo;
-  final bool isLoading;
-  final bool hasError;
-  final bool descriptionEmpty;
+  final ReportRequestState requestState;
   final ValueChanged<bool> onSystemInfoChanged;
   final VoidCallback onSubmit;
   final ValueChanged<String> onDescriptionChanged;
@@ -106,9 +102,7 @@ class _FormView extends StatelessWidget {
     required this.t,
     required this.controller,
     required this.attachSystemInfo,
-    required this.isLoading,
-    required this.hasError,
-    required this.descriptionEmpty,
+    required this.requestState,
     required this.onSystemInfoChanged,
     required this.onSubmit,
     required this.onDescriptionChanged,
@@ -141,7 +135,7 @@ class _FormView extends StatelessWidget {
                 TextField(
                   controller: controller,
                   maxLines: 8,
-                  enabled: !isLoading,
+                  enabled: requestState != ReportRequestState.loading,
                   onChanged: onDescriptionChanged,
                   decoration: InputDecoration(
                     hintText: t.reportScreen.hint,
@@ -164,7 +158,7 @@ class _FormView extends StatelessWidget {
                     color: AppColors.text,
                   ),
                 ),
-                if (descriptionEmpty) ...[
+                if (requestState == ReportRequestState.emptyDescription) ...[
                   const SizedBox(height: 6.0),
                   Text(
                     t.reportScreen.descriptionRequired,
@@ -174,7 +168,7 @@ class _FormView extends StatelessWidget {
                 ],
                 const SizedBox(height: 16.0),
                 GestureDetector(
-                  onTap: isLoading
+                  onTap: requestState == ReportRequestState.loading
                       ? null
                       : () => onSystemInfoChanged(!attachSystemInfo),
                   child: Row(
@@ -192,7 +186,7 @@ class _FormView extends StatelessWidget {
                     ],
                   ),
                 ),
-                if (hasError) ...[
+                if (requestState == ReportRequestState.error) ...[
                   const SizedBox(height: 8.0),
                   Text(
                     t.reportScreen.errorMessage,
@@ -206,7 +200,7 @@ class _FormView extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(17.0, 8.0, 17.0, 16.0),
           child: ElevatedButton(
-            onPressed: isLoading ? null : onSubmit,
+            onPressed: requestState == ReportRequestState.loading ? null : onSubmit,
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.defaultRed,
               disabledBackgroundColor: AppColors.inactive,
@@ -216,7 +210,7 @@ class _FormView extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30.0),
               ),
             ),
-            child: isLoading
+            child: requestState == ReportRequestState.loading
                 ? const SizedBox(
                     height: 20.0,
                     width: 20.0,

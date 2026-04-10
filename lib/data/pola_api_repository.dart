@@ -1,8 +1,6 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:chopper/chopper.dart';
-import 'package:http/http.dart' as http;
 import 'package:pola_flutter/data/api_response.dart';
 import 'package:pola_flutter/data/pola_api_service.dart';
 import 'package:pola_flutter/data/device_id_service.dart';
@@ -36,8 +34,7 @@ class PolaApiRepository implements PolaApi {
     }
 
     if(response.isSuccessful){
-      Map<String, dynamic> map = json.decode(response.body);
-      result = SearchResult.fromJson(map);
+      result = SearchResult.fromJson(response.body as Map<String, dynamic>);
       return ApiResponse<SearchResult>.completed(result);
     }
     return ApiResponse.error(response.bodyString);
@@ -51,16 +48,11 @@ class PolaApiRepository implements PolaApi {
     try {
       final body = <String, dynamic>{'description': description};
       if (productId != null) body['product_id'] = productId;
-
-      final uri = Uri.parse('https://www.pola-app.pl/a/v4/create_report')
-          .replace(queryParameters: {'device_id': _deviceIdService.uuid});
-
-      final response = await http.post(
-        uri,
-        headers: {'Content-Type': 'application/json'},
-        body: json.encode(body),
+      final response = await _polaApiService.createReport(
+        _deviceIdService.uuid,
+        body,
       );
-      return response.statusCode >= 200 && response.statusCode < 300;
+      return response.isSuccessful;
     } on SocketException {
       return false;
     }

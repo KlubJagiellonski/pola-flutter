@@ -8,10 +8,16 @@ abstract class PolaApiService extends ChopperService {
   Future<Response> getCompany(
       @Query("code") String code, @Query("device_id") String deviceId);
 
+  @POST(path: 'a/v4/create_report')
+  Future<Response> createReport(
+      @Query("device_id") String deviceId,
+      @Body() Map<String, dynamic> body);
+
   static PolaApiService create() {
     final client = ChopperClient(
-      baseUrl: Uri.parse('https://pola-app.pl'),
+      baseUrl: Uri.parse('https://www.pola-app.pl'),
       interceptors: [HttpLoggingInterceptor()],
+      converter: JsonConverter(),
       services: [
         _$PolaApiService(),
       ],
