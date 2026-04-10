@@ -3,6 +3,7 @@ import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/pages/detail/detail.dart';
 import 'package:pola_flutter/pages/dialpad/dialpad.dart';
+import 'package:pola_flutter/pages/report/report_page.dart';
 import 'package:pola_flutter/pages/scan/scan.dart';
 import 'package:pola_flutter/ui/web_view_tab.dart';
 
@@ -92,6 +93,12 @@ class _ScanNavigatorState extends State<ScanNavigator> {
             builder: (context) => WebViewTab(
                 title: Translations.of(context).search.title,
                 url: "https://www.pola-app.pl/m/search/"));
+      case '/report':
+        return MaterialPageRoute(
+          builder: (_) => ReportPage(
+            productId: args is int ? args : null,
+          ),
+        );
       default:
         return MaterialPageRoute(
             builder: (_) => MainPage(

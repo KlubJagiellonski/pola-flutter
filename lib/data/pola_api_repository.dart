@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:chopper/chopper.dart';
@@ -9,6 +8,10 @@ import 'package:pola_flutter/models/search_result.dart';
 
 abstract class PolaApi {
   Future<ApiResponse<SearchResult>> getCompany(String code);
+  Future<bool> createReport({
+    required String description,
+    int? productId,
+  });
 }
 
 class PolaApiRepository implements PolaApi {
@@ -31,10 +34,27 @@ class PolaApiRepository implements PolaApi {
     }
 
     if(response.isSuccessful){
-      Map<String, dynamic> map = json.decode(response.body);
-      result = SearchResult.fromJson(map);
+      result = SearchResult.fromJson(response.body as Map<String, dynamic>);
       return ApiResponse<SearchResult>.completed(result);
     }
     return ApiResponse.error(response.bodyString);
+  }
+
+  @override
+  Future<bool> createReport({
+    required String description,
+    int? productId,
+  }) async {
+    try {
+      final body = <String, dynamic>{'description': description};
+      if (productId != null) body['product_id'] = productId;
+      final response = await _polaApiService.createReport(
+        _deviceIdService.uuid,
+        body,
+      );
+      return response.isSuccessful;
+    } on SocketException {
+      return false;
+    }
   }
 }
