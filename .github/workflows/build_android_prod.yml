@@ -26,13 +26,19 @@ jobs:
             - name: Putting secret data
               env:
                 DATA: ${{ secrets.GOOGLESERVICES }}
-              run: echo $DATA > /home/runner/work/pola-flutter/pola-flutter/android/app/google-services.json
+              run: printf '%s' "$DATA" > android/app/google-services.json
             - name: Restore keystore file
               shell: bash
               env:
                 KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
               run: |
-                echo "$KEYSTORE_BASE64" | base64 --decode > android/pola-android-release-key.keystore
+                printf '%s' "$KEYSTORE_BASE64" | base64 --decode > android/pola-android-release-key.keystore
+            - name: Verify keystore
+              shell: bash
+              env:
+                STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+              run: |
+                keytool -list -keystore android/pola-android-release-key.keystore -storepass "$STORE_PASSWORD"
             - name: Generate keystore.properties
               run: |
                 echo "store=../pola-android-release-key.keystore" > android/keystore.properties
