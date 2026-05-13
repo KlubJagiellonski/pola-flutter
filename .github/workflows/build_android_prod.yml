@@ -41,10 +41,10 @@ jobs:
                 keytool -list -keystore android/pola-android-release-key.keystore -storepass "$STORE_PASSWORD"
             - name: Generate keystore.properties
               run: |
-                echo "store=../pola-android-release-key.keystore" > android/keystore.properties
-                echo "alias=${{ secrets.KEY_ALIAS }}" >> android/keystore.properties
-                echo "storePass=${{ secrets.STORE_PASSWORD }}" >> android/keystore.properties
-                echo "pass=${{ secrets.KEY_PASSWORD }}" >> android/keystore.properties
+                echo 'store=../pola-android-release-key.keystore' > android/keystore.properties
+                echo 'alias=${{ secrets.KEY_ALIAS }}' >> android/keystore.properties
+                echo 'storePass=${{ secrets.STORE_PASSWORD }}' >> android/keystore.properties
+                echo 'pass=${{ secrets.KEY_PASSWORD }}' >> android/keystore.properties
             - name: Debug build configuration
               run: |
                 echo "Checking build.gradle content:"
