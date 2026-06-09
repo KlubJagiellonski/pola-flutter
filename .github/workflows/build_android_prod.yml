@@ -1,0 +1,57 @@
+name: Build Android Prod
+
+on:
+  push:
+  pull_request:
+
+jobs:
+    build_android:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v6
+            - uses: actions/setup-java@v5
+              with:
+                distribution: 'temurin'
+                java-version: '18'
+            - name: Install Flutter
+              uses: subosito/flutter-action@v2
+              with:
+                channel: 'stable'
+                cache: true
+            - name: Get dependencies
+              run: flutter pub get  
+            - run: dart run build_runner build
+            - run: dart run slang
+            - name: Putting secret data
+              env:
+                DATA: ${{ secrets.GOOGLESERVICES }}
+              run: printf '%s' "$DATA" > android/app/google-services.json
+            - name: Restore keystore file
+              shell: bash
+              env:
+                KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+              run: |
+                printf '%s' "$KEYSTORE_BASE64" | base64 --decode > android/pola-android-release-key.keystore
+            - name: Verify keystore
+              shell: bash
+              env:
+                STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+              run: |
+                keytool -list -keystore android/pola-android-release-key.keystore -storepass "$STORE_PASSWORD"
+            - name: Generate keystore.properties
+              run: |
+                echo 'store=../pola-android-release-key.keystore' > android/keystore.properties
+                echo 'alias=${{ secrets.KEY_ALIAS }}' >> android/keystore.properties
+                echo 'storePass=${{ secrets.STORE_PASSWORD }}' >> android/keystore.properties
+                echo 'pass=${{ secrets.KEY_PASSWORD }}' >> android/keystore.properties
+            - name: Debug build configuration
+              run: |
+                echo "Checking build.gradle content:"
+                cat android/app/build.gradle
+            - name: Build prod appbundle
+              run: flutter build appbundle --flavor prod --release --build-number=${{ github.run_number }}        
+            - uses: actions/upload-artifact@v7
+              with:
+                name: app-prod-release-aab
+                path: build/app/outputs/bundle/prodRelease/app-prod-release.aab
