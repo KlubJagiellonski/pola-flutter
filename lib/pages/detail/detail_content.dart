@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/models/company.dart';
 import 'package:pola_flutter/models/replacement.dart';
+import 'package:pola_flutter/models/report.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/colors.dart';
@@ -60,17 +61,72 @@ class DetailContent extends StatelessWidget {
                     logotypes: logotypes,
                     searchResult: searchResult),
               const SizedBox(height: 26.0),
-              if (hasLogo)
+              if (hasLogo && searchResult.report != null)
                 Divider(
                   thickness: 1.0,
                   color: AppColors.divider,
                   indent: 0,
                   endIndent: 0,
                 ),
+              if (searchResult.report != null)
+                _ReportButton(
+                  productId: searchResult.productId,
+                  report: searchResult.report!,
+                ),
             ],
           ),
         ),
       ],
+    );
+  }
+}
+
+class _ReportButton extends StatelessWidget {
+  final int? productId;
+  final Report report;
+
+  const _ReportButton({required this.productId, required this.report});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 24.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            report.text,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: TextSize.mediumTitle,
+              fontFamily: FontFamily.lato,
+              color: AppColors.text,
+            ),
+          ),
+          const SizedBox(height: 12.0),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed('/report', arguments: productId);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.defaultRed,
+              padding: const EdgeInsets.symmetric(vertical: 14.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+            ),
+            child: Text(
+              report.buttonText,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: TextSize.mediumTitle,
+                fontWeight: FontWeight.w600,
+                fontFamily: FontFamily.lato,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

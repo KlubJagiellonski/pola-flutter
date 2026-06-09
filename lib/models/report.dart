@@ -5,8 +5,8 @@ part 'report.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class Report extends Equatable {
-  final String? text;
-  final String? buttonText;
+  final String text;
+  final String buttonText;
   final String? buttonType;
 
   Report(
