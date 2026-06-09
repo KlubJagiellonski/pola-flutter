@@ -63,6 +63,12 @@ android {
 
     flavorDimensions "version"
     productFlavors {
+        dev {
+            dimension "version"
+            applicationId "pl.pola_app.dev"
+            versionNameSuffix "-dev"
+            resValue "string", "app_name", "Pola App Dev"
+        }
         prod {
             dimension "version"
             applicationId "pl.pola_app"
@@ -102,4 +108,14 @@ android {
 
 flutter {
     source '../..'
+}
+
+tasks.configureEach { task ->
+    if (task.name.contains("Dev") && (task.name.contains("GoogleServices") || task.name.toLowerCase().contains("crashlytics"))) {
+        task.enabled = false
+    }
+
+    if ((task.name.contains("Prod") || task.name.contains("Qa")) && task.name.contains("GoogleServices")) {
+        task.outputs.upToDateWhen { false }
+    }
 }

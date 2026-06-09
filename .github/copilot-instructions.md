@@ -5,7 +5,7 @@
 **Pola** is a Flutter mobile application that helps users identify Polish products by scanning barcodes. It supports Android and iOS platforms.
 
 - **App name**: `pola_flutter`
-- **Flavors**: `prod` (production) and `qa` (QA testing)
+- **Flavors**: `dev` (local development), `qa` (QA testing), and `prod` (production)
 
 ## Tech Stack
 
@@ -189,5 +189,4 @@ blocTest<ScanBloc, ScanState>(
 
 ## Firebase
 
-Firebase is integrated for analytics, crash reporting, and push notifications. Firebase configuration files (`google-services.json` for Android, `GoogleService-Info.plist` for iOS) are **not** committed to the repository; they are injected via CI secrets.
-
+Firebase is integrated for analytics, crash reporting, and push notifications. The `dev` flavor must build without Firebase configuration files. The `qa` and `prod` flavors require Firebase configuration and should be run with `--dart-define=FIREBASE_ENABLED=true`.

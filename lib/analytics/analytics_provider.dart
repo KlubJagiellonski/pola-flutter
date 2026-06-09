@@ -9,7 +9,9 @@ class FirebaseAnalyticsProvider implements AnalyticsProvider {
 
   @override
   void logEvent(String name, [Map<String, dynamic>? parameters]) {
-    Map<String, Object>? objectMap = parameters?.map((key, value) => MapEntry(key, value as Object));
+    Map<String, Object>? objectMap = parameters?.map(
+      (key, value) => MapEntry(key, value as Object),
+    );
     _analytics.logEvent(name: name, parameters: objectMap);
   }
 }
@@ -19,4 +21,9 @@ class ConsoleAnalyticsProvider implements AnalyticsProvider {
   void logEvent(String name, [Map<String, dynamic>? parameters]) {
     print('Analytics event: $name, parameters: $parameters');
   }
+}
+
+class NoOpAnalyticsProvider implements AnalyticsProvider {
+  @override
+  void logEvent(String name, [Map<String, dynamic>? parameters]) {}
 }

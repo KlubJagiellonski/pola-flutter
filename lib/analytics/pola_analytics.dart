@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:pola_flutter/analytics/analytics_about_row.dart';
 import 'package:pola_flutter/analytics/analytics_main_tab.dart';
+import 'package:pola_flutter/config/firebase_config.dart';
 
 import '../models/search_result.dart';
 import 'analytics_event_name.dart';
@@ -13,34 +14,43 @@ class PolaAnalytics {
 
   PolaAnalytics({required this.provider});
 
-  PolaAnalytics.instance() : provider = kDebugMode ? ConsoleAnalyticsProvider() : FirebaseAnalyticsProvider();
+  PolaAnalytics.instance()
+    : provider = isFirebaseEnabled
+          ? FirebaseAnalyticsProvider()
+          : kDebugMode
+          ? ConsoleAnalyticsProvider()
+          : NoOpAnalyticsProvider();
 
   void barcodeScanned(String barcode, AnalyticsBarcodeSource type) {
     _logEvent(
       AnalyticsEventName.scanCode,
-      AnalyticsScanCodeParameters(code: barcode, source: type.name).toJson()
-     );
+      AnalyticsScanCodeParameters(code: barcode, source: type.name).toJson(),
+    );
   }
 
   void searchResultReceived(SearchResult result) {
     _logEvent(
       AnalyticsEventName.companyReceived,
       AnalyticsProductResultParameters(
-        code: result.code, 
-        company: result.name, 
-        productId: result.productId != null ? result.productId.toString() : null
-        ).toJson()
+        code: result.code,
+        company: result.name,
+        productId: result.productId != null
+            ? result.productId.toString()
+            : null,
+      ).toJson(),
     );
   }
 
-    void opensCard(SearchResult result) {
+  void opensCard(SearchResult result) {
     _logEvent(
       AnalyticsEventName.cardOpened,
       AnalyticsProductResultParameters(
-        code: result.code, 
-        company: result.name, 
-        productId: result.productId != null ? result.productId.toString() : null
-        ).toJson()
+        code: result.code,
+        company: result.name,
+        productId: result.productId != null
+            ? result.productId.toString()
+            : null,
+      ).toJson(),
     );
   }
 
@@ -48,25 +58,27 @@ class PolaAnalytics {
     _logEvent(
       AnalyticsEventName.reportStarted,
       AnalyticsReadMoreParameters(
-        code: result.code, 
-        company: result.name, 
-        productId: result.productId != null ? result.productId.toString() : null,
-        url: url
-      ).toJson()
+        code: result.code,
+        company: result.name,
+        productId: result.productId != null
+            ? result.productId.toString()
+            : null,
+        url: url,
+      ).toJson(),
     );
   }
 
   void donateOpened(String? barcode) {
     _logEvent(
       AnalyticsEventName.donateOpened,
-      AnalyticsProductResultParameters(code: barcode).toJson()
+      AnalyticsProductResultParameters(code: barcode).toJson(),
     );
   }
 
   void aboutOpened(AnalyticsAboutRow row) {
     _logEvent(
       AnalyticsEventName.menuItemOpened,
-      AnalyticsAboutParameters(item: row.name).toJson()
+      AnalyticsAboutParameters(item: row.name).toJson(),
     );
   }
 
@@ -81,7 +93,7 @@ class PolaAnalytics {
   void mainTabChanged(AnalyticsMainTab tab) {
     _logEvent(
       AnalyticsEventName.mainTabChanged,
-      AnalyticsMainTabParameters(tab: tab.name).toJson()
+      AnalyticsMainTabParameters(tab: tab.name).toJson(),
     );
   }
 
@@ -91,11 +103,11 @@ class PolaAnalytics {
 
   void replacementCardOpened(String originCode, String replacementCode) {
     _logEvent(
-      AnalyticsEventName.replacemntCardOpened, 
+      AnalyticsEventName.replacemntCardOpened,
       AnalyticsReplacementCardOpenedParameters(
-        originCode: originCode, 
-        replacementCode: replacementCode
-      ).toJson()
+        originCode: originCode,
+        replacementCode: replacementCode,
+      ).toJson(),
     );
   }
 

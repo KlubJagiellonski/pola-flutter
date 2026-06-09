@@ -4,15 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
+import 'package:pola_flutter/config/firebase_config.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/pola_tab_controller.dart';
 import 'package:pola_flutter/firebase_options.dart';
+import 'package:pola_flutter/ui/flavor_banner.dart';
+
+const _appFlavor = String.fromEnvironment(
+  'FLUTTER_APP_FLAVOR',
+  defaultValue: 'prod',
+);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (kDebugMode) {
     _setupLogging();
-  } else {
+  }
+  if (isFirebaseEnabled) {
     await Firebase.initializeApp(
       name: "Pola",
       options: DefaultFirebaseOptions.currentPlatform,
@@ -28,12 +36,15 @@ class PolaApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return TranslationProvider(child: MaterialApp(
-      theme: ThemeData(
-        colorScheme: ColorScheme.light().copyWith(primary: Colors.red),
+    return TranslationProvider(
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.light().copyWith(primary: Colors.red),
+        ),
+        home: FlavorBanner(flavor: _appFlavor, child: PolaTabController()),
       ),
-      home: PolaTabController(),
-    ));
+    );
   }
 }
 

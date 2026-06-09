@@ -78,11 +78,9 @@ class WebViewPageState extends State<WebViewPage> {
       if (canGoBack) {
         await controller.goBack();
         _updateCanGoBack();
-      } else if (mounted && context.mounted) {
-        if (Navigator.of(context).canPop()) {
+      } else {
+        if (mounted && context.mounted) {
           Navigator.of(context).pop();
-        } else {
-          _canGoBackNotifier.value = false;
         }
       }
     }
