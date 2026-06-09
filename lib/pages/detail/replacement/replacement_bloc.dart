@@ -12,17 +12,25 @@ class ReplacementBloc extends Bloc<ReplacementEvent, ReplacementState> {
   final PolaApi _polaApiRepository;
   final PolaAnalytics _analytics;
 
-  ReplacementBloc(this._polaApiRepository, this._analytics, {required ReplacementState state}) : super(state) {
+  ReplacementBloc(
+    this._polaApiRepository,
+    this._analytics, {
+    required ReplacementState state,
+  }) : super(state) {
     on<ReplacementEvent>((event, emit) async {
       await event.when(
-        replacementTapped: (replacement) async => await _onReplacementTapped(replacement, emit),
+        replacementTapped: (replacement) async =>
+            await _onReplacementTapped(replacement, emit),
         resultPushed: () async => _onResultPushed(emit),
         alertDialogDismissed: () async => _onAlertDialogDismissed(emit),
       );
     });
   }
 
-  Future<void> _onReplacementTapped(Replacement replacement, Emitter<ReplacementState> emit) async {
+  Future<void> _onReplacementTapped(
+    Replacement replacement,
+    Emitter<ReplacementState> emit,
+  ) async {
     if (state.loadingReplacement != null || state.isError) {
       return;
     }
@@ -39,16 +47,18 @@ class ReplacementBloc extends Bloc<ReplacementEvent, ReplacementState> {
     debugPrint('Loading replacement for code: ${replacement.code}');
 
     final response = await _polaApiRepository.getCompany(replacement.code);
-    
-    if (response.status == Status.COMPLETED) {
+
+    if (response.status == Status.completed) {
       final updatedResults = Map<String, SearchResult>.from(state.results);
       updatedResults[replacement.code] = response.data;
-      emit(state.copyWith(
-        loadingReplacement: null,
-        results: updatedResults,
-        resultToPush: response.data,
-        isError: false,
-      ));
+      emit(
+        state.copyWith(
+          loadingReplacement: null,
+          results: updatedResults,
+          resultToPush: response.data,
+          isError: false,
+        ),
+      );
     } else {
       emit(state.copyWith(loadingReplacement: null, isError: true));
     }
@@ -62,4 +72,3 @@ class ReplacementBloc extends Bloc<ReplacementEvent, ReplacementState> {
     emit(state.copyWith(isError: false));
   }
 }
-

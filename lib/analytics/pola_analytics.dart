@@ -34,9 +34,7 @@ class PolaAnalytics {
       AnalyticsProductResultParameters(
         code: result.code,
         company: result.name,
-        productId: result.productId != null
-            ? result.productId.toString()
-            : null,
+        productId: result.productId?.toString(),
       ).toJson(),
     );
   }
@@ -47,9 +45,7 @@ class PolaAnalytics {
       AnalyticsProductResultParameters(
         code: result.code,
         company: result.name,
-        productId: result.productId != null
-            ? result.productId.toString()
-            : null,
+        productId: result.productId?.toString(),
       ).toJson(),
     );
   }
@@ -60,9 +56,7 @@ class PolaAnalytics {
       AnalyticsReadMoreParameters(
         code: result.code,
         company: result.name,
-        productId: result.productId != null
-            ? result.productId.toString()
-            : null,
+        productId: result.productId?.toString(),
         url: url,
       ).toJson(),
     );

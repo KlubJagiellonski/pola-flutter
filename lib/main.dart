@@ -3,12 +3,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:logging/logging.dart';
 import 'package:pola_flutter/config/firebase_config.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/pola_tab_controller.dart';
 import 'package:pola_flutter/firebase_options.dart';
 import 'package:pola_flutter/ui/flavor_banner.dart';
+import 'package:logging/logging.dart' as logging;
 
 const _appFlavor = String.fromEnvironment(
   'FLUTTER_APP_FLAVOR',
@@ -30,6 +30,8 @@ void main() async {
 }
 
 class PolaApp extends StatelessWidget {
+  const PolaApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -52,20 +54,20 @@ class SimpleBlocObserver extends BlocObserver {
   @override
   void onTransition(Bloc bloc, Transition transition) {
     super.onTransition(bloc, transition);
-    print(transition);
+    debugPrint(transition.toString());
   }
 
   @override
   void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
-    print(error);
+    debugPrint(error.toString());
     super.onError(bloc, error, stackTrace);
   }
 }
 
 void _setupLogging() {
   Bloc.observer = SimpleBlocObserver();
-  Logger.root.level = Level.ALL;
-  Logger.root.onRecord.listen((rec) {
-    print('${rec.level.name}: ${rec.time}: ${rec.message}');
+  logging.Logger.root.level = logging.Level.ALL;
+  logging.Logger.root.onRecord.listen((rec) {
+    debugPrint('${rec.level.name}: ${rec.time}: ${rec.message}');
   });
 }

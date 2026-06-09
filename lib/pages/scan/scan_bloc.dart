@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pola_flutter/analytics/analytics_barcode_source.dart';
@@ -17,12 +19,15 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
   final PolaAnalytics _analytics;
   final TorchController _torchController;
 
-  ScanBloc(this._polaApiRepository, this._scanVibration, this._analytics,
-      this._torchController,
-      {ScanState state = const ScanState()})
-      : super(state) {
-    on<ScanEvent>((event, emit) async {
-      await event.when(
+  ScanBloc(
+    this._polaApiRepository,
+    this._scanVibration,
+    this._analytics,
+    this._torchController, {
+    ScanState state = const ScanState(),
+  }) : super(state) {
+    on<ScanEvent>((event, emit) {
+      event.when(
         barcodeScanned: (barcode) async =>
             await _onBarcodeScanned(barcode, emit),
         alertDialogDismissed: () => _onAlertDialogDismissed(emit),
@@ -33,7 +38,10 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
     });
   }
 
-  _onBarcodeScanned(String barcode, Emitter<ScanState> emit) async {
+  Future<void> _onBarcodeScanned(
+    String barcode,
+    Emitter<ScanState> emit,
+  ) async {
     if (state.list.any((element) => element.code == barcode) ||
         state.isLoading ||
         state.isError) {
@@ -43,10 +51,12 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
     debugPrint('Scanned barcode event received: $barcode');
     _scanVibration.vibrate();
     _analytics.barcodeScanned(
-        barcode.toString(), AnalyticsBarcodeSource.camera);
+      barcode.toString(),
+      AnalyticsBarcodeSource.camera,
+    );
 
     final res = await _polaApiRepository.getCompany(barcode);
-    if (res.status == Status.COMPLETED) {
+    if (res.status == Status.completed) {
       final result = res.data;
       var results = List<SearchResult>.from(state.list);
       results.add(result);
@@ -55,31 +65,34 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
       if (remoteButtonState == null && !state.wasRemoteButtonClosed) {
         remoteButtonState = result.remoteButton();
       }
-      emit(state.copyWith(
+      emit(
+        state.copyWith(
           list: results,
           isLoading: false,
           isError: false,
-          remoteButtonState: remoteButtonState));
+          remoteButtonState: remoteButtonState,
+        ),
+      );
     } else {
       emit(state.copyWith(isLoading: false, isError: true));
     }
   }
 
-  _onTorchSwitched(Emitter<ScanState> emit) {
+  void _onTorchSwitched(Emitter<ScanState> emit) {
     _torchController.toggleTorch();
 
     emit(state.copyWith(isTorchOn: !state.isTorchOn));
   }
 
-  _onAlertDialogDismissed(Emitter<ScanState> emit) {
+  void _onAlertDialogDismissed(Emitter<ScanState> emit) {
     emit(state.copyWith(isError: false));
   }
 
-  _onCloseRemoteButton(Emitter<ScanState> emit) {
+  void _onCloseRemoteButton(Emitter<ScanState> emit) {
     emit(state.copyWith(wasRemoteButtonClosed: true, remoteButtonState: null));
   }
 
-  _onResetScannedCompanies(Emitter<ScanState> emit) {
+  void _onResetScannedCompanies(Emitter<ScanState> emit) {
     emit(state.copyWith(list: []));
   }
 }

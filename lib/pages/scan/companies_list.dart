@@ -7,8 +7,12 @@ import 'package:pola_flutter/ui/list_item.dart';
 import 'dart:math';
 
 class CompaniesList extends StatelessWidget {
-  CompaniesList(
-      this.state, this.listScrollController, this.onCloseRemoteButtonTap);
+  CompaniesList({
+    super.key,
+    required this.state,
+    required this.listScrollController,
+    required this.onCloseRemoteButtonTap,
+  });
 
   final ScanState state;
   final ScrollController listScrollController;
@@ -28,9 +32,7 @@ class CompaniesList extends StatelessWidget {
       children: <Widget>[
         _ListHeader(listSize: listSize),
         Container(
-          constraints: BoxConstraints(
-            maxHeight: maxHeight,
-          ),
+          constraints: BoxConstraints(maxHeight: maxHeight),
           child: Align(
             alignment: Alignment.bottomCenter,
             child: ListView.builder(
@@ -42,7 +44,7 @@ class CompaniesList extends StatelessWidget {
                   return LoadingListItem();
                 }
                 return GestureDetector(
-                  child: ResultListItem(state.list[index]),
+                  child: ResultListItem(searchResult: state.list[index]),
                   onTap: () {
                     final result = state.list[index];
                     _analytics.opensCard(result);

@@ -4,7 +4,11 @@ import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/text_size.dart';
 
-showWebViewDialog({required BuildContext context, required String url, required String title}) {
+void showWebViewDialog({
+  required BuildContext context,
+  required String url,
+  required String title,
+}) {
   showDialog(
     context: context,
     useSafeArea: false,
@@ -18,8 +22,7 @@ class _WebViewDialog extends StatelessWidget {
   final String url;
   final String title;
 
-  const _WebViewDialog({Key? key, required this.url, required this.title})
-      : super(key: key);
+  const _WebViewDialog({required this.url, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +39,11 @@ class _WebViewDialog extends StatelessWidget {
           child: Column(
             children: [
               Padding(
-                padding:
-                    const EdgeInsets.only(left: 19.0, right: 17.0, top: 19.0),
+                padding: const EdgeInsets.only(
+                  left: 19.0,
+                  right: 17.0,
+                  top: 19.0,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -64,9 +70,7 @@ class _WebViewDialog extends StatelessWidget {
                   ],
                 ),
               ),
-              Expanded(
-                child: WebViewPage(url: url),
-              ),
+              Expanded(child: WebViewPage(url: url)),
             ],
           ),
         );

@@ -10,7 +10,7 @@ class RemoteButtonState extends Equatable {
   final Uri uri;
   final String code;
 
-  RemoteButtonState({
+  const RemoteButtonState({
     required this.title,
     required this.uri,
     required this.code,
@@ -24,13 +24,21 @@ class RemoteButton extends StatelessWidget {
   final RemoteButtonState state;
   final GestureTapCallback onCloseTap;
 
-  RemoteButton(this.state, this.onCloseTap);
+  const RemoteButton({
+    super.key,
+    required this.state,
+    required this.onCloseTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(
-          left: 16.0, right: 16.0, top: 9.0, bottom: 11.0),
+        left: 16.0,
+        right: 16.0,
+        top: 9.0,
+        bottom: 11.0,
+      ),
       decoration: BoxDecoration(
         color: AppColors.defaultRed,
         borderRadius: BorderRadius.circular(25),

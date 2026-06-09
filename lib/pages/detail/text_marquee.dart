@@ -30,16 +30,17 @@ class TextMarquee extends StatefulWidget {
   final bool rtl;
 
   /// Create TextMarquee
-  const TextMarquee(this.text,
-      {Key? key,
-      this.style = const TextStyle(),
-      this.duration,
-      this.curve = Curves.linear,
-      this.delay = const Duration(seconds: 2),
-      this.spaceSize = 32,
-      this.startPaddingSize = 0,
-      this.rtl = false})
-      : super(key: key);
+  const TextMarquee({
+    super.key,
+    required this.text,
+    this.style = const TextStyle(),
+    this.duration,
+    this.curve = Curves.linear,
+    this.delay = const Duration(seconds: 2),
+    this.spaceSize = 32,
+    this.startPaddingSize = 0,
+    this.rtl = false,
+  });
 
   @override
   State<TextMarquee> createState() => _TextMarqueeState();
@@ -96,11 +97,13 @@ class _TextMarqueeState extends State<TextMarquee> {
         _textWidth + widget.spaceSize + widget.startPaddingSize;
 
     // Scroll to the end of SingleChildScrollView.
-    await _scrollController.animateTo(scrollLength,
-        duration: (widget.duration != null)
-            ? widget.duration!
-            : Duration(milliseconds: (scrollLength * 27).toInt()),
-        curve: widget.curve);
+    await _scrollController.animateTo(
+      scrollLength,
+      duration: (widget.duration != null)
+          ? widget.duration!
+          : Duration(milliseconds: (scrollLength * 27).toInt()),
+      curve: widget.curve,
+    );
 
     // Ensure the widget is still mounted before jumping
     if (!mounted) return;
@@ -128,24 +131,29 @@ class _TextMarqueeState extends State<TextMarquee> {
         return Directionality(
           textDirection: TextDirection.ltr,
           child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              physics: const NeverScrollableScrollPhysics(),
-              controller: _scrollController,
-              reverse: widget.rtl,
-              child: Row(
-                children: [
-                  SizedBox(width: widget.startPaddingSize),
-                  Text(widget.text, style: widget.style, maxLines: 1),
-                  (_isLarger)
-                      ? Padding(
-                          padding: EdgeInsets.only(
-                              left: widget.spaceSize + widget.startPaddingSize),
-                          child: Text(widget.text,
-                              style: widget.style, maxLines: 1),
-                        )
-                      : const SizedBox()
-                ],
-              )),
+            scrollDirection: Axis.horizontal,
+            physics: const NeverScrollableScrollPhysics(),
+            controller: _scrollController,
+            reverse: widget.rtl,
+            child: Row(
+              children: [
+                SizedBox(width: widget.startPaddingSize),
+                Text(widget.text, style: widget.style, maxLines: 1),
+                (_isLarger)
+                    ? Padding(
+                        padding: EdgeInsets.only(
+                          left: widget.spaceSize + widget.startPaddingSize,
+                        ),
+                        child: Text(
+                          widget.text,
+                          style: widget.style,
+                          maxLines: 1,
+                        ),
+                      )
+                    : const SizedBox(),
+              ],
+            ),
+          ),
         );
       },
     );
@@ -173,10 +181,12 @@ class _TextMarqueeState extends State<TextMarquee> {
     renderObject.layout(constraints);
 
     // Get text width from render object.
-    final boxes = renderObject.getBoxesForSelection(TextSelection(
-      baseOffset: 0,
-      extentOffset: TextSpan(text: widget.text).toPlainText().length,
-    ));
+    final boxes = renderObject.getBoxesForSelection(
+      TextSelection(
+        baseOffset: 0,
+        extentOffset: TextSpan(text: widget.text).toPlainText().length,
+      ),
+    );
 
     // Return width of text.
     return boxes.last.right;

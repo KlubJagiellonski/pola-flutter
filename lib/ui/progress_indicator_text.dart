@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class LinearProgressIndicatorWithText extends StatelessWidget {
-  LinearProgressIndicatorWithText(this.progress, this.text);
+  const LinearProgressIndicatorWithText({
+    super.key,
+    required this.progress,
+    required this.text,
+  });
 
   final String text;
   final double progress;
@@ -19,12 +23,10 @@ class LinearProgressIndicatorWithText extends StatelessWidget {
         Align(
           alignment: Alignment.centerRight,
           child: Padding(
-              padding: EdgeInsets.only(right: 16.0),
-              child: Text(
-                text,
-                style: TextStyle(color: Colors.white),
-              )),
-        )
+            padding: EdgeInsets.only(right: 16.0),
+            child: Text(text, style: TextStyle(color: Colors.white)),
+          ),
+        ),
       ],
     );
   }

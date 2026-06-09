@@ -6,13 +6,13 @@ import 'package:pola_flutter/theme/fonts.gen.dart';
 
 class ExpandableText extends StatefulWidget {
   final String text;
-  ExpandableText(this.text);
+  const ExpandableText(this.text, {super.key});
 
   @override
-  _ExpandableTextState createState() => _ExpandableTextState();
+  ExpandableTextState createState() => ExpandableTextState();
 }
 
-class _ExpandableTextState extends State<ExpandableText> {
+class ExpandableTextState extends State<ExpandableText> {
   bool isExpanded = false;
 
   @override
@@ -38,7 +38,7 @@ class _ExpandableTextState extends State<ExpandableText> {
         final textSpan = TextSpan(
           text: widget.text,
           style: TextStyle(
-            color:AppColors.text,
+            color: AppColors.text,
             fontSize: 11.0,
             fontWeight: FontWeight.w400,
             fontFamily: FontFamily.lato,
@@ -68,25 +68,25 @@ class _ExpandableTextState extends State<ExpandableText> {
         );
 
         if (!isExpanded && textPainter.didExceedMaxLines) {
-          final pos = textPainter.getPositionForOffset(Offset(
-            textPainter.width - linkTextPainter.width,
-            textPainter.height,
-          ));
+          final pos = textPainter.getPositionForOffset(
+            Offset(
+              textPainter.width - linkTextPainter.width,
+              textPainter.height,
+            ),
+          );
           final end = textPainter.getOffsetBefore(pos.offset);
           final text = TextSpan(
             text: widget.text.substring(0, end),
-            style: TextStyle(color:AppColors.text),
+            style: TextStyle(color: AppColors.text),
             children: [link],
           );
 
-          return RichText(
-            text: text,
-          );
+          return RichText(text: text);
         } else {
           return RichText(
             text: TextSpan(
               text: widget.text,
-              style: TextStyle(color:AppColors.text),
+              style: TextStyle(color: AppColors.text),
               children: [if (isExpanded) link],
             ),
           );
