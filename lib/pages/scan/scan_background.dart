@@ -5,6 +5,7 @@ import 'package:pola_flutter/theme/colors.dart';
 const double _rectangleHeight = 187.0;
 
 class ScanBackground extends StatelessWidget {
+  const ScanBackground({super.key});
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -27,10 +28,7 @@ class _SizedBlackOpacity extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: SizedBox(
-        height: _rectangleHeight,
-        child: _BlackContainer(),
-      ),
+      child: SizedBox(height: _rectangleHeight, child: _BlackContainer()),
     );
   }
 }
@@ -45,9 +43,7 @@ class _BlackOpacity extends StatelessWidget {
 class _BlackContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.text.withValues(alpha: 0.7),
-    );
+    return Container(color: AppColors.text.withValues(alpha: 0.7));
   }
 }
 
@@ -90,17 +86,15 @@ class _RedRectangleState extends State<_RedRectangle>
         AnimatedBuilder(
           animation: _animation,
           builder: (context, child) {
-            final laserTop = _verticalMargin +
+            final laserTop =
+                _verticalMargin +
                 _animation.value * (_rectangleHeight - _verticalMargin * 2);
             return Positioned(
               top: laserTop,
               left: 0,
               right: 0,
               child: Center(
-                child: Container(
-                  height: 2,
-                  color: AppColors.defaultRed,
-                ),
+                child: Container(height: 2, color: AppColors.defaultRed),
               ),
             );
           },

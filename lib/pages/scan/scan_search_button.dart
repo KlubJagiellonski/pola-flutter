@@ -7,7 +7,7 @@ import 'package:pola_flutter/i18n/strings.g.dart';
 class ScanSearchButton extends StatelessWidget {
   final PolaAnalytics analytics;
 
-  const ScanSearchButton({Key? key, required this.analytics}) : super(key: key);
+  const ScanSearchButton({super.key, required this.analytics});
 
   @override
   Widget build(BuildContext context) {

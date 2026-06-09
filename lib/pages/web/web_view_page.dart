@@ -3,8 +3,7 @@ import 'package:pola_flutter/theme/colors.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewPage extends StatefulWidget {
-  WebViewPage({Key? key, required this.url, this.canGoBackNotifier})
-      : super(key: key);
+  const WebViewPage({super.key, required this.url, this.canGoBackNotifier});
 
   final String url;
   final ValueNotifier<bool>? canGoBackNotifier;
@@ -36,21 +35,26 @@ class WebViewPageState extends State<WebViewPage> {
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(
-        NavigationDelegate(onProgress: (int progress) {
-          setState(() {
-            loadingPercentage = progress;
-          });
-        }, onPageStarted: (String url) {
-          setState(() {
-            loadingPercentage = 0;
-          });
-        }, onPageFinished: (String url) {
-          setState(() {
-            loadingPercentage = 100;
-          });
-        }, onUrlChange: (UrlChange urlChange) {
-          _updateCanGoBack();
-        }),
+        NavigationDelegate(
+          onProgress: (int progress) {
+            setState(() {
+              loadingPercentage = progress;
+            });
+          },
+          onPageStarted: (String url) {
+            setState(() {
+              loadingPercentage = 0;
+            });
+          },
+          onPageFinished: (String url) {
+            setState(() {
+              loadingPercentage = 100;
+            });
+          },
+          onUrlChange: (UrlChange urlChange) {
+            _updateCanGoBack();
+          },
+        ),
       )
       ..setBackgroundColor(AppColors.white)
       ..loadRequest(Uri.parse(widget.url));
@@ -95,9 +99,7 @@ class WebViewPageState extends State<WebViewPage> {
         children: [
           WebViewWidget(controller: controller),
           if (loadingPercentage < 100)
-            LinearProgressIndicator(
-              value: loadingPercentage / 100.0,
-            ),
+            LinearProgressIndicator(value: loadingPercentage / 100.0),
         ],
       ),
     );

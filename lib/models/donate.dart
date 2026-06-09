@@ -9,7 +9,11 @@ class Donate extends Equatable {
   final String url;
   final String title;
 
-  Donate({required this.showButton, required this.url, required this.title});
+  const Donate({
+    required this.showButton,
+    required this.url,
+    required this.title,
+  });
 
   factory Donate.fromJson(Map<String, dynamic> json) => _$DonateFromJson(json);
 

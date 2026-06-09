@@ -12,7 +12,7 @@ import 'package:pola_flutter/pages/scan/scan_vibration.dart';
 import 'package:pola_flutter/pages/scan/torch_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
-
+import 'package:flutter/foundation.dart';
 import 'analytics/mock_analytics_provider.dart';
 
 void main() {
@@ -27,9 +27,7 @@ void main() {
       'toggle torch',
       build: () => _scanBloc(),
       act: (bloc) => bloc.add(ScanEvent.torchSwitched()),
-      expect: () => [
-        ScanState(isTorchOn: true),
-      ],
+      expect: () => [ScanState(isTorchOn: true)],
     );
 
     blocTest(
@@ -38,7 +36,7 @@ void main() {
       act: (bloc) => bloc.add(ScanEvent.barcodeScanned("5900311000360")),
       expect: () => [
         ScanState(isLoading: true),
-        ScanState(list: [_testSearchResult], isLoading: false)
+        ScanState(list: [_testSearchResult], isLoading: false),
       ],
     );
 
@@ -49,9 +47,10 @@ void main() {
       expect: () => [
         ScanState(isLoading: true),
         ScanState(
-            list: [_testSearchResultWithButton("button1")],
-            isLoading: false,
-            remoteButtonState: _remoteStateButton("button1"))
+          list: [_testSearchResultWithButton("button1")],
+          isLoading: false,
+          remoteButtonState: _remoteStateButton("button1"),
+        ),
       ],
     );
 
@@ -65,14 +64,16 @@ void main() {
       expect: () => [
         ScanState(isLoading: true),
         ScanState(
-            list: [_testSearchResultWithButton("button1")],
-            isLoading: false,
-            remoteButtonState: _remoteStateButton("button1")),
+          list: [_testSearchResultWithButton("button1")],
+          isLoading: false,
+          remoteButtonState: _remoteStateButton("button1"),
+        ),
         ScanState(
-            list: [_testSearchResultWithButton("button1")],
-            isLoading: false,
-            remoteButtonState: null,
-            wasRemoteButtonClosed: true),
+          list: [_testSearchResultWithButton("button1")],
+          isLoading: false,
+          remoteButtonState: null,
+          wasRemoteButtonClosed: true,
+        ),
       ],
     );
 
@@ -87,27 +88,31 @@ void main() {
       expect: () => [
         ScanState(isLoading: true),
         ScanState(
-            list: [_testSearchResultWithButton("button1")],
-            isLoading: false,
-            remoteButtonState: _remoteStateButton("button1")),
+          list: [_testSearchResultWithButton("button1")],
+          isLoading: false,
+          remoteButtonState: _remoteStateButton("button1"),
+        ),
         ScanState(
-            list: [_testSearchResultWithButton("button1")],
-            isLoading: false,
-            remoteButtonState: null,
-            wasRemoteButtonClosed: true),
+          list: [_testSearchResultWithButton("button1")],
+          isLoading: false,
+          remoteButtonState: null,
+          wasRemoteButtonClosed: true,
+        ),
         ScanState(
-            list: [_testSearchResultWithButton("button1")],
-            isLoading: true,
-            remoteButtonState: null,
-            wasRemoteButtonClosed: true),
+          list: [_testSearchResultWithButton("button1")],
+          isLoading: true,
+          remoteButtonState: null,
+          wasRemoteButtonClosed: true,
+        ),
         ScanState(
-            list: [
-              _testSearchResultWithButton("button1"),
-              _testSearchResultWithButton("button2")
-            ],
-            isLoading: false,
-            remoteButtonState: null,
-            wasRemoteButtonClosed: true),
+          list: [
+            _testSearchResultWithButton("button1"),
+            _testSearchResultWithButton("button2"),
+          ],
+          isLoading: false,
+          remoteButtonState: null,
+          wasRemoteButtonClosed: true,
+        ),
       ],
     );
 
@@ -117,7 +122,7 @@ void main() {
       act: (bloc) => bloc.add(ScanEvent.barcodeScanned("0")),
       expect: () => [
         ScanState(isLoading: true),
-        ScanState(isLoading: false, isError: true)
+        ScanState(isLoading: false, isError: true),
       ],
     );
 
@@ -132,62 +137,71 @@ void main() {
       'emits state with empty list when reset scanned companies button tapped',
       build: () => _scanBloc(state: ScanState(list: [_testSearchResult])),
       act: (bloc) => bloc.add(ScanEvent.resetScannedCompaniesButton()),
-      expect: () => [
-        ScanState(list: [])
-      ],
+      expect: () => [ScanState(list: [])],
     );
   });
 }
 
 ScanBloc _scanBloc({ScanState state = const ScanState()}) {
-  return ScanBloc(_MockPolaApi(), _MockScanVibration(),
-      PolaAnalytics(provider: MockAnalyticsProvider()), _MockTorchController(),
-      state: state);
+  return ScanBloc(
+    _MockPolaApi(),
+    _MockScanVibration(),
+    PolaAnalytics(provider: MockAnalyticsProvider()),
+    _MockTorchController(),
+    state: state,
+  );
 }
 
 var _testSearchResult = SearchResult(
-    productId: 5900311000360,
-    code: "code",
-    name: "name",
+  productId: 5900311000360,
+  code: "code",
+  name: "name",
+  cardType: "card",
+  companies: [],
+  report: null,
+  donate: Donate(
+    showButton: false,
+    url: "https://klubjagiellonski.pl/zbiorka/wspieraj-aplikacje-pola/",
+    title: "Pomóż aplikacji Pola",
+  ),
+);
+
+SearchResult _testSearchResultWithButton(String code) {
+  return SearchResult(
+    productId: 6262330,
+    code: code,
+    name: "Miejsce rejestracji: Francja",
     cardType: "card",
     companies: [],
     report: null,
     donate: Donate(
-        showButton: false,
-        url: "https://klubjagiellonski.pl/zbiorka/wspieraj-aplikacje-pola/",
-        title: "Pomóż aplikacji Pola"));
-
-SearchResult _testSearchResultWithButton(String code) {
-  return SearchResult(
-      productId: 6262330,
-      code: code,
-      name: "Miejsce rejestracji: Francja",
-      cardType: "card",
-      companies: [],
-      report: null,
-      donate: Donate(
-          showButton: true,
-          url: "https://klubjagiellonski.pl/zbiorka/wspieraj-aplikacje-pola/",
-          title: "Pomóż aplikacji Pola"));
+      showButton: true,
+      url: "https://klubjagiellonski.pl/zbiorka/wspieraj-aplikacje-pola/",
+      title: "Pomóż aplikacji Pola",
+    ),
+  );
 }
 
-RemoteButtonState _remoteStateButton(code) {
+RemoteButtonState _remoteStateButton(String code) {
   return RemoteButtonState(
-      title: "Pomóż aplikacji Pola",
-      uri: Uri.parse(
-          "https://klubjagiellonski.pl/zbiorka/wspieraj-aplikacje-pola/"),
-      code: code);
+    title: "Pomóż aplikacji Pola",
+    uri: Uri.parse(
+      "https://klubjagiellonski.pl/zbiorka/wspieraj-aplikacje-pola/",
+    ),
+    code: code,
+  );
 }
 
 class _MockPolaApi extends PolaApi {
   @override
   Future<ApiResponse<SearchResult>> getCompany(String code) {
-    print("MockPolaApi getCompany " + code.toString());
+    debugPrint("MockPolaApi getCompany ${code.toString()}");
     if (code == "5900311000360") {
       return Future.value(ApiResponse.completed(_testSearchResult));
     } else if (code == "button1" || code == "button2") {
       return Future.value(
-          ApiResponse.completed(_testSearchResultWithButton(code)));
+        ApiResponse.completed(_testSearchResultWithButton(code)),
+      );
     } else {
       return Future.value(ApiResponse.error("error"));
     }

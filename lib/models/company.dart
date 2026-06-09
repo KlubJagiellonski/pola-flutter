@@ -34,25 +34,26 @@ class Company extends Equatable {
 
   final List<Brand>? brands;
 
-  Company(
-      {required this.name,
-      required this.plCapital,
-      required this.plCapitalNotes,
-      required this.plWorkers,
-      required this.plWorkersNotes,
-      required this.plRnD,
-      required this.plRnDNotes,
-      required this.plRegistered,
-      required this.plRegisteredNotes,
-      required this.plNotGlobEnt,
-      required this.plNotGlobEntNotes,
-      required this.plScore,
-      required this.isFriend,
-      required this.friendText,
-      required this.description,
-      required this.logotypeUrl,
-      required this.officialUrl,
-      required this.brands});
+  const Company({
+    required this.name,
+    required this.plCapital,
+    required this.plCapitalNotes,
+    required this.plWorkers,
+    required this.plWorkersNotes,
+    required this.plRnD,
+    required this.plRnDNotes,
+    required this.plRegistered,
+    required this.plRegisteredNotes,
+    required this.plNotGlobEnt,
+    required this.plNotGlobEntNotes,
+    required this.plScore,
+    required this.isFriend,
+    required this.friendText,
+    required this.description,
+    required this.logotypeUrl,
+    required this.officialUrl,
+    required this.brands,
+  });
 
   factory Company.fromJson(Map<String, dynamic> json) =>
       _$CompanyFromJson(json);
@@ -60,24 +61,24 @@ class Company extends Equatable {
   Map<String, dynamic> toJson() => _$CompanyToJson(this);
   @override
   List<Object?> get props => [
-        name,
-        plCapital,
-        plCapitalNotes,
-        plWorkers,
-        plWorkersNotes,
-        plRnD,
-        plRnDNotes,
-        plRegistered,
-        plRegisteredNotes,
-        plNotGlobEnt,
-        plNotGlobEntNotes,
-        plScore,
-        isFriend,
-        friendText,
-        description,
-        logotypeUrl,
-        officialUrl
-      ];
+    name,
+    plCapital,
+    plCapitalNotes,
+    plWorkers,
+    plWorkersNotes,
+    plRnD,
+    plRnDNotes,
+    plRegistered,
+    plRegisteredNotes,
+    plNotGlobEnt,
+    plNotGlobEntNotes,
+    plScore,
+    isFriend,
+    friendText,
+    description,
+    logotypeUrl,
+    officialUrl,
+  ];
 
   int? getScore() {
     return plScore;

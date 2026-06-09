@@ -8,7 +8,7 @@ import 'package:pola_flutter/pages/detail/text_marquee.dart';
 import 'package:pola_flutter/theme/text_size.dart';
 
 class DetailPage extends StatelessWidget {
-  DetailPage({Key? key, required this.searchResult}) : super(key: key);
+  const DetailPage({super.key, required this.searchResult});
 
   final SearchResult searchResult;
 
@@ -20,10 +20,10 @@ class DetailPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      
+
       appBar: AppBar(
         title: TextMarquee(
-          searchResult.name ?? "",
+          text: searchResult.name ?? "",
           style: TextStyle(
             color: AppColors.text,
             fontSize: TextSize.newsTitle,
@@ -39,10 +39,7 @@ class DetailPage extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            children: [
-              SizedBox(height: 16.0),
-              DetailContent(searchResult),
-            ],
+            children: [SizedBox(height: 16.0), DetailContent(searchResult)],
           ),
         ),
       ),

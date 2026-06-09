@@ -26,13 +26,17 @@ class MainPage extends StatefulWidget {
   final RouteObserver<ModalRoute<dynamic>> routeObserver;
   final ValueNotifier<bool> scanTabActive;
 
-  const MainPage({required this.routeObserver, required this.scanTabActive});
+  const MainPage({
+    super.key,
+    required this.routeObserver,
+    required this.scanTabActive,
+  });
 
   @override
-  _MainPageState createState() => _MainPageState();
+  MainPageState createState() => MainPageState();
 }
 
-class _MainPageState extends State<MainPage> with RouteAware {
+class MainPageState extends State<MainPage> with RouteAware {
   late ScanBloc _scanBloc;
   MobileScannerController cameraController = MobileScannerController(
     detectionSpeed: DetectionSpeed.normal,
@@ -46,8 +50,12 @@ class _MainPageState extends State<MainPage> with RouteAware {
   @override
   void initState() {
     super.initState();
-    _scanBloc = ScanBloc(PolaApiRepository(), ScanVibrationImpl(), _analytics,
-        TorchControllerImpl(cameraController: cameraController));
+    _scanBloc = ScanBloc(
+      PolaApiRepository(),
+      ScanVibrationImpl(),
+      _analytics,
+      TorchControllerImpl(cameraController: cameraController),
+    );
     widget.scanTabActive.addListener(_onScanTabActiveChanged);
   }
 
@@ -94,9 +102,10 @@ class _MainPageState extends State<MainPage> with RouteAware {
           onPressed: () {
             _analytics.aboutPolaOpened();
             showWebViewDialog(
-                context: context,
-                url: "https://www.pola-app.pl/m/about",
-                title: t.menu.aboutPola);
+              context: context,
+              url: "https://www.pola-app.pl/m/about",
+              title: t.menu.aboutPola,
+            );
           },
           icon: Assets.icLauncher.image(),
         ),
@@ -118,12 +127,12 @@ class _MainPageState extends State<MainPage> with RouteAware {
           _buildQrView(context),
           SafeArea(
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(
+                vertical: 20.0,
+                horizontal: 16.0,
+              ),
               child: Column(
-                children: <Widget>[
-                  ScanSearchButton(analytics: _analytics),
-                ],
+                children: <Widget>[ScanSearchButton(analytics: _analytics)],
               ),
             ),
           ),
@@ -148,8 +157,9 @@ class _MainPageState extends State<MainPage> with RouteAware {
                                 TextButton(
                                   child: Text(t.scan.closeError),
                                   onPressed: () {
-                                    _scanBloc
-                                        .add(ScanEvent.alertDialogDismissed());
+                                    _scanBloc.add(
+                                      ScanEvent.alertDialogDismissed(),
+                                    );
                                     Navigator.pop(context);
                                   },
                                 ),
@@ -160,39 +170,49 @@ class _MainPageState extends State<MainPage> with RouteAware {
                       });
                     }
 
-                    return Column(children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Expanded(
-                              child: CompaniesList(state, listScrollController,
-                                  () {
-                            _scanBloc.add(ScanEvent.closeRemoteButton());
-                          })),
-                          Column(
-                            children: [
-                              if (state.list.isNotEmpty)
-                                ResetButton(
-                                  onTap: () {
-                                    _scanBloc
-                                        .add(ScanEvent.resetScannedCompaniesButton());
-                                  },
-                                ),
-                              TorchButton(
-                                isTorchOn: state.isTorchOn,
-                                onTap: () {
-                                  _scanBloc.add(ScanEvent.torchSwitched());
+                    return Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Expanded(
+                              child: CompaniesList(
+                                state: state,
+                                listScrollController: listScrollController,
+                                onCloseRemoteButtonTap: () {
+                                  _scanBloc.add(ScanEvent.closeRemoteButton());
                                 },
                               ),
-                            ],
-                          )
-                        ],
-                      ),
-                      if (state.remoteButtonState != null)
-                        RemoteButton(state.remoteButtonState!, () {
-                          _scanBloc.add(ScanEvent.closeRemoteButton());
-                        })
-                    ]);
+                            ),
+                            Column(
+                              children: [
+                                if (state.list.isNotEmpty)
+                                  ResetButton(
+                                    onTap: () {
+                                      _scanBloc.add(
+                                        ScanEvent.resetScannedCompaniesButton(),
+                                      );
+                                    },
+                                  ),
+                                TorchButton(
+                                  isTorchOn: state.isTorchOn,
+                                  onTap: () {
+                                    _scanBloc.add(ScanEvent.torchSwitched());
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        if (state.remoteButtonState != null)
+                          RemoteButton(
+                            state: state.remoteButtonState!,
+                            onCloseTap: () {
+                              _scanBloc.add(ScanEvent.closeRemoteButton());
+                            },
+                          ),
+                      ],
+                    );
                   },
                 ),
               ],

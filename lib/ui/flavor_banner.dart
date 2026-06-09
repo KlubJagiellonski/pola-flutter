@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FlavorBanner extends StatelessWidget {
-  const FlavorBanner({required this.flavor, required this.child});
+  const FlavorBanner({super.key, required this.flavor, required this.child});
 
   final String flavor;
   final Widget child;

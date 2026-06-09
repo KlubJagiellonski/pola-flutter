@@ -5,16 +5,14 @@ class TorchButton extends StatelessWidget {
   final bool isTorchOn;
   final VoidCallback onTap;
 
-  TorchButton({required this.isTorchOn, required this.onTap});
+  const TorchButton({super.key, required this.isTorchOn, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        decoration: BoxDecoration(
-          boxShadow: [],
-        ),
+        decoration: BoxDecoration(boxShadow: []),
         child: isTorchOn
             ? Assets.scan.flashlightOn.svg()
             : Assets.scan.flashlightOff.svg(),

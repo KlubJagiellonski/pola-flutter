@@ -14,7 +14,7 @@ import 'package:pola_flutter/theme/text_size.dart';
 class ReportPage extends StatefulWidget {
   final int? productId;
 
-  const ReportPage({Key? key, this.productId}) : super(key: key);
+  const ReportPage({super.key, this.productId});
 
   @override
   State<ReportPage> createState() => _ReportPageState();
@@ -32,7 +32,8 @@ class _ReportPageState extends State<ReportPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => ReportBloc(PolaApiRepository(), productId: widget.productId),
+      create: (_) =>
+          ReportBloc(PolaApiRepository(), productId: widget.productId),
       child: BlocConsumer<ReportBloc, ReportState>(
         listenWhen: (prev, curr) =>
             prev.requestState != ReportRequestState.success &&
@@ -63,7 +64,9 @@ class _ReportPageState extends State<ReportPage> {
               child: state.requestState == ReportRequestState.success
                   ? Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 17.0, vertical: 24.0),
+                        horizontal: 17.0,
+                        vertical: 24.0,
+                      ),
                       child: ReportSuccessView(t: t),
                     )
                   : _FormView(
@@ -74,9 +77,9 @@ class _ReportPageState extends State<ReportPage> {
                       onSystemInfoChanged: (val) => context
                           .read<ReportBloc>()
                           .add(ReportEvent.systemInfoToggled(val)),
-                      onSubmit: () => context
-                          .read<ReportBloc>()
-                          .add(const ReportEvent.submitted()),
+                      onSubmit: () => context.read<ReportBloc>().add(
+                        const ReportEvent.submitted(),
+                      ),
                       onDescriptionChanged: (text) => context
                           .read<ReportBloc>()
                           .add(ReportEvent.descriptionChanged(text)),
@@ -114,8 +117,10 @@ class _FormView extends StatelessWidget {
       children: [
         Expanded(
           child: SingleChildScrollView(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 17.0, vertical: 24.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 17.0,
+              vertical: 24.0,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -163,7 +168,9 @@ class _FormView extends StatelessWidget {
                   Text(
                     t.reportScreen.descriptionRequired,
                     style: const TextStyle(
-                        color: AppColors.defaultRed, fontSize: 13.0),
+                      color: AppColors.defaultRed,
+                      fontSize: 13.0,
+                    ),
                   ),
                 ],
                 const SizedBox(height: 16.0),
@@ -200,7 +207,9 @@ class _FormView extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(17.0, 8.0, 17.0, 16.0),
           child: ElevatedButton(
-            onPressed: requestState == ReportRequestState.loading ? null : onSubmit,
+            onPressed: requestState == ReportRequestState.loading
+                ? null
+                : onSubmit,
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.defaultRed,
               disabledBackgroundColor: AppColors.inactive,

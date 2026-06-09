@@ -14,7 +14,7 @@ import 'no_score_message.dart';
 import 'friends_bar.dart';
 
 class DetailContent extends StatelessWidget {
-  const DetailContent(this.searchResult, {Key? key}) : super(key: key);
+  const DetailContent(this.searchResult, {super.key});
 
   final SearchResult searchResult;
 
@@ -57,9 +57,7 @@ class DetailContent extends StatelessWidget {
                   ),
               ],
               if (hasLogo)
-                Logotypes(
-                    logotypes: logotypes,
-                    searchResult: searchResult),
+                Logotypes(logotypes: logotypes, searchResult: searchResult),
               const SizedBox(height: 26.0),
               if (hasLogo && searchResult.report != null)
                 Divider(
@@ -132,7 +130,7 @@ class _ReportButton extends StatelessWidget {
 }
 
 class DetailItem extends StatelessWidget {
-  const DetailItem(this.text, this.state, {Key? key}) : super(key: key);
+  const DetailItem(this.text, this.state, {super.key});
 
   final String text;
   final bool state;
@@ -168,31 +166,36 @@ class DetailItem extends StatelessWidget {
 }
 
 extension on Company {
-    List<Logotype> logotypes() {
+  List<Logotype> logotypes() {
     final brands = this.brands;
     var logotypes = <Logotype>[];
     if (brands != null) {
-      logotypes = brands.map((brand) {
-        final logotypeUrl = brand.logotypeUrl;
-        final websiteUrl = brand.websiteUrl;
-        if (logotypeUrl == null || websiteUrl == null) {
-          return null;
-        }
-          return Logotype(logotypeUrl, websiteUrl);
-      }).where((logotype) => logotype != null)
-      .cast<Logotype>()
-      .toList();
+      logotypes = brands
+          .map((brand) {
+            final logotypeUrl = brand.logotypeUrl;
+            final websiteUrl = brand.websiteUrl;
+            if (logotypeUrl == null || websiteUrl == null) {
+              return null;
+            }
+            return Logotype(logotypeUrl, websiteUrl);
+          })
+          .where((logotype) => logotype != null)
+          .cast<Logotype>()
+          .toList();
     }
 
-    final companyLogotypeUrl = this.logotypeUrl;
-    final companyWebsiteUrl = this.officialUrl;
+    final companyLogotypeUrl = logotypeUrl;
+    final companyWebsiteUrl = officialUrl;
     if (companyLogotypeUrl != null && companyWebsiteUrl != null) {
       logotypes.insert(0, Logotype(companyLogotypeUrl, companyWebsiteUrl));
     }
     return logotypes;
   }
 
-  CompanyScoreData? _scoreData(List<Replacement>? replacements, String? productCode) {
+  CompanyScoreData? _scoreData(
+    List<Replacement>? replacements,
+    String? productCode,
+  ) {
     final int? plCapital = this.plCapital;
     final int? plWorkers = this.plWorkers;
     final int? plRnD = this.plRnD;
@@ -207,14 +210,15 @@ extension on Company {
         plNotGlobEnt != null &&
         plScore != null) {
       return CompanyScoreData(
-          plCapital: plCapital.toDouble(),
-          plWorkers: plWorkers != 0,
-          plRnD: plRnD != 0,
-          plRegistered: plRegistered != 0,
-          plNotGlobEnt: plNotGlobEnt != 0,
-          plScore: plScore,
-          replacements: replacements,
-          productCode: productCode ?? '');
+        plCapital: plCapital.toDouble(),
+        plWorkers: plWorkers != 0,
+        plRnD: plRnD != 0,
+        plRegistered: plRegistered != 0,
+        plNotGlobEnt: plNotGlobEnt != 0,
+        plScore: plScore,
+        replacements: replacements,
+        productCode: productCode ?? '',
+      );
     }
     return null;
   }
@@ -228,7 +232,10 @@ class _ScoreSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scoreData = company._scoreData(searchResult.replacements, searchResult.code);
+    final scoreData = company._scoreData(
+      searchResult.replacements,
+      searchResult.code,
+    );
 
     if (scoreData != null) {
       return CompanyScoreWidget(data: scoreData);

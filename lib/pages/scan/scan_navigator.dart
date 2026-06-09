@@ -11,7 +11,7 @@ class ScanNavigator extends StatefulWidget {
   final GlobalKey<NavigatorState>? navigatorKey;
   final bool isActive;
 
-  const ScanNavigator({this.navigatorKey, this.isActive = true});
+  const ScanNavigator({super.key, this.navigatorKey, this.isActive = true});
 
   @override
   State<ScanNavigator> createState() => _ScanNavigatorState();
@@ -73,37 +73,43 @@ class _ScanNavigatorState extends State<ScanNavigator> {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(
-            builder: (_) => MainPage(
-                routeObserver: routeObserver, scanTabActive: _scanTabActive));
+          builder: (_) => MainPage(
+            routeObserver: routeObserver,
+            scanTabActive: _scanTabActive,
+          ),
+        );
       case '/detail':
         if (args is SearchResult) {
           return MaterialPageRoute(
-            builder: (_) => DetailPage(
-              searchResult: args,
-            ),
+            builder: (_) => DetailPage(searchResult: args),
           );
         }
         return MaterialPageRoute(
-            builder: (_) => MainPage(
-                routeObserver: routeObserver, scanTabActive: _scanTabActive));
+          builder: (_) => MainPage(
+            routeObserver: routeObserver,
+            scanTabActive: _scanTabActive,
+          ),
+        );
       case '/dialpad':
         return MaterialPageRoute(builder: (_) => DialPadPage());
       case '/search':
         return MaterialPageRoute(
-            builder: (context) => WebViewTab(
-                title: Translations.of(context).search.title,
-                url: "https://www.pola-app.pl/m/search/"));
+          builder: (context) => WebViewTab(
+            title: Translations.of(context).search.title,
+            url: "https://www.pola-app.pl/m/search/",
+          ),
+        );
       case '/report':
         return MaterialPageRoute(
-          builder: (_) => ReportPage(
-            productId: args is int ? args : null,
-          ),
+          builder: (_) => ReportPage(productId: args is int ? args : null),
         );
       default:
         return MaterialPageRoute(
-            builder: (_) => MainPage(
-                routeObserver: routeObserver, scanTabActive: _scanTabActive));
+          builder: (_) => MainPage(
+            routeObserver: routeObserver,
+            scanTabActive: _scanTabActive,
+          ),
+        );
     }
   }
 }
-

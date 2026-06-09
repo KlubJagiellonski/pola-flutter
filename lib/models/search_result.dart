@@ -21,28 +21,28 @@ class SearchResult extends Equatable {
   final Donate? donate;
   final List<Replacement>? replacements;
 
-  SearchResult(
-      {required this.productId,
-      required this.code,
-      required this.name,
-      required this.cardType,
-      this.altText,
-      required this.companies,
-      required this.report,
-      required this.donate,
-      this.replacements,
-      });
+  const SearchResult({
+    required this.productId,
+    required this.code,
+    required this.name,
+    required this.cardType,
+    this.altText,
+    required this.companies,
+    required this.report,
+    required this.donate,
+    this.replacements,
+  });
 
-  SearchResult.empty()
-      : productId = null,
-        code = null,
-        name = null,
-        cardType = null,
-        altText = null,
-        companies = null,
-        report = null,
-        donate = null,
-        replacements = null;
+  const SearchResult.empty()
+    : productId = null,
+      code = null,
+      name = null,
+      cardType = null,
+      altText = null,
+      companies = null,
+      report = null,
+      donate = null,
+      replacements = null;
 
   factory SearchResult.fromJson(Map<String, dynamic> json) =>
       _$SearchResultFromJson(json);
@@ -50,6 +50,14 @@ class SearchResult extends Equatable {
   Map<String, dynamic> toJson() => _$SearchResultToJson(this);
 
   @override
-  List<Object?> get props =>
-      [productId, code, name, cardType, altText, companies, report, donate];
+  List<Object?> get props => [
+    productId,
+    code,
+    name,
+    cardType,
+    altText,
+    companies,
+    report,
+    donate,
+  ];
 }

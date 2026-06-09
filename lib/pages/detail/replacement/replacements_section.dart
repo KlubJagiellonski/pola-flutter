@@ -15,7 +15,11 @@ import 'package:pola_flutter/theme/fonts.gen.dart';
 import 'package:pola_flutter/theme/text_size.dart';
 
 class ReplacementsSection extends StatelessWidget {
-  const ReplacementsSection({Key? key, required this.replacements, required this.productCode}) : super(key: key);
+  const ReplacementsSection({
+    super.key,
+    required this.replacements,
+    required this.productCode,
+  });
 
   final List<Replacement> replacements;
   final String productCode;
@@ -27,24 +31,31 @@ class ReplacementsSection extends StatelessWidget {
     }
 
     final Translations t = Translations.of(context);
-    
+
     return BlocProvider(
-      create: (context) => ReplacementBloc(PolaApiRepository(), PolaAnalytics.instance(), state: ReplacementState(productCode: productCode)),
-        child: BlocListener<ReplacementBloc, ReplacementState>(
-          listener: (context, state) {
-            if (state.resultToPush != null) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DetailPage(searchResult: state.resultToPush!),
-                ),
-              ).then((_) {
+      create: (context) => ReplacementBloc(
+        PolaApiRepository(),
+        PolaAnalytics.instance(),
+        state: ReplacementState(productCode: productCode),
+      ),
+      child: BlocListener<ReplacementBloc, ReplacementState>(
+        listener: (context, state) {
+          if (state.resultToPush != null) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    DetailPage(searchResult: state.resultToPush!),
+              ),
+            ).then((_) {
+              if (context.mounted) {
                 context.read<ReplacementBloc>().add(
                   const ReplacementEvent.resultPushed(),
                 );
-              });
-            }
-          },
+              }
+            });
+          }
+        },
         child: BlocBuilder<ReplacementBloc, ReplacementState>(
           builder: (context, state) {
             if (state.isError) {
@@ -95,7 +106,9 @@ class ReplacementsSection extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: EdgeInsets.only(right: 11.0),
-                        child: _ReplacementCard(replacement: replacements[index]),
+                        child: _ReplacementCard(
+                          replacement: replacements[index],
+                        ),
                       );
                     },
                   ),
@@ -110,7 +123,7 @@ class ReplacementsSection extends StatelessWidget {
 }
 
 class _ReplacementCard extends StatelessWidget {
-  const _ReplacementCard({Key? key, required this.replacement}) : super(key: key);
+  const _ReplacementCard({required this.replacement});
 
   final Replacement replacement;
 
@@ -118,7 +131,8 @@ class _ReplacementCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ReplacementBloc, ReplacementState>(
       builder: (context, state) {
-        final isLoadingForThisCard = state.loadingReplacement?.code == replacement.code;
+        final isLoadingForThisCard =
+            state.loadingReplacement?.code == replacement.code;
 
         return GestureDetector(
           onTap: isLoadingForThisCard
@@ -129,75 +143,70 @@ class _ReplacementCard extends StatelessWidget {
                   );
                 },
           child: Container(
-              width: 160.0,
-              decoration: BoxDecoration(
-                color: AppColors.buttonBackground,
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              child: Stack(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(9.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            replacement.displayName.isNotEmpty
-                                ? replacement.displayName
-                                : replacement.name,
-                            style: TextStyle(
-                              fontSize: TextSize.description,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: FontFamily.lato,
-                              color: AppColors.text,
-                            ),
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        const SizedBox(height: 1.0),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                replacement.company,
-                                style: TextStyle(
-                                  fontSize: 9.0,
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: FontFamily.lato,
-                                  color: AppColors.inactive,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            if (replacement.isFriend) ...[
-                              const SizedBox(width: 4.0),
-                              Assets.company.heart.svg(
-                                width: 16.0,
-                                height: 16.0,
-                              ),
-                            ],
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  if (isLoadingForThisCard)
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.black.withValues(alpha: 0.3),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      child: const Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    ),
-                ],
-              ),
+            width: 160.0,
+            decoration: BoxDecoration(
+              color: AppColors.buttonBackground,
+              borderRadius: BorderRadius.circular(8.0),
             ),
+            child: Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(9.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          replacement.displayName.isNotEmpty
+                              ? replacement.displayName
+                              : replacement.name,
+                          style: TextStyle(
+                            fontSize: TextSize.description,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: FontFamily.lato,
+                            color: AppColors.text,
+                          ),
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      const SizedBox(height: 1.0),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              replacement.company,
+                              style: TextStyle(
+                                fontSize: 9.0,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: FontFamily.lato,
+                                color: AppColors.inactive,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          if (replacement.isFriend) ...[
+                            const SizedBox(width: 4.0),
+                            Assets.company.heart.svg(width: 16.0, height: 16.0),
+                          ],
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                if (isLoadingForThisCard)
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.black.withValues(alpha: 0.3),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: const Center(child: CircularProgressIndicator()),
+                  ),
+              ],
+            ),
+          ),
         );
       },
     );
