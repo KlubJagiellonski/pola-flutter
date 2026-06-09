@@ -50,7 +50,7 @@ jobs:
                 echo "Checking build.gradle content:"
                 cat android/app/build.gradle
             - name: Build prod appbundle
-              run: flutter build appbundle --flavor prod --release --build-number=${{ github.run_number }}
+              run: flutter build appbundle --flavor prod --dart-define=FIREBASE_ENABLED=true --release --build-number=${{ github.run_number }}
             - uses: actions/upload-artifact@v7
               with:
                 name: app-prod-release-aab
