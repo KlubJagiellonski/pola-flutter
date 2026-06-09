@@ -50,6 +50,9 @@ dev_dependencies:
   mockito: ^5.6.4
 
 flutter:
+  config:
+    enable-swift-package-manager: false
+
   uses-material-design: true
 
   assets:

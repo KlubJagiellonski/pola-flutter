@@ -25,6 +25,25 @@ W trakcie prac nad plikami, które powodują konieczność ponownego uruchomieni
 dart run build_runner watch
 ```
 
+Do lokalnego uruchamiania aplikacji bez konfiguracji Firebase użyj flavoru `dev`:
+
+```bash
+flutter run --flavor dev
+```
+
+Flavor'y `qa` i `prod` wymagają konfiguracji Firebase oraz jawnego włączenia Firebase w warstwie Dart:
+
+```bash
+flutter run --flavor qa --dart-define=FIREBASE_ENABLED=true
+flutter run --flavor prod --dart-define=FIREBASE_ENABLED=true
+```
+
+Plik `ios/Runner/GoogleService-Info.plist` nie jest trzymany w repozytorium. Do lokalnego uruchamiania `qa` lub `prod` trzeba dodać go ręcznie. Workflow iOS odtwarza ten plik z sekretu GitHub `IOS_GOOGLE_SERVICE_INFO_PLIST_BASE64`.
+
+```bash
+base64 -i ios/Runner/GoogleService-Info.plist | tr -d '[:space:]'
+```
+
 # Screenshoty
 
 TODO

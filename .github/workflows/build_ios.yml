@@ -16,6 +16,21 @@ jobs:
     - name: Install FlutterFire CLI
       run: dart pub global activate flutterfire_cli
     - run: flutter pub get
+    - name: Restore Firebase iOS config
+      env:
+        IOS_GOOGLE_SERVICE_INFO_PLIST_BASE64: ${{ secrets.IOS_GOOGLE_SERVICE_INFO_PLIST_BASE64 }}
+      run: |
+        if [ -z "$IOS_GOOGLE_SERVICE_INFO_PLIST_BASE64" ]; then
+          echo "Missing IOS_GOOGLE_SERVICE_INFO_PLIST_BASE64 secret." >&2
+          echo "Set it to the base64 encoded contents of ios/Runner/GoogleService-Info.plist." >&2
+          exit 1
+        fi
+        if ! printf '%s' "$IOS_GOOGLE_SERVICE_INFO_PLIST_BASE64" | tr -d '[:space:]' | base64 --decode > ios/Runner/GoogleService-Info.plist; then
+          echo "Invalid IOS_GOOGLE_SERVICE_INFO_PLIST_BASE64 secret." >&2
+          echo "Regenerate it with: base64 -i ios/Runner/GoogleService-Info.plist | tr -d '[:space:]'" >&2
+          exit 1
+        fi
+        plutil -lint ios/Runner/GoogleService-Info.plist
     - name: Cache bundler gems
       uses: actions/cache@v5
       with:
@@ -35,4 +50,4 @@ jobs:
         restore-keys: ${{ runner.os }}-pods-
     - run: dart run build_runner build
     - run: dart run slang
-    - run: bundle exec flutter build ios --no-codesign
+    - run: bundle exec flutter build ios --flavor prod --dart-define=FIREBASE_ENABLED=true --no-codesign
