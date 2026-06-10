@@ -6,6 +6,7 @@ import 'package:pola_flutter/pages/dialpad/dialpad.dart';
 import 'package:pola_flutter/pages/report/report_page.dart';
 import 'package:pola_flutter/pages/scan/scan.dart';
 import 'package:pola_flutter/ui/web_view_tab.dart';
+import 'package:pola_flutter/config/app_urls.dart';
 
 class ScanNavigator extends StatefulWidget {
   final GlobalKey<NavigatorState>? navigatorKey;
@@ -96,7 +97,7 @@ class _ScanNavigatorState extends State<ScanNavigator> {
         return MaterialPageRoute(
           builder: (context) => WebViewTab(
             title: Translations.of(context).search.title,
-            url: "https://www.pola-app.pl/m/search/",
+            url: AppUrls.search,
           ),
         );
       case '/report':

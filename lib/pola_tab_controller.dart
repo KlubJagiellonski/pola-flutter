@@ -6,6 +6,7 @@ import 'package:pola_flutter/pages/scan/scan_navigator.dart';
 import 'package:pola_flutter/pages/web/web_view_page.dart';
 import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/ui/web_view_tab.dart';
+import 'package:pola_flutter/config/app_urls.dart';
 
 class PolaTabController extends StatefulWidget {
   const PolaTabController({super.key});
@@ -55,7 +56,7 @@ class _PolaTabControllerState extends State<PolaTabController> {
     ),
     WebViewTab(
       title: t.news.title,
-      url: "https://www.pola-app.pl/m/blog/",
+      url: AppUrls.news,
       pageKey: _newsWebViewPageKey,
     ),
   ];

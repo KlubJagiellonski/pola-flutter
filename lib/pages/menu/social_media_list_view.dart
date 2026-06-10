@@ -6,6 +6,7 @@ import 'package:pola_flutter/theme/fonts.gen.dart';
 import 'package:pola_flutter/theme/text_size.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
+import 'package:pola_flutter/config/app_urls.dart';
 
 class SocialMediaListView extends StatelessWidget {
   final PolaAnalytics analytics;
@@ -25,7 +26,7 @@ class SocialMediaListView extends StatelessWidget {
               style: TextStyle(
                 fontSize: TextSize.smallTitle,
                 fontWeight: FontWeight.w700,
-                fontFamily: FontFamily.lato
+                fontFamily: FontFamily.lato,
               ),
             ),
           ],
@@ -44,13 +45,13 @@ class SocialMediaListView extends StatelessWidget {
                       _socialItem(
                         text: "X (Twitter)",
                         analyticsRow: AnalyticsAboutRow.twitter,
-                        url: 'https://twitter.com/pola_app',
+                        url: AppUrls.twitter,
                       ),
                       const SizedBox(width: 14.0),
                       _socialItem(
                         text: "Facebook",
                         analyticsRow: AnalyticsAboutRow.facebook,
-                        url: 'https://www.facebook.com/share/1EVVFxN1Qn/',
+                        url: AppUrls.facebook,
                       ),
                     ],
                   ),
@@ -78,10 +79,7 @@ class SocialMediaListView extends StatelessWidget {
   }
 
   void _launchURL(String url) async {
-    await launchUrl(
-      Uri.parse(url),
-      mode: LaunchMode.externalApplication,
-    );
+    await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
   }
 }
 
