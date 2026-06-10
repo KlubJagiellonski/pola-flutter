@@ -1,4 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 
 abstract class AnalyticsProvider {
   void logEvent(String name, [Map<String, dynamic>? parameters]);
@@ -19,7 +20,7 @@ class FirebaseAnalyticsProvider implements AnalyticsProvider {
 class ConsoleAnalyticsProvider implements AnalyticsProvider {
   @override
   void logEvent(String name, [Map<String, dynamic>? parameters]) {
-    print('Analytics event: $name, parameters: $parameters');
+    debugPrint('Analytics event: $name, parameters: $parameters');
   }
 }
 

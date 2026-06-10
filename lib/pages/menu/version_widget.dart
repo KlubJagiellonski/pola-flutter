@@ -6,14 +6,16 @@ import 'package:pola_flutter/theme/text_size.dart';
 import 'package:pola_flutter/pages/menu/version_bloc.dart';
 
 class VersionWidget extends StatelessWidget {
+  const VersionWidget({super.key});
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create: (context) => VersionBloc()..add(VersionEvent.onApear()), 
+    return BlocProvider(
+      create: (context) => VersionBloc()..add(VersionEvent.onApear()),
       child: BlocBuilder<VersionBloc, VersionState>(
         builder: (context, state) {
           return _VersionLabelWidget(version: state.version);
         },
-      )
+      ),
     );
   }
 }
@@ -23,7 +25,7 @@ class _VersionLabelWidget extends StatelessWidget {
 
   const _VersionLabelWidget({this.version});
 
-    @override
+  @override
   Widget build(BuildContext context) {
     String? version = this.version;
     if (version == null) {

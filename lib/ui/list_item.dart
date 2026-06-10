@@ -7,7 +7,7 @@ import 'package:pola_flutter/theme/fonts.gen.dart';
 import 'package:pola_flutter/theme/text_size.dart';
 
 class ResultListItem extends StatelessWidget {
-  ResultListItem(this.searchResult);
+  const ResultListItem({super.key, required this.searchResult});
 
   final SearchResult searchResult;
   static const double leftBoxSize = 40.0;
@@ -83,11 +83,12 @@ class ResultListItem extends StatelessWidget {
 }
 
 class LoadingListItem extends StatelessWidget {
-  LoadingListItem();
+  const LoadingListItem({super.key});
 
   @override
   Widget build(BuildContext context) {
     return _ListItem(
+      showMore: false,
       child: Align(
         alignment: Alignment.centerLeft,
         child: Padding(
@@ -100,10 +101,8 @@ class LoadingListItem extends StatelessWidget {
                 child: Text(
                   t.scan.wait,
                   style: TextStyle(
-                    fontWeight:
-                        FontWeight.w400,
-                    fontSize:
-                        TextSize.smallTitle,
+                    fontWeight: FontWeight.w400,
+                    fontSize: TextSize.smallTitle,
                   ),
                 ),
               ),
@@ -111,7 +110,6 @@ class LoadingListItem extends StatelessWidget {
           ),
         ),
       ),
-      showMore: false,
     );
   }
 }
@@ -120,16 +118,13 @@ class _ListItem extends StatelessWidget {
   final Widget child;
   final bool showMore;
 
-  const _ListItem({
-    required this.child,
-    this.showMore = true,
-  });
+  const _ListItem({required this.child, this.showMore = true});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(top: 4.0, left: 16.0, right: 8.0, bottom: 4.0),
-      child: Container(
+      child: SizedBox(
         height: 40,
         child: DecoratedBox(
           decoration: BoxDecoration(

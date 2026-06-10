@@ -19,15 +19,16 @@ class CompanyScoreData {
   final List<Replacement>? replacements;
   final String productCode;
 
-  CompanyScoreData(
-      {required this.plCapital,
-      required this.plWorkers,
-      required this.plRnD,
-      required this.plRegistered,
-      required this.plNotGlobEnt,
-      required this.plScore,
-      required this.replacements,
-      required this.productCode});
+  CompanyScoreData({
+    required this.plCapital,
+    required this.plWorkers,
+    required this.plRnD,
+    required this.plRegistered,
+    required this.plNotGlobEnt,
+    required this.plScore,
+    required this.replacements,
+    required this.productCode,
+  });
 }
 
 class CompanyScoreWidget extends StatelessWidget {
@@ -74,23 +75,29 @@ class CompanyScoreWidget extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: ClipRRect(
-              borderRadius: BorderRadius.circular(10.0),
-              child: TweenAnimationBuilder(
-                  duration: Duration(milliseconds: data.plScore * 10),
-                  tween: Tween<double>(begin: 0, end: data.plScore.toDouble()),
-                  builder: (_, double score, __) {
-                    return LinearProgressIndicator(
-                      value: score / 100.0,
-                      backgroundColor: AppColors.buttonBackground,
-                      valueColor: const AlwaysStoppedAnimation<Color>(
-                          AppColors.defaultRed),
-                      minHeight: 12.0,
-                    );
-                  })),
+            borderRadius: BorderRadius.circular(10.0),
+            child: TweenAnimationBuilder(
+              duration: Duration(milliseconds: data.plScore * 10),
+              tween: Tween<double>(begin: 0, end: data.plScore.toDouble()),
+              builder: (_, double score, Widget? child) {
+                return LinearProgressIndicator(
+                  value: score / 100.0,
+                  backgroundColor: AppColors.buttonBackground,
+                  valueColor: const AlwaysStoppedAnimation<Color>(
+                    AppColors.defaultRed,
+                  ),
+                  minHeight: 12.0,
+                );
+              },
+            ),
+          ),
         ),
         const SizedBox(height: 17.0),
         if (replacements != null && replacements.isNotEmpty) ...[
-          ReplacementsSection(replacements: replacements, productCode: data.productCode),
+          ReplacementsSection(
+            replacements: replacements,
+            productCode: data.productCode,
+          ),
           const SizedBox(height: 17.0),
         ],
         Divider(
@@ -129,10 +136,14 @@ class CompanyScoreWidget extends StatelessWidget {
                   _DetailItem(t.companyScreen.researchInPoland, data.plRnD),
                   const SizedBox(height: 14.0),
                   _DetailItem(
-                      t.companyScreen.registeredInPoland, data.plRegistered),
+                    t.companyScreen.registeredInPoland,
+                    data.plRegistered,
+                  ),
                   const SizedBox(height: 14.0),
                   _DetailItem(
-                      t.companyScreen.notConcernPart, data.plNotGlobEnt),
+                    t.companyScreen.notConcernPart,
+                    data.plNotGlobEnt,
+                  ),
                 ],
               ),
             ),
@@ -151,7 +162,7 @@ class CompanyScoreWidget extends StatelessWidget {
 }
 
 class _DetailItem extends StatelessWidget {
-  const _DetailItem(this.text, this.state, {Key? key}) : super(key: key);
+  const _DetailItem(this.text, this.state);
 
   final String text;
   final bool state;
@@ -163,10 +174,11 @@ class _DetailItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(
-            padding: const EdgeInsets.only(right: 3.0),
-            child: state
-                ? Assets.company.taskAlt.svg()
-                : Assets.company.radioButtonUnchecked.svg()),
+          padding: const EdgeInsets.only(right: 3.0),
+          child: state
+              ? Assets.company.taskAlt.svg()
+              : Assets.company.radioButtonUnchecked.svg(),
+        ),
         Expanded(
           child: Text(
             text,

@@ -6,9 +6,7 @@ part 'version_bloc.freezed.dart';
 
 @freezed
 abstract class VersionState with _$VersionState {
-  const factory VersionState({
-    @Default(null) String? version,
-  }) = Initial;
+  const factory VersionState({@Default(null) String? version}) = Initial;
 }
 
 @freezed
@@ -17,15 +15,13 @@ class VersionEvent with _$VersionEvent {
 }
 
 class VersionBloc extends Bloc<VersionEvent, VersionState> {
-  VersionBloc(): super(VersionState()) {
+  VersionBloc() : super(VersionState()) {
     on<VersionEvent>((event, emit) async {
-      await event.when(
-        onApear: () async => await _onApear(emit)
-      );
+      await event.when(onApear: () async => await _onApear(emit));
     });
   }
 
-  _onApear(Emitter<VersionState> emit) async {
+  Future<void> _onApear(Emitter<VersionState> emit) async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     String version = packageInfo.version;
     String buildNumber = packageInfo.buildNumber;

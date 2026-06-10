@@ -9,7 +9,11 @@ class Brand extends Equatable {
   final String? logotypeUrl;
   final String? websiteUrl;
 
-  Brand({required this.name, required this.logotypeUrl, required this.websiteUrl});
+  const Brand({
+    required this.name,
+    required this.logotypeUrl,
+    required this.websiteUrl,
+  });
 
   factory Brand.fromJson(Map<String, dynamic> json) => _$BrandFromJson(json);
 

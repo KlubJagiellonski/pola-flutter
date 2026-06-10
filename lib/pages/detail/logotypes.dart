@@ -16,7 +16,7 @@ class Logotypes extends StatelessWidget {
   final SearchResult searchResult;
   final PolaAnalytics analytics = PolaAnalytics.instance();
 
-  Logotypes({required this.logotypes, required this.searchResult});
+  Logotypes({super.key, required this.logotypes, required this.searchResult});
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +35,7 @@ class Logotypes extends StatelessWidget {
               if (uri == null) return;
 
               analytics.readMore(searchResult, url);
-              launchUrl(
-                uri,
-                mode: LaunchMode.externalApplication,
-              );
+              launchUrl(uri, mode: LaunchMode.externalApplication);
             },
             child: Padding(
               padding: EdgeInsets.all(8.0),
@@ -69,7 +66,7 @@ class Logotypes extends StatelessWidget {
 }
 
 class _LogoView extends StatelessWidget {
-  _LogoView(this.url);
+  const _LogoView(this.url);
 
   final String url;
 

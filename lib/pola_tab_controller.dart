@@ -8,6 +8,8 @@ import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/ui/web_view_tab.dart';
 
 class PolaTabController extends StatefulWidget {
+  const PolaTabController({super.key});
+
   @override
   State<PolaTabController> createState() => _PolaTabControllerState();
 }
@@ -41,25 +43,22 @@ class _PolaTabControllerState extends State<PolaTabController> {
           onTap: _onItemTapped,
           currentIndex: _selectedIndex,
         ),
-        body: IndexedStack(
-          index: _selectedIndex,
-          children: _tabs,
-        ),
+        body: IndexedStack(index: _selectedIndex, children: _tabs),
       ),
     );
   }
 
   List<Widget> get _tabs => [
-        ScanNavigator(
-          navigatorKey: _scanNavigatorKey,
-          isActive: _selectedIndex == 0,
-        ),
-        WebViewTab(
-          title: t.news.title,
-          url: "https://www.pola-app.pl/m/blog/",
-          pageKey: _newsWebViewPageKey,
-        )
-      ];
+    ScanNavigator(
+      navigatorKey: _scanNavigatorKey,
+      isActive: _selectedIndex == 0,
+    ),
+    WebViewTab(
+      title: t.news.title,
+      url: "https://www.pola-app.pl/m/blog/",
+      pageKey: _newsWebViewPageKey,
+    ),
+  ];
 
   AnalyticsMainTab _getTabParameter(int index) {
     switch (index) {

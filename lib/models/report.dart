@@ -9,8 +9,11 @@ class Report extends Equatable {
   final String buttonText;
   final String? buttonType;
 
-  Report(
-      {required this.text, required this.buttonText, required this.buttonType});
+  const Report({
+    required this.text,
+    required this.buttonText,
+    required this.buttonType,
+  });
 
   factory Report.fromJson(Map<String, dynamic> json) => _$ReportFromJson(json);
 
