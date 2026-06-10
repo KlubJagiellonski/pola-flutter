@@ -21,6 +21,7 @@ import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/text_size.dart';
 import 'package:pola_flutter/ui/menu_icon_button.dart';
 import 'package:pola_flutter/ui/web_view_dialog.dart';
+import 'package:pola_flutter/config/app_urls.dart';
 
 class MainPage extends StatefulWidget {
   final RouteObserver<ModalRoute<dynamic>> routeObserver;
@@ -103,7 +104,7 @@ class MainPageState extends State<MainPage> with RouteAware {
             _analytics.aboutPolaOpened();
             showWebViewDialog(
               context: context,
-              url: "https://www.pola-app.pl/m/about",
+              url: AppUrls.aboutPola,
               title: t.menu.aboutPola,
             );
           },

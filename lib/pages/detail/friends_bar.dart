@@ -5,6 +5,7 @@ import 'package:pola_flutter/theme/fonts.gen.dart';
 import 'package:pola_flutter/theme/text_size.dart';
 import 'package:pola_flutter/ui/web_view_dialog.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
+import 'package:pola_flutter/config/app_urls.dart';
 
 class FriendsBar extends StatelessWidget {
   const FriendsBar({super.key});
@@ -17,7 +18,7 @@ class FriendsBar extends StatelessWidget {
         onTap: () {
           showWebViewDialog(
             context: context,
-            url: "https://www.pola-app.pl/m/friends",
+            url: AppUrls.friends,
             title: t.companyScreen.polaFriends,
           );
         },
