@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/colors.dart';
@@ -53,7 +54,7 @@ class RemoteButton extends StatelessWidget {
                   foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
                 ),
                 onPressed: () async {
-                  PolaAnalytics.instance().donateOpened(state.code);
+                  context.read<PolaAnalytics>().donateOpened(state.code);
                   await launchUrl(
                     state.uri,
                     mode: LaunchMode.externalApplication,

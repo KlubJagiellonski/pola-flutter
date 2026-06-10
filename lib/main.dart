@@ -3,10 +3,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/config/firebase_config.dart';
+import 'package:pola_flutter/data/device_id_service.dart';
+import 'package:pola_flutter/data/pola_api_repository.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/pola_tab_controller.dart';
 import 'package:pola_flutter/firebase_options.dart';
+import 'package:pola_flutter/pages/scan/scan_vibration.dart';
 import 'package:pola_flutter/ui/flavor_banner.dart';
 import 'package:logging/logging.dart' as logging;
 
@@ -26,11 +30,27 @@ void main() async {
       options: DefaultFirebaseOptions.currentPlatform,
     );
   }
-  runApp(PolaApp());
+  final deviceIdService = await DeviceIdService.create();
+  runApp(
+    PolaApp(
+      polaApi: PolaApiRepository(deviceIdService: deviceIdService),
+      analytics: PolaAnalytics.instance(),
+      scanVibration: ScanVibrationImpl(),
+    ),
+  );
 }
 
 class PolaApp extends StatelessWidget {
-  const PolaApp({super.key});
+  final PolaApi polaApi;
+  final PolaAnalytics analytics;
+  final ScanVibration scanVibration;
+
+  const PolaApp({
+    super.key,
+    required this.polaApi,
+    required this.analytics,
+    required this.scanVibration,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,13 +58,20 @@ class PolaApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return TranslationProvider(
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          colorScheme: ColorScheme.light().copyWith(primary: Colors.red),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<PolaApi>.value(value: polaApi),
+        RepositoryProvider<PolaAnalytics>.value(value: analytics),
+        RepositoryProvider<ScanVibration>.value(value: scanVibration),
+      ],
+      child: TranslationProvider(
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            colorScheme: ColorScheme.light().copyWith(primary: Colors.red),
+          ),
+          home: FlavorBanner(flavor: _appFlavor, child: PolaTabController()),
         ),
-        home: FlavorBanner(flavor: _appFlavor, child: PolaTabController()),
       ),
     );
   }

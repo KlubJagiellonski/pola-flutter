@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pola_flutter/analytics/analytics_main_tab.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
@@ -16,7 +17,6 @@ class PolaTabController extends StatefulWidget {
 
 class _PolaTabControllerState extends State<PolaTabController> {
   int _selectedIndex = 0;
-  final _analytics = PolaAnalytics.instance();
   final _scanNavigatorKey = GlobalKey<NavigatorState>();
   final _newsWebViewPageKey = GlobalKey<WebViewPageState>();
 
@@ -89,7 +89,7 @@ class _PolaTabControllerState extends State<PolaTabController> {
           break;
       }
     } else {
-      _analytics.mainTabChanged(_getTabParameter(index));
+      context.read<PolaAnalytics>().mainTabChanged(_getTabParameter(index));
       setState(() {
         _selectedIndex = index;
       });

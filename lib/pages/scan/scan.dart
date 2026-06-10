@@ -42,7 +42,6 @@ class MainPageState extends State<MainPage> with RouteAware {
     detectionSpeed: DetectionSpeed.normal,
     formats: [BarcodeFormat.ean13, BarcodeFormat.ean8],
   );
-  final PolaAnalytics _analytics = PolaAnalytics.instance();
   bool _childRoutePushed = false;
 
   ScrollController listScrollController = ScrollController();
@@ -50,10 +49,11 @@ class MainPageState extends State<MainPage> with RouteAware {
   @override
   void initState() {
     super.initState();
+    final analytics = context.read<PolaAnalytics>();
     _scanBloc = ScanBloc(
-      PolaApiRepository(),
-      ScanVibrationImpl(),
-      _analytics,
+      context.read<PolaApi>(),
+      context.read<ScanVibration>(),
+      analytics,
       TorchControllerImpl(cameraController: cameraController),
     );
     widget.scanTabActive.addListener(_onScanTabActiveChanged);
@@ -94,13 +94,15 @@ class MainPageState extends State<MainPage> with RouteAware {
 
   @override
   Widget build(BuildContext context) {
+    final analytics = context.read<PolaAnalytics>();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
           onPressed: () {
-            _analytics.aboutPolaOpened();
+            analytics.aboutPolaOpened();
             showWebViewDialog(
               context: context,
               url: "https://www.pola-app.pl/m/about",
@@ -132,7 +134,7 @@ class MainPageState extends State<MainPage> with RouteAware {
                 horizontal: 16.0,
               ),
               child: Column(
-                children: <Widget>[ScanSearchButton(analytics: _analytics)],
+                children: <Widget>[ScanSearchButton(analytics: analytics)],
               ),
             ),
           ),
@@ -249,6 +251,8 @@ class MainPageState extends State<MainPage> with RouteAware {
   void dispose() {
     widget.scanTabActive.removeListener(_onScanTabActiveChanged);
     widget.routeObserver.unsubscribe(this);
+    _scanBloc.close();
+    listScrollController.dispose();
     cameraController.dispose();
     super.dispose();
   }
