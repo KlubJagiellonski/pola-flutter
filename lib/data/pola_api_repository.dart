@@ -8,32 +8,30 @@ import 'package:pola_flutter/models/search_result.dart';
 
 abstract class PolaApi {
   Future<ApiResponse<SearchResult>> getCompany(String code);
-  Future<bool> createReport({
-    required String description,
-    int? productId,
-  });
+  Future<bool> createReport({required String description, int? productId});
 }
 
 class PolaApiRepository implements PolaApi {
-  late final PolaApiService _polaApiService;
-  late final DeviceIdService _deviceIdService;
+  final PolaApiService _polaApiService;
+  final DeviceIdService _deviceIdService;
 
-  PolaApiRepository(){
-    _polaApiService = PolaApiService.create();
-    DeviceIdService.create().then((value) => _deviceIdService = value);
-  }
+  PolaApiRepository({
+    required DeviceIdService deviceIdService,
+    PolaApiService? polaApiService,
+  }) : _deviceIdService = deviceIdService,
+       _polaApiService = polaApiService ?? PolaApiService.create();
 
   @override
   Future<ApiResponse<SearchResult>> getCompany(String code) async {
     SearchResult? result;
     Response response;
-    try{
+    try {
       response = await _polaApiService.getCompany(code, _deviceIdService.uuid);
-    }on SocketException catch (exception){
+    } on SocketException catch (exception) {
       return ApiResponse.error(exception.message);
     }
 
-    if(response.isSuccessful){
+    if (response.isSuccessful) {
       result = SearchResult.fromJson(response.body as Map<String, dynamic>);
       return ApiResponse<SearchResult>.completed(result);
     }

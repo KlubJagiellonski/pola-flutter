@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/pages/scan/scan_state.dart';
@@ -7,7 +8,7 @@ import 'package:pola_flutter/ui/list_item.dart';
 import 'dart:math';
 
 class CompaniesList extends StatelessWidget {
-  CompaniesList({
+  const CompaniesList({
     super.key,
     required this.state,
     required this.listScrollController,
@@ -17,7 +18,6 @@ class CompaniesList extends StatelessWidget {
   final ScanState state;
   final ScrollController listScrollController;
   final GestureTapCallback onCloseRemoteButtonTap;
-  final PolaAnalytics _analytics = PolaAnalytics.instance();
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class CompaniesList extends StatelessWidget {
                   child: ResultListItem(searchResult: state.list[index]),
                   onTap: () {
                     final result = state.list[index];
-                    _analytics.opensCard(result);
+                    context.read<PolaAnalytics>().opensCard(result);
                     Navigator.pushNamed(context, '/detail', arguments: result);
                   },
                 );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/theme/colors.dart';
@@ -14,9 +15,12 @@ class Logotype {
 class Logotypes extends StatelessWidget {
   final List<Logotype> logotypes;
   final SearchResult searchResult;
-  final PolaAnalytics analytics = PolaAnalytics.instance();
 
-  Logotypes({super.key, required this.logotypes, required this.searchResult});
+  const Logotypes({
+    super.key,
+    required this.logotypes,
+    required this.searchResult,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +38,7 @@ class Logotypes extends StatelessWidget {
               final Uri? uri = Uri.tryParse(url);
               if (uri == null) return;
 
-              analytics.readMore(searchResult, url);
+              context.read<PolaAnalytics>().readMore(searchResult, url);
               launchUrl(uri, mode: LaunchMode.externalApplication);
             },
             child: Padding(

@@ -34,8 +34,8 @@ class ReplacementsSection extends StatelessWidget {
 
     return BlocProvider(
       create: (context) => ReplacementBloc(
-        PolaApiRepository(),
-        PolaAnalytics.instance(),
+        context.read<PolaApi>(),
+        context.read<PolaAnalytics>(),
         state: ReplacementState(productCode: productCode),
       ),
       child: BlocListener<ReplacementBloc, ReplacementState>(

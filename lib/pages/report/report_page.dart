@@ -32,8 +32,8 @@ class _ReportPageState extends State<ReportPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) =>
-          ReportBloc(PolaApiRepository(), productId: widget.productId),
+      create: (context) =>
+          ReportBloc(context.read<PolaApi>(), productId: widget.productId),
       child: BlocConsumer<ReportBloc, ReportState>(
         listenWhen: (prev, curr) =>
             prev.requestState != ReportRequestState.success &&
