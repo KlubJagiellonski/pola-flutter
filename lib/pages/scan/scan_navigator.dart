@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/pages/detail/detail.dart';
 import 'package:pola_flutter/pages/dialpad/dialpad.dart';
 import 'package:pola_flutter/pages/report/report_page.dart';
 import 'package:pola_flutter/pages/scan/scan.dart';
+<<<<<<< HEAD
 import 'package:pola_flutter/ui/web_view_tab.dart';
 import 'package:pola_flutter/config/app_urls.dart';
+=======
+import 'package:pola_flutter/pages/search/search_page.dart';
+>>>>>>> 01f81a5 (Refactor Webview Search to Native)
 
 class ScanNavigator extends StatefulWidget {
   final GlobalKey<NavigatorState>? navigatorKey;
@@ -94,12 +97,16 @@ class _ScanNavigatorState extends State<ScanNavigator> {
       case '/dialpad':
         return MaterialPageRoute(builder: (_) => DialPadPage());
       case '/search':
+<<<<<<< HEAD
         return MaterialPageRoute(
           builder: (context) => WebViewTab(
             title: Translations.of(context).search.title,
             url: AppUrls.search,
           ),
         );
+=======
+        return MaterialPageRoute(builder: (_) => const SearchPage());
+>>>>>>> 01f81a5 (Refactor Webview Search to Native)
       case '/report':
         return MaterialPageRoute(
           builder: (_) => ReportPage(productId: args is int ? args : null),

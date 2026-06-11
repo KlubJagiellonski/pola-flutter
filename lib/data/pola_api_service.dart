@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 ﻿import 'package:chopper/chopper.dart';
 import 'package:pola_flutter/config/app_urls.dart';
+=======
+import 'package:chopper/chopper.dart';
+>>>>>>> 01f81a5 (Refactor Webview Search to Native)
 part 'pola_api_service.chopper.dart';
 
 @ChopperApi()
@@ -10,6 +14,16 @@ abstract class PolaApiService extends ChopperService {
     @Query("code") String code,
     @Query("device_id") String deviceId,
   );
+<<<<<<< HEAD
+=======
+
+  @GET(path: 'a/v4/search')
+  Future<Response> searchProducts(
+    @Query("query") String query,
+    @Query("pageToken") String? pageToken,
+    @Query("device_id") String deviceId,
+  );
+>>>>>>> 01f81a5 (Refactor Webview Search to Native)
 
   @POST(path: 'a/v4/create_report')
   Future<Response> createReport(
