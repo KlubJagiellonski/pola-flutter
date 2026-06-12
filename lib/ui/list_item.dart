@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/models/search_result.dart';
-import 'package:pola_flutter/theme/assets.gen.dart';
-import 'package:pola_flutter/theme/colors.dart';
-import 'package:pola_flutter/theme/fonts.gen.dart';
+import 'package:pola_flutter/ui/product_list_item.dart';
 import 'package:pola_flutter/theme/text_size.dart';
 
 class ResultListItem extends StatelessWidget {
@@ -14,70 +12,11 @@ class ResultListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pointValueStyle = TextStyle(
-      height: 0,
-      fontWeight: FontWeight.w700,
-      fontFamily: FontFamily.roboto,
-      fontSize: TextSize.mediumTitle,
-      color: Colors.white,
-    );
-
-    final pointDescriptionStyle = TextStyle(
-      height: 0.1,
-      fontWeight: FontWeight.w700,
-      fontFamily: FontFamily.roboto,
-      fontSize: 9,
-      color: Colors.white,
-    );
-
-    return _ListItem(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            width: leftBoxSize,
-            height: leftBoxSize,
-            decoration: BoxDecoration(
-              color: AppColors.defaultRed,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(leftBoxSize / 2),
-                bottomLeft: Radius.circular(leftBoxSize / 2),
-              ),
-            ),
-            alignment: Alignment.center,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  '${searchResult.companies?.first.plScore ?? 0}',
-                  style: pointValueStyle,
-                  textAlign: TextAlign.center,
-                ),
-                Text(
-                  t.scan.pkt,
-                  style: pointDescriptionStyle,
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-          ),
-          SizedBox(width: 8.0),
-          Expanded(
-            child: Container(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                searchResult.name!,
-                style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontSize: TextSize.smallTitle,
-                ),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-              ),
-            ),
-          ),
-        ],
-      ),
+    return ProductListItem(
+      score: searchResult.companies?.first.plScore ?? 0,
+      title: searchResult.name ?? '',
+      height: leftBoxSize,
+      scoreWidth: leftBoxSize,
     );
   }
 }
@@ -88,7 +27,6 @@ class LoadingListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _ListItem(
-      showMore: false,
       child: Align(
         alignment: Alignment.centerLeft,
         child: Padding(
@@ -116,9 +54,8 @@ class LoadingListItem extends StatelessWidget {
 
 class _ListItem extends StatelessWidget {
   final Widget child;
-  final bool showMore;
 
-  const _ListItem({required this.child, this.showMore = true});
+  const _ListItem({required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -138,14 +75,7 @@ class _ListItem extends StatelessWidget {
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(child: child),
-              if (showMore)
-                Padding(
-                  padding: EdgeInsets.only(right: 8.0),
-                  child: Assets.scan.showMore.svg(),
-                ),
-            ],
+            children: [Expanded(child: child)],
           ),
         ),
       ),
