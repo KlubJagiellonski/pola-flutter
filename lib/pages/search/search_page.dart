@@ -28,8 +28,9 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
+    final repository = context.read<PolaApi>();
     _blocFuture = ProductSearchHistoryService.create().then((historyStore) {
-      final bloc = SearchBloc(PolaApiRepository(), historyStore)
+      final bloc = SearchBloc(repository, historyStore)
         ..add(const SearchStarted());
       _bloc = bloc;
       return bloc;
