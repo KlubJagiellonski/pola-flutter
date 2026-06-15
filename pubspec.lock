@@ -217,14 +217,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.3"
-  csv:
-    dependency: transitive
-    description:
-      name: csv
-      sha256: c6aa2679b2a18cb57652920f674488d89712efaf4d3fdf2e537215b35fc19d6c
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.0.0"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -861,6 +853,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.28.0"
+  serial_csv:
+    dependency: transitive
+    description:
+      name: serial_csv
+      sha256: "2d62bb70cb3ce7251383fc86ea9aae1298ab1e57af6ef4e93b6a9751c5c268dd"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.2"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -958,18 +958,18 @@ packages:
     dependency: "direct main"
     description:
       name: slang
-      sha256: "8f5ae507de811e245b7a3187d3191e9eefe7d8f2c22f150663f15bb0f1559367"
+      sha256: fe12e1eeb1fae0dd8e4e453ef6bb39dabb1fa2460a33ebfcdd3f84c8748d28b6
       url: "https://pub.dev"
     source: hosted
-    version: "4.11.0"
+    version: "4.16.0"
   slang_flutter:
     dependency: "direct main"
     description:
       name: slang_flutter
-      sha256: a6ebc0a855faa62053f44d333ae3b3cde24945357e88506d1d3e7fb0d3fc0c70
+      sha256: ee9dbb86bc58994eb0a5cd5f17de484daa70e7224c62cc69b8620065b213dc73
       url: "https://pub.dev"
     source: hosted
-    version: "4.11.0"
+    version: "4.16.0"
   source_gen:
     dependency: transitive
     description:
