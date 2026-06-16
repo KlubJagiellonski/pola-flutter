@@ -26,10 +26,9 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
     this._torchController, {
     ScanState state = const ScanState(),
   }) : super(state) {
-    on<ScanEvent>((event, emit) {
-      event.when(
-        barcodeScanned: (barcode) async =>
-            await _onBarcodeScanned(barcode, emit),
+    on<ScanEvent>((event, emit) async {
+      await event.when<FutureOr<void>>(
+        barcodeScanned: (barcode) => _onBarcodeScanned(barcode, emit),
         alertDialogDismissed: () => _onAlertDialogDismissed(emit),
         torchSwitched: () => _onTorchSwitched(emit),
         closeRemoteButton: () => _onCloseRemoteButton(emit),
