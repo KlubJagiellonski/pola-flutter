@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:app_settings/app_settings.dart';
+import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/text_size.dart';
+import 'package:pola_flutter/i18n/strings.g.dart';
 
 class OfflineView extends StatelessWidget {
   const OfflineView({super.key});
@@ -16,16 +18,12 @@ class OfflineView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // Illustration
-          Image.asset(
-            'assets/scan/undraw_no-signal.png', // User will need to add this
+          Assets.scan.undrawNoSignal.image(
             height: 212,
             width: 195,
             fit: BoxFit.contain,
-            errorBuilder: (context, error, stackTrace) => const SizedBox(
-              height: 212,
-              width: 195,
-              child: Placeholder(),
-            ),
+            errorBuilder: (context, error, stackTrace) =>
+                const SizedBox(height: 212, width: 195, child: Placeholder()),
           ),
           const SizedBox(height: 32),
           // Title with icon
@@ -38,10 +36,10 @@ class OfflineView extends StatelessWidget {
                 size: 32,
               ),
               const SizedBox(width: 12),
-              const Text(
-                'Brak połączenia',
-                style: TextStyle(
-                  fontSize: 24, // Assuming TextSize.newsTitle or similar
+              Text(
+                t.offline.title,
+                style: const TextStyle(
+                  fontSize: TextSize.newsTitle,
                   fontWeight: FontWeight.bold,
                   color: AppColors.text,
                 ),
@@ -50,10 +48,10 @@ class OfflineView extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           // Description
-          const Text(
-            'Jesteś offline. Skanowanie zostanie wznowione automatycznie po odzyskaniu zasięgu',
+          Text(
+            t.offline.description,
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: TextSize.small,
               color: AppColors.text,
               height: 1.4,
@@ -73,9 +71,9 @@ class OfflineView extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 12),
-              const Text(
-                'Szukanie sieci...',
-                style: TextStyle(
+              Text(
+                t.offline.searching,
+                style: const TextStyle(
                   fontSize: TextSize.small,
                   color: AppColors.inactive,
                 ),
@@ -101,16 +99,16 @@ class OfflineView extends StatelessWidget {
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Text(
-                    'Sprawdź ustawienia',
-                    style: TextStyle(
+                    t.offline.checkSettings,
+                    style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: TextSize.small,
                     ),
                   ),
-                  SizedBox(width: 8),
-                  Icon(Icons.arrow_forward, size: 16),
+                  const SizedBox(width: 8),
+                  const Icon(Icons.arrow_forward, size: 16),
                 ],
               ),
             ),

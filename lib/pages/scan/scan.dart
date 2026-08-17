@@ -117,9 +117,7 @@ class MainPageState extends State<MainPage> with RouteAware {
                     TextButton(
                       child: Text(t.scan.closeError),
                       onPressed: () {
-                        _scanBloc.add(
-                          ScanEvent.alertDialogDismissed(),
-                        );
+                        _scanBloc.add(ScanEvent.alertDialogDismissed());
                         Navigator.pop(context);
                       },
                     ),
@@ -136,6 +134,7 @@ class MainPageState extends State<MainPage> with RouteAware {
             backgroundColor: Colors.transparent,
             elevation: 0,
             leading: IconButton(
+              tooltip: t.accessibility.logo,
               onPressed: () {
                 analytics.aboutPolaOpened();
                 showWebViewDialog(
@@ -144,7 +143,8 @@ class MainPageState extends State<MainPage> with RouteAware {
                   title: t.menu.aboutPola,
                 );
               },
-              icon: Assets.icLauncher.image(), // This is an image, it might not change color easily unless it's a template image or we have a dark version.
+              icon: Assets.icLauncher
+                  .image(), // This is an image, it might not change color easily unless it's a template image or we have a dark version.
             ),
             actions: [MenuIconButton(color: appBarColor)],
             title: Align(
@@ -170,7 +170,9 @@ class MainPageState extends State<MainPage> with RouteAware {
                       horizontal: 16.0,
                     ),
                     child: Column(
-                      children: <Widget>[ScanSearchButton(analytics: analytics)],
+                      children: <Widget>[
+                        ScanSearchButton(analytics: analytics),
+                      ],
                     ),
                   ),
                 ),
@@ -190,7 +192,9 @@ class MainPageState extends State<MainPage> with RouteAware {
                                   state: state,
                                   listScrollController: listScrollController,
                                   onCloseRemoteButtonTap: () {
-                                    _scanBloc.add(ScanEvent.closeRemoteButton());
+                                    _scanBloc.add(
+                                      ScanEvent.closeRemoteButton(),
+                                    );
                                   },
                                 ),
                               ),

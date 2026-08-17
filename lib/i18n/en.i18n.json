@@ -57,5 +57,18 @@
         "successMessage": "Twoje zgłoszenie zostało wysłane.",
         "errorMessage": "Nie udało się wysłać zgłoszenia. Spróbuj ponownie.",
         "descriptionRequired": "Opis zgłoszenia jest wymagany."
+    },
+    "accessibility": {
+        "rectangleHint": "Umieść kod kreskowy produktu w tym prostokącie",
+        "flash": "Flesz",
+        "close": "Zamknij",
+        "logo": "Strona główna",
+        "menu": "Menu"
+    },
+    "offline": {
+        "title": "Brak połączenia",
+        "description": "Jesteś offline. Skanowanie zostanie wznowione automatycznie po odzyskaniu zasięgu",
+        "searching": "Szukanie sieci...",
+        "checkSettings": "Sprawdź ustawienia"
     }
 }
