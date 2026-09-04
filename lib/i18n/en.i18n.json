@@ -38,7 +38,22 @@
         "search": "Wyszukaj"
     },
     "search": {
-        "title": "Wyszukiwarka"
+        "title": "Wyszukaj",
+        "historyTitle": "Historia",
+        "inputLabel": "Nazwa produktu / kod EAN",
+        "hint": "Wyszukaj",
+        "historyHint": "Wyszukaj produkt w historii",
+        "recentSearches": "Ostatnie wyszukiwania:",
+        "fullHistory": "Pełna historia:",
+        "clear": "Wyczyść",
+        "resultsCountOne": "Znaleziono 1 wynik:",
+        "resultsCountMany": "Znaleziono $count wyników:",
+        "noResults": "Brak wyników",
+        "emptyHistory": "Brak historii wyszukiwania",
+        "noHistoryResults": "Brak produktów pasujących do wyszukiwania",
+        "error": "Nie udało się pobrać wyników.",
+        "retry": "Spróbuj ponownie",
+        "openError": "Nie udało się otworzyć produktu."
     },
     "news": {
         "title": "Wiadomości"
