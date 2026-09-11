@@ -19,6 +19,7 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
   final ScanVibration _scanVibration;
   final PolaAnalytics _analytics;
   final TorchController _torchController;
+  final Connectivity _connectivity;
   late final StreamSubscription<List<ConnectivityResult>>
   _connectivitySubscription;
 
@@ -28,7 +29,9 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
     this._analytics,
     this._torchController, {
     ScanState state = const ScanState(),
-  }) : super(state) {
+    Connectivity? connectivity,
+  }) : _connectivity = connectivity ?? Connectivity(),
+       super(state) {
     on<ScanEvent>((event, emit) async {
       await event.when<FutureOr<void>>(
         barcodeScanned: (barcode) => _onBarcodeScanned(barcode, emit),
@@ -41,7 +44,7 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
       );
     });
 
-    _connectivitySubscription = Connectivity().onConnectivityChanged.listen((
+    _connectivitySubscription = _connectivity.onConnectivityChanged.listen((
       List<ConnectivityResult> results,
     ) {
       final isOffline = results.every((r) => r == ConnectivityResult.none);
@@ -49,7 +52,7 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
     });
 
     // Check initial connectivity state
-    Connectivity().checkConnectivity().then((results) {
+    _connectivity.checkConnectivity().then((results) {
       final isOffline = results.every((r) => r == ConnectivityResult.none);
       add(ScanEvent.connectivityChanged(isOffline));
     });

@@ -1,4 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/data/api_response.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
@@ -148,6 +149,7 @@ ScanBloc _scanBloc({ScanState state = const ScanState()}) {
     _MockScanVibration(),
     PolaAnalytics(provider: MockAnalyticsProvider()),
     _MockTorchController(),
+    connectivity: _MockConnectivity(),
     state: state,
   );
 }
@@ -220,4 +222,14 @@ class _MockScanVibration extends ScanVibration {
 class _MockTorchController extends TorchController {
   @override
   void toggleTorch() {}
+}
+
+class _MockConnectivity implements Connectivity {
+  @override
+  Stream<List<ConnectivityResult>> get onConnectivityChanged =>
+      Stream.value([ConnectivityResult.wifi]);
+
+  @override
+  Future<List<ConnectivityResult>> checkConnectivity() =>
+      Future.value([ConnectivityResult.wifi]);
 }
