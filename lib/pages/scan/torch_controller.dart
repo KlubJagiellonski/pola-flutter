@@ -8,7 +8,7 @@ class TorchControllerImpl implements TorchController {
   final MobileScannerController _cameraController;
 
   TorchControllerImpl({required MobileScannerController cameraController})
-      : _cameraController = cameraController;
+    : _cameraController = cameraController;
 
   @override
   void toggleTorch() {

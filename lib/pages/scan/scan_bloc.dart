@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pola_flutter/analytics/analytics_barcode_source.dart';
@@ -18,6 +19,9 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
   final ScanVibration _scanVibration;
   final PolaAnalytics _analytics;
   final TorchController _torchController;
+  final Connectivity _connectivity;
+  late final StreamSubscription<List<ConnectivityResult>>
+  _connectivitySubscription;
 
   ScanBloc(
     this._polaApiRepository,
@@ -25,16 +29,39 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
     this._analytics,
     this._torchController, {
     ScanState state = const ScanState(),
-  }) : super(state) {
+    Connectivity? connectivity,
+  }) : _connectivity = connectivity ?? Connectivity(),
+       super(state) {
     on<ScanEvent>((event, emit) async {
       await event.when<FutureOr<void>>(
         barcodeScanned: (barcode) => _onBarcodeScanned(barcode, emit),
+        connectivityChanged: (isOffline) =>
+            _onConnectivityChanged(isOffline, emit),
         alertDialogDismissed: () => _onAlertDialogDismissed(emit),
         torchSwitched: () => _onTorchSwitched(emit),
         closeRemoteButton: () => _onCloseRemoteButton(emit),
         resetScannedCompaniesButton: () => _onResetScannedCompanies(emit),
       );
     });
+
+    _connectivitySubscription = _connectivity.onConnectivityChanged.listen((
+      List<ConnectivityResult> results,
+    ) {
+      final isOffline = results.every((r) => r == ConnectivityResult.none);
+      add(ScanEvent.connectivityChanged(isOffline));
+    });
+
+    // Check initial connectivity state
+    _connectivity.checkConnectivity().then((results) {
+      final isOffline = results.every((r) => r == ConnectivityResult.none);
+      add(ScanEvent.connectivityChanged(isOffline));
+    });
+  }
+
+  @override
+  Future<void> close() {
+    _connectivitySubscription.cancel();
+    return super.close();
   }
 
   Future<void> _onBarcodeScanned(
@@ -75,6 +102,10 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
     } else {
       emit(state.copyWith(isLoading: false, isError: true));
     }
+  }
+
+  void _onConnectivityChanged(bool isOffline, Emitter<ScanState> emit) {
+    emit(state.copyWith(isOffline: isOffline));
   }
 
   void _onTorchSwitched(Emitter<ScanState> emit) {

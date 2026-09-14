@@ -12,34 +12,40 @@ class ScanSearchButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: GestureDetector(
-        onTap: () {
-          Navigator.pushNamed(context, '/search');
-          analytics.searchOpened();
-        },
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(25),
-          ),
-          child: Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Assets.search.svg(),
-              ),
-              Expanded(
-                child: Text(
-                  Translations.of(context).scan.search,
-                  style: TextStyle(
-                    fontSize: TextSize.mediumTitle,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black,
+      child: Semantics(
+        button: true,
+        child: GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, '/search');
+            analytics.searchOpened();
+          },
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10.0,
+              vertical: 10.0,
+            ),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(25),
+            ),
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Assets.search.svg(),
+                ),
+                Expanded(
+                  child: Text(
+                    Translations.of(context).scan.search,
+                    style: TextStyle(
+                      fontSize: TextSize.mediumTitle,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
