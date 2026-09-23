@@ -73,7 +73,7 @@ class AnalyticsMainTabParameters {
 
 @JsonSerializable(createFactory: false, fieldRename: FieldRename.snake)
 class AnalyticsReplacementCardOpenedParameters {
-  final String originCode;
+  final String code;
   final String replacementCode;
 
   AnalyticsReplacementCardOpenedParameters({
