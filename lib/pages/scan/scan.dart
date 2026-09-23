@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
@@ -98,35 +97,33 @@ class MainPageState extends State<MainPage> with RouteAware {
   Widget build(BuildContext context) {
     final analytics = context.read<PolaAnalytics>();
 
-    return BlocBuilder<ScanBloc, ScanState>(
+    return BlocConsumer<ScanBloc, ScanState>(
       bloc: _scanBloc,
+      listenWhen: (previous, current) => !previous.isError && current.isError,
+      listener: (context, state) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text(t.scan.error),
+              content: Text(t.scan.tryAgain),
+              actions: <Widget>[
+                TextButton(
+                  child: Text(t.scan.closeError),
+                  onPressed: () {
+                    _scanBloc.add(ScanEvent.alertDialogDismissed());
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      },
       builder: (context, state) {
         final isOffline = state.isOffline;
         final appBarColor = isOffline ? AppColors.text : AppColors.white;
-
-        if (state.isError) {
-          SchedulerBinding.instance.addPostFrameCallback((_) {
-            showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: Text(t.scan.error),
-                  content: Text(t.scan.tryAgain),
-                  actions: <Widget>[
-                    TextButton(
-                      child: Text(t.scan.closeError),
-                      onPressed: () {
-                        _scanBloc.add(ScanEvent.alertDialogDismissed());
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ],
-                );
-              },
-            );
-          });
-        }
 
         return Scaffold(
           backgroundColor: isOffline ? AppColors.white : null,
@@ -134,7 +131,7 @@ class MainPageState extends State<MainPage> with RouteAware {
             backgroundColor: Colors.transparent,
             elevation: 0,
             leading: IconButton(
-              tooltip: t.accessibility.logo,
+              tooltip: t.menu.aboutPola,
               onPressed: () {
                 analytics.aboutPolaOpened();
                 showWebViewDialog(

@@ -53,6 +53,7 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
 
     // Check initial connectivity state
     _connectivity.checkConnectivity().then((results) {
+      if (isClosed) return;
       final isOffline = results.every((r) => r == ConnectivityResult.none);
       add(ScanEvent.connectivityChanged(isOffline));
     });
