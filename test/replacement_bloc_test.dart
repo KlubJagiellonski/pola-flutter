@@ -155,7 +155,7 @@ void main() {
       verify(mockProvider.logEvent(
         'replacemnt_card_opened',
         {
-          'origin_code': 'productCode123',
+          'code': 'productCode123',
           'replacement_code': 'replacementCode456',
         }
       )).called(1);
@@ -210,4 +210,3 @@ class _MockPolaApi extends PolaApi {
   Future<bool> createReport({required String description, int? productId}) =>
       Future.value(true);
 }
-
