@@ -4,6 +4,7 @@ import 'package:pola_flutter/analytics/analytics_about_row.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/pages/menu/menu_bottom_sheet.dart';
 import 'package:pola_flutter/theme/assets.gen.dart';
+import 'package:pola_flutter/i18n/strings.g.dart';
 
 class MenuIconButton extends StatelessWidget {
   final Color color;
@@ -13,6 +14,7 @@ class MenuIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+      tooltip: t.accessibility.menu,
       onPressed: () {
         final analytics = context.read<PolaAnalytics>();
         analytics.aboutOpened(AnalyticsAboutRow.menu);

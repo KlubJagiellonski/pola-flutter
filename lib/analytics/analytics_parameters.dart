@@ -21,27 +21,43 @@ class AnalyticsAboutParameters {
   Map<String, dynamic> toJson() => _$AnalyticsAboutParametersToJson(this);
 }
 
-@JsonSerializable(createFactory: false, fieldRename: FieldRename.snake, includeIfNull: false)
+@JsonSerializable(
+  createFactory: false,
+  fieldRename: FieldRename.snake,
+  includeIfNull: false,
+)
 class AnalyticsProductResultParameters {
   final String? code;
   final String? company;
   final String? productId;
 
-  AnalyticsProductResultParameters(
-      {required this.code, this.company, this.productId});
+  AnalyticsProductResultParameters({
+    required this.code,
+    this.company,
+    this.productId,
+  });
 
-  Map<String, dynamic> toJson() => _$AnalyticsProductResultParametersToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$AnalyticsProductResultParametersToJson(this);
 }
 
-@JsonSerializable(createFactory: false, fieldRename: FieldRename.snake, includeIfNull: false)
+@JsonSerializable(
+  createFactory: false,
+  fieldRename: FieldRename.snake,
+  includeIfNull: false,
+)
 class AnalyticsReadMoreParameters {
   final String? code;
   final String? company;
   final String? productId;
   final String url;
 
-  AnalyticsReadMoreParameters(
-      {required this.code, this.company, this.productId, required this.url});
+  AnalyticsReadMoreParameters({
+    required this.code,
+    this.company,
+    this.productId,
+    required this.url,
+  });
 
   Map<String, dynamic> toJson() => _$AnalyticsReadMoreParametersToJson(this);
 }
@@ -60,8 +76,11 @@ class AnalyticsReplacementCardOpenedParameters {
   final String code;
   final String replacementCode;
 
-  AnalyticsReplacementCardOpenedParameters(
-      {required this.code, required this.replacementCode});
+  AnalyticsReplacementCardOpenedParameters({
+    required this.originCode,
+    required this.replacementCode,
+  });
 
-  Map<String, dynamic> toJson() => _$AnalyticsReplacementCardOpenedParametersToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$AnalyticsReplacementCardOpenedParametersToJson(this);
 }

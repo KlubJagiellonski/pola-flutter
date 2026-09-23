@@ -1,4 +1,3 @@
-
 enum AnalyticsMainTab {
   scanner("Scanner"),
   news("News_feed");
@@ -6,5 +5,4 @@ enum AnalyticsMainTab {
   final String name;
 
   const AnalyticsMainTab(this.name);
-
 }

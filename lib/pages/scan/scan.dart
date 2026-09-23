@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
 import 'package:pola_flutter/pages/scan/companies_list.dart';
+import 'package:pola_flutter/pages/scan/offline_view.dart';
 import 'package:pola_flutter/pages/scan/remote_button.dart';
 import 'package:pola_flutter/pages/scan/scan_background.dart';
 import 'package:pola_flutter/pages/scan/scan_bloc.dart';
@@ -97,137 +97,148 @@ class MainPageState extends State<MainPage> with RouteAware {
   Widget build(BuildContext context) {
     final analytics = context.read<PolaAnalytics>();
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () {
-            analytics.aboutPolaOpened();
-            showWebViewDialog(
-              context: context,
-              url: AppUrls.aboutPola,
-              title: t.menu.aboutPola,
-            );
-          },
-          icon: Assets.icLauncher.image(),
-        ),
-        actions: [MenuIconButton(color: AppColors.white)],
-        title: Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            t.scan.scanning,
-            style: TextStyle(
-              fontSize: TextSize.newsTitle,
-              color: AppColors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      ),
-      body: Stack(
-        children: <Widget>[
-          _buildQrView(context),
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 20.0,
-                horizontal: 16.0,
-              ),
-              child: Column(
-                children: <Widget>[ScanSearchButton(analytics: analytics)],
-              ),
-            ),
-          ),
-          SafeArea(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Spacer(),
-                BlocBuilder<ScanBloc, ScanState>(
-                  bloc: _scanBloc,
-                  builder: (context, state) {
-                    if (state.isError) {
-                      SchedulerBinding.instance.addPostFrameCallback((_) {
-                        showDialog(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: Text(t.scan.error),
-                              content: Text(t.scan.tryAgain),
-                              actions: <Widget>[
-                                TextButton(
-                                  child: Text(t.scan.closeError),
-                                  onPressed: () {
-                                    _scanBloc.add(
-                                      ScanEvent.alertDialogDismissed(),
-                                    );
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      });
-                    }
-
-                    return Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Expanded(
-                              child: CompaniesList(
-                                state: state,
-                                listScrollController: listScrollController,
-                                onCloseRemoteButtonTap: () {
-                                  _scanBloc.add(ScanEvent.closeRemoteButton());
-                                },
-                              ),
-                            ),
-                            Column(
-                              children: [
-                                if (state.list.isNotEmpty)
-                                  ResetButton(
-                                    onTap: () {
-                                      _scanBloc.add(
-                                        ScanEvent.resetScannedCompaniesButton(),
-                                      );
-                                    },
-                                  ),
-                                TorchButton(
-                                  isTorchOn: state.isTorchOn,
-                                  onTap: () {
-                                    _scanBloc.add(ScanEvent.torchSwitched());
-                                  },
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        if (state.remoteButtonState != null)
-                          RemoteButton(
-                            state: state.remoteButtonState!,
-                            onCloseTap: () {
-                              _scanBloc.add(ScanEvent.closeRemoteButton());
-                            },
-                          ),
-                      ],
-                    );
+    return BlocConsumer<ScanBloc, ScanState>(
+      bloc: _scanBloc,
+      listenWhen: (previous, current) => !previous.isError && current.isError,
+      listener: (context, state) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text(t.scan.error),
+              content: Text(t.scan.tryAgain),
+              actions: <Widget>[
+                TextButton(
+                  child: Text(t.scan.closeError),
+                  onPressed: () {
+                    _scanBloc.add(ScanEvent.alertDialogDismissed());
+                    Navigator.pop(context);
                   },
                 ),
               ],
+            );
+          },
+        );
+      },
+      builder: (context, state) {
+        final isOffline = state.isOffline;
+        final appBarColor = isOffline ? AppColors.text : AppColors.white;
+
+        return Scaffold(
+          backgroundColor: isOffline ? AppColors.white : null,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            leading: IconButton(
+              tooltip: t.menu.aboutPola,
+              onPressed: () {
+                analytics.aboutPolaOpened();
+                showWebViewDialog(
+                  context: context,
+                  url: AppUrls.aboutPola,
+                  title: t.menu.aboutPola,
+                );
+              },
+              icon: Assets.icLauncher
+                  .image(), // This is an image, it might not change color easily unless it's a template image or we have a dark version.
+            ),
+            actions: [MenuIconButton(color: appBarColor)],
+            title: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                t.scan.scanning,
+                style: TextStyle(
+                  fontSize: TextSize.newsTitle,
+                  color: appBarColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
-        ],
-      ),
-      extendBodyBehindAppBar: true,
+          body: Stack(
+            children: <Widget>[
+              _buildQrView(context, isOffline),
+              if (!isOffline)
+                SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 20.0,
+                      horizontal: 16.0,
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        ScanSearchButton(analytics: analytics),
+                      ],
+                    ),
+                  ),
+                ),
+              if (!isOffline)
+                SafeArea(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Spacer(),
+                      Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Expanded(
+                                child: CompaniesList(
+                                  state: state,
+                                  listScrollController: listScrollController,
+                                  onCloseRemoteButtonTap: () {
+                                    _scanBloc.add(
+                                      ScanEvent.closeRemoteButton(),
+                                    );
+                                  },
+                                ),
+                              ),
+                              Column(
+                                children: [
+                                  if (state.list.isNotEmpty)
+                                    ResetButton(
+                                      onTap: () {
+                                        _scanBloc.add(
+                                          ScanEvent.resetScannedCompaniesButton(),
+                                        );
+                                      },
+                                    ),
+                                  TorchButton(
+                                    isTorchOn: state.isTorchOn,
+                                    onTap: () {
+                                      _scanBloc.add(ScanEvent.torchSwitched());
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          if (state.remoteButtonState != null)
+                            RemoteButton(
+                              state: state.remoteButtonState!,
+                              onCloseTap: () {
+                                _scanBloc.add(ScanEvent.closeRemoteButton());
+                              },
+                            ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+          extendBodyBehindAppBar: true,
+        );
+      },
     );
   }
 
-  Widget _buildQrView(BuildContext context) {
+  Widget _buildQrView(BuildContext context, bool isOffline) {
+    if (isOffline) {
+      return const OfflineView();
+    }
     return Stack(
       children: [
         Positioned.fill(

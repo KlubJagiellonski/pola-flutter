@@ -2,13 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'report_state.freezed.dart';
 
-enum ReportRequestState {
-  idle,
-  loading,
-  success,
-  error,
-  emptyDescription
-}
+enum ReportRequestState { idle, loading, success, error, emptyDescription }
 
 @freezed
 abstract class ReportState with _$ReportState {
