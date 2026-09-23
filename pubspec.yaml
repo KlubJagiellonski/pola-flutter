@@ -16,7 +16,7 @@ dependencies:
   chopper: ^8.5.1
   http: ^1.2.1
   equatable: ^2.0.8
-  json_annotation: ^4.9.0
+  json_annotation: ^4.11.0
   logger: ^2.3.0
   rxdart: ^0.28.0
   mobile_scanner: ^6.0.11
