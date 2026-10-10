@@ -137,19 +137,20 @@ class _MenuBottomItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onClick,
-      child: Column(
-        children: [
-          const SizedBox(height: 16),
-          Row(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(minHeight: 48),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          child: Row(
             children: [
               const SizedBox(width: 32),
               icon,
               const SizedBox(width: 20.0),
-              Text(text, style: textStyle),
+              Expanded(child: Text(text, style: textStyle)),
               const SizedBox(width: 32),
             ],
           ),
-        ],
+        ),
       ),
     );
   }

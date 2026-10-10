@@ -1,4 +1,3 @@
-
 enum AnalyticsEventName {
   scanCode("scan_code"),
   companyReceived("company_received"),
@@ -14,7 +13,7 @@ enum AnalyticsEventName {
   mainTabChanged("main_tab_changed"),
   searchOpened("search_opened"),
   replacemntCardOpened("replacemnt_card_opened");
- 
+
   final String name;
 
   const AnalyticsEventName(this.name);

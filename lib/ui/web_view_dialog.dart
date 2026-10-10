@@ -3,6 +3,7 @@ import 'package:pola_flutter/pages/web/web_view_page.dart';
 import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/colors.dart';
 import 'package:pola_flutter/theme/text_size.dart';
+import 'package:pola_flutter/i18n/strings.g.dart';
 
 void showWebViewDialog({
   required BuildContext context,
@@ -62,6 +63,7 @@ class _WebViewDialog extends StatelessWidget {
                       ),
                     ),
                     IconButton(
+                      tooltip: t.accessibility.close,
                       icon: Assets.navigation.close.svg(),
                       onPressed: () {
                         Navigator.of(context).pop();
@@ -70,7 +72,13 @@ class _WebViewDialog extends StatelessWidget {
                   ],
                 ),
               ),
-              Expanded(child: WebViewPage(url: url)),
+              Expanded(
+                child: Semantics(
+                  label: title,
+                  container: true,
+                  child: WebViewPage(url: url),
+                ),
+              ),
             ],
           ),
         );

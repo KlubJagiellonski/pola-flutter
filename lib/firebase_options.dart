@@ -73,8 +73,10 @@ class DefaultFirebaseOptions {
     projectId: 'pola-8682d',
     databaseURL: 'https://pola-8682d.firebaseio.com',
     storageBucket: 'pola-8682d.appspot.com',
-    androidClientId: '141685978964-c8sgmo40meiqkfeu9654lkjh93kgh19j.apps.googleusercontent.com',
-    iosClientId: '141685978964-gi5o9diukaenjb9ema7hgp20gpev1jdm.apps.googleusercontent.com',
+    androidClientId:
+        '141685978964-c8sgmo40meiqkfeu9654lkjh93kgh19j.apps.googleusercontent.com',
+    iosClientId:
+        '141685978964-gi5o9diukaenjb9ema7hgp20gpev1jdm.apps.googleusercontent.com',
     iosBundleId: 'pl.pola.flutter',
   );
 }

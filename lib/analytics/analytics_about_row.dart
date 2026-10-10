@@ -1,4 +1,3 @@
-
 enum AnalyticsAboutRow {
   menu("About Menu"),
   aboutPola("O aplikacji Pola"),
