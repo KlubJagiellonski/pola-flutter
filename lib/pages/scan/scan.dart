@@ -62,7 +62,7 @@ class MainPageState extends State<MainPage> with RouteAware {
 
   void _onScanTabActiveChanged() {
     if (widget.scanTabActive.value) {
-      if (!_childRoutePushed) {
+      if (!_childRoutePushed && !_scanBloc.state.isOffline) {
         cameraController.start();
       }
     } else {
@@ -88,7 +88,7 @@ class MainPageState extends State<MainPage> with RouteAware {
   @override
   void didPopNext() {
     _childRoutePushed = false;
-    if (widget.scanTabActive.value) {
+    if (widget.scanTabActive.value && !_scanBloc.state.isOffline) {
       cameraController.start();
     }
   }
@@ -97,31 +97,50 @@ class MainPageState extends State<MainPage> with RouteAware {
   Widget build(BuildContext context) {
     final analytics = context.read<PolaAnalytics>();
 
-    return BlocConsumer<ScanBloc, ScanState>(
-      bloc: _scanBloc,
-      listenWhen: (previous, current) => !previous.isError && current.isError,
-      listener: (context, state) {
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text(t.scan.error),
-              content: Text(t.scan.tryAgain),
-              actions: <Widget>[
-                TextButton(
-                  child: Text(t.scan.closeError),
-                  onPressed: () {
-                    _scanBloc.add(ScanEvent.alertDialogDismissed());
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<ScanBloc, ScanState>(
+          bloc: _scanBloc,
+          listenWhen: (previous, current) =>
+              previous.isOffline != current.isOffline,
+          listener: (context, state) {
+            if (state.isOffline) {
+              cameraController.stop();
+            } else if (!_childRoutePushed && widget.scanTabActive.value) {
+              cameraController.start();
+            }
+          },
+        ),
+        BlocListener<ScanBloc, ScanState>(
+          bloc: _scanBloc,
+          listenWhen: (previous, current) =>
+              !previous.isError && current.isError,
+          listener: (context, state) {
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text(t.scan.error),
+                  content: Text(t.scan.tryAgain),
+                  actions: <Widget>[
+                    TextButton(
+                      child: Text(t.scan.closeError),
+                      onPressed: () {
+                        _scanBloc.add(ScanEvent.alertDialogDismissed());
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                );
+              },
             );
           },
-        );
-      },
-      builder: (context, state) {
+        ),
+      ],
+      child: BlocBuilder<ScanBloc, ScanState>(
+        bloc: _scanBloc,
+        builder: (context, state) {
         final isOffline = state.isOffline;
         final appBarColor = isOffline ? AppColors.text : AppColors.white;
 
@@ -232,6 +251,7 @@ class MainPageState extends State<MainPage> with RouteAware {
           extendBodyBehindAppBar: true,
         );
       },
+      ),
     );
   }
 

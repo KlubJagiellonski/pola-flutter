@@ -20,6 +20,7 @@ class ScanSearchButton extends StatelessWidget {
             analytics.searchOpened();
           },
           child: Container(
+            constraints: const BoxConstraints(minHeight: 48),
             padding: const EdgeInsets.symmetric(
               horizontal: 10.0,
               vertical: 10.0,

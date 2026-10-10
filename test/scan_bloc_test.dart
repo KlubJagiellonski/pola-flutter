@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc_test/bloc_test.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
@@ -140,16 +142,48 @@ void main() {
       act: (bloc) => bloc.add(ScanEvent.resetScannedCompaniesButton()),
       expect: () => [ScanState(list: [])],
     );
+
+    blocTest(
+      'emits offline state when connectivity lost',
+      build: () => _scanBloc(
+        connectivity: _MockConnectivity(respondToInitialCheck: false),
+      ),
+      act: (bloc) => bloc.add(ScanEvent.connectivityChanged(true)),
+      expect: () => [ScanState(isOffline: true)],
+    );
+
+    blocTest(
+      'emits online state when connectivity restored',
+      build: () => _scanBloc(
+        state: ScanState(isOffline: true),
+        connectivity: _MockConnectivity(respondToInitialCheck: false),
+      ),
+      act: (bloc) => bloc.add(ScanEvent.connectivityChanged(false)),
+      expect: () => [ScanState(isOffline: false)],
+    );
+
+    blocTest(
+      'ignores barcode scanned when offline',
+      build: () => _scanBloc(
+        state: ScanState(isOffline: true),
+        connectivity: _MockConnectivity(respondToInitialCheck: false),
+      ),
+      act: (bloc) => bloc.add(ScanEvent.barcodeScanned("5900311000360")),
+      expect: () => [],
+    );
   });
 }
 
-ScanBloc _scanBloc({ScanState state = const ScanState()}) {
+ScanBloc _scanBloc({
+  ScanState state = const ScanState(),
+  Connectivity? connectivity,
+}) {
   return ScanBloc(
     _MockPolaApi(),
     _MockScanVibration(),
     PolaAnalytics(provider: MockAnalyticsProvider()),
     _MockTorchController(),
-    connectivity: _MockConnectivity(),
+    connectivity: connectivity ?? _MockConnectivity(),
     state: state,
   );
 }
@@ -225,11 +259,23 @@ class _MockTorchController extends TorchController {
 }
 
 class _MockConnectivity implements Connectivity {
-  @override
-  Stream<List<ConnectivityResult>> get onConnectivityChanged =>
-      Stream.value([ConnectivityResult.wifi]);
+  _MockConnectivity({
+    this.initial = ConnectivityResult.wifi,
+    this.respondToInitialCheck = true,
+  });
+
+  final ConnectivityResult initial;
+  final bool respondToInitialCheck;
 
   @override
-  Future<List<ConnectivityResult>> checkConnectivity() =>
-      Future.value([ConnectivityResult.wifi]);
+  Stream<List<ConnectivityResult>> get onConnectivityChanged =>
+      const Stream.empty();
+
+  @override
+  Future<List<ConnectivityResult>> checkConnectivity() {
+    if (!respondToInitialCheck) {
+      return Completer<List<ConnectivityResult>>().future;
+    }
+    return Future.value([initial]);
+  }
 }

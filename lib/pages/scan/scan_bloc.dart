@@ -71,7 +71,8 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
   ) async {
     if (state.list.any((element) => element.code == barcode) ||
         state.isLoading ||
-        state.isError) {
+        state.isError ||
+        state.isOffline) {
       return;
     }
     emit(state.copyWith(isLoading: true));
