@@ -31,8 +31,7 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
   }) : super(state) {
     on<ScanEvent>((event, emit) async {
       await event.when<FutureOr<void>>(
-        barcodeScanned: (barcode) async =>
-            await _onBarcodeScanned(barcode, emit),
+        barcodeScanned: (barcode) => _onBarcodeScanned(barcode, emit),
         alertDialogDismissed: () => _onAlertDialogDismissed(emit),
         torchSwitched: () => _onTorchSwitched(emit),
         closeRemoteButton: () => _onCloseRemoteButton(emit),

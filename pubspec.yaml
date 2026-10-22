@@ -1,7 +1,7 @@
 name: pola_flutter
 description: A new Flutter project.
 publish_to: "none"
-version: 3.1.0+1
+version: 3.2.0+1
 
 environment:
   sdk: ">=3.8.0 <4.0.0"
@@ -9,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_bloc: ^8.1.6
+  flutter_bloc: ^9.1.1
   cupertino_icons: ^1.0.9
   webview_flutter: ^4.13.0
   webview_flutter_web: ^0.2.3+4
@@ -32,7 +32,7 @@ dependencies:
   vibration: ^3.1.4
   freezed: ^3.2.0
   freezed_annotation: ^3.1.0
-  slang: ^4.7.2
+  slang: ^4.16.0
   slang_flutter: ^4.11.0
   syncfusion_flutter_gauges: ^33.2.12
   flutter_svg: ^2.3.0
@@ -47,11 +47,12 @@ dev_dependencies:
   json_serializable: 6.13.1
   chopper_generator: ^8.6.2
   test: any
-  bloc_test: ^9.1.7
+  bloc_test: ^10.0.0
   mockito: ^5.6.4
   flutter_lints: ^6.0.0
 
 flutter:
+  default-flavor: dev
   config:
     enable-swift-package-manager: false
 

@@ -95,11 +95,11 @@ class PolaAnalytics {
     _logEvent(AnalyticsEventName.searchOpened, null);
   }
 
-  void replacementCardOpened(String originCode, String replacementCode) {
+  void replacementCardOpened(String code, String replacementCode) {
     _logEvent(
       AnalyticsEventName.replacemntCardOpened,
       AnalyticsReplacementCardOpenedParameters(
-        originCode: originCode,
+        code: code,
         replacementCode: replacementCode,
       ).toJson(),
     );

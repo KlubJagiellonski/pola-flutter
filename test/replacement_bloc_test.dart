@@ -156,7 +156,7 @@ void main() {
       verify(mockProvider.logEvent(
         'replacemnt_card_opened',
         {
-          'origin_code': 'productCode123',
+          'code': 'productCode123',
           'replacement_code': 'replacementCode456',
         }
       )).called(1);

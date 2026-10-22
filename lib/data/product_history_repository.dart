@@ -23,7 +23,6 @@ abstract class ProductHistoryRepository {
 
 class SharedPreferencesProductHistoryRepository
     implements ProductHistoryRepository {
-  // Keep the existing key so previously saved search history is retained.
   static const _historyKey = 'product_search_history';
   static const _maxHistorySize = 50;
 
@@ -130,8 +129,6 @@ class SharedPreferencesProductHistoryRepository
     }).toList();
   }
 
-  // Serialize mutations from both modules so an overlapping add/clear cannot
-  // overwrite a more recent history snapshot.
   Future<List<ProductSearchItem>> _update(
     List<ProductSearchItem> Function(List<ProductSearchItem>) update,
   ) {
