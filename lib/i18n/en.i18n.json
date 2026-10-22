@@ -49,7 +49,7 @@
         "resultsCountOne": "Znaleziono 1 wynik:",
         "resultsCountMany": "Znaleziono $count wyników:",
         "noResults": "Brak wyników",
-        "emptyHistory": "Brak historii wyszukiwania",
+        "emptyHistory": "Brak historii produktów",
         "noHistoryResults": "Brak produktów pasujących do wyszukiwania",
         "error": "Nie udało się pobrać wyników.",
         "retry": "Spróbuj ponownie",

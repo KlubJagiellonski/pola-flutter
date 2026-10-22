@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
-import 'package:pola_flutter/data/product_search_history_service.dart';
+import 'package:pola_flutter/data/product_history_repository.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/pages/search/search_bloc.dart';
 import 'package:pola_flutter/pages/search/search_event.dart';
@@ -14,50 +14,17 @@ import 'package:pola_flutter/pages/search/widgets/search_input.dart';
 import 'package:pola_flutter/pages/search/widgets/search_results_section.dart';
 import 'package:pola_flutter/theme/colors.dart';
 
-class SearchPage extends StatefulWidget {
+class SearchPage extends StatelessWidget {
   const SearchPage({super.key});
 
   @override
-  State<SearchPage> createState() => _SearchPageState();
-}
-
-class _SearchPageState extends State<SearchPage> {
-  late final Future<SearchBloc> _blocFuture;
-  SearchBloc? _bloc;
-
-  @override
-  void initState() {
-    super.initState();
-    final repository = context.read<PolaApi>();
-    _blocFuture = ProductSearchHistoryService.create().then((historyStore) {
-      final bloc = SearchBloc(repository, historyStore)
-        ..add(const SearchEvent.started());
-      _bloc = bloc;
-      return bloc;
-    });
-  }
-
-  @override
-  void dispose() {
-    _bloc?.close();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return FutureBuilder<SearchBloc>(
-      future: _blocFuture,
-      builder: (context, snapshot) {
-        final bloc = snapshot.data;
-        if (bloc == null) {
-          return const Scaffold(
-            backgroundColor: AppColors.white,
-            body: Center(child: CircularProgressIndicator()),
-          );
-        }
-
-        return BlocProvider.value(value: bloc, child: const _SearchView());
-      },
+    return BlocProvider(
+      create: (context) => SearchBloc(
+        context.read<PolaApi>(),
+        context.read<ProductHistoryRepository>(),
+      )..add(const SearchEvent.started()),
+      child: const _SearchView(),
     );
   }
 }

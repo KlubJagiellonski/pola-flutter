@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pola_flutter/data/api_response.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
-import 'package:pola_flutter/data/product_search_history_service.dart';
+import 'package:pola_flutter/data/product_history_repository.dart';
 import 'package:pola_flutter/models/product_search_response.dart';
 import 'package:pola_flutter/pages/search/search_event.dart';
 import 'package:pola_flutter/pages/search/search_state.dart';
@@ -9,14 +9,14 @@ import 'package:rxdart/rxdart.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final PolaApi _repository;
-  final ProductSearchHistoryStore _historyStore;
+  final ProductHistoryRepository _historyRepository;
   final Duration _debounceDuration;
   final Map<String, _CachedSearchResults> _resultsCache = {};
   bool _paginationInFlight = false;
 
   SearchBloc(
     this._repository,
-    this._historyStore, {
+    this._historyRepository, {
     Duration debounceDuration = const Duration(milliseconds: 500),
   }) : _debounceDuration = debounceDuration,
        super(const SearchState()) {
@@ -35,15 +35,17 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   List<ProductSearchItem> filterHistory(String query) {
-    return _historyStore.filterHistory(state.history, query);
+    return _historyRepository.filterHistory(state.history, query);
   }
 
   Future<void> _onStarted(
     SearchStarted event,
     Emitter<SearchState> emit,
   ) async {
-    final history = await _historyStore.loadHistory();
-    emit(state.copyWith(history: history));
+    await emit.forEach<List<ProductSearchItem>>(
+      _historyRepository.watchHistory(),
+      onData: (history) => state.copyWith(history: history),
+    );
   }
 
   void _onQueryChanged(SearchQueryChanged event, Emitter<SearchState> emit) {
@@ -264,7 +266,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     final response = await _repository.getCompany(event.product.code);
     if (response.status == Status.completed) {
-      final history = await _historyStore.addProduct(event.product);
+      final history = await _historyRepository.addProduct(event.product);
       emit(
         state.copyWith(
           history: history,
@@ -299,7 +301,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     SearchHistoryCleared event,
     Emitter<SearchState> emit,
   ) async {
-    final history = await _historyStore.clearHistory();
+    final history = await _historyRepository.clearHistory();
     emit(state.copyWith(history: history));
   }
 

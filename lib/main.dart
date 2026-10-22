@@ -7,6 +7,7 @@ import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/config/firebase_config.dart';
 import 'package:pola_flutter/data/device_id_service.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
+import 'package:pola_flutter/data/product_history_repository.dart';
 import 'package:pola_flutter/i18n/strings.g.dart';
 import 'package:pola_flutter/pola_tab_controller.dart';
 import 'package:pola_flutter/firebase_options.dart';
@@ -31,11 +32,14 @@ void main() async {
     );
   }
   final deviceIdService = await DeviceIdService.create();
+  final productHistoryRepository =
+      await SharedPreferencesProductHistoryRepository.create();
   runApp(
     PolaApp(
       polaApi: PolaApiRepository(deviceIdService: deviceIdService),
       analytics: PolaAnalytics.instance(),
       scanVibration: ScanVibrationImpl(),
+      productHistoryRepository: productHistoryRepository,
     ),
   );
 }
@@ -44,12 +48,14 @@ class PolaApp extends StatelessWidget {
   final PolaApi polaApi;
   final PolaAnalytics analytics;
   final ScanVibration scanVibration;
+  final ProductHistoryRepository productHistoryRepository;
 
   const PolaApp({
     super.key,
     required this.polaApi,
     required this.analytics,
     required this.scanVibration,
+    required this.productHistoryRepository,
   });
 
   @override
@@ -63,6 +69,9 @@ class PolaApp extends StatelessWidget {
         RepositoryProvider<PolaApi>.value(value: polaApi),
         RepositoryProvider<PolaAnalytics>.value(value: analytics),
         RepositoryProvider<ScanVibration>.value(value: scanVibration),
+        RepositoryProvider<ProductHistoryRepository>.value(
+          value: productHistoryRepository,
+        ),
       ],
       child: TranslationProvider(
         child: MaterialApp(
