@@ -1,4 +1,4 @@
-﻿import 'package:chopper/chopper.dart';
+import 'package:chopper/chopper.dart';
 import 'package:pola_flutter/config/app_urls.dart';
 part 'pola_api_service.chopper.dart';
 
@@ -8,6 +8,13 @@ abstract class PolaApiService extends ChopperService {
   @GET(path: 'a/v4/get_by_code')
   Future<Response> getCompany(
     @Query("code") String code,
+    @Query("device_id") String deviceId,
+  );
+
+  @GET(path: 'a/v4/search')
+  Future<Response> searchProducts(
+    @Query("query") String query,
+    @Query("pageToken") String? pageToken,
     @Query("device_id") String deviceId,
   );
 

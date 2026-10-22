@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
+import 'package:pola_flutter/data/product_history_repository.dart';
 import 'package:pola_flutter/pages/scan/companies_list.dart';
 import 'package:pola_flutter/pages/scan/remote_button.dart';
 import 'package:pola_flutter/pages/scan/scan_background.dart';
@@ -56,6 +57,7 @@ class MainPageState extends State<MainPage> with RouteAware {
       context.read<ScanVibration>(),
       analytics,
       TorchControllerImpl(cameraController: cameraController),
+      context.read<ProductHistoryRepository>(),
     );
     widget.scanTabActive.addListener(_onScanTabActiveChanged);
   }

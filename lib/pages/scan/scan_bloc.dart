@@ -6,6 +6,7 @@ import 'package:pola_flutter/analytics/analytics_barcode_source.dart';
 import 'package:pola_flutter/analytics/pola_analytics.dart';
 import 'package:pola_flutter/data/api_response.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
+import 'package:pola_flutter/data/product_history_repository.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/pages/scan/remote_button.dart';
 import 'package:pola_flutter/pages/scan/scan_event.dart';
@@ -18,12 +19,14 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
   final ScanVibration _scanVibration;
   final PolaAnalytics _analytics;
   final TorchController _torchController;
+  final ProductHistoryRepository _historyRepository;
 
   ScanBloc(
     this._polaApiRepository,
     this._scanVibration,
     this._analytics,
-    this._torchController, {
+    this._torchController,
+    this._historyRepository, {
     ScanState state = const ScanState(),
   }) : super(state) {
     on<ScanEvent>((event, emit) async {
@@ -34,7 +37,7 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
         closeRemoteButton: () => _onCloseRemoteButton(emit),
         resetScannedCompaniesButton: () => _onResetScannedCompanies(emit),
       );
-    });
+    }, transformer: (events, mapper) => events.asyncExpand(mapper));
   }
 
   Future<void> _onBarcodeScanned(
@@ -57,6 +60,7 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
     final res = await _polaApiRepository.getCompany(barcode);
     if (res.status == Status.completed) {
       final result = res.data;
+      await _historyRepository.addScannedProduct(result, barcode: barcode);
       var results = List<SearchResult>.from(state.list);
       results.add(result);
       _analytics.searchResultReceived(result);

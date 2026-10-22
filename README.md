@@ -25,10 +25,10 @@ W trakcie prac nad plikami, które powodują konieczność ponownego uruchomieni
 dart run build_runner watch
 ```
 
-Do lokalnego uruchamiania aplikacji bez konfiguracji Firebase użyj flavoru `dev`:
+Domyślny flavor to `dev`, który pozwala uruchomić aplikację lokalnie bez konfiguracji Firebase:
 
 ```bash
-flutter run --flavor dev
+flutter run
 ```
 
 Flavor'y `qa` i `prod` wymagają konfiguracji Firebase oraz jawnego włączenia Firebase w warstwie Dart:

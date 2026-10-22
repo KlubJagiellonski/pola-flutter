@@ -2,6 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pola_flutter/data/api_response.dart';
 import 'package:pola_flutter/data/pola_api_repository.dart';
+import 'package:pola_flutter/models/product_search_response.dart';
 import 'package:pola_flutter/models/search_result.dart';
 import 'package:pola_flutter/pages/report/report_bloc.dart';
 import 'package:pola_flutter/pages/report/report_event.dart';
@@ -143,5 +144,13 @@ class _MockPolaApi extends PolaApi {
     lastDescription = description;
     lastProductId = productId;
     return Future.value(createReportResult);
+  }
+
+  @override
+  Future<ApiResponse<ProductSearchResponse>> searchProducts(
+    String query, {
+    String? pageToken,
+  }) {
+    throw UnimplementedError();
   }
 }

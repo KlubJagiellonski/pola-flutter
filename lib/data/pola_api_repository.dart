@@ -4,10 +4,15 @@ import 'package:chopper/chopper.dart';
 import 'package:pola_flutter/data/api_response.dart';
 import 'package:pola_flutter/data/pola_api_service.dart';
 import 'package:pola_flutter/data/device_id_service.dart';
+import 'package:pola_flutter/models/product_search_response.dart';
 import 'package:pola_flutter/models/search_result.dart';
 
 abstract class PolaApi {
   Future<ApiResponse<SearchResult>> getCompany(String code);
+  Future<ApiResponse<ProductSearchResponse>> searchProducts(
+    String query, {
+    String? pageToken,
+  });
   Future<bool> createReport({required String description, int? productId});
 }
 
@@ -34,6 +39,31 @@ class PolaApiRepository implements PolaApi {
     if (response.isSuccessful) {
       result = SearchResult.fromJson(response.body as Map<String, dynamic>);
       return ApiResponse<SearchResult>.completed(result);
+    }
+    return ApiResponse.error(response.bodyString);
+  }
+
+  @override
+  Future<ApiResponse<ProductSearchResponse>> searchProducts(
+    String query, {
+    String? pageToken,
+  }) async {
+    Response response;
+    try {
+      response = await _polaApiService.searchProducts(
+        query,
+        pageToken,
+        _deviceIdService.uuid,
+      );
+    } on SocketException catch (exception) {
+      return ApiResponse.error(exception.message);
+    }
+
+    if (response.isSuccessful) {
+      final result = ProductSearchResponse.fromJson(
+        response.body as Map<String, dynamic>,
+      );
+      return ApiResponse<ProductSearchResponse>.completed(result);
     }
     return ApiResponse.error(response.bodyString);
   }

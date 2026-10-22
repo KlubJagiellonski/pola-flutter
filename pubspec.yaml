@@ -52,6 +52,7 @@ dev_dependencies:
   flutter_lints: ^6.0.0
 
 flutter:
+  default-flavor: dev
   config:
     enable-swift-package-manager: false
 
