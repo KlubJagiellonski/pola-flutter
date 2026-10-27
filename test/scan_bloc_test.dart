@@ -259,12 +259,8 @@ class _MockTorchController extends TorchController {
 }
 
 class _MockConnectivity implements Connectivity {
-  _MockConnectivity({
-    this.initial = ConnectivityResult.wifi,
-    this.respondToInitialCheck = true,
-  });
+  _MockConnectivity({this.respondToInitialCheck = true});
 
-  final ConnectivityResult initial;
   final bool respondToInitialCheck;
 
   @override
@@ -276,6 +272,6 @@ class _MockConnectivity implements Connectivity {
     if (!respondToInitialCheck) {
       return Completer<List<ConnectivityResult>>().future;
     }
-    return Future.value([initial]);
+    return Future.value([ConnectivityResult.wifi]);
   }
 }
