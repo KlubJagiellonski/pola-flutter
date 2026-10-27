@@ -1,4 +1,4 @@
-enum AnalyticsBarcodeSource{
+enum AnalyticsBarcodeSource {
   camera("Camera"),
   keyboard("Keyboard");
 

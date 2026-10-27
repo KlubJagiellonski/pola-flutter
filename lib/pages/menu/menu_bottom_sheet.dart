@@ -37,10 +37,7 @@ class MenuBottomSheet extends StatelessWidget {
             const SizedBox(height: 23),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32.0),
-              child: Container(
-                height: 1,
-                color: AppColors.divider,
-              ),
+              child: Container(height: 1, color: AppColors.divider),
             ),
             const SizedBox(height: 17),
             SocialMediaListView(analytics: analytics),

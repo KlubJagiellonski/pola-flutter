@@ -11,14 +11,15 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
   final int? _productId;
 
   ReportBloc(PolaApi repository, {required int? productId})
-      : _repository = repository,
-        _productId = productId,
-        super(const ReportState()) {
+    : _repository = repository,
+      _productId = productId,
+      super(const ReportState()) {
     on<ReportEvent>((event, emit) async {
       await event.when(
         submitted: () => _onSubmitted(emit),
         systemInfoToggled: (value) async => _onSystemInfoToggled(value, emit),
-        descriptionChanged: (description) async => _onDescriptionChanged(description, emit),
+        descriptionChanged: (description) async =>
+            _onDescriptionChanged(description, emit),
       );
     });
   }
@@ -39,16 +40,24 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
       productId: _productId,
     );
 
-    emit(state.copyWith(
-      requestState: success ? ReportRequestState.success : ReportRequestState.error,
-    ));
+    emit(
+      state.copyWith(
+        requestState: success
+            ? ReportRequestState.success
+            : ReportRequestState.error,
+      ),
+    );
   }
 
-  Future<String> _buildDescription(String description, bool attachSystemInfo) async {
+  Future<String> _buildDescription(
+    String description,
+    bool attachSystemInfo,
+  ) async {
     var text = description;
     if (attachSystemInfo) {
       final info = await PackageInfo.fromPlatform();
-      final sysInfo = '\n\n--- System info ---'
+      final sysInfo =
+          '\n\n--- System info ---'
           '\nOS: ${Platform.operatingSystem} ${Platform.operatingSystemVersion}'
           '\nApp: ${info.version}+${info.buildNumber}';
       text += sysInfo;
@@ -61,11 +70,13 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
   }
 
   void _onDescriptionChanged(String description, Emitter<ReportState> emit) {
-    emit(state.copyWith(
-      description: description,
-      requestState: state.requestState == ReportRequestState.emptyDescription
-          ? ReportRequestState.idle
-          : state.requestState,
-    ));
+    emit(
+      state.copyWith(
+        description: description,
+        requestState: state.requestState == ReportRequestState.emptyDescription
+            ? ReportRequestState.idle
+            : state.requestState,
+      ),
+    );
   }
 }

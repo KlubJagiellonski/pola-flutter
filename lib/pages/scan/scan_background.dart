@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/theme/assets.gen.dart';
 import 'package:pola_flutter/theme/colors.dart';
+import 'package:pola_flutter/i18n/strings.g.dart';
 
 const double _rectangleHeight = 187.0;
 
@@ -80,26 +81,29 @@ class _RedRectangleState extends State<_RedRectangle>
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Assets.menuPage.rectangle.svg(),
-        AnimatedBuilder(
-          animation: _animation,
-          builder: (context, child) {
-            final laserTop =
-                _verticalMargin +
-                _animation.value * (_rectangleHeight - _verticalMargin * 2);
-            return Positioned(
-              top: laserTop,
-              left: 0,
-              right: 0,
-              child: Center(
-                child: Container(height: 2, color: AppColors.defaultRed),
-              ),
-            );
-          },
-        ),
-      ],
+    return Semantics(
+      label: t.accessibility.rectangleHint,
+      child: Stack(
+        children: [
+          Assets.menuPage.rectangle.svg(),
+          AnimatedBuilder(
+            animation: _animation,
+            builder: (context, child) {
+              final laserTop =
+                  _verticalMargin +
+                  _animation.value * (_rectangleHeight - _verticalMargin * 2);
+              return Positioned(
+                top: laserTop,
+                left: 0,
+                right: 0,
+                child: Center(
+                  child: Container(height: 2, color: AppColors.defaultRed),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 }

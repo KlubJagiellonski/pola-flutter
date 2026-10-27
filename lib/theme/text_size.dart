@@ -13,6 +13,9 @@ class TextSize {
   /// Text size for Small title
   static const double smallTitle = 12.0;
 
+  /// Text size for small normal text
+  static const double small = 14.0;
+
   /// Text size for Description
   static const double description = 11.0;
 }

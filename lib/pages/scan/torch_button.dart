@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pola_flutter/theme/assets.gen.dart';
+import 'package:pola_flutter/i18n/strings.g.dart';
 
 class TorchButton extends StatelessWidget {
   final bool isTorchOn;
@@ -9,13 +10,17 @@ class TorchButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(boxShadow: []),
-        child: isTorchOn
-            ? Assets.scan.flashlightOn.svg()
-            : Assets.scan.flashlightOff.svg(),
+    return Semantics(
+      button: true,
+      label: t.accessibility.flash,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          decoration: BoxDecoration(boxShadow: []),
+          child: isTorchOn
+              ? Assets.scan.flashlightOn.svg()
+              : Assets.scan.flashlightOff.svg(),
+        ),
       ),
     );
   }
